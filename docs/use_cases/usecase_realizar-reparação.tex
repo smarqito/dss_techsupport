@@ -1,0 +1,45 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+    \begin{itemize}
+        \item[Use Case] {Realizar reparação}
+        \item[Cenários] {4} 
+        \item[Pré-condição] {Técnico autenticado e equipamentos para reparar} 
+        \item[Pós-condição] {Equipamento reparado}
+        \item[Fluxo Normal] {
+            \begin{enumerate}
+                \item Técnico pede reparação mais urgente
+                \item Sistema devolve reparação mais urgente
+                \item Técnico executa a reparação
+                % vários passos ... como fazer???
+                \item Técnico regista as horas gastas e custo das peças
+                \item Sistema regista a conclusão da reparação
+            \end{enumerate}
+        }
+        \item[Fluxo de Exceção 1 (passo 3) [falta de tempo ou peças]] {
+            \begin{itemize}
+                \item[3.1]{Técnico informa motivo de interrupção}
+                \item[3.2]{Sistema coloca reparação em espera} 
+            \end{itemize}
+        }
+        \item[Fluxo Alternativo 2 (passo 3) [reparação excede valor orçamentado]] {
+            \begin{itemize}
+                \item[3.1]{Técnico contacta cliente}
+                \item[3.2]{Sistema regista data, hora e técnico associado}
+                \item[3.3]{Regressa ao passo 3}
+            \end{itemize}
+        }
+        \item[Fluxo de Exceção 3 (passo 3.2, fluxo 2) [cliente recusa continuidade da reparação]] {
+            \begin{itemize}
+                \item[3.2.1]{Sistema coloca reparação como cancelada}
+                \item[3.2.2]{Técnico repõe o equipamento}
+                \item[3.2.3]{Técnico regista as horas gastas}
+                \item[3.2.4]{Técnico coloca equipamento disponível para levantamento}
+            \end{itemize}
+        }
+        \item[Fluxo Alternativo 4 (passo 3) [serviço expresso]] {
+            \begin{itemize}
+                \item[3.1]{Regressa ao passo 5}
+            \end{itemize}
+        }
+    \end{itemize}
+\end{document}
