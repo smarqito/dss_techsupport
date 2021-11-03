@@ -1,0 +1,26 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+    \begin{itemize}
+        \item[Use Case] {Fazer orçamento}
+        \item[Cenários] {3} 
+        \item[Pré-condição] {Técnico autenticado e existe pedidos de orçamento}
+        \item[Pós-condição] {Orçamento gerado, registado e comunicado ao cliente}
+        \item[Fluxo Normal] {
+            \begin{enumerate}
+                \item Técnico pede orçamento mais antigo
+                \item Sistema devolve orçamento mais antigo
+                \item Técnico utiliza identificador para levantar equipamento
+                \item Técnico regista plano de trabalhos para a reparação
+                % definir plano de trabalhos???
+                \item Sistema gera orçamento e regista-o
+                \item Sistema envia orçamento ao cliente
+            \end{enumerate}
+        }
+        \item[Fluxo de Exceção 1 (passo 4) [Equipamento não pode ser reparado]] {
+            \begin{itemize}
+                \item[4.1] {Técnico regista que não é possível fazer reparação}
+                \item[4.2] {Sistema comunica o cliente}
+            \end{itemize}
+        }
+    \end{itemize}
+\end{document}
