@@ -1,0 +1,43 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+    \begin{itemize}
+        \item[Use Case] {Pedir reparação expresso}
+        \item[Cenários] {2} 
+        \item[Pré-condição] {Funcionário autenticado} 
+        \item[Pós-condição] {Equipamento reparado}
+        \item[Fluxo Normal] {
+            \begin{enumerate}
+                \item Funcionário verifica disponibilidade de tempo
+                \item Funcionário seleciona cliente
+                \item Funcionário insere identificador do equipamento
+                \item Funcionário regista pedido de reparação
+                \item Sistema adiciona pedido
+                \item Funcionário entrega equipamento
+            \end{enumerate}
+        }
+        \item[Fluxo de Exceção 1 (passo 1) [Não existe disponibilidade de tempo]] {
+            \begin{itemize}
+                \item[1.1]{Sistema comunica que não existe disponibilidade}
+                \item[1.2]{Funcionário recusa serviço}
+            \end{itemize}
+        }
+        \item[Fluxo Alternativo 2 (passo 2) [Cliente não registado]] {
+			\begin{itemize}
+				\item[2.1]{<<include>> Registar Cliente}
+				\item[2.2] {Regressa ao passo 2} 
+			\end{itemize}
+		}
+		\item[Fluxo Alternativo 3 (passo 3) [Equipamento não registado]] {
+			\begin{itemize}
+				\item[3.1] <<include>> Registar equipamento
+				\item[3.2] Regressa ao passo 3
+			\end{itemize}
+		}
+        \item[Fluxo de Exceção 4 (passo 4) [tipo de reparação não é expresso]] {
+            \begin{itemize}
+                \item[4.1]{Sistema comunica que reparação não é expresso}
+                \item[4.2]{Funcionário recusa serviço}
+            \end{itemize}
+        }
+    \end{itemize}
+\end{document}
