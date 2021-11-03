@@ -1,0 +1,13 @@
+Use Case: Autenticar cliente
+Cenários: 1,2
+Pré-condição: 
+Pós-condição: Cliente autenticado
+Fluxo:
+1. Funcionário fornece NIF do cliente.
+2. Sistema procura cliente.
+3. Sistema informa que cliente está autenticado.
+
+Fluxo Alternativo(1) [Cliente não registado] (passo 2)
+	2.1. Funcionário fornece o NIF , Email e nº telemovel do cliente.
+	2.2. Sistema registra o cliente.
+	2.3. Regressa a 3.

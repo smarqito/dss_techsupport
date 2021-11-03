@@ -1,0 +1,16 @@
+Use Case: Registar Serviço Expresso
+Cenários: 2
+Pré-condição: Funcionário autenticado
+Pós-condição: Serviço expresso fica registrado
+Fluxo normal:
+1. <<include>> Autenticar cliente.
+2. Funcionário verifica se existe disponiblidade para realizar o serviço de imediato.
+3. Funcionário registra o equipamento.
+4. Sistema atribui um código de registo ao equipamento.
+5. Funcionário adiciona pedido à lista de equipamentos a reparar.
+
+
+Fluxo de Excepção (1) [não existe disponiblidade de tempo] (passo 2)
+	2.1 Funcionário avisa ao cliente que não é possível realizar o serviço.
+
+

@@ -1,0 +1,14 @@
+Use Case: Entregar equipamento
+Cenários: 1,2
+Pré-condição: Equipamento está registado
+Pós-condição: Cliente rece o equipamento
+Fluxo:
+1. Funcionário informa ao cliente que o equipamento pode ser levantado.
+2. Funcionário entrega o equipamento ao cliente.
+3. Funcionário recebe o pagamento.
+4. Funcionário retira equipamento do sistema.
+
+Fluxo de Excepção (1) [Cliente não levanta o equipamento, no espaço de 90 dias] (passo 1)
+	1.1. Funcionário adiciona o equipamento à lista de equipamento abandonado
+	1.2. Funcionário retira equipamento do sistema.
+

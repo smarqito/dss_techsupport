@@ -1,0 +1,17 @@
+Use Case: Confirmar pedido de reparação
+Cenários: 1,2
+Pré-condição: Orçamento do pedido estipulado pelo técnico
+Pós-condição: Pedido adicionado à lista de equipamentos a reparar
+Fluxo normal:
+1. Funcionário enviar orçamento ao cliente por email.
+2. Funcionário recebe resposta do cliente.
+3. Funcionário adiciona pedido à lista de equipamentos a reparar.
+
+FLuxo de Excepção (1) [Cliente nao confirma a reparação, no espaço de 30 dias] (passo 2)
+	2.1. Funcionário arquiva o orçamento.
+	
+FLuxo de Excepção (2) [Cliente recusa o orçamento] (passo 2)
+	2.1. Funcionário informa o cliente que tem de recolher o equipamento.
+	2.2. --
+	
+
