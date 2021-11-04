@@ -1,22 +1,50 @@
 
-\documentclass{article}
+\documentclass[a4paper, 12pt]{article}
+%\usepackage{portuguese}{babel}
 \usepackage{subfiles}
 \usepackage{forloop}
+\usepackage{arydshln}
+\usepackage{fancyhdr}
 
 \title {Desenvolvimento de Sistemas de Software}
+\author{\textbf{Grupo 31}\\
+        62608 - Marco Sousa \\
+        93198 - Mariana Marques \\
+        93271 - José Malheiro \\
+        94269 - Miguel Fernandes}
 
 \begin{document}
-    
-CENAS A DESENVOLVER
+\maketitle
+
+\section{Modelo de Domínio}
+
+\section{Use Cases}
+
+\subsection{Modelo de Use Cases}
+
+\subsection{Especificação Use Cases}
+
+\subsubsection{} \label{pedir_rep_normal}
 \subfile{use_cases/usecase_pedir-reparacao-normal.tex}
 
+\subsubsection{} \label{pedir_rep_xpress}
 \subfile{use_cases/usecase_pedir-reparacao-expresso.tex}
 
+\subsubsection{} \label{fazer_orcamento}
 \subfile{use_cases/usecase_fazer-orcamento.tex}
 
+\subsubsection{} \label{realizar_rep}
 \subfile{use_cases/usecase_realizar-reparacao.tex}
 
-\subfile{use_cases/usecase-entregarequipamento}
+\subsubsection{} \label{autenticar}
+\subfile{use_cases/usecase_validar-cliente.tex}
 
-\subfile{use_cases/usecase_autenticarcliente.tex}
+\subsubsection{} \label{listagem_tecnico_resumida}
+\subfile{use_cases/usecase_listar-tecnico-resumida.tex}
+
+\subsubsection{} \label{listagem_tecnico_detalhada}
+\subfile{use_cases/usecase_listar-tecnico-detalhada.tex}
+
+\subsubsection{} \label{listagem_func_balcao}
+\subfile{use_cases/usecase_listar-func-balcao.tex}
 \end{document}
