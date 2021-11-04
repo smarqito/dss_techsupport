@@ -1,73 +1,51 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
-	\begin{itemize}
-		\item[Use Case] {Pedir reparação normal}
-		\item[Cenários] {1 e 2} 
-		\item[Pré-condição] {Funcionário autenticado} 
-		\item[Pós-condição] {Equipamento devolvido}
-		\item[Fluxo Normal] {
-			\begin{enumerate}
-				\item Funcionário seleciona cliente
-				\item Funcionário insere identificador do equipamento
-				\item Funcionário regista pedido de orçamento
-				\item Sistema adiciona pedido de orçamento
-				\item Funcionário entrega equipamento
-			\end{enumerate}
-		}
-		\item[Fluxo Alternativo 1 (passo 1) [Cliente não registado]] {
-			\begin{itemize}
-				\item[1.1]{<<include>> Registar Cliente}
-				\item[1.2] {Regressa ao passo 2} 
-			\end{itemize}
-		}
-		\item[Fluxo Alternativo 2 (passo 2) [Equipamento não registado]] {
-			\begin{itemize}
-				\item[2.1] <<include>> Registar equipamento
-				\item[2.2] Regressa ao passo 3
-			\end{itemize}
-		}
-		\item[Fluxo de exceção 3 (passo 4) [Cliente recusa reparação]] {
-			\begin{itemize}
-				\item[4.1]{Sistema arquiva orçamento}
-				\item[4.2]{Funcionário devolve equipamento}
-			\end{itemize}
-		}
-		\item[Fluxo de exceção 4 (passo 4.2) [Cliente não levanta equipamento]] {
-			\begin{itemize}
-				\item[4.2.1]{Sistema assinala equipamento como abandonado}
-				\item[4.2.2]{Sistema dá baixa do equipamento} 
-			\end{itemize}
-		}
-	\end{itemize}
+\begin{itemize}
+	\item[Use Case] {\underline{Pedir reparação normal}}
+	\item[Cenários] {1 e 2}
+	\item[Pré-condição] {Funcionário autenticado}
+	\item[Pós-condição] {Equipamento devolvido}
+	      \begin{flushleft}
+		      \textbf{Fluxo Normal}
+	      \end{flushleft}
+	      \begin{enumerate}
+		      \item Funcionário seleciona cliente
+		      \item Funcionário insere identificador do equipamento
+		      \item Funcionário regista pedido de orçamento
+		      \item Sistema adiciona pedido de orçamento
+		      \item Funcionário regista pedido de reparação
+		      \item Sistema adiciona pedido à lista de equipamentos a reparar
+		      \item Funcionário entrega equipamento
+	      \end{enumerate}
+	      \begin{flushleft}
+		      \textbf{Fluxo Alternativo 1 (passo 1) [Cliente não registado]}
+	      \end{flushleft}
+
+	      \begin{itemize}
+		      \item[1.1]{$\ll include \gg$ Registar Cliente}
+		      \item[1.2] {Regressa ao passo 2}
+	      \end{itemize}
+	      \begin{flushleft}
+		      \textbf{Fluxo Alternativo 2 (passo 2) [Equipamento não registado]}
+	      \end{flushleft}
+	      \begin{itemize}
+		      \item[2.1] $\ll include \gg$ Registar equipamento
+		      \item[2.2] Regressa ao passo 3
+	      \end{itemize}
+
+	      \begin{flushleft}
+		      \textbf{Fluxo de exceção 3 (passo 4) [Cliente recusa reparação]}
+	      \end{flushleft}
+	      \begin{itemize}
+		      \item[4.1]{Sistema arquiva orçamento}
+		      \item[4.2]{Funcionário devolve equipamento}
+	      \end{itemize}
+	      \begin{flushleft}
+		      \textbf{Fluxo de exceção 4 (passo 4.2) [Cliente não levanta equipamento]}
+	      \end{flushleft}
+	      \begin{itemize}
+		      \item[4.2.1]{Sistema assinala equipamento como abandonado}
+		      \item[4.2.2]{Sistema dá baixa do equipamento}
+	      \end{itemize}
+\end{itemize}
 \end{document}
-
-
-% \documentclass[../relatorio.tex]{subfiles}
-% \begin{document}
-% 	\begin{itemize}
-% 		\item[Use Case] {Pedir orçamento reparação}
-% 		\item[Cenários] {1 e 2} 
-% 		\item[Pré-condição] {Funcionário autenticado} 
-% 		\item[Pós-condição] {Pedido de orçamento inserido no sistema}
-% 		\item[Fluxo Normal] {
-% 			\begin{enumerate}
-% 				\item Funcionário seleciona cliente
-% 				\item Funcionário insere identificador do equipamento
-% 				\item Funcionário regista pedido de orçamento
-% 				\item Sistema adiciona pedido de orçamento
-% 			\end{enumerate}
-% 		}
-% 		\item[Fluxo Alternativo 1 (passo 1) [Cliente não registado]] {
-% 			\begin{itemize}
-% 				\item[1.1]{<<include>> Registar Cliente}
-% 				\item[1.2] {Regressa ao passo 2} 
-% 			\end{itemize}
-% 		}
-% 		\item[Fluxo Alternativo 2 (passo 2) [Equipamento não registado]] {
-% 			\begin{itemize}
-% 				\item[2.1] <<include>> Registar equipamento
-% 				\item[2.2] Regressa ao passo 3
-% 			\end{itemize}
-% 		}
-% 	\end{itemize}
-% \end{document}
