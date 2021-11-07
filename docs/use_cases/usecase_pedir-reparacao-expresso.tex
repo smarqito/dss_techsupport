@@ -3,14 +3,15 @@
 \begin{itemize}
     \item[Use Case] {\underline{Pedir reparação expresso}}
     \item[Cenários] {2}
-    \item[Pré-condição] {Funcionário autenticado}
+    \item[Pré-condição] {Funcionário autenticado e cliente registado}
     \item[Pós-condição] {Equipamento reparado}
           \begin{flushleft}
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
               \item Funcionário verifica disponibilidade de tempo
-              \item Funcionário seleciona cliente
+              \item Funcionário insere identificador do cliente
+              \item Sistema seleciona cliente
               \item Funcionário insere identificador do equipamento
               \item Funcionário regista pedido de reparação
               \item Sistema adiciona pedido
@@ -25,21 +26,14 @@
               \item[1.2]{Funcionário recusa serviço}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo Alternativo 2 (passo 2) [Cliente não registado]}
-          \end{flushleft}
-          \begin{itemize}
-              \item[2.1]{$\ll include \gg$ Registar Cliente}
-              \item[2.2] {Regressa ao passo 2}
-          \end{itemize}
-          \begin{flushleft}
-              \textbf{Fluxo Alternativo 3 (passo 3) [Equipamento não registado]}
+              \textbf{Fluxo Alternativo 2 (passo 3) [Equipamento não registado]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1] $\ll include \gg$ Registar equipamento
               \item[3.2] Regressa ao passo 3
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 4 (passo 4) [tipo de reparação não é expresso]}
+              \textbf{Fluxo de Exceção 3 (passo 4) [tipo de reparação não é expresso]}
           \end{flushleft}
           \begin{itemize}
               \item[4.1]{Sistema comunica que reparação não é expresso}
