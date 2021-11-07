@@ -4,7 +4,7 @@
     \item[Use Case] {\underline{Registar cliente}}
     \item[Cenários] {1 e 2}
     \item[Pré-condição] {Colaborador autenticado}
-    \item[Pós-condição] {Cliente fica registado}
+    \item[Pós-condição] {Cliente fica registado no Sistema}
           \begin{flushleft}
               \textbf{Fluxo Normal}
           \end{flushleft}
