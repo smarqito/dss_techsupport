@@ -1,0 +1,16 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+\begin{itemize}
+    \item[Use Case] {\underline{Registar cliente}}
+    \item[Cenários] {1 e 2}
+    \item[Pré-condição] {Colaborador autenticado}
+    \item[Pós-condição] {Cliente fica registado no Sistema}
+          \begin{flushleft}
+              \textbf{Fluxo Normal}
+          \end{flushleft}
+          \begin{enumerate}
+              \item Funcionário insere dados do cliente
+              \item Sistema regista o cliente
+          \end{enumerate}
+\end{itemize}
+\end{document}
