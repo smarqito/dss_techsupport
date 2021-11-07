@@ -3,14 +3,15 @@
 \begin{itemize}
     \item[Use Case] {\underline{Pedir reparação expresso}}
     \item[Cenários] {2}
-    \item[Pré-condição] {Funcionário autenticado}
+    \item[Pré-condição] {Funcionário autenticado e cliente registado}
     \item[Pós-condição] {Equipamento reparado}
           \begin{flushleft}
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
               \item Funcionário verifica disponibilidade de tempo
-              \item {$\ll include \gg$ Validar Cliente}
+              \item Funcionário insere identificador do cliente
+              \item Sistema seleciona cliente
               \item Funcionário insere identificador do equipamento
               \item Funcionário regista pedido de reparação
               \item Sistema adiciona pedido

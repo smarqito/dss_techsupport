@@ -3,13 +3,14 @@
 \begin{itemize}
 	\item[Use Case] {\underline{Pedir orçamento}}
 	\item[Cenários] {1 e 2}
-	\item[Pré-condição] {Funcionário autenticado}
+	\item[Pré-condição] {Funcionário autenticado e cliente registado}
 	\item[Pós-condição] {Pedido de orçamento adicionado}
 	      \begin{flushleft}
 		      \textbf{Fluxo Normal}
 	      \end{flushleft}
 	      \begin{enumerate}
-		      \item {$\ll include \gg$ Validar Cliente}
+		      \item Funcionário insere identificador do cliente
+              \item Sistema seleciona cliente
 		      \item Funcionário insere identificador do equipamento
 		      \item Funcionário regista pedido de orçamento
 		      \item Sistema adiciona pedido de orçamento
