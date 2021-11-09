@@ -1,0 +1,19 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+\begin{itemize}
+    \item[Use Case] {\underline{Arquivar orçamento}}
+    \item[Cenários] {Cenário 1}
+    \item[Pré-condição] {System timer ativo}
+    \item[Pós-condição] {Orçamentos com mais de 30 dias arquivados}
+          \begin{flushleft}
+              \textbf{Fluxo Normal}
+          \end{flushleft}
+          \begin{enumerate}
+              \item System timer informa que é uma hora definida
+              \item Sistema calcula todos os orçamentos ativos
+              \item Sistema filtra orçamentos por data, ficando com os superiores a 30 dias
+              \item Sistema adiciona orçamentos ao arquivo
+              \item Sistema comunica os orçamentos arquivados
+          \end{enumerate}
+\end{itemize}
+\end{document}
