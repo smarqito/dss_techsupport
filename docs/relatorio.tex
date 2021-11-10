@@ -1,4 +1,3 @@
-
 \documentclass[a4paper, 12pt]{article}
 %\usepackage{portuguese}{babel}
 \usepackage{subfiles}
@@ -7,6 +6,7 @@
 \usepackage{fancyhdr}
 
 \title {Desenvolvimento de Sistemas de Software}
+
 \author{\textbf{Grupo 31} \\
         62608 - Marco Sousa \\
         93198 - Mariana Marques \\
@@ -16,9 +16,19 @@
 \begin{document}
 \maketitle
 
-\section{Modelo de Domínio}
-% adicionar o modelo de domínio
+\section{Modelação de Domínio}
+% adicionar o modelo de Domínio
 % adicionar descrição do modelo
+\subsection{Entidades}
+% Cliente
+% Orçamento
+% Colaborador
+%% Funcionário do Balcão
+%% Técnico
+%% Gestor
+
+% descrição das entidades
+\subsection{Diagrama de Modelo de Domínio} % diagrama ??
 
 \section{Modelação dos Requisitos Funcionais}
 % O que o sistema deve fazer
@@ -29,13 +39,15 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
         \item Pedir orçamento - \ref{pedir_orcamento}
         \item Fazer orçamento - \ref{fazer_orcamento}
         \item Confirmar orçamento - \ref{confirmar_orcamento}
+        \item Arquivar orçamento - \ref{arquivar_orcamento}
         \item Realizar reparação - \ref{realizar_rep}
         \item Entregar equipamento - \ref{entregar_equipamento}
         \item Pedir reparação expresso - \ref{pedir_rep_xpress}
         \item Registar equipamento - \ref{registar_equipamento}
-        \item Listagem resumida do técnico - \ref{listagem_tecnico_resumida}
-        \item Listagem detalhada do técnico - \ref{listagem_tecnico_detalhada}
-        \item Listagem funcionário do balcão - \ref{listagem_func_balcao}
+        \item Registar cliente - \ref{registar_cliente}
+        \item Listar resumida do técnico - \ref{listagem_tecnico_resumida}
+        \item Listar detalhada do técnico - \ref{listagem_tecnico_detalhada}
+        \item Listar funcionário do balcão - \ref{listagem_func_balcao}
 \end{itemize}
 \subsection{Modelo de Use Cases}
 
@@ -50,6 +62,9 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 \subsubsection{} \label{confirmar_orcamento}
 \subfile{use_cases/usecase_confirmar-orcamento.tex}
 
+\subsubsection{} \label{arquivar_orcamento}
+\subfile{use_cases/usecase_arquivar-orcamento.tex}
+
 \subsubsection{} \label{realizar_rep}
 \subfile{use_cases/usecase_realizar-reparacao.tex}
 
@@ -59,11 +74,11 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 \subsubsection{} \label{pedir_rep_xpress}
 \subfile{use_cases/usecase_pedir-reparacao-expresso.tex}
 
-\subsubsection{} \label{autenticar}
-\subfile{use_cases/usecase_validar-cliente.tex}
-
 \subsubsection{} \label{registar_equipamento}
 \subfile{use_cases/usecase_registar-equipamento.tex}
+
+\subsubsection{} \label{registar_cliente}
+\subfile{use_cases/usecase_registar-cliente.tex}
 
 \subsubsection{} \label{listagem_tecnico_resumida}
 \subfile{use_cases/usecase_listar-tecnico-resumida.tex}
