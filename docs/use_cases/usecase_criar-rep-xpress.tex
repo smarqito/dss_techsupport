@@ -3,15 +3,23 @@
 \begin{itemize}
     \item[Use Case] {\underline{Criar Reparação Expresso}
     \item[Cenários] {2}
-    \item[Pré-condição] {Colaborador autenticado}
+    \item[Pré-condição] {Colaborador especializado autenticado}
     \item[Pós-condição] {Reparação expresso fica registada no Sistema}
           \begin{flushleft}
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Colaborador insere material gasto e tempo utilizado
+              \item Colaborador especializado insere nome e descrição do passo
+              \item Sistema verifica nome da reparação
+              \item Colaborador especializado insere material gasto e tempo utilizado
               \item Sistema calcula o preço da reparação expresso
-              \item Sistema registra reparação expresso
+              \item Sistema regista reparação expresso
           \end{enumerate}
+          \begin{flushleft}
+            \textbf{Fluxo de Exceção 1 (passo 2) [Nome da reparação já existe]}
+        \end{flushleft}
+        \begin{itemize}
+            \item[2.1] Sistema comunica que nome da reparação já existe
+        \end{itemize}
 \end{itemize}
 \end{document}
