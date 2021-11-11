@@ -1,0 +1,18 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+\begin{itemize}
+    \item[Use Case] {\underline{Dar baixa do equipamento}}
+    \item[Cenários] {Cenário 1}
+    \item[Pré-condição] {System timer ativo}
+    \item[Pós-condição] {Equipamento pronto para levantar há 90 dias é adicionado à lista de equipamentos abandonados}
+          \begin{flushleft}
+              \textbf{Fluxo Normal}
+          \end{flushleft}
+          \begin{enumerate}
+              \item System timer informa que é uma hora definida
+              \item Sistema calcula todos os equipamentos prontos a levantar
+              \item Sistema filtra equipamentos prontos a levantar por data, ficando com os superiores a 90 dias
+              \item Sistema adicona equipamento à lista de equipamentos abandonados
+          \end{enumerate}
+\end{itemize}
+\end{document}
