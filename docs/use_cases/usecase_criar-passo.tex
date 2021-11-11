@@ -1,0 +1,26 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+\begin{itemize}
+    \item[Use Case] {\underline{Criar passo de reparação}
+    \item[Cenários] {3}
+    \item[Pré-condição] {Colaborador autenticado}
+    \item[Pós-condição] {Passo de reparação é adicionado ao Sistema}
+          \begin{flushleft}
+              \textbf{Fluxo Normal}
+          \end{flushleft}
+          \begin{enumerate}
+              \item Colaboradoror insere nome do passo, breve descrição e tempo previsto
+              \item Sistema regista nome do passo, breve descrição e tempo previsto
+              \item Colaborador insere referência do material
+              \item Sistema verifica referência do material
+              \item Sistema regista passo de reparação
+          \end{enumerate}
+          \begin{flushleft}
+		      \textbf{Fluxo Alternativo 1 (passo 4) [Material não registado]}
+	      \end{flushleft}
+	      \begin{itemize}
+		      \item[4.1]  $\ll include \gg$ Adicionar Material
+              \item[4.2] Regressa ao passo 5
+	      \end{itemize}
+\end{itemize}
+\end{document}
