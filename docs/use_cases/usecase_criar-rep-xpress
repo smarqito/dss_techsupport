@@ -1,0 +1,17 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+\begin{itemize}
+    \item[Use Case] {\underline{Criar Reparação Expresso}
+    \item[Cenários] {2}
+    \item[Pré-condição] {Colaborador autenticado}
+    \item[Pós-condição] {Reparação expresso fica registada no Sistema}
+          \begin{flushleft}
+              \textbf{Fluxo Normal}
+          \end{flushleft}
+          \begin{enumerate}
+              \item Colaborador insere material gasto e tempo utilizado
+              \item Sistema calcula o preço da reparação expresso
+              \item Sistema registra reparação expresso
+          \end{enumerate}
+\end{itemize}
+\end{document}
