@@ -1,23 +1,42 @@
-\documentclass[a4paper, 12pt]{article}
+\documentclass[a4paper, 12pt]{report}
 %\usepackage{portuguese}{babel}
 \usepackage{subfiles}
 \usepackage{forloop}
 \usepackage{arydshln}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
-\grahicspath{ {./assets/} }
+\usepackage{booktabs}
+\graphicspath{ {./assets/} }
 
 \title {Desenvolvimento de Sistemas de Software}
 
+% CAPA COM ID + GRUPO
 \author{\textbf{Grupo 31} \\
-        62608 - Marco Sousa \\
-        93198 - Mariana Marques \\
-        93271 - José Malheiro \\
-        94269 - Miguel Fernandes}
+        \begin{tabular} { c c }
+                \includegraphics[scale=0.4]{author/marco.jpg} & \includegraphics[scale=0.4]{author/marco.jpg} \\
+                62608 - Marco Sousa                           & 93198 - Mariana Marques                       \\
+                \hline \\
+                \includegraphics[scale=0.4]{author/marco.jpg} & \includegraphics[scale=0.4]{author/marco.jpg} \\
+                93271 - José Malheiro                         & 94269 - Miguel Fernandes
+        \end{tabular}
+}
 
 \begin{document}
 \maketitle
 
+\begin{abstract}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus, eros et pellentesque vestibulum, nulla quam fermentum mauris, eget viverra metus massa ut libero. Proin vel pellentesque lectus, vitae viverra sapien. Nullam interdum condimentum malesuada. Cras in odio et leo pharetra dapibus sit amet ut turpis. Cras consequat quam nec diam sollicitudin dignissim. Suspendisse ante mi, pulvinar dapibus interdum sed, vulputate a quam. Etiam a fermentum purus. Curabitur posuere nisl sed tempor varius. Donec vestibulum leo purus, id placerat lacus efficitur ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dui nisl, rutrum at venenatis ac, rutrum vestibulum justo. Phasellus sodales pharetra sapien, et mattis nulla maximus sed. Ut placerat ultricies molestie. Integer feugiat euismod faucibus.
+
+
+        descrição
+        e
+        objetivos
+\end{abstract}
+
+% breve descrição proposto + objetivos desta fase
+% objetivos: modelo de domínio
+% abordagem seguida para os atingir - reunir em grupo e fazer
+% resultados obtidos - modelos desenvolvidos
 \section{Modelação de Domínio}
 % adicionar o modelo de Domínio
 % adicionar descrição do modelo
@@ -29,7 +48,7 @@
         \item[Equipamento] {} %% Código de registo
         \item[Orçamento] {}
         \item[Reparação] {} % Reparação normal - Passo da Reparação, tempo, peças/ material utilizadas - calculo do preço através do material (ter uma tabela)
-                            % Reparação expresso - Preço fixo; serviços disponíveis?
+              % Reparação expresso - Preço fixo; serviços disponíveis?
         \item[Forma de Contacto] {}
 \end{itemize}
 % Cliente
@@ -50,7 +69,9 @@
 %% Email
 
 % descrição das entidades
-\subsection{Diagrama de Modelo de Domínio} % diagrama ??
+\subsection{Diagrama de Modelo de Domínio} % diagrama ?? anexo ??
+
+\includegraphics[scale=0.41]{Modelo.jpg}
 
 \section{Modelação dos Requisitos Funcionais}
 % O que o sistema deve fazer
@@ -71,7 +92,9 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
         \item Listar detalhada do técnico - \ref{listagem_tecnico_detalhada}
         \item Listar funcionário do balcão - \ref{listagem_func_balcao}
 \end{itemize}
-\subsection{Modelo de Use Cases}
+\subsection{Modelo de Use Cases} % anexo ??
+
+\includegraphics[scale=0.45]{dss-usecase.jpg}
 
 \subsection{Especificação Use Cases}
 
@@ -110,4 +133,8 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 
 \subsubsection{} \label{listagem_func_balcao}
 \subfile{use_cases/usecase_listar-func-balcao.tex}
+
+\section{Considerações Finais}
+% análise crítica dos resultados
+
 \end{document}
