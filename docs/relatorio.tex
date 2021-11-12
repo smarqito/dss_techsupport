@@ -1,46 +1,187 @@
-\documentclass[a4paper, 12pt]{report}
-%\usepackage{portuguese}{babel}
+\documentclass[a4paper,12pt]{scrreprt}
+    %% Used for changing geometry of the page
+    %% Cover page text cannot overlay cover sketching/style 
+    %% https://ctan.org/pkg/geometry?lang=en
+\usepackage{geometry}
+    %% Changes language of some packages protocols
+    %% e.g., when captioning images: Figure 1. -> Figura 1.
+    %% https://ctan.org/pkg/babel?lang=en
+\usepackage[portuguese]{babel}
+    %% Used for special fonts
+    %% Cannot be compiled with pdflatex
+    %% https://ctan.org/pkg/fontspec?lang=en
+\usepackage{fontspec}
+    %% Arial FONT
+    \setmainfont{Arial}
 \usepackage{subfiles}
-\usepackage{forloop}
+    %% More colors and color options
+    %% https://ctan.org/pkg/xcolor?lang=en
+    %% https://ctan.org/pkg/colortbl?lang=en
+\usepackage{xcolor,colortbl}
+    %% More tabular options, like dashed/dotted lines
+    %% https://ctan.org/pkg/arydshln?lang=en
 \usepackage{arydshln}
-\usepackage{fancyhdr}
-\usepackage{graphicx}
-\usepackage{booktabs}
+    %% List of acronyms
+    %% https://ctan.org/pkg/nomencl?lang=en
+\usepackage[intoc]{nomencl}
+    %% Must be called to init nomencl environment  
+    \makenomenclature
+    %% More images options/settings
+    %% https://ctan.org/pkg/graphicx?lang=en
+\usepackage{graphics}
+    %% Defining subdirectories to image path enviornment
+    %% \graphicspath{{sub1}{sub2}...{subN}}
+    \graphicspath{{images}}
+    
+    %% used to handle cross-referencing commands in LaTeX to produce hypertext links in the document
+    %% https://ctan.org/pkg/hyperref?lang=en
+\usepackage{hyperref}
+    %% math environments
+    %% https://ctan.org/pkg/amsmath?lang=en
+
+    %% settings
+    \hypersetup{
+        colorlinks,
+        citecolor=black,
+        filecolor=black,
+        linkcolor=black,
+        urlcolor=black
+    }
+
+\usepackage{amsmath}
+    %% Defining backgrouns, used to make the cover
+    %% https://ctan.org/pkg/background?lang=en
+\usepackage[some]{background}
+    %% Used to make drawings or complex graphics
+    %% http://pgf.sourceforge.net/pgf_CVS.pdf
+\usepackage{tikz}
+    %% Tikz library to point operations ((x1,y1) + (x2,y2))
+    \usetikzlibrary{calc}
+
+%% Defining sfdefault font and default font for document
+\renewcommand{\familydefault}{\sfdefault}
+
+
+%% Costume made cover 
+%% From there you can use \makecover command to build the cover
+\include{cover}
+
 \graphicspath{ {./assets/} }
 
 \title {Desenvolvimento de Sistemas de Software}
 
-% CAPA COM ID + GRUPO
-\author{\textbf{Grupo 31} \\
-        \begin{tabular} { c c }
-                \includegraphics[scale=0.4]{author/marco.jpg} & \includegraphics[scale=0.4]{author/marco.jpg} \\
-                62608 - Marco Sousa                           & 93198 - Mariana Marques                       \\
-                \hline \\
-                \includegraphics[scale=0.4]{author/marco.jpg} & \includegraphics[scale=0.4]{author/marco.jpg} \\
-                93271 - José Malheiro                         & 94269 - Miguel Fernandes
-        \end{tabular}
+% TODO
+% ABSTRACT - inclui objetivos e descrição
+% ATUALIZAR CAPA
+% descrever entidades modelos domínio
+% abordar motivo de criar passos e material
+% abordar feature de stock - time bounded ---- no time!!!
+% acrescentar colaborador especializado no modelo de domínio
+% considerações finais
+% bibliografia??
+% indice ??
+\newcommand{\authorthing}{
+\textbf{Grupo 31} \\
+\begin{tabular} { c c }
+\includegraphics[scale=0.4]{author/marco.jpg} & \includegraphics[scale=0.4]{author/marco.jpg} \\
+62608 - Marco Sousa                           & 93198 - Mariana Marques                       \\
+\hline                                                                                        \\
+\includegraphics[scale=0.4]{author/marco.jpg} & \includegraphics[scale=0.4]{author/marco.jpg} \\
+93271 - José Malheiro                         & 94269 - Miguel Fernandes
+\end{tabular}
 }
+\author{\authorthing}
+\date{}
 
 \begin{document}
-\maketitle
 
+\pagenumbering{gobble}
+
+% builds the cover
+\makecover
+
+%==========================================================================
+% BEGIN ABSTRACT PAGE
+%==========================================================================
+
+
+
+%% Abstract name: \Large font size, flushed left and paragraph skip before abstract content
+\renewenvironment{abstract}
+ {\par\noindent\textbf{\Large\abstractname}\par\bigskip}
+ {}
+
+\begin{flushleft}
 \begin{abstract}
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus, eros et pellentesque vestibulum, nulla quam fermentum mauris, eget viverra metus massa ut libero. Proin vel pellentesque lectus, vitae viverra sapien. Nullam interdum condimentum malesuada. Cras in odio et leo pharetra dapibus sit amet ut turpis. Cras consequat quam nec diam sollicitudin dignissim. Suspendisse ante mi, pulvinar dapibus interdum sed, vulputate a quam. Etiam a fermentum purus. Curabitur posuere nisl sed tempor varius. Donec vestibulum leo purus, id placerat lacus efficitur ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dui nisl, rutrum at venenatis ac, rutrum vestibulum justo. Phasellus sodales pharetra sapien, et mattis nulla maximus sed. Ut placerat ultricies molestie. Integer feugiat euismod faucibus.
-
-
-        descrição
-        e
-        objetivos
+    <<O resumo tem como objectivo descrever de forma sucinta o trabalho realizado. Deverá conter uma pequena introdução, seguida por uma breve descrição do trabalho realizado e terminando com uma indicação sumária do seu estado final. Não deverá exceder as 400 palavras.>> 
+    \par \textbf{Área de Aplicação}: <<Identificação da Área de trabalho. Por exemplo: Desenho e arquitectura de Sistemas de Bases de Dados.>> 
+    \par \textbf{Palavras-Chave}: <<Conjunto de palavras-chave que permitirão referenciar domínios de conhecimento, tecnologias, estratégias, etc., directa ou indirectamente referidos no relatório. Por exemplo: Bases de Dados Relacionais, Gestão de Índices, JAVA, Protocolos de Comunicação.>>
 \end{abstract}
+\end{flushleft}
 
+
+\pagebreak
+
+%==========================================================================
+% END ABSTRACT PAGE 
+%==========================================================================
+
+%==========================================================================
+% BEGIN INDEXES PAGES
+%==========================================================================
+
+%% Changes table of content name
+%% Portuguese babel default : "Conteúdo"
+%% Personally I prefer "índice"
+\renewcommand{\contentsname}{Índice}
+
+\tableofcontents
+
+\pagebreak
+
+\listoffigures
+
+\pagebreak
+
+\listoftables
+
+\pagebreak
+
+%==========================================================================
+% END INDEXES PAGES 
+%==========================================================================
+
+
+%==========================================================================
+% BEGIN INTRODUCTION
+%==========================================================================
+
+%% Starting page numbering here
+\pagenumbering{arabic}
+
+\chapter{Introdução}
+    <<Este primeiro capítulo deverá ter obrigatoriamente as subsecções abaixo apresentadas.>>
+    \section{Contextualização}
+        <<Nesta secção deverá ser apresentado o contexto no qual se desenvolve o caso de estudo seleccionado.>>
+    \section{Apresentação do Caso de Estudo}
+        <<Esta secção acolherá uma descrição concisa do caso de estudo seleccionado.>>
+    \section{Motivação e Objectivos}
+        <<Esta secção acolherá os diversos motivos, acompanhados por uma breve descrição, que conduziram à proposta e ao desenvolvimento do trabalho, assim como a apresentação detalhada dos diversos objectivos a alcançar com a sua realização.>>
+    \section{Estrutura do Relatório}
+        <<Após a leitura da introdução de um relatório é "simpático" apresentar uma breve descrição daquilo que se vai encontrar nos demais capítulos do relatório.>>
+
+%==========================================================================
+% END INTRODUCTION
+%==========================================================================
+
+\chapter{Modelação de Domínio}
 % breve descrição proposto + objetivos desta fase
 % objetivos: modelo de domínio
 % abordagem seguida para os atingir - reunir em grupo e fazer
 % resultados obtidos - modelos desenvolvidos
-\section{Modelação de Domínio}
 % adicionar o modelo de Domínio
 % adicionar descrição do modelo
-\subsection{Entidades}
+\section{Entidades}
 
 \begin{itemize}
         \item[Cliente]{} % NIF
@@ -69,11 +210,11 @@
 %% Email
 
 % descrição das entidades
-\subsection{Diagrama de Modelo de Domínio} % diagrama ?? anexo ??
+\section{Diagrama de Modelo de Domínio} % diagrama ?? anexo ??
 
 \includegraphics[scale=0.41]{Modelo.jpg}
 
-\section{Modelação dos Requisitos Funcionais}
+\chapter{Modelação dos Requisitos Funcionais}
 % O que o sistema deve fazer
 Cenários foram identificados pela equipa docente.
 % adicionar o diagrama de use case
@@ -92,49 +233,94 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
         \item Listar detalhada do técnico - \ref{listagem_tecnico_detalhada}
         \item Listar funcionário do balcão - \ref{listagem_func_balcao}
 \end{itemize}
-\subsection{Modelo de Use Cases} % anexo ??
+\section{Modelo de Use Cases} % anexo ??
 
 \includegraphics[scale=0.45]{dss-usecase.jpg}
 
-\subsection{Especificação Use Cases}
+\section{Especificação Use Cases}
 
-\subsubsection{} \label{pedir_orcamento}
+\subsection{} \label{pedir_orcamento}
 \subfile{use_cases/usecase_pedir-orcamento.tex}
 
-\subsubsection{} \label{fazer_orcamento}
+\subsection{} \label{fazer_orcamento}
 \subfile{use_cases/usecase_fazer-orcamento.tex}
 
-\subsubsection{} \label{confirmar_orcamento}
+\subsection{} \label{confirmar_orcamento}
 \subfile{use_cases/usecase_confirmar-orcamento.tex}
 
-\subsubsection{} \label{arquivar_orcamento}
+\subsection{} \label{arquivar_orcamento}
 \subfile{use_cases/usecase_arquivar-orcamento.tex}
 
-\subsubsection{} \label{realizar_rep}
+\subsection{} \label{realizar_rep}
 \subfile{use_cases/usecase_realizar-reparacao.tex}
 
-\subsubsection{} \label{entregar_equipamento}
+\subsection{} \label{entregar_equipamento}
 \subfile{use_cases/usecase_entregar-equipamento.tex}
 
-\subsubsection{} \label{pedir_rep_xpress}
+\subsection{} \label{pedir_rep_xpress}
 \subfile{use_cases/usecase_pedir-reparacao-expresso.tex}
 
-\subsubsection{} \label{registar_equipamento}
+\subsection{} \label{registar_equipamento}
 \subfile{use_cases/usecase_registar-equipamento.tex}
 
-\subsubsection{} \label{registar_cliente}
+\subsection{} \label{registar_cliente}
 \subfile{use_cases/usecase_registar-cliente.tex}
 
-\subsubsection{} \label{listagem_tecnico_resumida}
+\subsection{} \label{listagem_tecnico_resumida}
 \subfile{use_cases/usecase_listar-tecnico-resumida.tex}
 
-\subsubsection{} \label{listagem_tecnico_detalhada}
+\subsection{} \label{listagem_tecnico_detalhada}
 \subfile{use_cases/usecase_listar-tecnico-detalhada.tex}
 
-\subsubsection{} \label{listagem_func_balcao}
+\subsection{} \label{listagem_func_balcao}
 \subfile{use_cases/usecase_listar-func-balcao.tex}
 
-\section{Considerações Finais}
+\chapter{Considerações Finais}
 % análise crítica dos resultados
+
+%==========================================================================
+% BEGIN LISTA DE SIGLAS E ACRÓNIMOS
+%==========================================================================
+
+%% Portuguese babel does not translate this environment
+\renewcommand{\nomname}{Lista de Siglas e Acrónimos}
+
+%% Text that can be shown before acronyms list
+\renewcommand{\nompreamble}{<<Apresentar uma lista com todas as siglas e acrónimos utilizados durante a realização do trabalho. O formato base para esta lista deverá ser da forma como abaixo se apresenta.>>}
+
+%% acronyms
+\nomenclature[01]{\textbf{BD}}{Base de Dados}
+\nomenclature[02]{DW}{Data Warehouse}
+\nomenclature[03]{OLTP}{On-Line Analytical Processing}
+\nomenclature[04]{...}{...}
+
+%% Show acronyms
+\printnomenclature
+
+
+
+%==========================================================================
+% END LISTA DE SIGLAS E ACRÓNIMOS
+%==========================================================================
+
+
+%==========================================================================
+% BEGIN ANEXOS
+%==========================================================================
+
+%% Why \addchap, instead of \chapter? 
+%% \addchap has no numbering but appears in table of contents.
+\addchap{Anexos}
+
+    <<Os anexos deverão ser utilizados para a inclusão de informação adicional necessária para uma melhor compreensão do relatório o para complementar tópicos, secções ou assuntos abordados. Os anexos criados deverão ser numerados e possuir uma designação. Estes dados permitirão complementar o Índice geral do relatório relativamente à enumeração e apresentação dos diversos anexos.>>
+    
+    %% section version of \addchap
+    \addsec{Anexo 1}
+
+
+%==========================================================================
+% END ANEXOS
+%==========================================================================
+
 
 \end{document}
