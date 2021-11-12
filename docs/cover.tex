@@ -36,7 +36,7 @@
         \includegraphics[scale=0.2]{author/marco.jpg} & \includegraphics[scale=0.2]{author/marco.jpg} \\
         62608 - Marco Sousa                           & 93198 - Mariana Marques                       \\
         %\hline                                                                                        \\
-        \includegraphics[scale=0.2]{author/marco.jpg} & \includegraphics[scale=0.2]{author/marco.jpg} \\
+        \includegraphics[scale=0.2]{author/marco.jpg} & \includegraphics[scale=0.2]{author/miguel.jpg} \\
         93271 - José Malheiro                         & 94269 - Miguel Fernandes
     \end{tabular}
 }
@@ -55,6 +55,8 @@
 \newcommand{\UniName}{Universidade do Minho}
 
 \newcommand{\UcName}{Desenvolvimento de Sistemas de Software}
+
+\newcommand{\GroupId}{Grupo 31}
 
 %% UniPic
 \newcommand{\UniPic}{\includegraphics[scale=0.09]{uminho.png}}
@@ -123,7 +125,7 @@
 
     %% Changing geometry to prevent overlay with text
     %% At the end of back cover, geometry is default with \restoregeometry
-    \newgeometry{top=5cm,left=6cm,right=3cm,bottom=2cm}
+    \newgeometry{top=3.5cm,left=6cm,right=3cm,bottom=2cm}
 
     %% builds university info defined previously
     \University
@@ -133,13 +135,14 @@
     %% builds school year info defined previously
     \SchoolYear
 
-    \vspace*{3cm}
+    \vspace*{4cm}
     %% bigger space (i think its the default one) between paragraphs 
     \setlength{\parskip}{1em}
 
     %% builds title info defined previously
     \par\textbf{\textsf{\huge\Title}}
-    \vspace{0.5cm}
+    \par\textbf{\GroupId}
+    \vspace{1cm}
     %% builds author(s) info defined previously
     \par\begin{center}
         \Author

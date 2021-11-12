@@ -7,3 +7,6 @@
 *.bak
 *.out
 *.nlo
+*.lof
+*.lot
+*.toc
