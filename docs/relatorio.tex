@@ -70,11 +70,11 @@
 
 % TODO
 % ABSTRACT - inclui objetivos e descrição
-% *ATUALIZAR CAPA
-% descrever entidades modelos domínio
+% *ATUALIZAR CAPA - falta mariana
+% !descrever entidades modelos domínio
 % abordar motivo de criar passos e material
 % abordar feature de stock - time bounded ---- no time!!!
-% acrescentar colaborador especializado no modelo de domínio
+% acrescentar colaborador especializado no modelo de domínio 
 % considerações finais
 % bibliografia??
 % indice ??
@@ -169,41 +169,79 @@
 % adicionar descrição do modelo
 \section{Entidades}
 
+\subsection{Cliente}\label{ent_cliente}
+O cliente é a entidade que possui o(s) equipamento(s) que necessita(m) de intervenção técnica, cada cliente é identificado pelo 
+seu Número de Identificação Fiscal (NIF).
+
+\subsection{Colaborador} \label{ent_colaborador}
+O Colaborador é a entidade relativa a todos os elementos que interagem diretamente com o sistema. 
+Numa forma geral, engloba todos os trabalhadores que populam o \textbf{Centro de Reparação} e, após autenticados, executam os
+ serviços pedidos - Uma entidade abstrata que ramifica-se em sub-entidades(trabalhadores) mais específicas.
+
+Desde a inserção do equipamento a ser reparado no sistema até à sua eventual entrega ao cliente, o processo conta com participação
+ do(s) \textbf{Funcionário(s) de Balcão} e do(s) \textbf{Colaboradore(s) Especializado(s)}.
+
+\subsubsection{Funcionário de Balcão} \label{ent_func_balcao}
+Corresponde à entidade responsável pelo início e o término de uma reparação - o registo inicial e entrega do equipamento ao cliente, respetivamente.  
+
+\subsubsection{Colaborador Especializado} \label{ent_colab_especializado}
+Esta entidade compreende os colaboradores com competências técnicas especializadas, divergindo na sua autoridade com o Funcionário de Balcão. 
+Estes possuem a capacidade de de alterar o que considerarem necessário no Centro de Reparação.
+
+Desta forma, foi definido os seguintes tipos:
 \begin{itemize}
-        \item[Cliente]{} % NIF
-        \item[Colaborador] {} %% prazo máximo de reparação ; Preço
-        \item[Equipamento] {} %% Código de registo
-        \item[Orçamento] {}
-        \item[Reparação] {} % Reparação normal - Passo da Reparação, tempo, peças/ material utilizadas - calculo do preço através do material (ter uma tabela)
-              % Reparação expresso - Preço fixo; serviços disponíveis?
-        \item[Forma de Contacto] {}
+    \item[\textbf{Técnico}]{Responsável por fazer o orçamento e realizar a reparação} 
+    \item[\textbf{Gestor}]{Tem permissões de administração sobre todo o sistema.}
 \end{itemize}
-% Cliente
 
-% Orçamento
+\subsection{Equipamento} \label{ent_equipamento}
+Corresponde a uma entidade que representa um objeto físico que irá entrar no sistema com a perspetiva de obter um orçamento e,
+ eventualmente, originar uma reparação.
+Esta entidade é identificada por um código de registo.
 
-% Equipamento
+\subsection{Orçamento} \label{ent_orcamento}
+O orçamento é a entidade associada a um plano de trabalhos estabelecido pelo técnico e ao prazo máximo de execução da reparação.
 
+\subsection{Reparação} \label{ent_reparacao}
+Representa um serviço disponibilizado no sistema. Cada reparação contém um plano de trabalhos e,
+mediante o tipo de serviço, apresenta características distintas.
+Mediante os cenários apresentados, foram definidos dois tipos: \textit{Reparação expresso} e \textit{Reparação normal}.
 
+\subsubsection{Reparação expresso} \label{ent_reparacao-expresso}
+Define um tipo de reparação pré-definida.
+Tem associado um plano de trabalhos fixo que, por sua vez, origina um custo e tempo de realização fixo.
 
-%%% 
-% Colaborador
-%% Funcionário do Balcão
-%% Técnico
-%% Gestor
-% Formas de Contacto
-%% SMS
-%% Email
+\subsubsection{Reparação normal} \label{ent_reparacao-normal}
+Corresponde a uma reparação personalizada que contém um plano de trabalhos definido.
+Consequentemente, o preço e tempo varia entre cada uma.
 
-% descrição das entidades
-\section{Diagrama de Modelo de Domínio} % diagrama ?? anexo ??
+\subsection{Forma de Contacto} \label{ent_formas-contacto}
+A forma de contacto permite uma comunicação com o cliente, sendo registada a data e hora e colaborador que a efetuou.
+Para tal, as opções existentes são o SMS e o Email.
+
+\subsection{Plano de Trabalhos} \label{ent_plano-de-trabalhos}
+O plano de trabalhos é divido em passos e sub-passos da reparação, onde cada um consome tempo e utiliza material. 
+Esta definição permite obter o número total de horas de trabalho e o custo das peças utilizadas. 
+Cada passo de reparação utiliza uma determinada categoria de material, possibilitando obter uma lista de material que pode ser utilizado.
+
+\subsection{Material} \label{ent_material}
+O material é uma entidade fundamental tanto para a previsão do orçamento como para a própria reparação.
+Este é identificado pela sua referência, está associado a um custo e está contido na categoria respetiva.
+
+\section{Diagrama de Modelo de Domínio} 
 
 \includegraphics[scale=0.41]{Modelo.jpg}
 
 \chapter{Modelação dos Requisitos Funcionais}
-% O que o sistema deve fazer
+% O que o sistema deve fazer:: 
+% Cenário 1:: Autenticar um colaborador; selecionar/validar um cliente;
+% Cenário 2:: Inserção da reparação expresso
+% Cenário 3:: Definição do p
+% Cenário 4::
+% Cenário 5::
+
+
 Cenários foram identificados pela equipa docente.
-% adicionar o diagrama de use case
 A partir dos cenários foram identificados os seguintes \textit{use cases}:
 \begin{itemize}
         \item Pedir orçamento - \ref{pedir_orcamento}
@@ -219,7 +257,7 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
         \item Listar detalhada do técnico - \ref{listagem_tecnico_detalhada}
         \item Listar funcionário do balcão - \ref{listagem_func_balcao}
 \end{itemize}
-\section{Modelo de Use Cases} % anexo ??
+\section{Modelo de Use Cases}
 
 \includegraphics[scale=0.45]{dss-usecase.jpg}
 
@@ -275,7 +313,7 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 \renewcommand{\nompreamble}{<<Apresentar uma lista com todas as siglas e acrónimos utilizados durante a realização do trabalho. O formato base para esta lista deverá ser da forma como abaixo se apresenta.>>}
 
 %% acronyms
-\nomenclature[01]{\textbf{BD}}{Base de Dados}
+\nomenclature[01]{\textbf{NIF}}{Número de Idenficação Fiscal}
 \nomenclature[02]{DW}{Data Warehouse}
 \nomenclature[03]{OLTP}{On-Line Analytical Processing}
 \nomenclature[04]{...}{...}
