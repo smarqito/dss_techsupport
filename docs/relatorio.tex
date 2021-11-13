@@ -93,9 +93,25 @@
 
 \begin{flushleft}
     \begin{abstract}
-        <<O resumo tem como objectivo descrever de forma sucinta o trabalho realizado. Deverá conter uma pequena introdução, seguida por uma breve descrição do trabalho realizado e terminando com uma indicação sumária do seu estado final. Não deverá exceder as 400 palavras.>> 
-        \par \textbf{Área de Aplicação}: <<Identificação da Área de trabalho. Por exemplo: Desenho e arquitectura de Sistemas de Bases de Dados.>> 
-        \par \textbf{Palavras-Chave}: <<Conjunto de palavras-chave que permitirão referenciar domínios de conhecimento, tecnologias, estratégias, etc., directa ou indirectamente referidos no relatório. Por exemplo: Bases de Dados Relacionais, Gestão de Índices, JAVA, Protocolos de Comunicação.>>
+        %=============
+        % How to build an abstract
+        % https://users.ece.cmu.edu/~koopman/essays/abstract.html
+        %=============
+        A utilização de modelos auxilia a compreensão do problema, simplifica a comunicação de ideias e documenta as decisões tomadas durante o desenvolvimento.
+        
+        Um centro de reparações encontra problemas diários que limitam a sua capacidade de resposta,
+        diminuindo a eficiência dos colaboradores e impactando no volume de trabalho concretizado.
+        
+        Através da análise dos cenários de utilização, foi possível efetuar uma modelação do domínio.
+        Posteriormente, conseguiu-se realizar a modelação dos requisitos funcionais.
+        Assim, foi desenvolvido um \textbf{Modelo de Domínio} e um \textbf{Diagrama de \textit{Use Case}},
+        assim como as respetivas descrições dos mesmos.
+    
+        A estratégia utilizada permitiu seguir uma linha de raciocínio estruturada e ao utilizar uma linguagem de modelação unificada obteve-se
+        um conjunto de diagramas que são facilmente interpretáveis entre pares.
+
+        \par \textbf{Área de Aplicação}: Análise de Requisitos
+        \par \textbf{Palavras-Chave}: \textit{Unified Modeling Language} (UML), \textit{Visual Paradigm}, Modelação de Domínio, Modelação de Requisitos Funcionais, Diagrama de \textit{Use Case}, Modelo de Domínio, Análise de Projeto, Conceção de Projeto, Análise de Requisitos
     \end{abstract}
 \end{flushleft}
 
@@ -197,17 +213,14 @@ Por fim, foi efetuada uma breve análise crítica do trabalho desenvolvido nesta
 %==========================================================================
 
 \chapter{Modelação de Domínio} \label{modelacao_dominio}
-% breve descrição proposto + objetivos desta fase
-% objetivos: modelo de domínio
-
 Numa tentativa de capturar os elementos intervenientes do problema, as entidades e o relacionamento entre eles foi necessária
-a criação de uma visão estática do mesmo, um modelo de domínio. 
+a criação de uma visão estática do mesmo, \textit{i.e.} um modelo de domínio. 
 
-Com o auxílio deste será formulada uma \textit{framework} conceptual base do sistema, permitindo raciocinar sobre o problema e estabelecer o 
+Com o auxílio deste será formulada uma \textit{framework} conceptual do sistema, permitindo raciocinar sobre o problema e estabelecer o 
 vocabulário a ser usado no decorrer do projeto.
 
-Neste sentido, como resposta à necessidade de modelar o problema e com base na análise do enunciado proposto foi possível identificar as 
-principais entidades que fazem parte do sistema(\ref{ent}) e a forma como estas interagem entre sí. 
+Neste sentido, como resposta à necessidade de modelar o problema e com base na análise do enunciado proposto foram identificadas as 
+principais entidades (\ref{ent}) que fazem parte do sistema, assim como os relacionamentos entre elas. 
 
 \section{Entidades}\label{ent}
 
@@ -271,6 +284,17 @@ O material é uma entidade fundamental tanto para a previsão do orçamento como
 Este é identificado pela sua referência, está associado a um custo e está contido na categoria respetiva.
 
 \section{Diagrama de Modelo de Domínio}
+Como já foi referido, o modelo de domínio representa estaticamente, as identidades e as suas relações. 
+
+O colaborador e o cliente estabelecem contacto a partir de uma forma de contacto, cada contacto realizado necessita de ser registado.
+
+Um técnico é responsável pela especificação de vários orçamentos, estes são concebidos com base no plano de trabalhos desenvolvido. É no plano de trabalhos que se 
+permite obter a previsão do tempo e o custo do material necessário que se calcula o preço e prazo máximo de reparacão do orçamento. 
+
+Nos dois tipos de serviços disponíveis, a reparação do equipamento está associada a um plano de trabalhos. % plano é  guia da reparação % 
+
+De forma a eviar a constante criação de novos passos da reparação devido a utilizar materiais com o mesmo fim mas com referências diferentes, criamos a classe
+de material que agregará materiais da mesma "espécie". Assim a relação entre o passo da reparação e a classe de mateiral é caracterizada por um material.
 
 \begin{figure}[!ht]
     \centering
@@ -401,6 +425,17 @@ foram identificados os seguintes \textit{use cases}:
 \noindent{\rule{\textwidth}{0.4pt}
 
 \chapter{Considerações Finais}
+
+% Principais dificuldades: Inicialmente divisão dos cenários por uses cases, o que incluir no modelo de use case da reparação de um equipamento
+%                           Como definir os passos da reparação, como defenir cada passo surgindo a ideia do material, 
+%                           associação do cliente e o colaborador(associação para relação n-ária), presença do system timer no dominio como classe,  ... 
+%
+% O que poderiamos melhorar: 
+%
+%
+% Como superar:
+
+
 % análise crítica dos resultados
 
 %==========================================================================
