@@ -235,21 +235,28 @@ Este é identificado pela sua referência, está associado a um custo e está co
 \chapter{Modelação dos Requisitos Funcionais}
 % O que o sistema deve fazer:: 
 % Cenário 1:: Autenticar um colaborador; selecionar/validar um cliente;
-% Cenário 2:: Inserção da reparação expresso
-% Cenário 3:: Definição do p
-% Cenário 4::
-% Cenário 5::
+% Cenário 2:: Possibilitar reparação expresso
+% Cenário 3:: Definição do plano de trabalhos para a reparação
+% Cenário 4:: 
+% Cenário 5:: Listagem do desempenho dos colaboradores
 
 
 Cenários foram identificados pela equipa docente.
 A partir dos cenários foram identificados os seguintes \textit{use cases}:
 \begin{itemize}
+        \item Criar reparação expresso - \ref{criar_rep_expresso}
         \item Pedir orçamento - \ref{pedir_orcamento}
         \item Fazer orçamento - \ref{fazer_orcamento}
+        \item Criar passo da Reparação - \ref{criar_passo_rep}
         \item Confirmar orçamento - \ref{confirmar_orcamento}
         \item Arquivar orçamento - \ref{arquivar_orcamento}
         \item Realizar reparação - \ref{realizar_rep}
+        \item Realizar passo de reparação - \ref{realizar_passo_rep}
+        \item Adicionar material - \ref{adicionar_material}
+        \item Encomendar material - \ref{encomendar_material}
+        \item Receber material - \ref{receber_material}
         \item Entregar equipamento - \ref{entregar_equipamento}
+        \item Dar baixo do equipamento - \ref{dar_baixa_equipamento}
         \item Pedir reparação expresso - \ref{pedir_rep_xpress}
         \item Registar equipamento - \ref{registar_equipamento}
         \item Registar cliente - \ref{registar_cliente}
@@ -263,11 +270,17 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 
 \section{Especificação Use Cases}
 
+\subsection{} \label{criar_rep_expresso}
+\subfile{use_cases/usecase_criar-rep-xpress.tex}
+
 \subsection{} \label{pedir_orcamento}
 \subfile{use_cases/usecase_pedir-orcamento.tex}
 
 \subsection{} \label{fazer_orcamento}
 \subfile{use_cases/usecase_fazer-orcamento.tex}
+
+\subsection{} \label{criar_passo_rep}
+\subfile{use_cases/usecase_criar-passo.tex}
 
 \subsection{} \label{confirmar_orcamento}
 \subfile{use_cases/usecase_confirmar-orcamento.tex}
@@ -278,8 +291,23 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 \subsection{} \label{realizar_rep}
 \subfile{use_cases/usecase_realizar-reparacao.tex}
 
+\subsection{} \label{realizar_passo_rep}
+\subfile{use_cases/usecase_realizar-passo-reparacao.tex}
+
+\subsection{} \label{adicionar_material}
+\subfile{use_cases/usecase_adicionar-material.tex}
+
+\subsection{} \label{encomendar_material}
+\subfile{use_cases/usecase_encomendar-material.tex}
+
+\subsection{} \label{receber_material}
+\subfile{use_cases/usecase_receber-material.tex}
+
 \subsection{} \label{entregar_equipamento}
 \subfile{use_cases/usecase_entregar-equipamento.tex}
+
+\subsection{} \label{dar_baixa_equipamento}
+\subfile{use_cases/usecase_dar-baixa.tex}
 
 \subsection{} \label{pedir_rep_xpress}
 \subfile{use_cases/usecase_pedir-reparacao-expresso.tex}

@@ -11,13 +11,13 @@
           \begin{enumerate}
               \item Técnico pede reparação mais urgente
               \item Sistema devolve reparação mais urgente
-              \item Técnico executa a reparação
-                    % vários passos ... como fazer???
-              \item Técnico regista as horas gastas e custo das peças
+              \item Técnico pede o plano de trabalhos da reparação
+              \item Técnico indica os passos da reparação concretizados
+              \item Sistema regista passos da reparação como realizados
               \item Sistema regista a conclusão da reparação
           \end{enumerate}
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 1 (passo 3) [falta de tempo]}
+              \textbf{Fluxo de Exceção 1 (passo 6) [falta de tempo]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1]{Técnico informa motivo de interrupção}
@@ -25,14 +25,14 @@
                          reparar}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 2 (passo 3) [falta de peças]}
+              \textbf{Fluxo de Exceção 2 (passo 6) [falta de peças]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1]{Técnico informa motivo de interrupção}
               \item[3.2]{Sistema coloca reparação em espera}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo Alternativo 3 (passo 3) [reparação excede valor orçamentado]}
+              \textbf{Fluxo Alternativo 3 (passo 6) [reparação excede valor orçamentado]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1]{Técnico insere contacto com cliente}
@@ -47,12 +47,6 @@
               \item[3.2.2]{Técnico repõe o equipamento}
               \item[3.2.3]{Técnico regista as horas gastas}
               \item[3.2.4]{Técnico coloca equipamento disponível para levantamento}
-          \end{itemize}
-          \begin{flushleft}
-              \textbf{Fluxo Alternativo 5 (passo 3) [serviço expresso]}
-          \end{flushleft}
-          \begin{itemize}
-              \item[3.1]{Regressa ao passo 5}
           \end{itemize}
 \end{itemize}
 \end{document}
