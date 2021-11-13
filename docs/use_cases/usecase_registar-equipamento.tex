@@ -1,5 +1,6 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
+Registo de um equipamento no sistema, utilizando os respetivos dados.
 \begin{itemize}
     \item[Use Case] {\underline{Registar equipamento}}
     \item[Cenários] {1}
@@ -9,9 +10,17 @@
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
+              \item Funcionário insere referência do material
+              \item Sistema verifica referência do material
               \item Funcionário insere identificador do cliente
-              \item Funcionário insere dados do equipamento
-              \item Sistema regista os dados
+              \item Sistema verifica identificador do cliente
+              \item Sistema regista os dados do equipamento
           \end{enumerate}
+          \begin{flushleft}
+            \textbf{Fluxo de Exceção 1 (passo 2) [Referência já existe]}
+        \end{flushleft}
+        \begin{itemize}
+            \item[2.1]{Sistema comunica que identificador já está registado}
+        \end{itemize}
 \end{itemize}
 \end{document}

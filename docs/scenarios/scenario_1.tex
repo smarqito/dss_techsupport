@@ -1,0 +1,18 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+\textbf{Cenário 1} \label{cenario_1}
+
+O cliente dirige-se ao estabelecimento com um equipamento avariado e pede um orçamento para uma reparação. O funcionário do balcão, após
+se ter autenticado, regista a entrega do equipamento pelo cliente (utilizando o NIF deste para o identificar), bem como o pedido de orçamento.
+Após o técnico de reparações fazer o orçamento, este é enviado por email ao cliente.
+O cliente responde, também por email, confirmando o pedido de reparação.
+Quando o técnico regista a conclusão da reparação é enviada nova notificação por email ao cliente. Este vai à loja levantar o equipamento e o funcionário
+do balcão regista a entrega do mesmo e o pagamento.
+
+Variantes:
+\begin{enumerate}
+    \item Se cliente não confirmar a reparação, no espaço de 30 dias, o orçamento é arquivado.
+    \item Se o cliente recusar o orçamento, terá que recolher o equipamento.
+    \item Se o cliente não vier levantar o equipamento, no espaço de 90 dias, este vai para uma lista de equipamento abandonado. Nessa altura, pode ser dada baixa do equipamento.
+\end{enumerate}
+\end{document}

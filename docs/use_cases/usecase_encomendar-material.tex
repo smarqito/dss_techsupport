@@ -1,5 +1,6 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
+Encomenda do material() que se encontra com o seu \textit{stock} a 0 e que é necessário para a concretização de algum passo.
 \begin{itemize}
     \item[Use Case] {\underline{Encomendar material}}
     \item[Cenários] {3 e 4}
@@ -12,11 +13,11 @@
               \item Colaborador especializado pede material em falta para realizar reparações
               \item Sistema calcula o material necessário para concluir os passos das reparações pendentes
               \item Sistema calcula o material disponível
-              \item Sistema calcula o material necessário e sem stock disponível
+              \item Sistema calcula o material necessário e sem \textit{stock} disponível
               \item Sistema regista uma nova encomenda com o material não disponível mas necessário
           \end{enumerate}
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 1 (passo 4) [material necessário está em stock]}
+              \textbf{Fluxo de Exceção 1 (passo 4) [material necessário está em \textit{stock}]}
           \end{flushleft}
           \begin{itemize}
               \item[4.1] {Sistema comunica que não é necessário encomendar material}

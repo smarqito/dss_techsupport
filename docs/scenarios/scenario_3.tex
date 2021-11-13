@@ -1,0 +1,24 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+\textbf{Cenário 3} \label{cenario_3}
+
+O técnico de reparações acede à lista de pedidos de orçamento e escolhe o mais antigo. Utiliza o código de registo do equipamento para o ir buscar
+ao armazém e, depois de analisar a descrição do problema e o próprio equipamento, regista o plano de trabalhos para a reparação.
+
+O plano de trabalhos consiste na sequência de passos necessária para efectuar a reparação. Para cada passo o técnico define uma previsão do tempo
+necessário para a sua execução, bem como o custo das peças a utilizar, caso
+sejam necessárias. Um passo pode ser decomposto em sub-passos, caso em
+que a sua duração e custo de peças serão a soma das durações e custos de
+peças dos sub-passos.
+
+A definição do plano de trabalhos permite obter uma previsão do número total de horas de trabalho e o custo das peças necessárias. Com base nessa
+informação, é criado um orçamento que é enviado ao cliente. Nesse orçamento vai também o prazo máximo de execução da reparação, calculado
+em função do tempo necessário para reparar o equipamento e o trabalho
+actualmente por realizar.
+
+
+Variantes:
+\begin{enumerate}
+    \item Se o equipamento não poder ser reparado, essa informação é enviada ao cliente.
+\end{enumerate}
+\end{document}

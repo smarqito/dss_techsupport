@@ -69,15 +69,9 @@
 \graphicspath{ {./assets/} }
 
 % TODO
-% ABSTRACT - inclui objetivos e descrição
-% *ATUALIZAR CAPA - falta mariana
-% !descrever entidades modelos domínio
+% ABSTRACT - inclui objetivos e descrição MARCO
 % abordar motivo de criar passos e material
-% abordar feature de stock - time bounded ---- no time!!!
-% acrescentar colaborador especializado no modelo de domínio 
 % considerações finais
-% bibliografia??
-% indice ??
 
 \begin{document}
 
@@ -94,15 +88,15 @@
 
 %% Abstract name: \Large font size, flushed left and paragraph skip before abstract content
 \renewenvironment{abstract}
- {\par\noindent\textbf{\Large\abstractname}\par\bigskip}
- {}
+{\par\noindent\textbf{\Large\abstractname}\par\bigskip}
+{}
 
 \begin{flushleft}
-\begin{abstract}
-    <<O resumo tem como objectivo descrever de forma sucinta o trabalho realizado. Deverá conter uma pequena introdução, seguida por uma breve descrição do trabalho realizado e terminando com uma indicação sumária do seu estado final. Não deverá exceder as 400 palavras.>> 
-    \par \textbf{Área de Aplicação}: <<Identificação da Área de trabalho. Por exemplo: Desenho e arquitectura de Sistemas de Bases de Dados.>> 
-    \par \textbf{Palavras-Chave}: <<Conjunto de palavras-chave que permitirão referenciar domínios de conhecimento, tecnologias, estratégias, etc., directa ou indirectamente referidos no relatório. Por exemplo: Bases de Dados Relacionais, Gestão de Índices, JAVA, Protocolos de Comunicação.>>
-\end{abstract}
+    \begin{abstract}
+        <<O resumo tem como objectivo descrever de forma sucinta o trabalho realizado. Deverá conter uma pequena introdução, seguida por uma breve descrição do trabalho realizado e terminando com uma indicação sumária do seu estado final. Não deverá exceder as 400 palavras.>> 
+        \par \textbf{Área de Aplicação}: <<Identificação da Área de trabalho. Por exemplo: Desenho e arquitectura de Sistemas de Bases de Dados.>> 
+        \par \textbf{Palavras-Chave}: <<Conjunto de palavras-chave que permitirão referenciar domínios de conhecimento, tecnologias, estratégias, etc., directa ou indirectamente referidos no relatório. Por exemplo: Bases de Dados Relacionais, Gestão de Índices, JAVA, Protocolos de Comunicação.>>
+    \end{abstract}
 \end{flushleft}
 
 
@@ -146,28 +140,76 @@
 \pagenumbering{arabic}
 
 \chapter{Introdução}
-    <<Este primeiro capítulo deverá ter obrigatoriamente as subsecções abaixo apresentadas.>>
-    \section{Contextualização}
-        <<Nesta secção deverá ser apresentado o contexto no qual se desenvolve o caso de estudo seleccionado.>>
-    \section{Apresentação do Caso de Estudo}
-        <<Esta secção acolherá uma descrição concisa do caso de estudo seleccionado.>>
-    \section{Motivação e Objectivos}
-        <<Esta secção acolherá os diversos motivos, acompanhados por uma breve descrição, que conduziram à proposta e ao desenvolvimento do trabalho, assim como a apresentação detalhada dos diversos objectivos a alcançar com a sua realização.>>
-    \section{Estrutura do Relatório}
-        <<Após a leitura da introdução de um relatório é "simpático" apresentar uma breve descrição daquilo que se vai encontrar nos demais capítulos do relatório.>>
+O presente relatório foi desenvolvido no âmbito da Unidade Curricular (UC) de Desenvolvimento de Sistemas de Software (DSS),
+tendo como principal objetivo apresentar uma possível conceção de um Sistema de Gestão para Centros de Reparação de Equipamentos Eletrónicos, doravante designado \textit{aplicação}.
+
+\section{Contextualização}
+A procura por um serviço de reparação, compreende um atendimento célere e garantia de acompanhamento ao longo de todo o processo.
+Para que tal seja possível, foi proposto pela equipa docente o desenvolvimento de uma aplicação que permita essa gestão.
+
+Desta forma, foi apresentado um conjunto de possíveis cenários de utilização que a aplicação deverá ser capaz de suportar,
+dos quais se efetuou um levantamento de requisitos através de estratégias de modelação lecionadas na UC de DSS.
+
+\section{Breve descrição do enunciado proposto}
+
+Tal como referido, o enunciado propõe a conceção e implementação de uma aplicação e apresenta os cenários de utilização que deverão ser
+suportados por esta.
+
+Para a fase a que este relatório se refere - \textbf{análise}, inclui-se 
+(i) a análise do domínio do problema, através da modelação de um modelo de domínio e 
+(ii) de requisitos funcionais, onde se utlizará a modelação de requisitos funcionais, com uma visão orientada aos \textit{use cases}.
+
+
+%Tendo como primitiva principal automatizar o processo de reparação, o sistema deverá auxiliar todos os colaboradores intervenientes a executar
+%as suas funcionalidades e agilizar o Centro de Reparações.
+
+%O centro de reparações oferece dois tipos de intervenções. 
+
+%Uma intervenção \textbf{Normal}, de duração variável, em que o equipamento é reparado após a aprovação do cliente face a um orçamento criado.
+%A segunda intervenção, \textbf{Expresso}, é a preço fixo, mais rápida, e só aceite mediante disponiblidade tempo para um serviço imediato.
+%Para desenvolver o orçamento é necessário realizar uma avaliação do equipamento e definir um plano de trabalhos.
+%O plano de trabalhos consiste na sequência de passos da reparação, apontando o custo e a quantidade de material necessária, bem como o tempo 
+%previsto da reparação.
+
+%Os colaboradores são os únicos elementos intervenientes do sistema. O funcionário de balcão primeiramente identifica os clientes e o(s) respetivo(s)
+%equipamento(s), com posterior pedido de orçamento. O técnico será o responsável pela especificação do orçamento e realização da reparação. 
+%Por outro lado, o gestor terá um papel mais administrativo, avaliando os desempenhos dos outros elementos.
+
+\section{Objectivos}
+Pretende-se efetuar uma abordagem ao problema utilizando uma estratégia estruturada e sistemática, concretizando a modelação do problema.
+Assim, é possível obter um \textbf{modelo de domínio} que fornece uma \textit{framework} conceptual para raciocinar sobre o problema.
+Aqui, é capturado as \textbf{Entidades} do problema e os \textbf{Relacionamentos} entre elas.
+
+Após esta primeira etapa, procura-se analisar os requisitos, em particular os funcionais, pretendendo descrever o que o sistema deve fazer.
+
+Para além destes, o grupo pretende, ainda, desenvolver competências técnicas e conceptuais no desenvolvimento de modelos e diagramas,
+por forma a se preparar para o mercado de trabalho de \underline{Engenharia de Software}.
+
+\section{Estrutura do Relatório}
+Atendendo à estratégia definida, o grupo começará por apresentar a \textbf{Modelação de Domínio} - \ref{modelacao_dominio},
+onde se pode encontrar as várias \textbf{Entidades} capturadas, assim como o \textbf{Relacionamento} entre elas.
+Posteriormente, apresenta-se a \textbf{Modelação dos Requisitos Funcionais} - \ref{modelacao_req_funcionais}, 
+onde se procurou descrever o que o sistema deve fazer, utilizando uma visão orientada aos \textit{Use Cases}.
+Por fim, foi efetuada uma breve análise crítica do trabalho desenvolvido nesta fase.
 
 %==========================================================================
 % END INTRODUCTION
 %==========================================================================
 
-\chapter{Modelação de Domínio}
+\chapter{Modelação de Domínio} \label{modelacao_dominio}
 % breve descrição proposto + objetivos desta fase
 % objetivos: modelo de domínio
-% abordagem seguida para os atingir - reunir em grupo e fazer
-% resultados obtidos - modelos desenvolvidos
-% adicionar o modelo de Domínio
-% adicionar descrição do modelo
-\section{Entidades}
+
+Numa tentativa de capturar os elementos intervenientes do problema, as entidades e o relacionamento entre eles foi necessária
+a criação de uma visão estática do mesmo, um modelo de domínio. 
+
+Com o auxílio deste será formulada uma \textit{framework} conceptual base do sistema, permitindo raciocinar sobre o problema e estabelecer o 
+vocabulário a ser usado no decorrer do projeto.
+
+Neste sentido, como resposta à necessidade de modelar o problema e com base na análise do enunciado proposto foi possível identificar as 
+principais entidades que fazem parte do sistema(\ref{ent}) e a forma como estas interagem entre sí. 
+
+\section{Entidades}\label{ent}
 
 \subsection{Cliente}\label{ent_cliente}
 O cliente é a entidade que possui o(s) equipamento(s) que necessita(m) de intervenção técnica, cada cliente é identificado pelo 
@@ -176,27 +218,27 @@ seu Número de Identificação Fiscal (NIF).
 \subsection{Colaborador} \label{ent_colaborador}
 O Colaborador é a entidade relativa a todos os elementos que interagem diretamente com o sistema. 
 Numa forma geral, engloba todos os trabalhadores que populam o \textbf{Centro de Reparação} e, após autenticados, executam os
- serviços pedidos - Uma entidade abstrata que ramifica-se em sub-entidades(trabalhadores) mais específicas.
+serviços pedidos - Uma entidade abstrata que ramifica-se em sub-entidades(trabalhadores) mais específicas.
 
 Desde a inserção do equipamento a ser reparado no sistema até à sua eventual entrega ao cliente, o processo conta com participação
- do(s) \textbf{Funcionário(s) de Balcão} e do(s) \textbf{Colaboradore(s) Especializado(s)}.
+do(s) \textbf{Funcionário(s) de Balcão} e do(s) \textbf{Colaboradore(s) Especializado(s)}.
 
 \subsubsection{Funcionário de Balcão} \label{ent_func_balcao}
 Corresponde à entidade responsável pelo início e o término de uma reparação - o registo inicial e entrega do equipamento ao cliente, respetivamente.  
 
 \subsubsection{Colaborador Especializado} \label{ent_colab_especializado}
 Esta entidade compreende os colaboradores com competências técnicas especializadas, divergindo na sua autoridade com o Funcionário de Balcão. 
-Estes possuem a capacidade de de alterar o que considerarem necessário no Centro de Reparação.
+Estes possuem a capacidade de alterar o que considerarem necessário no Centro de Reparação.
 
 Desta forma, foi definido os seguintes tipos:
 \begin{itemize}
-    \item[\textbf{Técnico}]{Responsável por fazer o orçamento e realizar a reparação} 
+    \item[\textbf{Técnico}]{Responsável por fazer o orçamento e realizar a reparação}
     \item[\textbf{Gestor}]{Tem permissões de administração sobre todo o sistema.}
 \end{itemize}
 
 \subsection{Equipamento} \label{ent_equipamento}
 Corresponde a uma entidade que representa um objeto físico que irá entrar no sistema com a perspetiva de obter um orçamento e,
- eventualmente, originar uma reparação.
+eventualmente, originar uma reparação.
 Esta entidade é identificada por um código de registo.
 
 \subsection{Orçamento} \label{ent_orcamento}
@@ -228,104 +270,135 @@ Cada passo de reparação utiliza uma determinada categoria de material, possibi
 O material é uma entidade fundamental tanto para a previsão do orçamento como para a própria reparação.
 Este é identificado pela sua referência, está associado a um custo e está contido na categoria respetiva.
 
-\section{Diagrama de Modelo de Domínio} 
+\section{Diagrama de Modelo de Domínio}
 
-\includegraphics[scale=0.41]{Modelo.jpg}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.40]{Modelo.jpg}
+    \caption{Modelo de Domínio}
+\end{figure}
 
-\chapter{Modelação dos Requisitos Funcionais}
-% O que o sistema deve fazer:: 
-% Cenário 1:: Autenticar um colaborador; selecionar/validar um cliente;
-% Cenário 2:: Possibilitar reparação expresso
-% Cenário 3:: Definição do plano de trabalhos para a reparação
-% Cenário 4:: 
-% Cenário 5:: Listagem do desempenho dos colaboradores
+\chapter{Modelação dos Requisitos Funcionais} \label{modelacao_req_funcionais}
 
+A partir dos cenários (ver \ref{cenarios}) identificados pela equipa docente, 
+foram identificados os seguintes \textit{use cases}:
 
-Cenários foram identificados pela equipa docente.
-A partir dos cenários foram identificados os seguintes \textit{use cases}:
 \begin{itemize}
-        \item Criar reparação expresso - \ref{criar_rep_expresso}
-        \item Pedir orçamento - \ref{pedir_orcamento}
-        \item Fazer orçamento - \ref{fazer_orcamento}
-        \item Criar passo da Reparação - \ref{criar_passo_rep}
-        \item Confirmar orçamento - \ref{confirmar_orcamento}
-        \item Arquivar orçamento - \ref{arquivar_orcamento}
-        \item Realizar reparação - \ref{realizar_rep}
-        \item Realizar passo de reparação - \ref{realizar_passo_rep}
-        \item Adicionar material - \ref{adicionar_material}
-        \item Encomendar material - \ref{encomendar_material}
-        \item Receber material - \ref{receber_material}
-        \item Entregar equipamento - \ref{entregar_equipamento}
-        \item Dar baixo do equipamento - \ref{dar_baixa_equipamento}
-        \item Pedir reparação expresso - \ref{pedir_rep_xpress}
-        \item Registar equipamento - \ref{registar_equipamento}
-        \item Registar cliente - \ref{registar_cliente}
-        \item Listar resumida do técnico - \ref{listagem_tecnico_resumida}
-        \item Listar detalhada do técnico - \ref{listagem_tecnico_detalhada}
-        \item Listar funcionário do balcão - \ref{listagem_func_balcao}
+    \item Criar reparação expresso - \ref{criar_rep_expresso}
+    \item Pedir orçamento - \ref{pedir_orcamento}
+    \item Fazer orçamento - \ref{fazer_orcamento}
+    \item Criar passo da Reparação - \ref{criar_passo_rep}
+    \item Confirmar orçamento - \ref{confirmar_orcamento}
+    \item Arquivar orçamento - \ref{arquivar_orcamento}
+    \item Realizar reparação - \ref{realizar_rep}
+    \item Realizar passo de reparação - \ref{realizar_passo_rep}
+    \item Adicionar material - \ref{adicionar_material}
+    \item Encomendar material - \ref{encomendar_material}
+    \item Receber material - \ref{receber_material}
+    \item Entregar equipamento - \ref{entregar_equipamento}
+    \item Dar baixo do equipamento - \ref{dar_baixa_equipamento}
+    \item Pedir reparação expresso - \ref{pedir_rep_xpress}
+    \item Registar equipamento - \ref{registar_equipamento}
+    \item Registar cliente - \ref{registar_cliente}
+    \item Registar Colaborador - \ref{registar_colab}
+    \item Autenticar Colaborador- \ref{autenticar_colab}
+    \item Listar resumida do técnico - \ref{listagem_tecnico_resumida}
+    \item Listar detalhada do técnico - \ref{listagem_tecnico_detalhada}
+    \item Listar funcionário do balcão - \ref{listagem_func_balcao}
 \end{itemize}
 \section{Modelo de Use Cases}
 
-\includegraphics[scale=0.45]{dss-usecase.jpg}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.45]{dss-usecase.jpg}
+    \caption{Diagrama de \textit{Use Case}}
+\end{figure}
 
 \section{Especificação Use Cases}
 
 \subsection{} \label{criar_rep_expresso}
 \subfile{use_cases/usecase_criar-rep-xpress.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{pedir_orcamento}
 \subfile{use_cases/usecase_pedir-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{fazer_orcamento}
 \subfile{use_cases/usecase_fazer-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{criar_passo_rep}
 \subfile{use_cases/usecase_criar-passo.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{confirmar_orcamento}
 \subfile{use_cases/usecase_confirmar-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{arquivar_orcamento}
 \subfile{use_cases/usecase_arquivar-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{realizar_rep}
 \subfile{use_cases/usecase_realizar-reparacao.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{realizar_passo_rep}
 \subfile{use_cases/usecase_realizar-passo-reparacao.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{adicionar_material}
 \subfile{use_cases/usecase_adicionar-material.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{encomendar_material}
 \subfile{use_cases/usecase_encomendar-material.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{receber_material}
 \subfile{use_cases/usecase_receber-material.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{entregar_equipamento}
 \subfile{use_cases/usecase_entregar-equipamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{dar_baixa_equipamento}
 \subfile{use_cases/usecase_dar-baixa.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{pedir_rep_xpress}
 \subfile{use_cases/usecase_pedir-reparacao-expresso.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{registar_equipamento}
 \subfile{use_cases/usecase_registar-equipamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{registar_cliente}
 \subfile{use_cases/usecase_registar-cliente.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{registar_colab}
+\subfile{use_cases/usecase_registar-colaborador.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{autenticar_colab}
+\subfile{use_cases/usecase_autenticar-colaborador.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{listagem_tecnico_resumida}
 \subfile{use_cases/usecase_listar-tecnico-resumida.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{listagem_tecnico_detalhada}
 \subfile{use_cases/usecase_listar-tecnico-detalhada.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \subsection{} \label{listagem_func_balcao}
 \subfile{use_cases/usecase_listar-func-balcao.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
 \chapter{Considerações Finais}
 % análise crítica dos resultados
@@ -342,14 +415,12 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 
 %% acronyms
 \nomenclature[01]{\textbf{NIF}}{Número de Idenficação Fiscal}
-\nomenclature[02]{DW}{Data Warehouse}
-\nomenclature[03]{OLTP}{On-Line Analytical Processing}
-\nomenclature[04]{...}{...}
+\nomenclature[02]{UC}{Unidade Curricular}
+\nomenclature[03]{DSS}{Desenvolvimento de Sistemas de Software}
+\nomenclature[04]{aplicação}{Sistema de Gestão para Centro de Reparação de Equipamento Eletrónico}
 
 %% Show acronyms
 \printnomenclature
-
-
 
 %==========================================================================
 % END LISTA DE SIGLAS E ACRÓNIMOS
@@ -360,15 +431,13 @@ A partir dos cenários foram identificados os seguintes \textit{use cases}:
 % BEGIN ANEXOS
 %==========================================================================
 
-%% Why \addchap, instead of \chapter? 
-%% \addchap has no numbering but appears in table of contents.
 \addchap{Anexos}
-
-    <<Os anexos deverão ser utilizados para a inclusão de informação adicional necessária para uma melhor compreensão do relatório o para complementar tópicos, secções ou assuntos abordados. Os anexos criados deverão ser numerados e possuir uma designação. Estes dados permitirão complementar o Índice geral do relatório relativamente à enumeração e apresentação dos diversos anexos.>>
-    
-    %% section version of \addchap
-    \addsec{Anexo 1}
-
+\addsec{Anexo 1 - Cenários } \label{cenarios}
+\subfile{scenarios/scenario_1.tex}
+\subfile{scenarios/scenario_2.tex}
+\subfile{scenarios/scenario_3.tex}
+\subfile{scenarios/scenario_4.tex}
+\subfile{scenarios/scenario_5.tex}
 
 %==========================================================================
 % END ANEXOS

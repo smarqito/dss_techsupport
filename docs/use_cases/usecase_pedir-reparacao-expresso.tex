@@ -1,10 +1,11 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
+Registo do pedido de um serviço expresso.
 \begin{itemize}
     \item[Use Case] {\underline{Pedir reparação expresso}}
     \item[Cenários] {2}
     \item[Pré-condição] {Funcionário autenticado e cliente registado}
-    \item[Pós-condição] {Equipamento reparado}
+    \item[Pós-condição] {Equipamento adicionado à lista de equipamentos por reparar}
           \begin{flushleft}
               \textbf{Fluxo Normal}
           \end{flushleft}
@@ -15,7 +16,6 @@
               \item Funcionário insere identificador do equipamento
               \item Funcionário regista pedido de reparação
               \item Sistema adiciona pedido
-              \item Funcionário entrega equipamento
           \end{enumerate}
 
           \begin{flushleft}
