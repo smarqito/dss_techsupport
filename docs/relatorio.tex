@@ -106,10 +106,10 @@
         Posteriormente, conseguiu-se realizar a modelação dos requisitos funcionais.
         Assim, foi desenvolvido um \textbf{Modelo de Domínio} e um \textbf{Diagrama de \textit{Use Case}},
         assim como as respetivas descrições dos mesmos.
-    
+        
         A estratégia utilizada permitiu seguir uma linha de raciocínio estruturada e ao utilizar uma linguagem de modelação unificada obteve-se
         um conjunto de diagramas que são facilmente interpretáveis entre pares.
-
+        
         \par \textbf{Área de Aplicação}: Análise de Requisitos
         \par \textbf{Palavras-Chave}: \textit{Unified Modeling Language} (UML), \textit{Visual Paradigm}, Modelação de Domínio, Modelação de Requisitos Funcionais, Diagrama de \textit{Use Case}, Modelo de Domínio, Análise de Projeto, Conceção de Projeto, Análise de Requisitos
     \end{abstract}
@@ -175,22 +175,6 @@ Para a fase a que este relatório se refere - \textbf{análise}, inclui-se
 (i) a análise do domínio do problema, através da modelação de um modelo de domínio e 
 (ii) de requisitos funcionais, onde se utlizará a modelação de requisitos funcionais, com uma visão orientada aos \textit{use cases}.
 
-
-%Tendo como primitiva principal automatizar o processo de reparação, o sistema deverá auxiliar todos os colaboradores intervenientes a executar
-%as suas funcionalidades e agilizar o Centro de Reparações.
-
-%O centro de reparações oferece dois tipos de intervenções. 
-
-%Uma intervenção \textbf{Normal}, de duração variável, em que o equipamento é reparado após a aprovação do cliente face a um orçamento criado.
-%A segunda intervenção, \textbf{Expresso}, é a preço fixo, mais rápida, e só aceite mediante disponiblidade tempo para um serviço imediato.
-%Para desenvolver o orçamento é necessário realizar uma avaliação do equipamento e definir um plano de trabalhos.
-%O plano de trabalhos consiste na sequência de passos da reparação, apontando o custo e a quantidade de material necessária, bem como o tempo 
-%previsto da reparação.
-
-%Os colaboradores são os únicos elementos intervenientes do sistema. O funcionário de balcão primeiramente identifica os clientes e o(s) respetivo(s)
-%equipamento(s), com posterior pedido de orçamento. O técnico será o responsável pela especificação do orçamento e realização da reparação. 
-%Por outro lado, o gestor terá um papel mais administrativo, avaliando os desempenhos dos outros elementos.
-
 \section{Objectivos}
 Pretende-se efetuar uma abordagem ao problema utilizando uma estratégia estruturada e sistemática, concretizando a modelação do problema.
 Assim, é possível obter um \textbf{modelo de domínio} que fornece uma \textit{framework} conceptual para raciocinar sobre o problema.
@@ -218,6 +202,45 @@ a criação de uma visão estática do mesmo, \textit{i.e.} um modelo de domíni
 
 Com o auxílio deste será formulada uma \textit{framework} conceptual do sistema, permitindo raciocinar sobre o problema e estabelecer o 
 vocabulário a ser usado no decorrer do projeto.
+
+\section{Descrição do problema}
+O centro de reparações oferece dois tipos de intervenções:
+\begin{itemize}
+    \item[Normal]{Uma intervenção de duração variável, em que o equipamento é reparado após a aprovação do cliente face a um orçamento criado.}
+    \item[Expresso]{Conjunto de serviços limitado, com preço fixo e 
+                    que apenas é aceite mediante disponiblidade de tempo para realização imediata.
+                   }
+\end{itemize}
+
+Para desenvolver o orçamento é necessário realizar uma avaliação do equipamento e definir um plano de trabalhos. 
+Este consiste na sequência de passos da reparação, cada um apontando o custo, a quantidade de material necessária e o tempo 
+previsto da reparação.
+
+Os colaboradores são os principais atores do sistema. 
+O funcionário de balcão identifica o(s) cliente(s) e o(s) respetivo(s) equipamento(s). Posteriormente, efetua o pedido de orçamento.
+Assume-se que um cliente pode ter um ou mais equipamentos.
+Sendo que o equipamento pode avariar mais do que uma vez, torna-se relevante a sua entidade ser reutilizada entre cada reparação.
+Por isso, um equipamento tem um histórico de reparações, assim como histórico de orçamentos.
+
+O técnico é o responsável pela especificação do orçamento e realização da reparação.
+Por uma questão de otimização de tempo e recursos, um técnico pode estar associado a mais do que uma reparação,
+assim como uma reparação pode ser executada por mais do que um técnico 
+(por exemplo, quando um técnico termina o seu turno, outro pode pedir ao sistema uma reparação pendente e dar-lhe continuidade).
+Para o desenvolvimento de um orçamento, o técnico constrói um novo plano de trabalhos.
+Este, por sua vez, é constituído por um conjunto de passos de reparação.
+Para tornar o sistema mais flexível, optou-se por associar uma categoria de material ao passo,
+permitindo que o mesmo \textbf{passo de reparação} possa ser reutilizado em mais que um plano de trabalhos.
+Ainda com o mesmo propósito, optou-se por associar qualquer tipo de reparação à entidade \textbf{Reparação},
+sendo que esta contém um plano de trabalhos.
+Esta estratégia permite que até a reparação expresso (que tem características particulares - serviço fixo),
+possa ser caracterizada por um plano de trabalhos.
+
+Atendendo que a reparação gasta \textbf{Material}, optou-se por acrescentar a \textbf{Quantidade} de material em \textit{stock}.
+Esta alteração permitiu calcular quais as reparações que podem avançar,
+bem como o material que é necessário encomendar (ver \ref{encomendar_material}).
+
+Por último, o gestor terá um papel de administração, avaliando os desempenhos dos outros elementos e
+recrutando novos colaboradores (tendo de os adicionar ao sistema).
 
 Neste sentido, como resposta à necessidade de modelar o problema e com base na análise do enunciado proposto foram identificadas as 
 principais entidades (\ref{ent}) que fazem parte do sistema, assim como os relacionamentos entre elas. 
@@ -252,7 +275,10 @@ Desta forma, foi definido os seguintes tipos:
 \subsection{Equipamento} \label{ent_equipamento}
 Corresponde a uma entidade que representa um objeto físico que irá entrar no sistema com a perspetiva de obter um orçamento e,
 eventualmente, originar uma reparação.
-Esta entidade é identificada por um código de registo.
+Esta entidade é identificada por um código de registo e marca.
+Optou-se por um identificador duplo - \{marca, código de registo\}, 
+por forma a garantir que cada equipamento é facilmente identificado sem repetições.
+O código de registo é o número de série.
 
 \subsection{Orçamento} \label{ent_orcamento}
 O orçamento é a entidade associada a um plano de trabalhos estabelecido pelo técnico e ao prazo máximo de execução da reparação.
@@ -284,17 +310,6 @@ O material é uma entidade fundamental tanto para a previsão do orçamento como
 Este é identificado pela sua referência, está associado a um custo e está contido na categoria respetiva.
 
 \section{Diagrama de Modelo de Domínio}
-Como já foi referido, o modelo de domínio representa estaticamente, as identidades e as suas relações. 
-
-O colaborador e o cliente estabelecem contacto a partir de uma forma de contacto, cada contacto realizado necessita de ser registado.
-
-Um técnico é responsável pela especificação de vários orçamentos, estes são concebidos com base no plano de trabalhos desenvolvido. É no plano de trabalhos que se 
-permite obter a previsão do tempo e o custo do material necessário que se calcula o preço e prazo máximo de reparacão do orçamento. 
-
-Nos dois tipos de serviços disponíveis, a reparação do equipamento está associada a um plano de trabalhos. % plano é  guia da reparação % 
-
-De forma a eviar a constante criação de novos passos da reparação devido a utilizar materiais com o mesmo fim mas com referências diferentes, criamos a classe
-de material que agregará materiais da mesma "espécie". Assim a relação entre o passo da reparação e a classe de mateiral é caracterizada por um material.
 
 \begin{figure}[!ht]
     \centering
@@ -425,12 +440,15 @@ foram identificados os seguintes \textit{use cases}:
 \noindent{\rule{\textwidth}{0.4pt}
 
 \chapter{Considerações Finais}
-
+% pontos positivos
+% pontos negativos
+% estratégia foi adequada?
+% 
 % Principais dificuldades: Inicialmente divisão dos cenários por uses cases, o que incluir no modelo de use case da reparação de um equipamento
 %                           Como definir os passos da reparação, como defenir cada passo surgindo a ideia do material, 
 %                           associação do cliente e o colaborador(associação para relação n-ária), presença do system timer no dominio como classe,  ... 
 %
-% O que poderiamos melhorar: 
+% O que poderiamos melhorar:  
 %
 %
 % Como superar:
