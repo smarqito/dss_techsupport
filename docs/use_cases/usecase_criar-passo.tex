@@ -10,18 +10,34 @@ Registo no sistema de um novo passo, introduzindo o tempo e peças necessárias 
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Colaborador especializado insere nome do passo, breve descrição e tempo previsto
-              \item Sistema regista nome do passo, breve descrição e tempo previsto
-              \item Colaborador especializado insere referência do material
-              \item Sistema verifica referência do material
+              \item Colaborador especializado insere nome do passo da reparação
+              \item Sistema verifica nome do passo da reparação
+              \item Colaborador especializado insere dados do passo da reparação
+              \item Colaborador especializado insere categoria do material
+              \item Sistema verifica categoria do material
               \item Sistema regista passo de reparação
           \end{enumerate}
           \begin{flushleft}
-		      \textbf{Fluxo Alternativo 1 (passo 4) [Material não registado]}
+            \textbf{Fluxo de Exceção 1 (passo 2) [Nome já existe]}
+        \end{flushleft}
+        \begin{itemize}
+            \item[2.1]  Sistema comunica que nome do passo da reparação já existe
+        \end{itemize}
+          \begin{flushleft}
+		      \textbf{Fluxo Alternativo 2 (passo 4) [Material não registado]}
 	      \end{flushleft}
 	      \begin{itemize}
 		      \item[4.1]  $\ll include \gg$ Adicionar Material
               \item[4.2] Regressa ao passo 5
 	      \end{itemize}
+          \begin{flushleft}
+            \textbf{Fluxo Alternativo 3 (passo 5) [Categoria não existe]}
+        \end{flushleft}
+        \begin{itemize}
+            \item[5.1] Sistema comunica que categoria não existe 
+            \item[5.2] Colaborador especializado insere nome da categoria 
+            \item[5.3] Sistema regista nova categoria
+            \item[5.4] Regressa ao passo 6
+        \end{itemize}
 \end{itemize}
 \end{document}
