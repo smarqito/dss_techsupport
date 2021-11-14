@@ -1,0 +1,214 @@
+%% Blue cover color
+\definecolor{titlepagecolor}{RGB}{54,95,145}
+
+%==========================================================================
+% COLORED BAR ON THE LEFT SIDE
+%==========================================================================
+
+\backgroundsetup{
+    scale=1,
+    angle=0,
+    opacity=1,
+    contents={
+            \begin{tikzpicture}[remember picture,overlay]
+                \path [fill=titlepagecolor]
+                (current page.north west) -- ($(current page.north west) + (5,0)$)
+                -- ($(current page.south west) + (5,0)$)-- (current page.south west);
+                \node[color=white] at ($(current page.south west) + (3,4)$) {\bfseries {\fontsize{50}{60} \textsf{DSS}}};
+                %\node[color=titlepagecolor] at ($(current page.south west) + (5.8,4)$) {\bfseries {\fontsize{120}{60} \textsf{4}}};
+            \end{tikzpicture}
+        }
+}
+
+%==========================================================================
+% TITLE PAGE INFO
+%==========================================================================
+
+%% Changes values in this field to show information in the cover and back cover about your team/project
+
+
+%% TITLE
+\title{Sistema de apoio a departamento técnico}
+
+%% AUTHORS
+\author{
+    \begin{tabular} { c c }
+        \includegraphics[scale=0.2]{author/marco.jpg} & \includegraphics[scale=0.2]{author/mariana.jpg} \\
+        62608 - Marco Sousa                           & 93198 - Mariana Marques                       \\
+        %\hline                                                                                        \\
+        \includegraphics[scale=0.2]{author/ze.jpg} & \includegraphics[scale=0.2]{author/miguel.jpg} \\
+        93271 - José Malheiro                         & 94269 - Miguel Fernandes
+    \end{tabular}
+}
+
+%% Date
+
+\date{\today}
+
+%% Course
+\newcommand{\Course}{Licenciatura em Engenharia Informática}
+
+%% Department
+\newcommand{\Department}{Escola de Engenharia}
+
+%% UniName
+\newcommand{\UniName}{Universidade do Minho}
+
+\newcommand{\UcName}{Desenvolvimento de Sistemas de Software}
+
+\newcommand{\GroupId}{Grupo 31}
+
+%% UniPic
+\newcommand{\UniPic}{\includegraphics[scale=0.09]{uminho.png}}
+
+%% University 
+\newcommand{\University}{
+    \begin{flushleft}
+        \UniPic
+    \end{flushleft}
+    \textcolor{gray}{\small\textbf{\textsf{\UniName}}}\par
+    \textcolor{gray!80!white}{\small{\textsf{\Department}}}\par
+    \textcolor{gray!70!white}{\small{\textsf{\Course}}}
+}
+
+%% UC
+\newcommand{\UC}{
+    \begin{flushleft}
+        \par\textcolor{titlepagecolor}{  \LARGE\textbf{\textsf{Unidade Curricular de \\ \UcName}}}
+    \end{flushleft}
+}
+
+%% School Year
+\newcommand{\SchoolYear}{
+    \small{\textsf{Ano Letivo de 2021/2022}}}
+
+
+%% Define new command to show title, author and date
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%==========================================================================
+% CLASSIFICATION SECTION 
+%==========================================================================
+
+%% School Year
+\newcommand{\ReceptionDate}{}
+%% Responsible
+\newcommand{\Responsible}{}
+%% Evaluation
+\newcommand{\Evaluation}{}
+%% Observations
+\newcommand{\Observations}{}
+
+
+
+
+
+%% MAKETEMPLATE
+\newcommand{\makecover}{
+
+    %==========================================================================
+    % BEGIN COVER PAGE 
+    %==========================================================================
+
+    %% Removes page number on footer
+    \thispagestyle{empty}
+
+    %% No indentation 
+    \setlength{\parindent}{0em}
+
+    %% Put Background defined on \backgroundsetup, in this page
+    \BgThispage
+
+    %% Changing geometry to prevent overlay with text
+    %% At the end of back cover, geometry is default with \restoregeometry
+    \newgeometry{top=3.5cm,left=6cm,right=3cm,bottom=2cm}
+
+    %% builds university info defined previously
+    \University
+    \vspace{1cm}
+    %% builds curricular unity info defined previously
+    \UC
+    %% builds school year info defined previously
+    \SchoolYear
+
+    \vspace*{4cm}
+    %% bigger space (i think its the default one) between paragraphs 
+    \setlength{\parskip}{1em}
+
+    %% builds title info defined previously
+    \par\textbf{\textsf{\huge\Title}}
+    \par\textbf{\GroupId}
+    \vspace{1cm}
+    %% builds author(s) info defined previously
+    \par\begin{center}
+        \Author
+    \end{center}
+
+    \vspace{0.5cm}
+
+    %% builds date info defined previously
+    \par\Date
+    \restoregeometry
+    \pagebreak
+
+    %==========================================================================
+    % END COVER PAGE 
+    %==========================================================================
+
+    %==========================================================================
+    % BEGIN BACK COVER PAGE 
+    %==========================================================================
+
+    %% Removes page number on footer
+    % \thispagestyle{empty}
+
+    % % Changing look of lines in tabular environment 
+    % % Dashed -> dotted 
+    % %% length of dashes
+    % \setlength\dashlinedash{0.3pt}
+    % %% space between dashes
+    % \setlength\dashlinegap{1.5pt}
+    % %% width of dashes
+    % \setlength\arrayrulewidth{1.1pt}
+
+
+    % %% This values can be changed in the preamble
+    % \begin{flushright}
+    %     \begin{tabular}{ :p{4cm}:p{4cm}: }
+    %         \hdashline
+    %         Data de Receção & \ReceptionDate \\ [2ex]
+    %         \hdashline
+    %         Responsável     & \Responsible   \\ [2ex]
+    %         \hdashline
+    %         Avalição        & \Evaluation    \\ [2ex]
+    %         \hdashline
+    %         Observações     & \Observations  \\ [7ex]
+    %         \hdashline
+    %     \end{tabular}
+    % \end{flushright}
+
+
+    % \vspace{10cm}
+    % \begin{flushleft}
+
+    %     %% builds title info defined previously
+    %     \par\textbf{\textsf{\huge\Title}}
+    %     \vspace{1cm}
+    %     %% builds author info defined previously
+    %     \par\Author
+
+    %     \vspace{0.5cm}
+
+    %     %% builds date info defined previously
+    %     \par\Date
+    % \end{flushleft}
+
+    % \pagebreak
+    %==========================================================================
+    % END BACK COVER PAGE 
+    %==========================================================================
+}

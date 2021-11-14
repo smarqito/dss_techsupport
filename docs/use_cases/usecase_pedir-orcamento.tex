@@ -1,5 +1,6 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
+Resgisto do pedido de orçamento de um equipamento através do seu identificador.
 \begin{itemize}
 	\item[Use Case] {\underline{Pedir orçamento}}
 	\item[Cenários] {1 e 2}
@@ -12,12 +13,13 @@
 		      \item Funcionário insere identificador do cliente
               \item Sistema seleciona cliente
 		      \item Funcionário insere identificador do equipamento
+		      \item Sistema verifica identificador do equipamento
 		      \item Funcionário regista pedido de orçamento
 		      \item Sistema adiciona pedido de orçamento
 	      \end{enumerate}
 
 	      \begin{flushleft}
-		      \textbf{Fluxo Alternativo 1 (passo 2) [Equipamento não registado]}
+		      \textbf{Fluxo Alternativo 1 (passo 4) [Equipamento não registado]}
 	      \end{flushleft}
 	      \begin{itemize}
 		      \item[2.1] $\ll include \gg$ Registar equipamento

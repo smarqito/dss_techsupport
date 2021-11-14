@@ -1,5 +1,8 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
+Registo de um orçamento relativo a um pedido de orçamento, através do seu identificador.
+O técnico constrói o plano de trabalhos e, quando finalizado, o sistema envia orçamento ao cliente,
+registando data e hora.
 \begin{itemize}
     \item[Use Case] {\underline{Fazer orçamento}}
     \item[Cenários] {3}
@@ -9,12 +12,14 @@
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Técnico pede orçamento mais antigo
-              \item Sistema devolve orçamento mais antigo
+              \item Técnico solicita pedido de orçamento mais antigo
+              \item Sistema devolve pedido de orçamento mais antigo
               \item Técnico utiliza identificador para levantar equipamento
-              \item Técnico regista plano de trabalhos para a reparação
+              \item Técnico define plano de trabalhos para a reparação
+              \item Sistema regista plano de trabalhos para a reparação
               \item Sistema gera orçamento e regista-o
               \item Sistema envia orçamento ao cliente
+              \item Sistema regista data e hora de comunicação
           \end{enumerate}
           \begin{flushleft}
               \textbf{Fluxo de Exceção 1 (passo 4) [Equipamento não pode ser reparado]}

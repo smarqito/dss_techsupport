@@ -1,0 +1,26 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+Encomenda do material que se encontra com o seu \textit{stock} a 0 e que é necessário para a concretização de algum passo.
+\begin{itemize}
+    \item[Use Case] {\underline{Encomendar material}}
+    \item[Cenários] {3 e 4}
+    \item[Pré-condição] {Colaborador especializado autenticado e reparações pendentes}
+    \item[Pós-condição] {Sistema regista nova encomenda}
+          \begin{flushleft}
+              \textbf{Fluxo Normal}
+          \end{flushleft}
+          \begin{enumerate}
+              \item Colaborador especializado pede material em falta para realizar reparações
+              \item Sistema calcula o material necessário para concluir os passos das reparações pendentes
+              \item Sistema calcula o material disponível
+              \item Sistema calcula o material necessário e sem \textit{stock} disponível
+              \item Sistema regista uma nova encomenda com o material não disponível mas necessário
+          \end{enumerate}
+          \begin{flushleft}
+              \textbf{Fluxo de Exceção 1 (passo 4) [material necessário está em \textit{stock}]}
+          \end{flushleft}
+          \begin{itemize}
+              \item[4.1] {Sistema comunica que não é necessário encomendar material}
+          \end{itemize}
+\end{itemize}
+\end{document}

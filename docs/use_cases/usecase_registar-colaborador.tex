@@ -1,0 +1,20 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+Registo de um novo colaborador no sistema pelo Gestor, sendo-lhe associado um número de identificação.
+\begin{itemize}
+    \item[Use Case] {\underline{Registar Colaborador}}
+    \item[Cenários] {1, 2, 3, 4 e 5} 
+    % no cenário 1 diz que o colaborador está autenticado
+    % implicitamente, pode-se concluir que é necessário haver um registo
+    \item[Pré-condição] {Gestor autenticado}
+    \item[Pós-condição] {Novo colaborador registado}
+            \begin{flushleft}
+                \textbf{Fluxo Normal}
+            \end{flushleft}
+            \begin{enumerate}
+                \item Gestor insere nome e função do Colaborador
+                \item Sistema calcula número de identificação
+                \item Sistema regista Colaborador
+            \end{enumerate}
+\end{itemize}
+\end{document}

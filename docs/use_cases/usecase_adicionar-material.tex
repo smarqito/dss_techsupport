@@ -1,0 +1,25 @@
+\documentclass[../relatorio.tex]{subfiles}
+\begin{document}
+Adicionar um material ao sistema, utilizando os respetivos dados.
+\begin{itemize}
+    \item[Use Case] {\underline{Adicionar material}}
+    \item[Cenários] {3}
+    \item[Pré-condição] {Colaborador especializado autenticado}
+    \item[Pós-condição] {Material é adicionado ao Sistema}
+          \begin{flushleft}
+              \textbf{Fluxo Normal}
+          \end{flushleft}
+          \begin{enumerate}
+              \item Colaborador especializado insere referência do material
+              \item Sistema verifica código de registo
+              \item Colaborador especializado insere custo do material
+              \item Sistema adiciona material ao Sistema
+          \end{enumerate}
+          \begin{flushleft}
+              \textbf{Fluxo de Exceção 1 (passo 2) [Código de registo já no sistema]}
+          \end{flushleft}
+          \begin{itemize}
+              \item[2.1] Sistema informa que material já está registado
+          \end{itemize}
+\end{itemize}
+\end{document}

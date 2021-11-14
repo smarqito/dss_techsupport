@@ -1,76 +1,505 @@
-
-\documentclass[a4paper, 12pt]{article}
-%\usepackage{portuguese}{babel}
+\documentclass[a4paper,12pt]{scrreprt}
+    %% Used for changing geometry of the page
+    %% Cover page text cannot overlay cover sketching/style 
+    %% https://ctan.org/pkg/geometry?lang=en
+\usepackage{geometry}
+    %% Changes language of some packages protocols
+    %% e.g., when captioning images: Figure 1. -> Figura 1.
+    %% https://ctan.org/pkg/babel?lang=en
+\usepackage[portuguese]{babel}
+    %% Used for special fonts
+    %% Cannot be compiled with pdflatex
+    %% https://ctan.org/pkg/fontspec?lang=en
+\usepackage{fontspec}
+    %% Arial FONT
+    \setmainfont{Arial}
 \usepackage{subfiles}
-\usepackage{forloop}
+    %% More colors and color options
+    %% https://ctan.org/pkg/xcolor?lang=en
+    %% https://ctan.org/pkg/colortbl?lang=en
+\usepackage{xcolor,colortbl}
+    %% More tabular options, like dashed/dotted lines
+    %% https://ctan.org/pkg/arydshln?lang=en
 \usepackage{arydshln}
-\usepackage{fancyhdr}
+    %% List of acronyms
+    %% https://ctan.org/pkg/nomencl?lang=en
+\usepackage[intoc]{nomencl}
+    %% Must be called to init nomencl environment  
+    \makenomenclature
+    %% More images options/settings
+    %% https://ctan.org/pkg/graphicx?lang=en
+\usepackage{graphics}
+    %% Defining subdirectories to image path enviornment
+    %% \graphicspath{{sub1}{sub2}...{subN}}
+    \graphicspath{{images}}
+    
+    %% used to handle cross-referencing commands in LaTeX to produce hypertext links in the document
+    %% https://ctan.org/pkg/hyperref?lang=en
+\usepackage{hyperref}
+    %% math environments
+    %% https://ctan.org/pkg/amsmath?lang=en
 
-\title {Desenvolvimento de Sistemas de Software}
-\author{\textbf{Grupo 31} \\
-        62608 - Marco Sousa \\
-        93198 - Mariana Marques \\
-        93271 - José Malheiro \\
-        94269 - Miguel Fernandes}
+    %% settings
+    \hypersetup{
+        colorlinks,
+        citecolor=black,
+        filecolor=black,
+        linkcolor=black,
+        urlcolor=black
+    }
+
+\usepackage{amsmath}
+    %% Defining backgrouns, used to make the cover
+    %% https://ctan.org/pkg/background?lang=en
+\usepackage[some]{background}
+    %% Used to make drawings or complex graphics
+    %% http://pgf.sourceforge.net/pgf_CVS.pdf
+\usepackage{tikz}
+    %% Tikz library to point operations ((x1,y1) + (x2,y2))
+    \usetikzlibrary{calc}
+
+%% Defining sfdefault font and default font for document
+\renewcommand{\familydefault}{\sfdefault}
+
+
+%% Costume made cover 
+%% From there you can use \makecover command to build the cover
+\include{cover}
+
+\graphicspath{ {./assets/} }
+
+% TODO
+% ABSTRACT - inclui objetivos e descrição MARCO
+% abordar motivo de criar passos e material
+% considerações finais
 
 \begin{document}
-\maketitle
 
-\section{Modelo de Domínio}
-% adicionar o modelo de domínio
-% adicionar descrição do modelo
+\pagenumbering{gobble}
 
-\section{Modelação dos Requisitos Funcionais}
-% O que o sistema deve fazer
-Cenários foram identificados pela equipa docente.
-% adicionar o diagrama de use case
-A partir dos cenários foram identificados os seguintes \textit{use cases}:
+% builds the cover
+\makecover
+
+%==========================================================================
+% BEGIN ABSTRACT PAGE
+%==========================================================================
+
+
+
+%% Abstract name: \Large font size, flushed left and paragraph skip before abstract content
+\renewenvironment{abstract}
+{\par\noindent\textbf{\Large\abstractname}\par\bigskip}
+{}
+
+\begin{flushleft}
+    \begin{abstract}
+        %=============
+        % How to build an abstract
+        % https://users.ece.cmu.edu/~koopman/essays/abstract.html
+        %=============
+        A utilização de modelos auxilia a compreensão do problema, simplifica a comunicação de ideias e documenta as decisões tomadas durante o desenvolvimento.
+        
+        Um centro de reparações encontra problemas diários que limitam a sua capacidade de resposta,
+        diminuindo a eficiência dos colaboradores e impactando no volume de trabalho concretizado.
+        
+        Através da análise dos cenários de utilização, foi possível efetuar uma modelação do domínio.
+        Posteriormente, conseguiu-se realizar a modelação dos requisitos funcionais.
+        Assim, foi desenvolvido um \textbf{Modelo de Domínio} e um \textbf{Diagrama de \textit{Use Case}},
+        assim como as respetivas descrições dos mesmos.
+        
+        A estratégia utilizada permitiu seguir uma linha de raciocínio estruturada e ao utilizar uma linguagem de modelação unificada obteve-se
+        um conjunto de diagramas que são facilmente interpretáveis entre pares.
+        
+        \par \textbf{Área de Aplicação}: Análise de Requisitos
+        \par \textbf{Palavras-Chave}: \textit{Unified Modeling Language} (UML), \textit{Visual Paradigm}, Modelação de Domínio, Modelação de Requisitos Funcionais, Diagrama de \textit{Use Case}, Modelo de Domínio, Análise de Projeto, Conceção de Projeto, Análise de Requisitos
+    \end{abstract}
+\end{flushleft}
+
+
+\pagebreak
+
+%==========================================================================
+% END ABSTRACT PAGE 
+%==========================================================================
+
+%==========================================================================
+% BEGIN INDEXES PAGES
+%==========================================================================
+
+%% Changes table of content name
+%% Portuguese babel default : "Conteúdo"
+%% Personally I prefer "índice"
+\renewcommand{\contentsname}{Índice}
+
+\tableofcontents
+
+\pagebreak
+
+\listoffigures
+
+\pagebreak
+
+%\listoftables
+
+%\pagebreak
+
+%==========================================================================
+% END INDEXES PAGES 
+%==========================================================================
+
+
+%==========================================================================
+% BEGIN INTRODUCTION
+%==========================================================================
+
+%% Starting page numbering here
+\pagenumbering{arabic}
+
+\chapter{Introdução}
+O presente relatório foi desenvolvido no âmbito da Unidade Curricular (UC) de Desenvolvimento de Sistemas de Software (DSS),
+tendo como principal objetivo apresentar uma possível conceção de um Sistema de Gestão para Centros de Reparação de Equipamentos Eletrónicos, doravante designado \textit{aplicação}.
+
+\section{Contextualização}
+A procura por um serviço de reparação, compreende um atendimento célere e garantia de acompanhamento ao longo de todo o processo.
+Para que tal seja possível, foi proposto pela equipa docente o desenvolvimento de uma aplicação que permita essa gestão.
+
+Desta forma, foi apresentado um conjunto de possíveis cenários de utilização que a aplicação deverá ser capaz de suportar,
+dos quais se efetuou um levantamento de requisitos através de estratégias de modelação lecionadas na UC de DSS.
+
+\section{Breve descrição do enunciado proposto}
+
+Tal como referido, o enunciado propõe a conceção e implementação de uma aplicação e apresenta os cenários de utilização que deverão ser
+suportados por esta.
+
+Para a fase a que este relatório se refere - \textbf{análise}, inclui-se 
+(i) a análise do domínio do problema, através da modelação de um modelo de domínio e 
+(ii) de requisitos funcionais, onde se utlizará a modelação de requisitos funcionais, com uma visão orientada aos \textit{use cases}.
+
+\section{Objectivos}
+Pretende-se efetuar uma abordagem ao problema utilizando uma estratégia estruturada e sistemática, concretizando a modelação do problema.
+Assim, é possível obter um \textbf{modelo de domínio} que fornece uma \textit{framework} conceptual para raciocinar sobre o problema.
+Aqui, é capturado as \textbf{Entidades} do problema e os \textbf{Relacionamentos} entre elas.
+
+Após esta primeira etapa, procura-se analisar os requisitos, em particular os funcionais, pretendendo descrever o que o sistema deve fazer.
+
+Para além destes, o grupo pretende, ainda, desenvolver competências técnicas e conceptuais no desenvolvimento de modelos e diagramas,
+por forma a se preparar para o mercado de trabalho de \underline{Engenharia de Software}.
+
+\section{Estrutura do Relatório}
+Atendendo à estratégia definida, o grupo começará por apresentar a \textbf{Modelação de Domínio} - \ref{modelacao_dominio},
+onde se pode encontrar as várias \textbf{Entidades} capturadas, assim como o \textbf{Relacionamento} entre elas.
+Posteriormente, apresenta-se a \textbf{Modelação dos Requisitos Funcionais} - \ref{modelacao_req_funcionais}, 
+onde se procurou descrever o que o sistema deve fazer, utilizando uma visão orientada aos \textit{Use Cases}.
+Por fim, foi efetuada uma breve análise crítica do trabalho desenvolvido nesta fase.
+
+%==========================================================================
+% END INTRODUCTION
+%==========================================================================
+
+\chapter{Modelação de Domínio} \label{modelacao_dominio}
+Numa tentativa de capturar os elementos intervenientes do problema, as entidades e o relacionamento entre eles foi necessária
+a criação de uma visão estática do mesmo, \textit{i.e.} um modelo de domínio. 
+
+Com o auxílio deste será formulada uma \textit{framework} conceptual do sistema, permitindo raciocinar sobre o problema e estabelecer o 
+vocabulário a ser usado no decorrer do projeto.
+
+\section{Descrição do problema}
+O centro de reparações oferece dois tipos de intervenções:
 \begin{itemize}
-        \item Pedir orçamento - \ref{pedir_orcamento}
-        \item Fazer orçamento - \ref{fazer_orcamento}
-        \item Confirmar orçamento - \ref{confirmar_orcamento}
-        \item Realizar reparação - \ref{realizar_rep}
-        \item Entregar equipamento - \ref{entregar_equipamento}
-        \item Pedir reparação expresso - \ref{pedir_rep_xpress}
-        \item Registar equipamento - \ref{registar_equipamento}
-        \item Listagem resumida do técnico - \ref{listagem_tecnico_resumida}
-        \item Listagem detalhada do técnico - \ref{listagem_tecnico_detalhada}
-        \item Listagem funcionário do balcão - \ref{listagem_func_balcao}
+    \item[Normal]{Uma intervenção de duração variável, em que o equipamento é reparado após a aprovação do cliente face a um orçamento criado.}
+    \item[Expresso]{Conjunto de serviços limitado, com preço fixo e 
+                    que apenas é aceite mediante disponiblidade de tempo para realização imediata.
+                   }
 \end{itemize}
-\subsection{Modelo de Use Cases}
 
-\subsection{Especificação Use Cases}
+Para desenvolver o orçamento é necessário realizar uma avaliação do equipamento e definir um plano de trabalhos. 
+Este consiste na sequência de passos da reparação, cada um apontando o custo, a quantidade de material necessária e o tempo 
+previsto da reparação.
 
-\subsubsection{} \label{pedir_orcamento}
+Os colaboradores são os principais atores do sistema. 
+O funcionário de balcão identifica o(s) cliente(s) e o(s) respetivo(s) equipamento(s). Posteriormente, efetua o pedido de orçamento.
+Assume-se que um cliente pode ter um ou mais equipamentos.
+Sendo que o equipamento pode avariar mais do que uma vez, torna-se relevante a sua entidade ser reutilizada entre cada reparação.
+Por isso, um equipamento tem um histórico de reparações, assim como histórico de orçamentos.
+
+O técnico é o responsável pela especificação do orçamento e realização da reparação.
+Por uma questão de otimização de tempo e recursos, um técnico pode estar associado a mais do que uma reparação,
+assim como uma reparação pode ser executada por mais do que um técnico 
+(por exemplo, quando um técnico termina o seu turno, outro pode pedir ao sistema uma reparação pendente e dar-lhe continuidade).
+Para o desenvolvimento de um orçamento, o técnico constrói um novo plano de trabalhos.
+Este, por sua vez, é constituído por um conjunto de passos de reparação.
+Para tornar o sistema mais flexível, optou-se por associar uma categoria de material ao passo,
+permitindo que o mesmo \textbf{passo de reparação} possa ser reutilizado em mais que um plano de trabalhos.
+Ainda com o mesmo propósito, optou-se por associar qualquer tipo de reparação à entidade \textbf{Reparação},
+sendo que esta contém um plano de trabalhos.
+Esta estratégia permite que até a reparação expresso (que tem características particulares - serviço fixo),
+possa ser caracterizada por um plano de trabalhos.
+
+Atendendo que a reparação gasta \textbf{Material}, optou-se por acrescentar a \textbf{Quantidade} de material em \textit{stock}.
+Esta alteração permitiu calcular quais as reparações que podem avançar,
+bem como o material que é necessário encomendar (ver \ref{encomendar_material}).
+
+Por último, o gestor terá um papel de administração, avaliando os desempenhos dos outros elementos e
+recrutando novos colaboradores (tendo de os adicionar ao sistema).
+
+Neste sentido, como resposta à necessidade de modelar o problema e com base na análise do enunciado proposto foram identificadas as 
+principais entidades (\ref{ent}) que fazem parte do sistema, assim como os relacionamentos entre elas. 
+
+\section{Entidades}\label{ent}
+
+\subsection{Cliente}\label{ent_cliente}
+O cliente é a entidade que possui o(s) equipamento(s) que necessita(m) de intervenção técnica, cada cliente é identificado pelo 
+seu Número de Identificação Fiscal (NIF).
+
+\subsection{Colaborador} \label{ent_colaborador}
+O Colaborador é a entidade relativa a todos os elementos que interagem diretamente com o sistema. 
+Numa forma geral, engloba todos os trabalhadores que populam o \textbf{Centro de Reparação} e, após autenticados, executam os
+serviços pedidos - Uma entidade abstrata que ramifica-se em sub-entidades(trabalhadores) mais específicas.
+
+Desde a inserção do equipamento a ser reparado no sistema até à sua eventual entrega ao cliente, o processo conta com participação
+do(s) \textbf{Funcionário(s) de Balcão} e do(s) \textbf{Colaboradore(s) Especializado(s)}.
+
+\subsubsection{Funcionário de Balcão} \label{ent_func_balcao}
+Corresponde à entidade responsável pelo início e o término de uma reparação - o registo inicial e entrega do equipamento ao cliente, respetivamente.  
+
+\subsubsection{Colaborador Especializado} \label{ent_colab_especializado}
+Esta entidade compreende os colaboradores com competências técnicas especializadas, divergindo na sua autoridade com o Funcionário de Balcão. 
+Estes possuem a capacidade de alterar o que considerarem necessário no Centro de Reparação.
+
+Desta forma, foi definido os seguintes tipos:
+\begin{itemize}
+    \item[\textbf{Técnico}]{Responsável por fazer o orçamento e realizar a reparação}
+    \item[\textbf{Gestor}]{Tem permissões de administração sobre todo o sistema.}
+\end{itemize}
+
+\subsection{Equipamento} \label{ent_equipamento}
+Corresponde a uma entidade que representa um objeto físico que irá entrar no sistema com a perspetiva de obter um orçamento e,
+eventualmente, originar uma reparação.
+Esta entidade é identificada por um código de registo e marca.
+Optou-se por um identificador duplo - \{marca, código de registo\}, 
+por forma a garantir que cada equipamento é facilmente identificado sem repetições.
+O código de registo é o número de série.
+
+\subsection{Orçamento} \label{ent_orcamento}
+O orçamento é a entidade associada a um plano de trabalhos estabelecido pelo técnico e ao prazo máximo de execução da reparação.
+
+\subsection{Reparação} \label{ent_reparacao}
+Representa um serviço disponibilizado no sistema. Cada reparação contém um plano de trabalhos e,
+mediante o tipo de serviço, apresenta características distintas.
+Mediante os cenários apresentados, foram definidos dois tipos: \textit{Reparação expresso} e \textit{Reparação normal}.
+
+\subsubsection{Reparação expresso} \label{ent_reparacao-expresso}
+Define um tipo de reparação pré-definida.
+Tem associado um plano de trabalhos fixo que, por sua vez, origina um custo e tempo de realização fixo.
+
+\subsubsection{Reparação normal} \label{ent_reparacao-normal}
+Corresponde a uma reparação personalizada que contém um plano de trabalhos definido.
+Consequentemente, o preço e tempo varia entre cada uma.
+
+\subsection{Forma de Contacto} \label{ent_formas-contacto}
+A forma de contacto permite uma comunicação com o cliente, sendo registada a data e hora e colaborador que a efetuou.
+Para tal, as opções existentes são o SMS e o Email.
+
+\subsection{Plano de Trabalhos} \label{ent_plano-de-trabalhos}
+O plano de trabalhos é divido em passos e sub-passos da reparação, onde cada um consome tempo e utiliza material. 
+Esta definição permite obter o número total de horas de trabalho e o custo das peças utilizadas. 
+Cada passo de reparação utiliza uma determinada categoria de material, possibilitando obter uma lista de material que pode ser utilizado.
+
+\subsection{Material} \label{ent_material}
+O material é uma entidade fundamental tanto para a previsão do orçamento como para a própria reparação.
+Este é identificado pela sua referência, está associado a um custo e está contido na categoria respetiva.
+
+\section{Diagrama de Modelo de Domínio}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.40]{Modelo.jpg}
+    \caption{Modelo de Domínio}
+\end{figure}
+
+\chapter{Modelação dos Requisitos Funcionais} \label{modelacao_req_funcionais}
+
+A partir dos cenários (ver \ref{cenarios}) identificados pela equipa docente, 
+foram identificados os seguintes \textit{use cases}:
+
+\begin{itemize}
+    \item Criar reparação expresso - \ref{criar_rep_expresso}
+    \item Pedir orçamento - \ref{pedir_orcamento}
+    \item Fazer orçamento - \ref{fazer_orcamento}
+    \item Criar passo da Reparação - \ref{criar_passo_rep}
+    \item Confirmar orçamento - \ref{confirmar_orcamento}
+    \item Arquivar orçamento - \ref{arquivar_orcamento}
+    \item Realizar reparação - \ref{realizar_rep}
+    \item Realizar passo de reparação - \ref{realizar_passo_rep}
+    \item Adicionar material - \ref{adicionar_material}
+    \item Encomendar material - \ref{encomendar_material}
+    \item Receber material - \ref{receber_material}
+    \item Entregar equipamento - \ref{entregar_equipamento}
+    \item Dar baixo do equipamento - \ref{dar_baixa_equipamento}
+    \item Pedir reparação expresso - \ref{pedir_rep_xpress}
+    \item Registar equipamento - \ref{registar_equipamento}
+    \item Registar cliente - \ref{registar_cliente}
+    \item Registar Colaborador - \ref{registar_colab}
+    \item Autenticar Colaborador- \ref{autenticar_colab}
+    \item Listar resumida do técnico - \ref{listagem_tecnico_resumida}
+    \item Listar detalhada do técnico - \ref{listagem_tecnico_detalhada}
+    \item Listar funcionário do balcão - \ref{listagem_func_balcao}
+\end{itemize}
+\section{Modelo de Use Cases}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.45]{dss-usecase.jpg}
+    \caption{Diagrama de \textit{Use Case}}
+\end{figure}
+
+\section{Especificação Use Cases}
+
+\subsection{} \label{criar_rep_expresso}
+\subfile{use_cases/usecase_criar-rep-xpress.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{pedir_orcamento}
 \subfile{use_cases/usecase_pedir-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{fazer_orcamento}
+\subsection{} \label{fazer_orcamento}
 \subfile{use_cases/usecase_fazer-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{confirmar_orcamento}
+\subsection{} \label{criar_passo_rep}
+\subfile{use_cases/usecase_criar-passo.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{confirmar_orcamento}
 \subfile{use_cases/usecase_confirmar-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{realizar_rep}
+\subsection{} \label{arquivar_orcamento}
+\subfile{use_cases/usecase_arquivar-orcamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{realizar_rep}
 \subfile{use_cases/usecase_realizar-reparacao.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{entregar_equipamento}
+\subsection{} \label{realizar_passo_rep}
+\subfile{use_cases/usecase_realizar-passo-reparacao.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{adicionar_material}
+\subfile{use_cases/usecase_adicionar-material.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{encomendar_material}
+\subfile{use_cases/usecase_encomendar-material.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{receber_material}
+\subfile{use_cases/usecase_receber-material.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{entregar_equipamento}
 \subfile{use_cases/usecase_entregar-equipamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{pedir_rep_xpress}
+\subsection{} \label{dar_baixa_equipamento}
+\subfile{use_cases/usecase_dar-baixa.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{pedir_rep_xpress}
 \subfile{use_cases/usecase_pedir-reparacao-expresso.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{autenticar}
-\subfile{use_cases/usecase_validar-cliente.tex}
-
-\subsubsection{} \label{registar_equipamento}
+\subsection{} \label{registar_equipamento}
 \subfile{use_cases/usecase_registar-equipamento.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{listagem_tecnico_resumida}
+\subsection{} \label{registar_cliente}
+\subfile{use_cases/usecase_registar-cliente.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{registar_colab}
+\subfile{use_cases/usecase_registar-colaborador.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{autenticar_colab}
+\subfile{use_cases/usecase_autenticar-colaborador.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\subsection{} \label{listagem_tecnico_resumida}
 \subfile{use_cases/usecase_listar-tecnico-resumida.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{listagem_tecnico_detalhada}
+\subsection{} \label{listagem_tecnico_detalhada}
 \subfile{use_cases/usecase_listar-tecnico-detalhada.tex}
+\noindent{\rule{\textwidth}{0.4pt}
 
-\subsubsection{} \label{listagem_func_balcao}
+\subsection{} \label{listagem_func_balcao}
 \subfile{use_cases/usecase_listar-func-balcao.tex}
+\noindent{\rule{\textwidth}{0.4pt}
+
+\chapter{Considerações Finais}
+Ao longo da realização da fase de análise de requisitos do projeto, houve a necessidade de utilizar conceitos
+com os quais os elementos do grupo não estavam familiarizados.
+A sua utilização obrigou a uma aprendizagem ativa, por forma a se conseguir dar resposta aos objetivos propostos.
+Tal como qualquer instância de aprendizagem, houve dificuldades na sua implementação.
+Em particular: familiarização da linguagem UML e \underline{capacidade de abstração} \underline{do problema}.
+Esta última foi a mais difícil de ultrapassar, pois o grupo tendia a olhar para o modelo como sendo a realidade
+e não uma representação abstrata da mesma.
+A título exemplificativo, inicialmente foi definido um \textit{use case} que refletia todo um fluxo real
+(desde que o cliente entra até que sai com o problema resolvido).
+Posteriormente, através de estudo e acompanhamento da equipa docente, foi possível melhorar esta capacidade de abstração
+e atingir um resultado final que o grupo acredita ir de encontro com os objetivos propostos.
+Não obstante, o grupo ter atravessado algumas dificuldades, os resultados de aprendizagem acabaram por compensar.
+Com a concretização desta fase, o grupo encontra-se mais capaz de modelar um problema utilizando a abstração necessária.
+
+Apesar do grupo considerar que a solução a que chegou é suficiente e adequada, a sua falta de experiência
+ao nível da conceção e implementação de soluções não lhe permite ser capaz de fazer a devida análise.
+Por este motivo, o grupo tem consciência que se encontra perante um processo iterativo e que
+na fase seguinte (modelação conceptual e implementação da solução), provavelmente, encontrará algumas dificuldades
+em que será obrigado a fazer alterações da fase a que o presente relatório se refere.
+
+
+%==========================================================================
+% BEGIN LISTA DE SIGLAS E ACRÓNIMOS
+%==========================================================================
+
+%% Portuguese babel does not translate this environment
+\renewcommand{\nomname}{Lista de Siglas e Acrónimos}
+
+%% Text that can be shown before acronyms list
+\renewcommand{\nompreamble}{<<Apresentar uma lista com todas as siglas e acrónimos utilizados durante a realização do trabalho. O formato base para esta lista deverá ser da forma como abaixo se apresenta.>>}
+
+%% acronyms
+\nomenclature[01]{\textbf{NIF}}{Número de Idenficação Fiscal}
+\nomenclature[02]{UC}{Unidade Curricular}
+\nomenclature[03]{DSS}{Desenvolvimento de Sistemas de Software}
+\nomenclature[04]{aplicação}{Sistema de Gestão para Centro de Reparação de Equipamento Eletrónico}
+
+%% Show acronyms
+\printnomenclature
+
+%==========================================================================
+% END LISTA DE SIGLAS E ACRÓNIMOS
+%==========================================================================
+
+
+%==========================================================================
+% BEGIN ANEXOS
+%==========================================================================
+
+\addchap{Anexos}
+\addsec{Anexo 1 - Cenários } \label{cenarios}
+\subfile{scenarios/scenario_1.tex}
+\subfile{scenarios/scenario_2.tex}
+\subfile{scenarios/scenario_3.tex}
+\subfile{scenarios/scenario_4.tex}
+\subfile{scenarios/scenario_5.tex}
+
+%==========================================================================
+% END ANEXOS
+%==========================================================================
+
+
 \end{document}

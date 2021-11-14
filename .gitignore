@@ -4,3 +4,9 @@
 *.fdb_latexmk
 *.pdf
 *.synctex.gz
+*.bak
+*.out
+*.nlo
+*.lof
+*.lot
+*.toc
