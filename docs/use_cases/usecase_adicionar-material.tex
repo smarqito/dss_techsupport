@@ -10,16 +10,43 @@ Adicionar um material ao sistema, utilizando os respetivos dados.
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Colaborador especializado insere referência do material
-              \item Sistema verifica código de registo
-              \item Colaborador especializado insere custo do material
-              \item Sistema adiciona material ao Sistema
+              \item Colaborador especializado insere referência do material % UI
+              \item Sistema verifica código de registo                      % verifica se codigo já existe | existeMaterial(ref: String): boolean | SubReparacoes
+              \item Colaborador especializado insere custo do material      % UI
+              \item Sistema adiciona material ao Sistema                    % adiciona material | addMaterial(ref: String, qnt: Int, nome: String, custo: Float, categorias: List<String>) | SubReparacoes
           \end{enumerate}
           \begin{flushleft}
               \textbf{Fluxo de Exceção 1 (passo 2) [Código de registo já no sistema]}
           \end{flushleft}
           \begin{itemize}
-              \item[2.1] Sistema informa que material já está registado
+              \item[2.1] Sistema informa que material já está registado     % UI
           \end{itemize}
 \end{itemize}
+
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case                                                & Fluxo & Responsabilidade             & API                                                                                      & Subsistema    \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador especializado insere referência do material & UI    &                              &                                                                                          &               \\
+            \hline
+            Sistema verifica código de registo                      &       & verifica se codigo já existe & existeMaterial(ref: String): boolean                                                     & SubReparacoes \\
+            \rowcolor{yellow}
+            \hline
+            Colaborador especializado insere custo do material      & UI    &                              &                                                                                          &               \\
+            \hline
+            Sistema adiciona material ao Sistema                    &       & adiciona material            & addMaterial(ref: String, qnt: Int, nome: String, custo: Float, categorias: List<String>) & SubReparacoes \\
+            \hline
+            \rowcolor{yellow}
+            Sistema informa que material já está registado          & UI    &                              &                                                                                          &               \\
+            \hline                      
+        \end{tabular}
+        \caption{Identidade do Projeto.}
+    \end{table}
+\end{landscape}
+
 \end{document}

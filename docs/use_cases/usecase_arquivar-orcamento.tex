@@ -18,4 +18,28 @@ Corresponde a um fluxo automático que deverá ser executado diariamente.
               \item Sistema comunica os orçamentos arquivados
           \end{enumerate}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case                                                                & Fluxo    & Responsabilidade                       & API                                                      & Subsistema    \\
+            \hline
+            \rowcolor{red}
+            System timer informa que é uma hora definida                            & LowLevel &                                        &                                                          &               \\
+            \hline
+            Sistema calcula todos os orçamentos ativos                              &          & calcular orçamentos ativos             & getOrcamentosAtivos(): List<Orcamento>                   & SubReparações \\
+            \hline
+            Sistema filtra orçamentos por data, ficando com os superiores a 30 dias &          & filtrar orçamentos com mais de 30 dias & filterOrcamentos(orcs: List<Orcamento>): List<Orcamento> & SubReparações \\
+            \hline
+            Sistema adiciona orçamentos ao arquivo                                  &          & adicionar à lista de arquivados ??     & adicionarArquivo(orc: Orcamento)                         & SubReparações \\
+            \hline
+            Sistema comunica os orçamentos arquivados                               &          & comunicar orçamentos ao gestor         & comunicarOrcamentos(orcs: List<Orcamento>)               & SubReparações \\
+            \hline                      
+        \end{tabular}
+        \caption{Identidade do Projeto.}
+    \end{table}
+\end{landscape}
+
 \end{document}

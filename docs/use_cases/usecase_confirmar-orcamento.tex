@@ -25,4 +25,78 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
               \item[3.3]{Sistema coloca equipamento disponível para entrega}
           \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário pede orçamento ao sistema
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema devolve orçamento
+                     & 
+                     & obtém o orçamento
+                     & getOrcamento(ref: String): Orcamento
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário regista orçamento como aceite
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema atualiza orçamento para pedido de reparação
+                     & 
+                     & criar pedido reparacao a partir do orçamento
+                     & criarPedidoReparacao(orc: Orcamento) : Reparacao
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema insere pedido de reparação à lista de equipamentos por reparar
+                     & 
+                     & adiciona pedido de reparação à lista
+                     & addPedidoReparacao(rep: Reparacao)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário regista orçamento como recusado
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção  &                                                  &                  &     &            \\
+            \hline
+            Sistema adiciona orçamento ao arquivo
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema coloca equipamento disponível para entrega
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
+
 \end{document}

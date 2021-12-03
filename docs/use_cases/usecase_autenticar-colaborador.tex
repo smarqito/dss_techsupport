@@ -14,4 +14,37 @@ Autenticação de um colaborador no sistema, validando o seu número de identifi
               \item Sistema valida número de idenficação
           \end{enumerate}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case         & 
+            Fluxo            & 
+            Responsabilidade & 
+            API              & 
+            Subsistema
+            \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador insere número de identificação
+                             & UI
+                             & 
+                             & 
+                             & 
+            \\
+            \hline
+            Sistema valida número de idenficação
+                             & 
+                             & validar identificação do colaborador
+                             & validaIdentificacao(cod: String): Boolean
+                             & SubUtilizadores
+            \\
+            \hline
+        \end{tabular}
+        \caption{Identidade do Projeto.}
+    \end{table}
+\end{landscape}
+
 \end{document}
