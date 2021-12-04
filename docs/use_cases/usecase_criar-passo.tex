@@ -40,4 +40,122 @@ Registo no sistema de um novo passo, introduzindo o tempo e peças necessárias 
             \item[5.4] Regressa ao passo 6
         \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador especializado insere nome do passo da reparação
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema verifica nome do passo da reparação
+                     & 
+                     & verifica se o nome do passo já existe
+                     & existePasso(nomePasso : String) : boolean
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador especializado insere dados do passo da reparação
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador especializado insere categoria do material
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema verifica categoria do material
+                     & 
+                     & verifica se categoria existe
+                     & existeCategoria(nomeCategoria):boolean
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema regista passo de reparação
+                     & 
+                     & regista passo de reparação
+                     & registaPasso(nomePasso : String, nomeCategoria : String)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção 1 &                                                  &                  &     &            \\
+            \hline
+            \rowcolor{yellow}
+            Sistema comunica que nome do passo da reparação já existe
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{red!30}
+            Alternativo 2 &                                                  &                  &     &            \\
+            \hline
+            $\ll include \gg$ Adicionar Material
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Regressa ao passo 5
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{red!30}
+            Alternativo 2 &                                                  &                  &     &            \\
+            \hline
+            \rowcolor{yellow}
+            Sistema comunica que categoria não existe 
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            rowcolor{yellow}
+            Colaborador especializado insere nome da categoria 
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema regista nova categoria
+                     & 
+                     & regista categoria 
+                     & registaCategoria(nomeCategoria : String)
+                     & SubReparacoes
+            \\
+            \hline
+            Regressa ao passo 6
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
+
 \end{document}

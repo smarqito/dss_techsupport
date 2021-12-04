@@ -23,4 +23,62 @@ Registo de uma nova reparação expresso no sistema, incluindo o material utiliz
             \item[2.1] Sistema comunica que nome da reparação já existe
         \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador especializado insere nome da reparação
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema verifica nome da reparação
+                     & 
+                     & verifica se o nome já existe
+                     & existeRepXpresso(nome : String) : boolean
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador especializado insere dados da reparacao
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Colaborador especializado define plano de trabalhos
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema regista reparação expresso
+                     & 
+                     & regista reparação expresso
+                     & registaRepXpresso(nome : String, desc : String, plano : PlanoTrabalho)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção 1 &                                                  &                  &     &            \\
+            \hline
+            Sistema comunica que nome da reparação já existe
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
 \end{document}
