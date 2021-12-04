@@ -26,4 +26,77 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
 		      \item[2.2] Regressa ao passo 3
 	      \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere identificador do cliente
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema seleciona cliente
+                     & 
+                     & procura cliente
+                     & getCliente(CliID : String) : Cliente
+                     & SubUtilizadores
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere identificador do equipamento
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema verifica identificador do equipamento
+                     & 
+                     & verifica se o equipamento existe
+                     & existeEquipamento(codR : String, marca: String) : boolean
+                     & SubReparacoes
+            \\
+            \hline
+			\rowcolor{yellow}
+			Funcionário regista pedido de orçamento
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+			Sistema adiciona pedido de orçamento
+                     & 
+                     & regista pedido de orçamento
+                     & registaPedidoOrcamento(CliID : String, codR : String, marca: String)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Alternativo 1  &                                                  &                  &     &            \\
+            \hline
+            $\ll include \gg$ Registar equipamento
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+			Regressa ao passo 3
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
 \end{document}
