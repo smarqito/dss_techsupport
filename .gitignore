@@ -10,3 +10,6 @@
 *.lof
 *.lot
 *.toc
+*.nls
+
+*.ilg
