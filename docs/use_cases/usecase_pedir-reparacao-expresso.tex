@@ -10,34 +10,159 @@ Registo do pedido de um serviço expresso.
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Funcionário verifica disponibilidade de tempo
+              \item Funcionário insere tipo da reparação expresso 
+              \item Sistem verifica disponibilidade
               \item Funcionário insere identificador do cliente
               \item Sistema seleciona cliente
               \item Funcionário insere identificador do equipamento
+              \item Sistema seleciona equipamento
               \item Funcionário regista pedido de reparação
               \item Sistema adiciona pedido
           \end{enumerate}
 
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 1 (passo 1) [Não existe disponibilidade de tempo]}
+              \textbf{Fluxo de Exceção 1 (passo 2) [Não existe disponibilidade de tempo]}
           \end{flushleft}
           \begin{itemize}
               \item[1.1]{Sistema comunica que não existe disponibilidade}
               \item[1.2]{Funcionário recusa serviço}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo Alternativo 2 (passo 3) [Equipamento não registado]}
+              \textbf{Fluxo Alternativo 2 (passo 6) [Equipamento não registado]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1] $\ll include \gg$ Registar equipamento
               \item[3.2] Regressa ao passo 3
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 3 (passo 4) [tipo de reparação não é expresso]}
+              \textbf{Fluxo de Exceção 3 (passo 2) [tipo de reparação não é expresso]}
           \end{flushleft}
           \begin{itemize}
               \item[4.1]{Sistema comunica que reparação não é expresso}
               \item[4.2]{Funcionário recusa serviço}
           \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere tipo da reparação expresso
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistem verifica disponibilidade
+                     & 
+                     & verifica se existe disponibilidade
+                     & existeDisponiblidade(nomeRepXpresso : String) : boolean
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere identificador do cliente
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema seleciona cliente
+                     & 
+                     & seleciona o cliente
+                     & getCliente(CliID : String) : boolean
+                     & SubUtilizadores
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere identificador do equipamento
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            Sistema seleciona equipamento
+                     & 
+                     & seleciona o equipamento
+                     & getEquipamento(EquipID : String) : boolean
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário regista pedido de reparação
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema adiciona pedido
+                     & 
+                     & adiciona pedido de reparação expresso ao sistema
+                     & adicionaPedRepXpresso(cliID : String, EquiID : String, nomeRepXpresso : String)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção 1 &                                                  &                  &     &            \\
+            \hline
+            \rowcolor{yellow}
+            Sistema comunica que não existe disponibilidade
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Funcionário recusa serviço
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{red!30}
+            Alternativo 2 &                                                  &                  &     &            \\
+            \hline
+            $\ll include \gg$ Registar equipamento
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Regressa ao passo 3
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção 3 &                                                  &                  &     &            \\
+            \hline
+            \rowcolor{yellow}
+            Sistema comunica que reparação não é expresso
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Funcionário recusa serviço
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
 \end{document}
