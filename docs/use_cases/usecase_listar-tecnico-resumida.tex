@@ -9,11 +9,11 @@ Extração de lista resumida de reparações realizadas, ordenadas por técnico 
           \begin{flushleft}
               \textbf{Fluxo Normal}
           \end{flushleft}
-          \begin{enumerate}
-              \item Gestor pede listagem de reparações por técnico para um dado mês
-              \item Sistema obtém lista de reparações do mês
-              \item Sistema calcula duração média das reparações
-              \item Sistema calcula média de desvio em relação às durações previstas
+          \begin{enumerate} 
+              \item Gestor pede listagem de reparações por técnico para um dado mês % UI
+              \item Sistema obtém lista de reparações do mês % obter lista de reparação de um determinado mês | obterReparacoesMes(mes: int): List<Reparacao> | SubReparacoes
+              \item Sistema calcula duração média das reparações % obter duração média das reparações | obterDuracaoMediaR(mes: int): int | SubReparacoes
+              \item Sistema calcula média de desvio em relação às durações previstas % obter media de desvio | obterMediaDesvio(mes: int, duracaoPrevista: LocalTime): LocalTime | SubReparacoes
           \end{enumerate}
 \end{itemize}
 \end{document}

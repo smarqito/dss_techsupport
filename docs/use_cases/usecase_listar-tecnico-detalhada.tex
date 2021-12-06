@@ -7,12 +7,12 @@ Listagem exaustiva de todas as intervenções realizadas por um técnico.
     \item[Pré-condição] {Gestor autenticado e reparações efetuadas}
     \item[Pós-condição] {Listagem detalhada de reparações por técnico}
           \begin{flushleft}
-              \textbf{Fluxo Normal}
+              \textbf{Fluxo Normal} 
           \end{flushleft}
           \begin{enumerate}
-              \item Gestor pede listagem de reparações por técnico para um dado mês
-              \item Sistema obtém lista de reparações do mês
-              \item Sistema comunica todas as intervenções realizadas
+              \item Gestor pede listagem de reparações por técnico para um dado mês % UI
+              \item Sistema obtém lista de reparações do mês % obter lista de reparação de um determinado mês | obterReparacoesMes(mes: int): List<Reparacao> | SubReparacoes
+              \item Sistema comunica todas as intervenções realizadas % obter lista de intervenções realizadas | obterIntervencoes(mes: int): Map<String, List<PassodeReparacao>> | SubReparacoes
           \end{enumerate}
 \end{itemize}
 \end{document}
