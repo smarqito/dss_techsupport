@@ -17,4 +17,37 @@ Registo de um novo colaborador no sistema pelo Gestor, sendo-lhe associado um n�
                 \item Sistema regista Colaborador
             \end{enumerate}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Gestor insere nome e função do Colaborador
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema calcula número de identificação
+                     & 
+                     & calcula número de identificação do novo colaborador
+                     & novoColaboradorID() : Integer
+                     & SubUtilizadores
+            \\
+            \hline
+            Sistema regista Colaborador
+                     & 
+                     & regista colaborador
+                     & registaColaborador(ColabID : Integer)
+                     & SubUtilizadores
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
 \end{document}

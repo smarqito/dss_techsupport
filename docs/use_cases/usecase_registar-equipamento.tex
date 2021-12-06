@@ -23,4 +23,62 @@ Registo de um equipamento no sistema, utilizando os respetivos dados.
             \item[2.1]{Sistema comunica que identificador já está registado}
         \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere código de registo e marca do equipamento
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema verifica identificador \{código de registo, marca\} do equipamento
+                     & 
+                     & verifica se o equipamento já existe
+                     & existeEquipamento(codR : String, marca: String) : boolean
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere identificador do cliente
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema verifica identificador do cliente % é preciso este passo?
+                     & 
+                     & verifica se cliente existe
+                     & existeCliente(CliID : String) : boolean
+                     & SubUtilizadores
+            \\
+            \hline
+            Sistema regista os dados do equipamento
+                     & 
+                     & regista equipamento
+                     & registaEquipamento(codR : String, marca: String, CliID : String)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção  &                                                  &                  &     &            \\
+            \hline
+            Sistema comunica que identificador já está registado
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
 \end{document}
