@@ -83,16 +83,16 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
             \hline
             Sistema adiciona orçamento ao arquivo
                      & 
-                     & 
-                     & 
-                     & 
+                     & muda o estado do orçamento para arquivado
+                     & adicionarArquivo(orc: Orcamento)
+                     & SubReparacoes
             \\
             \hline
             Sistema coloca equipamento disponível para entrega
                      & 
-                     & 
-                     & 
-                     & 
+                     & muda estado de equipamento para pronto para levantamento
+                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & SubReparacoes
             \\
             \hline
         \end{tabular}

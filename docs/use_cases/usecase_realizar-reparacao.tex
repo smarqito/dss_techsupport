@@ -104,7 +104,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema regista a conclusão da reparação
                      & 
                      & regista reparação como concluida
-                     & concluirRep (ped : Reparacao)
+                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -143,7 +143,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema adiciona equipamento na lista de equipamentos para reparar
                      & 
                      & adiciona pedido à lista de pedidos de reparação 
-                     & addPedReparacao(ped : Reparacao)
+                     & addPedidoReparacao(rep : Reparacao)
                      & SubReparacoes
             \\
             \hline
@@ -161,7 +161,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema adiciona equipamento na lista de equipamentos para reparar
                      & 
                      & adiciona pedido à lista de pedidos de reparação 
-                     & addPedReparacao(ped : Reparacao) %nao existe lista de equipamentos para reparar
+                     & addPedidoReparacao(rep : Reparacao) %nao existe lista de equipamentos para reparar
                      & SubReparacoes
             \\
             \hline
@@ -196,7 +196,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema coloca reparação como cancelada
                      & 
                      & cancela pedido reparação
-                     & cancelaPedidoRep(ped : Reparacao)
+                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
