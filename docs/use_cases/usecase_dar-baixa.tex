@@ -14,7 +14,48 @@ Corresponde a um fluxo automático que deverá ser executado diariamente.
               \item System timer informa que é uma hora definida
               \item Sistema calcula todos os equipamentos prontos a levantar
               \item Sistema filtra equipamentos prontos a levantar há mais de 90 dias
-              \item Sistema adicona equipamentos à lista de equipamentos abandonados
+              \item Sistema adiciona equipamentos à lista de equipamentos abandonados
           \end{enumerate}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{red}
+            System timer informa que é uma hora definida
+                     & LowLevel
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema calcula todos os equipamentos prontos a levantar 
+                     & 
+                     & Sistema obtém todos os equipamentos que estão prontos a levantar
+                     & getEqProntoLevantar():List<Equipamento>
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema filtra equipamentos prontos a levantar há mais de 90 dias
+                     &
+                     & Sistema filtra os equipamentos que estão prontos para ser levantados há mais de 90 dias
+                     & filterEquipamentos(): List<Equipamento>
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema adiciona equipamentos à lista de equipamentos abandonados
+                     & 
+                     & Sistema adiciona os equipamentos à lista de abandonados
+                     & addEquipamentosAbandonados(equis: List<Equipamento>)
+                     & SubReparacoes
+            \\
+            \hline
+        \end{tabular}
+        \caption{Identidade do Projeto.}
+    \end{table}
+\end{landscape}
 \end{document}

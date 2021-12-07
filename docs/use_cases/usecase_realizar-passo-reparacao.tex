@@ -13,8 +13,52 @@ Progressão de uma reparação, através da realização do passo.
           \begin{enumerate}
               \item Técnico indica referência do material gasto
               \item Sistema altera \textit{stock} do material gasto
-              \item Técnico indica tempo efetivamente gasto
-              \item Sistema regista tempo efetivamente gasto
+              \item Técnico indica tempo e custo efetivamente gasto 
+              \item Sistema regista tempo e custo efetivamente gasto
           \end{enumerate}
 \end{itemize}
+
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Técnico indica referência do material gasto
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema altera \textit{stock} do material gasto
+                     & 
+                     & Sistema atualiza o número de \textit{stock} do material disponível
+                     & removeStock(mat:Material)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico indica tempo efetivamente gasto
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema regista tempo efetivamente gasto
+                     &
+                     & Sistema regista tempo efetivamente gasto
+                     & registaPasso(horas: int, custo: Double, rep: Reparacao)
+                     & SubReparacoes
+            \\
+            \hline
+        \end{tabular}
+        \caption{Identidade do Projeto.}
+    \end{table}
+\end{landscape}
+
 \end{document}

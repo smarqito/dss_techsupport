@@ -23,4 +23,64 @@ Encomenda do material que se encontra com o seu \textit{stock} a 0 e que é nece
               \item[4.1] {Sistema comunica que não é necessário encomendar material}
           \end{itemize}
 \end{itemize}
+
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Colaborador especializado pede material em falta para realizar reparações
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema calcula o material necessário para concluir os passos das reparações pendentes
+                     &
+                     & Sistema obtém o material necessário para concluir todas as reparações pendentes
+                     & getMaterial(): List<Material>
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema calcula o material disponível
+                     &
+                     & Sistema calcula o material disponível
+                     & getMaterialDisponível(): List<Material>
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema calcula o material necessário e sem \textit{stock} disponível
+                     &
+                     & Sistema calcula o material que não tem \textit{stock} e é necessário para as reparações
+                     & getMaterialSStock(): List<Material>
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema regista uma nova encomenda com o material não disponível mas necessário
+                     &
+                     & Registar uma nova encomenda com o material requerido para as reparações	
+                     & addEncomenda(List<Material>)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção  &   &   &    & \\
+            \hline
+            \rowcolor{yellow}
+            Sistema comunica que não é necessário encomendar material
+                    & UI
+                    &
+                    &
+                    &
+            \\
+            \hline
+        \end{tabular}
+        \caption{Identidade do Projeto.}
+    \end{table}
+\end{landscape}
 \end{document}

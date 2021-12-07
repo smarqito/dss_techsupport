@@ -14,8 +14,7 @@ e, se aplicável, o registo do pagamento do equipamento.
           \begin{enumerate}
               \item Funcionário insere identificador do equipamento
               \item Sistema devolve preço da reparação do equipamento
-              \item Funcionário regista equipamento como pago
-              \item Sistema altera estado do equipamento para pago
+              \item Funcionário regista a reparação como paga
               \item Funcionário define equipamento como entregue
               \item Sistema altera estado do equipamento para entregue
           \end{enumerate}
@@ -35,4 +34,98 @@ e, se aplicável, o registo do pagamento do equipamento.
                  \item[3.3]{Sistema regista data e hora}  
              \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário insere identificador do equipamento
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema devolve preço da reparação do equipamento
+                     &
+                     & Sistema calcula o preço da reparação do equipamento
+                     & calcularPrecoRep(rep:Reparacao): Double
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário regista reparação como pago
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário define equipamento como entregue
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema altera estado do equipamento para entregue
+                     &
+                     & Sistema altera o estado do equipamento para entregue
+                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção  &   &   &    & \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário define equipamento como entregue
+                    & UI
+                    &
+                    &
+                    &
+            \\
+            \hline
+            Sistema altera estado do equipamento para entregue
+                    & 
+                    & Sistema altera estado do equipamento para entregue
+                    & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento)
+                    & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção  &   &   &    & \\
+            \hline
+            \rowcolor{yellow}
+            Funcionário regista comentário que cliente não pagou
+                    & UI
+                    &
+                    &
+                    &
+            \\
+            \hline
+            Sistema regista comentário
+                    & 
+                    & Sistema regista um comentário
+                    & addComentario(equi: Equipamento, msg: String)
+                    & SubReparacoes
+            \\
+            \hline
+            Sistema regista data e hora
+                    & 
+                    & Sistema regista data e hora do comentário
+                    & addData(equi: Equipamento, data: Date)
+                    & SubReparacoes
+            \\
+            \hline
+        \end{tabular}
+        \caption{Identidade do Projeto.}
+    \end{table}
+\end{landscape}
+
 \end{document}
