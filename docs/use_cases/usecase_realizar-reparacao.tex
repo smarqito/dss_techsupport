@@ -55,4 +55,189 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
               \item[3.2.6]{Sistema regista data e hora} 
           \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Técnico pede reparação mais urgente
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema devolve reparação mais urgente
+                     & 
+                     & seleciona a reparação mais urgente
+                     & pedidoRepMaisUrg() : Reparacao
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico pede o plano de trabalhos da reparação
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico indica os passos da reparação concretizados
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema regista passos da reparação como realizados
+                     & 
+                     & regista os passos da reparação realizados 
+                     & registaPassosRep( reparacao : Reparacao, passosRealizados : List <PassoReparacao>)
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema regista a conclusão da reparação
+                     & 
+                     & regista reparação como concluida
+                     & concluirRep (ped : Reparacao)
+                     & SubReparacoes
+            \\
+            \hline
+            Técnico coloca equipamento disponível para levantamento
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema muda estado de equipamento para pronto para levantamento
+                     & 
+                     & muda estado de equipamento para pronto para levantamento
+                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema regista data e hora
+                     & 
+                     & regista data e hora em que o equipamento ficou pronto para levantamento
+                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção 1 &                                                  &                  &     &            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico informa motivo de interrupção
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema adiciona equipamento na lista de equipamentos para reparar
+                     & 
+                     & adiciona pedido à lista de pedidos de reparação 
+                     & addPedReparacao(ped : Reparacao)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção 2 &                                                  &                  &     &            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico informa motivo de interrupção
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema adiciona equipamento na lista de equipamentos para reparar
+                     & 
+                     & adiciona pedido à lista de pedidos de reparação 
+                     & addPedReparacao(ped : Reparacao) %nao existe lista de equipamentos para reparar
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Alternativo 3 &                                                  &                  &     &            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico insere contacto com cliente
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema regista data, hora e técnico associado
+                     & 
+                     & regista a data, hora e técnico associado ao contacto ao cliente 
+                     & registaContacto(date : DateTime, msg : String, tecID : String)
+                     & SubReparacoes
+            \\
+            \hline
+            Regressa ao passo 3
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção 4 &                                                  &                  &     &            \\
+            \hline
+            Sistema coloca reparação como cancelada
+                     & 
+                     & cancela pedido reparação
+                     & cancelaPedidoRep(ped : Reparacao)
+                     & SubReparacoes
+            \\
+            \hline
+            Técnico repõe o equipamento
+                     & 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico regista as horas gastas
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico coloca equipamento disponível para levantamento
+                     & UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema muda estado de equipamento para pronto para levantamento
+                     & 
+                     & muda estado de equipamento para pronto para levantamento
+                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema regista data e hora
+                     & 
+                     & regista data e hora em que o equipamento ficou pronto para levantamento
+                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & SubReparacoes
+            \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}
 \end{document}

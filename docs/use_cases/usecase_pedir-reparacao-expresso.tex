@@ -11,7 +11,8 @@ Registo do pedido de um serviço expresso.
           \end{flushleft}
           \begin{enumerate}
               \item Funcionário insere tipo da reparação expresso 
-              \item Sistem verifica disponibilidade
+              \item Sistema verifica reparação expresso
+              \item Sistema verifica disponibilidade
               \item Funcionário insere identificador do cliente
               \item Sistema seleciona cliente
               \item Funcionário insere identificador do equipamento
@@ -21,18 +22,18 @@ Registo do pedido de um serviço expresso.
           \end{enumerate}
 
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 1 (passo 2) [Não existe disponibilidade de tempo]}
+              \textbf{Fluxo de Exceção 1 (passo 3) [Não existe disponibilidade de tempo]}
           \end{flushleft}
           \begin{itemize}
               \item[1.1]{Sistema comunica que não existe disponibilidade}
               \item[1.2]{Funcionário recusa serviço}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo Alternativo 2 (passo 6) [Equipamento não registado]}
+              \textbf{Fluxo Alternativo 2 (passo 7) [Equipamento não registado]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1] $\ll include \gg$ Registar equipamento
-              \item[3.2] Regressa ao passo 3
+              \item[3.2] Regressa ao passo 6
           \end{itemize}
           \begin{flushleft}
               \textbf{Fluxo de Exceção 3 (passo 2) [tipo de reparação não é expresso]}
@@ -58,7 +59,14 @@ Registo do pedido de um serviço expresso.
                      & 
             \\
             \hline
-            Sistem verifica disponibilidade
+            Sistema verifica reparação expresso
+                     & 
+                     & verifica se existe a reparação expresso
+                     & existeRepXpresso(nomeRepXpresso : String) : boolean
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema verifica disponibilidade
                      & 
                      & verifica se existe disponibilidade
                      & existeDisponiblidade(nomeRepXpresso : String) : boolean
@@ -76,7 +84,7 @@ Registo do pedido de um serviço expresso.
             Sistema seleciona cliente
                      & 
                      & seleciona o cliente
-                     & getCliente(CliID : String) : boolean
+                     & getCliente(CliID : String) : Cliente
                      & SubUtilizadores
             \\
             \hline
@@ -90,7 +98,7 @@ Registo do pedido de um serviço expresso.
             Sistema seleciona equipamento
                      & 
                      & seleciona o equipamento
-                     & getEquipamento(EquipID : String) : boolean
+                     & getEquipamento(EquipID : String) : Equipamento
                      & SubReparacoes
             \\
             \hline
@@ -105,7 +113,7 @@ Registo do pedido de um serviço expresso.
             Sistema adiciona pedido
                      & 
                      & adiciona pedido de reparação expresso ao sistema
-                     & adicionaPedRepXpresso(cliID : String, EquiID : String, nomeRepXpresso : String)
+                     & adicionaPedRepXpresso(cliente : Cliente, equip : Equipamento, nomeRepXpresso : String)
                      & SubReparacoes
             \\
             \hline
@@ -121,7 +129,7 @@ Registo do pedido de um serviço expresso.
             \\
             \hline
             Funcionário recusa serviço
-                     & 
+                     & UI
                      & 
                      & 
                      & 
@@ -156,7 +164,7 @@ Registo do pedido de um serviço expresso.
             \\
             \hline
             Funcionário recusa serviço
-                     & 
+                     & UI
                      & 
                      & 
                      & 

@@ -13,7 +13,6 @@ Registo de um equipamento no sistema, utilizando os respetivos dados.
               \item Funcionário insere código de registo e marca do equipamento
               \item Sistema verifica identificador \{código de registo, marca\} do equipamento
               \item Funcionário insere identificador do cliente
-              \item Sistema verifica identificador do cliente
               \item Sistema regista os dados do equipamento
           \end{enumerate}
           \begin{flushleft}
@@ -54,13 +53,6 @@ Registo de um equipamento no sistema, utilizando os respetivos dados.
                      & 
             \\
             \hline
-            Sistema verifica identificador do cliente % é preciso este passo?
-                     & 
-                     & verifica se cliente existe
-                     & existeCliente(CliID : String) : boolean
-                     & SubUtilizadores
-            \\
-            \hline
             Sistema regista os dados do equipamento
                      & 
                      & regista equipamento
@@ -69,7 +61,7 @@ Registo de um equipamento no sistema, utilizando os respetivos dados.
             \\
             \hline
             \rowcolor{red!30}
-            Exceção  &                                                  &                  &     &            \\
+            Exceção 1  &                                                  &                  &     &            \\
             \hline
             Sistema comunica que identificador já está registado
                      & UI
