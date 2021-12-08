@@ -66,7 +66,7 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
             Sistema insere pedido de reparação à lista de equipamentos por reparar
                      & 
                      & adiciona pedido de reparação à lista
-                     & addPedidoReparacao(rep: Reparacao)
+                     & addPedidoReparacao(orc: Orcamento)
                      & SubReparacoes
             \\
             \hline
@@ -79,24 +79,24 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
             \\
             \hline
             \rowcolor{red!30}
-            Exceção  &                                                  &                  &     &            \\
+            Exceção  & 1                                                 &  \multicolumn{3}{c}{Cliente recusa reparação}\\
             \hline
             Sistema adiciona orçamento ao arquivo
                      & 
-                     & 
-                     & 
-                     & 
+                     & muda o estado do orçamento para arquivado
+                     & adicionarArquivo(orc: Orcamento)
+                     & SubReparacoes
             \\
             \hline
             Sistema coloca equipamento disponível para entrega
                      & 
-                     & 
-                     & 
-                     & 
+                     & muda estado de equipamento para pronto para levantamento
+                     & alteraEstadoEq(equiID : String, state : EstadoEquipamento)
+                     & SubReparacoes
             \\
             \hline
         \end{tabular}
+        \caption{Análise Use Case - Confirmar Orcamento (ver \ref{confirmar_orcamento})}
     \end{table}
 \end{landscape}
-
 \end{document}

@@ -60,7 +60,7 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
             Sistema verifica identificador do equipamento
                      & 
                      & verifica se o equipamento existe
-                     & existeEquipamento(codR : String, marca: String) : boolean
+                     & existeEquipamento(codR : String, marca: String) : Boolean
                      & SubReparacoes
             \\
             \hline
@@ -75,12 +75,12 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
 			Sistema adiciona pedido de orçamento
                      & 
                      & regista pedido de orçamento
-                     & registaPedidoOrcamento(CliID : String, codR : String, marca: String)
+                     & registaPedidoOrcamento(clienteID : String, equipID : String)
                      & SubReparacoes
             \\
             \hline
-            \rowcolor{red!30}
-            Alternativo 1  &                                                  &                  &     &            \\
+            \rowcolor{green!30}
+            Alternativo  & 1                                               &  \multicolumn{3}{c}{Equipamento não registado}\\
             \hline
             $\ll include \gg$ Registar equipamento
                      & 
@@ -97,6 +97,7 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
             \\
             \hline
         \end{tabular}
+        \caption{Análise Use Case - Pedir orçamento (ver \ref{pedir_orcamento})}
     \end{table}
 \end{landscape}
 \end{document}
