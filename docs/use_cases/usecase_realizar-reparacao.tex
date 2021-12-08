@@ -33,7 +33,8 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
           \end{flushleft}
           \begin{itemize}
               \item[3.1]{Técnico informa motivo de interrupção}
-              \item[3.2]{Sistema coloca reparação em espera}
+              \item[3.2]{Sistema adiciona equipamento na lista de equipamentos para \\
+              reparar}
           \end{itemize}
           \begin{flushleft}
               \textbf{Fluxo Alternativo 3 (passo 6) [reparação excede valor orçamentado]}
@@ -116,15 +117,9 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             \\
             \hline
             Sistema muda estado de equipamento para pronto para levantamento
-                     & 
-                     & muda estado de equipamento para pronto para levantamento
-                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
-                     & SubReparacoes
-            \\
-            \hline
             Sistema regista data e hora
                      & 
-                     & regista data e hora em que o equipamento ficou pronto para levantamento
+                     & muda estado de equipamento para pronto para levantamento e regista hora
                      & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
                      & SubReparacoes
             \\
@@ -143,7 +138,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema adiciona equipamento na lista de equipamentos para reparar
                      & 
                      & adiciona pedido à lista de pedidos de reparação 
-                     & addPedidoReparacao(rep : Reparacao)
+                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -161,7 +156,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema adiciona equipamento na lista de equipamentos para reparar
                      & 
                      & adiciona pedido à lista de pedidos de reparação 
-                     & addPedidoReparacao(rep : Reparacao) %nao existe lista de equipamentos para reparar
+                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -224,15 +219,9 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             \\
             \hline
             Sistema muda estado de equipamento para pronto para levantamento
-                     & 
-                     & muda estado de equipamento para pronto para levantamento
-                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
-                     & SubReparacoes
-            \\
-            \hline
             Sistema regista data e hora
                      & 
-                     & regista data e hora em que o equipamento ficou pronto para levantamento
+                     & muda estado de equipamento para pronto para levantamento e regista hora
                      & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
                      & SubReparacoes
             \\
