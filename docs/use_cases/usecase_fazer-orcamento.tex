@@ -29,4 +29,103 @@ registando data e hora.
               \item[4.2] {Sistema comunica o cliente}
           \end{itemize}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Técnico solicita pedido de orçamento mais antigo
+                     & 
+            UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema devolve pedido de orçamento mais antigo
+                     & 
+                     & 
+            Calcula o pedido de orçamento de orçamento há mais tempo no sistema
+                     & 
+            getOlderOrcamento()
+                     & 
+            SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico define plano de trabalhos para a reparação
+                     & 
+            UI 
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema regista plano de trabalhos para a reparação
+                     & 
+                     & 
+            associa plano de trabalho ao orçamento
+                     & 
+            registaPT(nome: String)
+                     & 
+            SubReparacoes
+            \\
+            \hline
+            Sistema gera orçamento e regista-o
+                     & 
+                     & 
+            Cria um documento com o resumo do orçamento (plano de trabalho + preço)
+                     & 
+            generateOrc(orcId: String)
+                     & 
+            SubReparacoes
+            \\
+            \hline
+            Sistema envia orçamento ao cliente
+            Sistema regista data e hora de comunicação
+                     & 
+                     & 
+            envia orçamento ao cliente com o contacto na ficha de orçamento
+                     & 
+            enviarOrcamento(orcId: String)
+                     & 
+            SubReparacoes
+            \\
+            \hline
+            \rowcolor{red!30}
+            Exceção
+                     & 
+            1 
+                     & 
+            \multicolumn{3}{c}{Equipamento não pode ser reparado}
+            \\
+            \rowcolor{yellow}
+            \hline
+            Técnico regista que não é possível fazer reparação
+                     & 
+            UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema comunica o cliente
+                     & 
+                     & 
+            envia mensagem ao cliente que há erros
+                     & 
+            comunicarErro(orcId: String, msg: String)
+                     & 
+            SubReparacoes
+            \\
+            \hline
+        \end{tabular}
+        \caption{Análise Use Case - Fazer orçamento (ver \ref{fazer_orcamento})}
+    \end{table}
+\end{landscape}
+
 \end{document}
