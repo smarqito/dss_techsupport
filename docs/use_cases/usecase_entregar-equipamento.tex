@@ -128,16 +128,10 @@ e, se aplicável, o registo do pagamento do equipamento.
             \\
             \hline
             Sistema regista comentário
-                    & 
-                    & Sistema regista um comentário na reparação
-                    & addComentario(repID: String, msg: String)
-                    & SubReparacoes
-            \\
-            \hline
             Sistema regista data e hora
                     & 
-                    & Sistema regista data e hora do comentário na reparação
-                    & addData(repID: String, data: Date)
+                    & Sistema regista um comentário na reparação e a data/hora que foi feito
+                    & addComentario(repID: String, msg: String, data:Date)
                     & SubReparacoes
             \\
             \hline

@@ -36,21 +36,21 @@ Corresponde a um fluxo automático que deverá ser executado diariamente.
             Sistema calcula todos os equipamentos prontos a levantar 
                      & 
                      & Sistema obtém todos os equipamentos que estão prontos a levantar
-                     & getEqProntoLevantar():List<Equipamento>
+                     & getEqProntoLevantar():List<String>
                      & SubReparacoes
             \\
             \hline
             Sistema filtra equipamentos prontos a levantar há mais de 90 dias
                      &
                      & Sistema filtra os equipamentos que estão prontos para ser levantados há mais de 90 dias
-                     & filterEquipamentos(): List<Equipamento>
+                     & filterEquipamentos(): List<String>
                      & SubReparacoes
             \\
             \hline
             Sistema adiciona equipamentos à lista de equipamentos abandonados
                      & 
                      & Sistema adiciona os equipamentos à lista de abandonados
-                     & alterarEstadoEq(equipID: String, state: EstadoEquipamento)
+                     & alterarEstadoEq(equipsID: List<String>, state: EstadoEquipamento)
                      & SubReparacoes
             \\
             \hline
