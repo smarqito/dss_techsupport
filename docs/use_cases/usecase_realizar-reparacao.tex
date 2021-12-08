@@ -98,14 +98,14 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema regista passos da reparação como realizados
                      & 
                      & regista os passos da reparação realizados 
-                     & registaPassosRep( reparacao : Reparacao, passosRealizados : List <PassoReparacao>)
+                     & registaPassosRep(repID : String, passosRealizados : List<PassoReparacao>)
                      & SubReparacoes
             \\
             \hline
             Sistema regista a conclusão da reparação
                      & 
                      & regista reparação como concluida
-                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
+                     & alterarEstadoRep(repID : String, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -120,7 +120,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema regista data e hora
                      & 
                      & muda estado de equipamento para pronto para levantamento e regista hora
-                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & alteraEstadoEq(equiID : String, state : EstadoEquipamento)
                      & SubReparacoes
             \\
             \hline
@@ -138,7 +138,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema adiciona equipamento na lista de equipamentos para reparar
                      & 
                      & adiciona pedido à lista de pedidos de reparação 
-                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
+                     & alterarEstadoRep(repID : String, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -156,7 +156,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema adiciona equipamento na lista de equipamentos para reparar
                      & 
                      & adiciona pedido à lista de pedidos de reparação 
-                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
+                     & alterarEstadoRep(repID : String, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -191,7 +191,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema coloca reparação como cancelada
                      & 
                      & cancela pedido reparação
-                     & alterarEstadoRep (ped : Reparacao, estado : EstadoReparacao)
+                     & alterarEstadoRep(repID : String, estado : EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -222,7 +222,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Sistema regista data e hora
                      & 
                      & muda estado de equipamento para pronto para levantamento e regista hora
-                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & alteraEstadoEq(equiID : String, state : EstadoEquipamento)
                      & SubReparacoes
             \\
             \hline

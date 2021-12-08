@@ -66,7 +66,7 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
             Sistema insere pedido de reparação à lista de equipamentos por reparar
                      & 
                      & adiciona pedido de reparação à lista
-                     & addPedidoReparacao(rep: Reparacao)
+                     & addPedidoReparacao(orc: Orcamento)
                      & SubReparacoes
             \\
             \hline
@@ -91,7 +91,7 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
             Sistema coloca equipamento disponível para entrega
                      & 
                      & muda estado de equipamento para pronto para levantamento
-                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data : Date)
+                     & alteraEstadoEq(equiID : String, state : EstadoEquipamento)
                      & SubReparacoes
             \\
             \hline
