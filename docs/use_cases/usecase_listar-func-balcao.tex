@@ -17,4 +17,54 @@ ordenadas por funcionário de balcão e filtrado por data.
               \item Sistema obtém lista de equipamento entregue para cada funcionário
           \end{enumerate}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{4cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Gestor pede listagem de equipamentos recebidos por cada funcionário de balcão
+                     &
+            UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema obtém lista de equipamento recebidos para cada funcionário
+                     &
+                     &
+            obtem lista de equipamentos recebidos, agrupado por funcionário
+                     &
+            getEquipRecebidos(de: LocalDateTime, ate: LocalDateTime) : Map<Funcionario, List<Equipamentos>>
+                     &
+            SubColaboradores
+            \\
+            \hline
+            Gestor pede listagem de equipamentos entregue por cada funcionário de balcão
+                     &
+            UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema obtém lista de equipamento entregue para cada funcionário
+                     &
+                     &
+            obtém lista de equipamentos entregues, agrupado por funcionário
+                     &
+            getEquipEntregue(de: LocalDateTime, ate: LocalDateTime) : Map<Funcionario, List<Equipamentos> >
+                     &
+            SubColaboradores
+            \\
+            \hline
+        \end{tabular}
+        \caption{Análise Use Case - Listar fluxo de trabalho funcionário de balcão (ver \ref{listagem_func_balcao})}
+    \end{table}
+\end{landscape}
+
 \end{document}
