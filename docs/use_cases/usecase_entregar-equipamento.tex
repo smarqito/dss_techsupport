@@ -15,6 +15,7 @@ e, se aplicável, o registo do pagamento do equipamento.
               \item Funcionário insere identificador do equipamento
               \item Sistema devolve preço da reparação do equipamento
               \item Funcionário regista a reparação como paga
+              \item Sistema regista a reparação como paga
               \item Funcionário define equipamento como entregue
               \item Sistema altera estado do equipamento para entregue
           \end{enumerate}
@@ -53,7 +54,7 @@ e, se aplicável, o registo do pagamento do equipamento.
             Sistema devolve preço da reparação do equipamento
                      &
                      & Sistema calcula o preço da reparação do equipamento
-                     & calcularPrecoRep(rep:Reparacao): Double
+                     & calcularPrecoRep(repID:String): Double
                      & SubReparacoes
             \\
             \hline
@@ -63,6 +64,13 @@ e, se aplicável, o registo do pagamento do equipamento.
                      &
                      &
                      &
+            \\
+            \hline
+            Sistema regista a reparação como paga
+                     & 
+                     & Sistema altera o estado da reparação para paga 
+                     & alterarEstadoRep(repID: String, state: EstadoReparacao)
+                     & SubReparacoes
             \\
             \hline
             \rowcolor{yellow}
@@ -76,12 +84,17 @@ e, se aplicável, o registo do pagamento do equipamento.
             Sistema altera estado do equipamento para entregue
                      &
                      & Sistema altera o estado do equipamento para entregue
-                     & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data: Date)
+                     & alteraEstadoEq(equipID: String, state: EstadoEquipamento, data: Date)
                      & SubReparacoes
             \\
             \hline
             \rowcolor{red!30}
-            Exceção 1 &   &   &    & \\
+            Exceção  
+                    &
+            1           
+                    &
+            \multicolumn{3}{c}{cliente recusou orçamento}
+            \\
             \hline
             \rowcolor{yellow}
             Funcionário define equipamento como entregue
@@ -94,12 +107,17 @@ e, se aplicável, o registo do pagamento do equipamento.
             Sistema altera estado do equipamento para entregue
                     & 
                     & Sistema altera estado do equipamento para entregue
-                    & alteraEstadoEq(equi: Equipamento, state: EstadoEquipamento, data: Date)
+                    & alteraEstadoEq(equipID: String, state: EstadoEquipamento, data: Date)
                     & SubReparacoes
             \\
             \hline
             \rowcolor{red!30}
-            Exceção 2 &   &   &    & \\
+            Exceção
+                     & 
+            2 
+                     & 
+            \multicolumn{3}{c}{cliente não paga}
+            \\
             \hline
             \rowcolor{yellow}
             Funcionário regista comentário que cliente não pagou
@@ -111,20 +129,20 @@ e, se aplicável, o registo do pagamento do equipamento.
             \hline
             Sistema regista comentário
                     & 
-                    & Sistema regista um comentário
-                    & addComentario(equi: Equipamento, msg: String)
+                    & Sistema regista um comentário na reparação
+                    & addComentario(repID: String, msg: String)
                     & SubReparacoes
             \\
             \hline
             Sistema regista data e hora
                     & 
-                    & Sistema regista data e hora do comentário
-                    & addData(equi: Equipamento, data: Date)
+                    & Sistema regista data e hora do comentário na reparação
+                    & addData(repID: String, data: Date)
                     & SubReparacoes
             \\
             \hline
         \end{tabular}
-        \caption{Identidade do Projeto.}
+        \caption{Análise Use Case - Entregar equipamento (Ver \ref{entregar_equipamento})}
     \end{table}
 \end{landscape}
 
