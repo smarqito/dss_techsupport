@@ -13,8 +13,52 @@ Progressão de uma reparação, através da realização do passo.
           \begin{enumerate}
               \item Técnico indica referência do material gasto
               \item Sistema altera \textit{stock} do material gasto
-              \item Técnico indica tempo efetivamente gasto
-              \item Sistema regista tempo efetivamente gasto
+              \item Técnico indica tempo e custo efetivamente gasto 
+              \item Sistema regista tempo e custo efetivamente gasto e Técnico que o realizou
           \end{enumerate}
 \end{itemize}
+
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Técnico indica referência do material gasto
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema altera \textit{stock} do material gasto
+                     & 
+                     & Sistema atualiza o número de \textit{stock} do material disponível
+                     & removeStock(matID: String)
+                     & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
+            Técnico indica tempo efetivamente gasto
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema regista tempo e custo efetivamente gasto e Técnico que o realizou
+                     &
+                     & Sistema regista tempo efetivamente gasto
+                     & registaPasso(repID: String, passoID: String, mins: Integer, custo: Double, tecID: String)
+                     & SubReparacoes
+            \\
+            \hline
+        \end{tabular}
+        \caption{Análise Use Case - Realizar passo da reparação (Ver \ref{realizar_passo_rep})}
+    \end{table}
+\end{landscape}
+
 \end{document}
