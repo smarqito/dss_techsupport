@@ -43,28 +43,28 @@ Encomenda do material que se encontra com o seu \textit{stock} a 0 e que é nece
             Sistema calcula o material necessário para concluir os passos das reparações pendentes
                      &
                      & Sistema obtém o material necessário para concluir todas as reparações pendentes
-                     & getMaterial(): List<String>
+                     & getMaterial(): List<Material>
                      & SubReparacoes
             \\
             \hline
             Sistema calcula o material disponível
                      &
                      & Sistema calcula o material disponível
-                     & getMaterialDisponível(): List<String>
+                     & getMaterialDisponível(): List<Material>
                      & SubReparacoes
             \\
             \hline
             Sistema calcula o material necessário e sem \textit{stock} disponível
                      &
                      & Sistema calcula o material que não tem \textit{stock} e é necessário para as reparações
-                     & getMaterialSStock(): List<String>
+                     & getMaterialSStock(): List<Material>
                      & SubReparacoes
             \\
             \hline
             Sistema regista uma nova encomenda com o material não disponível mas necessário
                      &
                      & Registar uma nova encomenda com o material requerido para as reparações	
-                     & addEncomenda(List<String>)
+                     & addEncomenda(List<Material>)
                      & SubReparacoes
             \\
             \hline
