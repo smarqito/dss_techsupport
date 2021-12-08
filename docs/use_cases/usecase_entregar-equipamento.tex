@@ -69,7 +69,7 @@ e, se aplicável, o registo do pagamento do equipamento.
             Sistema regista a reparação como paga
                      & 
                      & Sistema altera o estado da reparação para paga 
-                     & alterarEstadoRep(repID: String, state: EstadoReparacao)
+                     & alterarEstadoRep(repID: String, estado: EstadoReparacao)
                      & SubReparacoes
             \\
             \hline
@@ -84,7 +84,7 @@ e, se aplicável, o registo do pagamento do equipamento.
             Sistema altera estado do equipamento para entregue
                      &
                      & Sistema altera o estado do equipamento para entregue
-                     & alteraEstadoEq(equipID: String, state: EstadoEquipamento, data: Date)
+                     & alteraEstadoEq(equipID: String, state: EstadoEquipamento)
                      & SubReparacoes
             \\
             \hline
@@ -107,7 +107,7 @@ e, se aplicável, o registo do pagamento do equipamento.
             Sistema altera estado do equipamento para entregue
                     & 
                     & Sistema altera estado do equipamento para entregue
-                    & alteraEstadoEq(equipID: String, state: EstadoEquipamento, data: Date)
+                    & alteraEstadoEq(equipID: String, state: EstadoEquipamento)
                     & SubReparacoes
             \\
             \hline
@@ -131,7 +131,7 @@ e, se aplicável, o registo do pagamento do equipamento.
             Sistema regista data e hora
                     & 
                     & Sistema regista um comentário na reparação e a data/hora que foi feito
-                    & addComentario(repID: String, msg: String, data:Date)
+                    & alterarEstadoRep(repID: String, estado: EstadoReparacao, comentario: String)
                     & SubReparacoes
             \\
             \hline
