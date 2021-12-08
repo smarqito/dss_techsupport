@@ -7,7 +7,7 @@ Listagem exaustiva de todas as intervenções realizadas por um técnico.
     \item[Pré-condição] {Gestor autenticado e reparações efetuadas}
     \item[Pós-condição] {Listagem detalhada de reparações por técnico}
           \begin{flushleft}
-              \textbf{Fluxo Normal} 
+              \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
               \item Gestor pede listagem de reparações por técnico para um dado mês % UI
@@ -15,4 +15,44 @@ Listagem exaustiva de todas as intervenções realizadas por um técnico.
               \item Sistema comunica todas as intervenções realizadas % obter lista de intervenções realizadas | obterIntervencoes(mes: int): Map<String, List<PassodeReparacao>> | SubReparacoes
           \end{enumerate}
 \end{itemize}
+\begin{landscape}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{4cm}|}
+            \hline
+            \rowcolor{gray!20!white}
+            Use Case & Fluxo & Responsabilidade & API & Subsistema \\
+            \hline
+            \rowcolor{yellow}
+            Gestor pede listagem de reparações por técnico para um dado mês
+                     & 
+            UI
+                     & 
+                     & 
+                     & 
+            \\
+            \hline
+            Sistema obtém lista de reparações do mês
+                     & 
+                     & 
+            obter lista de reparação de um determinado mês, agrupado por técnico
+                     & 
+            getReparacoesMes(data: LocalDateTime) : Map<Tecnico, List<Reparacao>>
+                     & 
+            SubColaboradores
+            \\
+            \hline
+            \rowcolor{yellow}
+            Sistema comunica todas as intervenções realizadas
+                     & 
+            UI
+                     & 
+                     & 
+                     & 
+            \\
+        \end{tabular}
+        \caption{Análise Use Case - Listar reparações detalhada por técnico (ver \ref{listagem_tecnico_detalhada})}
+    \end{table}
+\end{landscape}
+
 \end{document}
