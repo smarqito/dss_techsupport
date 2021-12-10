@@ -23,16 +23,30 @@ Corresponde a um fluxo automático que deverá ser executado diariamente.
         \begin{tabular}{|p{5cm}|p{1cm}|p{4cm}|p{6cm}|p{3cm}|}
             \hline
             \rowcolor{gray!20!white}
-            Use Case                                                                & Fluxo    & Responsabilidade                       & API                                                      & Subsistema    \\
+            Use Case & Fluxo    & Responsabilidade & API & Subsistema    \\
             \hline
             \rowcolor{red}
-            System timer informa que é uma hora definida                            & LowLevel &                                        &                                                          &               \\
+            System timer informa que é uma hora definida
+                    & LowLevel 
+                    &                                        
+                    &                                                          
+                    &               
+            \\
             \hline
-            Sistema calcula todos os orçamentos ativos                              &          & calcular orçamentos ativos             & getOrcamentosAtivos(): List<Orcamento>                   & SubReparações \\
+            Sistema calcula todos os orçamentos ativos                              
+            Sistema filtra orçamentos por data, ficando com os superiores a 30 dias 
+                    &          
+                    & filtrar orçamentos com mais de 30 dias 
+                    & filterOrcamentos(p : (o -> estaAtivo() & passouPrazo())): List<Orcamento> 
+                    & SubReparações 
+            \\
             \hline
-            Sistema filtra orçamentos por data, ficando com os superiores a 30 dias &          & filtrar orçamentos com mais de 30 dias & filterOrcamentos(): List<Orcamento> & SubReparações \\
-            \hline
-            Sistema adiciona orçamentos ao arquivo                                  &          & mudar o estado do orçamento    & alterarEstadoOrc(orc : Orcamento, estado : EstadoOrcamento)                        & SubReparações \\
+            Sistema adiciona orçamentos ao arquivo                                  
+                    &          
+                    & mudar o estado do orçamento    
+                    & ArquivaOrcamentos(orcs: List<Orcamento>)                        
+                    & SubReparações 
+            \\
             \hline
         \end{tabular}
         \caption{Identidade do Projeto.}
