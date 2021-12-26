@@ -6,15 +6,19 @@ Progressão de uma reparação, através da realização do passo.
     \item[Use Case] {\underline{Realizar passo da reparação}}
     \item[Cenários] {4}
     \item[Pré-condição] {Técnico autenticado e material necessário disponível}
-    \item[Pós-condição] {Equipamento progride na sua reparação}
+    \item[Pós-condição] {Passo adicionado à lista de passos realizados}
           \begin{flushleft}
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
+              \item Técnico indica a identificação da reparação a ser efetuada 
+              \item Sistema seleciona a reparação
+              \item Sistema seleciona o passo de reparação atual
               \item Técnico indica referência do material gasto
               \item Sistema altera \textit{stock} do material gasto
               \item Técnico indica tempo e custo efetivamente gasto 
               \item Sistema regista tempo e custo efetivamente gasto e Técnico que o realizou
+              \item Sistema adiciona passo à lista de passos realizados
           \end{enumerate}
 \end{itemize}
 
@@ -27,32 +31,56 @@ Progressão de uma reparação, através da realização do passo.
             Use Case & Fluxo & Responsabilidade & API & Subsistema \\
             \hline
             \rowcolor{yellow}
+            Técnico indica a identificação da reparação a ser efetuada 
+                     & UI
+                     &
+                     &
+                     &
+            \\
+            \hline
+            Sistema seleciona a reparação
+                     & 
+                     & Sistema seleciona a reparação a partir do seu ID
+                     & getRep(repID: String): Reparacao
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema seleciona o passo de reparação atual
+                    & 
+                    & Sistema seleciona o passo de reparação a partir do seu ID
+                    & getPassoAtual(): PassoReparacao
+                    & SubReparacoes
+            \\
+            \hline
+            \rowcolor{yellow}
             Técnico indica referência do material gasto
                      & UI
                      &
                      &
-                     &
+                     &        
             \\
             \hline
+            \rowcolor{yellow}
             Sistema altera \textit{stock} do material gasto
                      & 
-                     & Sistema atualiza o número de \textit{stock} do material disponível
-                     & removeStock(matID: String)
+                     & Sistema decrementa o \textit{stock} do material gasto
+                     & consumeMaterial(mat: Material)
                      & SubReparacoes
             \\
             \hline
             \rowcolor{yellow}
-            Técnico indica tempo efetivamente gasto
+            Técnico indica tempo e custo efetivamente gasto
                      & UI
+                     & 
                      &
-                     &
-                     &
+                     & 
             \\
             \hline
             Sistema regista tempo e custo efetivamente gasto e Técnico que o realizou
-                     &
-                     & Sistema regista tempo efetivamente gasto
-                     & registaPasso(repID: String, passoID: String, mins: Integer, custo: Double, tecID: String)
+            Sistema adiciona passo à lista de passos realizados
+                     & 
+                     & Sistema regista os valores do passo após ter sido concretizado e quem o fez
+                     & registaPasso(repID: String, mins: Integer, custo: Double, tecID: String)
                      & SubReparacoes
             \\
             \hline
