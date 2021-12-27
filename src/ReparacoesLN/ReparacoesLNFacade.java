@@ -198,8 +198,10 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param descr
 	 */
 	public void registarOrcamento(String nif, String equipId, String descr) {
-		// TODO - implement ReparacoesLNFacade.registarOrcamento
-		throw new UnsupportedOperationException();
+		Equipamento e = this.gestClientes.getEquipamento(equipId);
+		if (e.isProprietario(nif)){
+			this.gestReparacoes.registarOrcamento(e, descr);
+		}
 	}
 
 	/**

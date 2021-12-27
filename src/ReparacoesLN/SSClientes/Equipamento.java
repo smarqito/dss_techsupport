@@ -22,16 +22,17 @@ public class Equipamento {
 		throw new UnsupportedOperationException();
 	}
 
-	public void getEstado() {
+	public EstadoEquipamento getEstado() {
 		// TODO - implement Equipamento.getEstado
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * 
+	 *
 	 * @param nif
+	 * @return
 	 */
-	public void isProprietario(String nif) {
+	public boolean isProprietario(String nif) {
 		// TODO - implement Equipamento.isProprietario
 		throw new UnsupportedOperationException();
 	}

@@ -87,8 +87,10 @@ public class Orcamento {
 	 * @param novoEstado
 	 */
 	public void alteraEstado(EstadoOrcamento novoEstado) {
-		// TODO - implement Orcamento.alteraEstado
-		throw new UnsupportedOperationException();
+		EstadoOrcamento atual = this.estados.get(0);
+		if (!atual.equals(novoEstado)) {
+			this.estados.add(0, novoEstado);
+		}
 	}
 
 	public String generateResume() {

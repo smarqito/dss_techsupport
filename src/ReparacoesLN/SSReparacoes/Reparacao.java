@@ -16,19 +16,28 @@ public abstract class Reparacao {
 	private LocalDateTime prazoReparacao;
 	private LocalDateTime dataCriacao;
 
+	public Equipamento getEquipamento() {
+		return equipamento;
+	}
+
+	public Tecnico getTecnico() {
+		return tecnico;
+	}
+
 	/**
 	 * 
 	 * @param novoEstado
 	 * @param msg
 	 */
-	public Boolean alteraEstado(EstadoReparacao novoEstado, String msg) {
-		// TODO - implement Reparacao.alteraEstado
-		throw new UnsupportedOperationException();
+
+
+	public void alteraEstado(EstadoReparacao novoEstado, String msg) {
+		novoEstado.setComentario(msg);
+		this.estados.add(0, novoEstado);
 	}
 
 	public EstadoReparacao getUltimoEstado() {
-		// TODO - implement Reparacao.getUltimoEstado
-		throw new UnsupportedOperationException();
+		return this.estados.get(0);
 	}
 
 	public CustoTotalReparacao getPrecoEfetivo() {
@@ -36,9 +45,8 @@ public abstract class Reparacao {
 		throw new UnsupportedOperationException();
 	}
 
-	public Date getDataCriacao() {
-		// TODO - implement Reparacao.getDataCriacao
-		throw new UnsupportedOperationException();
+	public LocalDateTime getDataCriacao() {
+		return this.dataCriacao;
 	}
 
 }

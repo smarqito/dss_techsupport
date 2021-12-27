@@ -12,6 +12,12 @@ public class PassoReparacao {
 	private Integer tempoGasto;
 	private Double custoEfetivo;
 
+	public PassoReparacao(String nome, Integer tempo, Material material) {
+		this.nome = nome;
+		this.tempoEstimado = tempo;
+		this.materiais = material;
+	}
+
 	/**
 	 * 
 	 * @param ctr

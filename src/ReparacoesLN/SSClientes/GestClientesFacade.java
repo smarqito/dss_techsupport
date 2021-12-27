@@ -1,12 +1,14 @@
 package ReparacoesLN.SSClientes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class GestClientesFacade implements IGestClientes {
 
 	private Cliente clientes;
-	private Equipamento equipamentos;
+	private Map<String, Equipamento> equipamentos;
 
 	/**
 	 * 
@@ -46,8 +48,8 @@ public class GestClientesFacade implements IGestClientes {
 	}
 
 	public List<Equipamento> getEqProntoLevantar() {
-		// TODO - implement GestClientesFacade.getEqProntoLevantar
-		throw new UnsupportedOperationException();
+		Predicate<Equipamento> p = x -> (x.getEstado() == EstadoEquipamento.prontoLevantar);
+		return this.filterEquipamentos(p);
 	}
 
 	/**
@@ -87,8 +89,7 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param p
 	 */
 	public List<Equipamento> filterEquipamentos(Predicate<Equipamento> p) {
-		// TODO - implement GestClientesFacade.filterEquipamentos
-		throw new UnsupportedOperationException();
+		return this.equipamentos.values().stream().filter(p).collect(Collectors.toList());
 	}
 
 }

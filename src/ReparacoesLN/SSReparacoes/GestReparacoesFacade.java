@@ -9,9 +9,9 @@ import ReparacoesLN.SSClientes.*;
 
 public class GestReparacoesFacade implements IGestReparacoes {
 
-	private Reparacao reps;
-	private Orcamento orcs;
-	private List<ReparacaoExpresso> reparacoesDisponiveis;
+	private Map<String, Reparacao> reps;
+	private Map<String, Orcamento> orcs;
+	private Set<ReparacaoExpresso> reparacoesDisponiveis;
 
 	public List<Orcamento> getOrcamentosAtivos() {
 		// TODO - implement GestReparacoesFacade.getOrcamentosAtivos
@@ -51,8 +51,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param estado
 	 */
 	public void alterarEstadoOrc(String orcID, EstadoOrcamento estado) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoOrc
-		throw new UnsupportedOperationException();
+		Orcamento o = this.orcs.get(orcID);
+		o.alteraEstado(estado);
 	}
 
 	/**
@@ -61,8 +61,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param estado
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		Reparacao r = this.reps.get(repID);
+		r.alteraEstado(estado, null);
 	}
 
 	/**
@@ -72,8 +72,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param comentario
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		Reparacao r = this.reps.get(repID);
+		r.alteraEstado(estado, comentario);
 	}
 
 	/**
@@ -161,8 +161,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param descr
 	 */
 	public void registarOrcamento(Equipamento equip, String descr) {
-		// TODO - implement GestReparacoesFacade.registarOrcamento
-		throw new UnsupportedOperationException();
+		Orcamento o = new Orcamento(equip, descr);
+		this.orcs.put(o.getID(), o);
 	}
 
 	/**

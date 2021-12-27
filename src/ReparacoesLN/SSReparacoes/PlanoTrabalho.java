@@ -14,8 +14,9 @@ public class PlanoTrabalho {
 	 * @param material
 	 */
 	public void addPasso(String nome, Integer tempo, Material material) {
-		// TODO - implement PlanoTrabalho.addPasso
-		throw new UnsupportedOperationException();
+		PassoReparacao p = new PassoReparacao(nome, tempo, material);
+		passos.add(p);
+
 	}
 
 	/**
@@ -26,8 +27,6 @@ public class PlanoTrabalho {
 	 * @param m
 	 */
 	public void addSubPasso(String nomeP, String nomeSub, Integer t, Material m) {
-		// TODO - implement PlanoTrabalho.addSubPasso
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -35,8 +34,7 @@ public class PlanoTrabalho {
 	 * @param passo
 	 */
 	public void removePasso(PassoReparacao passo) {
-		// TODO - implement PlanoTrabalho.removePasso
-		throw new UnsupportedOperationException();
+		this.passos.remove(passo);
 	}
 
 	public void getPassoAtual() {

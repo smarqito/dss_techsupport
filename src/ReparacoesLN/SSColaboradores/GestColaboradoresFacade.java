@@ -6,9 +6,10 @@ import ReparacoesLN.SSClientes.*;
 
 public class GestColaboradoresFacade implements IGestColaboradores {
 
-	private Colaborador colabs;
+	private Map<String, Colaborador> colabs;
 	private List<Balcao> balcao;
 	private GestAgenda agenda;
+	private int id;
 
 	public void registaColaborador() {
 		// TODO - implement GestColaboradoresFacade.registaColaborador
