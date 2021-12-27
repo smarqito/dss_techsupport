@@ -1,5 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class GestAgenda {
@@ -21,7 +22,7 @@ public class GestAgenda {
 	 * @param tempo
 	 * @param detalhes
 	 */
-	public DateTime addEvento(String tecId, Integer tempo, String detalhes) {
+	public LocalDateTime addEvento(String tecId, Integer tempo, String detalhes) {
 		// TODO - implement GestAgenda.addEvento
 		throw new UnsupportedOperationException();
 	}
@@ -31,7 +32,7 @@ public class GestAgenda {
 	 * @param tempo
 	 * @param detalhes
 	 */
-	public DateTime addEvento(Integer tempo, String detalhes) {
+	public LocalDateTime addEvento(Integer tempo, String detalhes) {
 		// TODO - implement GestAgenda.addEvento
 		throw new UnsupportedOperationException();
 	}
@@ -50,7 +51,7 @@ public class GestAgenda {
 	 * @param tecId
 	 * @param data
 	 */
-	public void removeEvento(String tecId, DateTime data) {
+	public void removeEvento(String tecId, LocalDateTime data) {
 		// TODO - implement GestAgenda.removeEvento
 		throw new UnsupportedOperationException();
 	}

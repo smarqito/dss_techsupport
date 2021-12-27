@@ -3,6 +3,11 @@ package ReparacoesLN.SSReparacoes;
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+
 public interface IGestReparacoes {
 
 	List<Orcamento> getOrcamentosAtivos();
@@ -186,6 +191,6 @@ public interface IGestReparacoes {
 	 * 
 	 * @param data
 	 */
-	Map<Tecnico, ReparacaoPorMes> getReparacoesMes(DateTime data);
+	Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data);
 
 }

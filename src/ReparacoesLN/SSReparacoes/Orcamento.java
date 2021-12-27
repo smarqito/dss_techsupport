@@ -1,6 +1,8 @@
 package ReparacoesLN.SSReparacoes;
 
 import ReparacoesLN.SSClientes.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import ReparacoesLN.SSColaboradores.*;
 
@@ -118,7 +120,7 @@ public class Orcamento {
 	 * @param msg
 	 * @param tec
 	 */
-	public void addComunicacao(DateTime data, String msg, Tecnico tec) {
+	public void addComunicacao(LocalDateTime data, String msg, Tecnico tec) {
 		// TODO - implement Orcamento.addComunicacao
 		throw new UnsupportedOperationException();
 	}

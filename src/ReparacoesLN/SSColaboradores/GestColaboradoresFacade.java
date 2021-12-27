@@ -1,5 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import ReparacoesLN.SSClientes.*;
 
@@ -20,7 +21,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param de
 	 * @param ate
 	 */
-	public Map<Funcionario, List<Equipamento>> getEquipFuncBalcao(Class tipo, DateTime de, DateTime ate) {
+	public Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate) {
 		// TODO - implement GestColaboradoresFacade.getEquipFuncBalcao
 		throw new UnsupportedOperationException();
 	}
@@ -30,7 +31,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param de
 	 * @param ate
 	 */
-	public Map<Funcionario, List<Equipamento>> getEquipRecebidos(DateTime de, DateTime ate) {
+	public Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate) {
 		// TODO - implement GestColaboradoresFacade.getEquipRecebidos
 		throw new UnsupportedOperationException();
 	}
@@ -40,7 +41,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param de
 	 * @param ate
 	 */
-	public Map<Funcionario, List<Equipamento>> getEquipEntregue(DateTime de, DateTime ate) {
+	public Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate) {
 		// TODO - implement GestColaboradoresFacade.getEquipEntregue
 		throw new UnsupportedOperationException();
 	}
@@ -78,7 +79,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param tempo
 	 * @param detalhes
 	 */
-	public DateTime addEventoAgenda(String tecId, Integer tempo, String detalhes) {
+	public LocalDateTime addEventoAgenda(String tecId, Integer tempo, String detalhes) {
 		// TODO - implement GestColaboradoresFacade.addEventoAgenda
 		throw new UnsupportedOperationException();
 	}
@@ -88,7 +89,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param tempo
 	 * @param detalhes
 	 */
-	public DateTime addEventoAgenda(Integer tempo, String detalhes) {
+	public LocalDateTime addEventoAgenda(Integer tempo, String detalhes) {
 		// TODO - implement GestColaboradoresFacade.addEventoAgenda
 		throw new UnsupportedOperationException();
 	}
@@ -98,7 +99,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param tecId
 	 * @param data
 	 */
-	public void removeEventoAgenda(String tecId, DateTime data) {
+	public void removeEventoAgenda(String tecId, LocalDateTime data) {
 		// TODO - implement GestColaboradoresFacade.removeEventoAgenda
 		throw new UnsupportedOperationException();
 	}

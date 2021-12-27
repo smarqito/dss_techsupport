@@ -11,5 +11,7 @@
 *.lot
 *.toc
 *.nls
+*.iml
+*.idea
 
 *.ilg

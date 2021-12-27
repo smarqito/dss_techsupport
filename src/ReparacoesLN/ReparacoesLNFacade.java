@@ -4,6 +4,10 @@ import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSColaboradores.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+
 public class ReparacoesLNFacade implements IReparacoesLN {
 
 	private IGestClientes gestClientes;
@@ -219,7 +223,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param de
 	 * @param ate
 	 */
-	public Map<Funcionario, List<Equipamento>> getEquipRecebidos(DateTime de, DateTime ate) {
+	public Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate) {
 		// TODO - implement ReparacoesLNFacade.getEquipRecebidos
 		throw new UnsupportedOperationException();
 	}
@@ -229,7 +233,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param de
 	 * @param ate
 	 */
-	public Map<Funcionario, List<Equipamento>> getEquipEntregue(DateTime de, DateTime ate) {
+	public Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate) {
 		// TODO - implement ReparacoesLNFacade.getEquipEntregue
 		throw new UnsupportedOperationException();
 	}
@@ -264,7 +268,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * 
 	 * @param data
 	 */
-	public Map<Tecnico, List<ReparacaoPorMes>> getReparacoesMes(DateTime data) {
+	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
 		// TODO - implement ReparacoesLNFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}

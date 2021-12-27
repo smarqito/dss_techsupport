@@ -4,6 +4,10 @@ import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSColaboradores.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+
 public interface IReparacoesLN {
 
 	/**
@@ -147,14 +151,14 @@ public interface IReparacoesLN {
 	 * @param de
 	 * @param ate
 	 */
-	Map<Funcionario, List<Equipamento>> getEquipRecebidos(DateTime de, DateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate);
 
 	/**
 	 * 
 	 * @param de
 	 * @param ate
 	 */
-	Map<Funcionario, List<Equipamento>> getEquipEntregue(DateTime de, DateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate);
 
 	void saveInstance();
 
@@ -177,7 +181,7 @@ public interface IReparacoesLN {
 	 * 
 	 * @param data
 	 */
-	Map<Tecnico, List<ReparacaoPorMes>> getReparacoesMes(DateTime data);
+	Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data);
 
 	/**
 	 * 

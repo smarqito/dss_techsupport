@@ -2,6 +2,10 @@ package ReparacoesLN.SSColaboradores;
 
 import ReparacoesLN.SSClientes.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+
 public interface IGestColaboradores {
 
 	void registaColaborador();
@@ -12,21 +16,21 @@ public interface IGestColaboradores {
 	 * @param de
 	 * @param ate
 	 */
-	Map<Funcionario, List<Equipamento>> getEquipFuncBalcao(Class tipo, DateTime de, DateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate);
 
 	/**
 	 * 
 	 * @param de
 	 * @param ate
 	 */
-	Map<Funcionario, List<Equipamento>> getEquipRecebidos(DateTime de, DateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate);
 
 	/**
 	 * 
 	 * @param de
 	 * @param ate
 	 */
-	Map<Funcionario, List<Equipamento>> getEquipEntregue(DateTime de, DateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate);
 
 	/**
 	 * 
@@ -52,21 +56,21 @@ public interface IGestColaboradores {
 	 * @param tempo
 	 * @param detalhes
 	 */
-	DateTime addEventoAgenda(String tecId, Integer tempo, String detalhes);
+	LocalDateTime addEventoAgenda(String tecId, Integer tempo, String detalhes);
 
 	/**
 	 * 
 	 * @param tempo
 	 * @param detalhes
 	 */
-	DateTime addEventoAgenda(Integer tempo, String detalhes);
+	LocalDateTime addEventoAgenda(Integer tempo, String detalhes);
 
 	/**
 	 * 
 	 * @param tecId
 	 * @param data
 	 */
-	void removeEventoAgenda(String tecId, DateTime data);
+	void removeEventoAgenda(String tecId, LocalDateTime data);
 
 	/**
 	 * 

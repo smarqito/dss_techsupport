@@ -1,5 +1,8 @@
 package ReparacoesLN.SSClientes;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 public interface IGestClientes {
 
 	/**

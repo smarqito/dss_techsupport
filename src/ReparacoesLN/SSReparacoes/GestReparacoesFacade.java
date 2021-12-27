@@ -1,6 +1,9 @@
 package ReparacoesLN.SSReparacoes;
 
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Predicate;
+
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
 
@@ -196,7 +199,7 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * 
 	 * @param orc
 	 */
-	private Reparacao criarReparacao(Orcamento orc) {
+	public Reparacao criarReparacao(Orcamento orc) {
 		// TODO - implement GestReparacoesFacade.criarReparacao
 		throw new UnsupportedOperationException();
 	}
@@ -272,10 +275,11 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param data
+	 * @return
 	 */
-	public Map<Tecnico, ReparacaoPorMes> getReparacoesMes(DateTime data) {
+	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
 		// TODO - implement GestReparacoesFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}

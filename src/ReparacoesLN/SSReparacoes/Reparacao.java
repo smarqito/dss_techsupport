@@ -1,6 +1,8 @@
 package ReparacoesLN.SSReparacoes;
 
 import ReparacoesLN.SSClientes.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import ReparacoesLN.SSColaboradores.*;
 
@@ -11,8 +13,8 @@ public abstract class Reparacao {
 	private List<Comunicacao> comunicacoes;
 	private Tecnico tecnico;
 	private String id;
-	private DateTime prazoReparacao;
-	private DateTime dataCriacao;
+	private LocalDateTime prazoReparacao;
+	private LocalDateTime dataCriacao;
 
 	/**
 	 * 

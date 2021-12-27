@@ -1,5 +1,7 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.sql.Time;
+
 public class EntradaAgenda {
 
 	private Time inicio;

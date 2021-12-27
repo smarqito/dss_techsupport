@@ -1,5 +1,7 @@
 package ReparacoesLN.SSReparacoes;
 
+import java.util.Date;
+
 public enum EstadoReparacao {
 	reparado,
 	aguadaReparacao,

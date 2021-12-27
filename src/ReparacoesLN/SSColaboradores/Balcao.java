@@ -2,6 +2,8 @@ package ReparacoesLN.SSColaboradores;
 
 import ReparacoesLN.SSClientes.*;
 
+import java.util.Date;
+
 public abstract class Balcao {
 
 	private Equipamento equipamento;

@@ -1,5 +1,7 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class AgendaPorDia {
@@ -31,7 +33,7 @@ public class AgendaPorDia {
 	 * @param duracao
 	 * @param det
 	 */
-	public DateTime addEvento(Integer duracao, String det) {
+	public LocalDateTime addEvento(Integer duracao, String det) {
 		// TODO - implement AgendaPorDia.addEvento
 		throw new UnsupportedOperationException();
 	}
@@ -40,7 +42,7 @@ public class AgendaPorDia {
 	 * 
 	 * @param data
 	 */
-	public void removeEvento(DateTime data) {
+	public void removeEvento(LocalDateTime data) {
 		// TODO - implement AgendaPorDia.removeEvento
 		throw new UnsupportedOperationException();
 	}
