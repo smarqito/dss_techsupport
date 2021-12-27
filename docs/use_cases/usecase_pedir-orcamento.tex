@@ -14,7 +14,7 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
               \item Sistema seleciona cliente
 		      \item Funcionário insere identificador do equipamento
 		      \item Sistema verifica identificador do equipamento
-		      \item Funcionário regista pedido de orçamento
+		      \item Funcionário insere descrição da avaria regista pedido de orçamento
 		      \item Sistema adiciona pedido de orçamento
 	      \end{enumerate}
 
@@ -75,7 +75,7 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
 			Sistema adiciona pedido de orçamento
                      & 
                      & regista pedido de orçamento
-                     & registaPedidoOrcamento(clienteID : String, equipID : String)
+                     & registarOrcamento(clienteID : String, equipID : String, descr: String)
                      & SubReparacoes
             \\
             \hline
