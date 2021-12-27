@@ -1,0 +1,62 @@
+package ReparacoesLN.SSColaboradores;
+
+import java.util.*;
+
+public class AgendaPorDia {
+
+	private List<EntradaAgenda> tarefas;
+	private Integer tempoDisp = 8*60;
+	private Date data;
+
+	/**
+	 * 
+	 * @param data
+	 */
+	public AgendaPorDia(Date data) {
+		// TODO - implement AgendaPorDia.AgendaPorDia
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param t
+	 */
+	public Time temDisponibilidade(Integer t) {
+		// TODO - implement AgendaPorDia.temDisponibilidade
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param duracao
+	 * @param det
+	 */
+	public DateTime addEvento(Integer duracao, String det) {
+		// TODO - implement AgendaPorDia.addEvento
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param data
+	 */
+	public void removeEvento(DateTime data) {
+		// TODO - implement AgendaPorDia.removeEvento
+		throw new UnsupportedOperationException();
+	}
+
+	public Integer getTempoDisponivel() {
+		// TODO - implement AgendaPorDia.getTempoDisponivel
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param time
+	 */
+	public EntradaAgenda getEntradaAgenda(Time time) {
+		// TODO - implement AgendaPorDia.getEntradaAgenda
+		throw new UnsupportedOperationException();
+	}
+
+}
