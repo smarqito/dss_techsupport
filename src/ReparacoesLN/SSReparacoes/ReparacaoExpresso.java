@@ -1,5 +1,6 @@
 package ReparacoesLN.SSReparacoes;
 
+
 public class ReparacaoExpresso extends Reparacao {
 
 	private Double precoFixo;
@@ -19,13 +20,22 @@ public class ReparacaoExpresso extends Reparacao {
 		this.nome = nome;
 	}
 
+	/**
+	 * Método que retorna sobre a forma da classe CustoTotalReparacao o custo da reparacao expresso1
+	 * 
+	 */
 	@Override
 	public CustoTotalReparacao getPrecoEfetivo() {
-		return null;
+		CustoTotalReparacao custoXPresso = new CustoTotalReparacao();
+
+		custoXPresso.addPasso(tempoEstimado, tempoEstimado, precoFixo);
+
+		return custoXPresso;
 	}
 	
 	/**
-	 * Método para realizar a reparação expresso na sua totalidade, dado a esta não possuir múltiplos passos
+	 * Método para realizar a reparação expresso na sua totalidade, 
+	 * dado a esta não possuir múltiplos passos
 	 * 
 	 */
 	@Override
@@ -68,31 +78,21 @@ public class ReparacaoExpresso extends Reparacao {
 				+ "]";
 	}
 
+	// Método equals
+
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ReparacaoExpresso other = (ReparacaoExpresso) obj;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        if (precoFixo == null) {
-            if (other.precoFixo != null)
-                return false;
-        } else if (!precoFixo.equals(other.precoFixo))
-            return false;
-        if (tempoEstimado == null) {
-            if (other.tempoEstimado != null)
-                return false;
-        } else if (!tempoEstimado.equals(other.tempoEstimado))
-            return false;
-        return true;
+        if(obj == this)
+			return true;
+	
+		if((obj == null) || !obj.getClass().equals(this.getClass()))
+			return true;
+		
+		ReparacaoExpresso r = (ReparacaoExpresso) obj;
+
+		return r.getNome().equals(this.getNome()) 
+			   && r.getPrecoFixo().equals(this.getPrecoFixo())
+			   && r.getTempoEstimado().equals(this.getTempoEstimado());
     }
 	
 }
