@@ -51,7 +51,7 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param orcID
 	 * @param estado
 	 */
-	public void alterarEstadoOrc(String orcID, EstadoOrcamento estado) {
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) {
 		Orcamento o = this.orcs.get(orcID);
 		o.alteraEstado(estado);
 	}
@@ -61,7 +61,7 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param repID
 	 * @param estado
 	 */
-	public void alterarEstadoRep(String repID, EstadoReparacao estado) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
 		Reparacao r = this.reps.get(repID);
 		r.alteraEstado(estado, null);
 	}
@@ -72,7 +72,7 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param estado
 	 * @param comentario
 	 */
-	public void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) {
 		Reparacao r = this.reps.get(repID);
 		r.alteraEstado(estado, comentario);
 	}

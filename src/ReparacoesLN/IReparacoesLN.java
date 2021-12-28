@@ -30,14 +30,14 @@ public interface IReparacoesLN {
 	 * @param orcID
 	 * @param estado
 	 */
-	void alterarEstadoOrc(String orcID, EstadoOrcamento estado);
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado);
 
 	/**
 	 * 
 	 * @param repID
 	 * @param estado
 	 */
-	void alterarEstadoRep(String repID, EstadoReparacao estado);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado);
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ public interface IReparacoesLN {
 	 * @param estado
 	 * @param comentario
 	 */
-	void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario);
 
 	/**
 	 * 
