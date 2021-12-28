@@ -49,4 +49,6 @@ public abstract class Reparacao {
 	public void addComunicacao(Comunicacao c) {
 		this.comunicacoes.add(c);
 	}
+
+	public abstract void registaPassoRealizado(Integer tempo, Double custo);
 }

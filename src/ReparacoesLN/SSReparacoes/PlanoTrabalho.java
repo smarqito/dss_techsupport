@@ -41,6 +41,20 @@ public class PlanoTrabalho {
 		this.passos.remove(passo);
 	}
 
+	public void addPassoRealizado(PassoReparacao p) {
+		// TODO
+	}
+
+	public boolean haMaisPassos() {
+		// TODO
+		return false;
+	}
+
+	public List<Material> getMaterial() {
+		// TODO
+		return null;
+	}
+
 	public PassoReparacao getPassoAtual() {
 		return this.passos.get(0);
 	}
