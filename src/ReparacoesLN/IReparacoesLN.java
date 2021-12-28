@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.ReparacaoNaoExisteException;
+
 public interface IReparacoesLN {
 
 	/**
@@ -50,8 +52,9 @@ public interface IReparacoesLN {
 	/**
 	 * 
 	 * @param repID
+	 * @throws ReparacaoNaoExisteException
 	 */
-	CustoTotalReparacao calcularPrecoRep(String repID);
+	CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 

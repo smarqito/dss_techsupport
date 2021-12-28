@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.ClienteNaoExisteException;
+import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSColaboradores.*;
@@ -99,12 +101,12 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	/**
-	 * 
-	 * @param repID
+	 * Calcula o preco de uma reparacao utilizando o custo efetivo e tempo efetivo
+	 * @param repID ID da reparacao
+	 * @throws ReparacaoNaoExisteException Caso a reparacao nao exista
 	 */
-	public CustoTotalReparacao calcularPrecoRep(String repID) {
-		// TODO - implement ReparacoesLNFacade.calcularPrecoRep
-		throw new UnsupportedOperationException();
+	public CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException {
+		return gestReparacoes.calcularPrecoRep(repID);
 	}
 
 	/**
@@ -133,10 +135,10 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	/**
 	 * 
 	 * @param nif
+	 * @throws ClienteNaoExisteException
 	 */
-	public Cliente getCliente(String nif) {
-		// TODO - implement ReparacoesLNFacade.getCliente
-		throw new UnsupportedOperationException();
+	public Cliente getCliente(String nif) throws ClienteNaoExisteException {
+		return gestClientes.getCliente(nif);
 	}
 
 	/**

@@ -5,18 +5,23 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import Middleware.ClienteNaoExisteException;
+
 public class GestClientesFacade implements IGestClientes {
 
-	private Cliente clientes;
+	private Map<String, Cliente> clientes;
 	private Map<String, Equipamento> equipamentos;
 
 	/**
 	 * 
 	 * @param nif
+	 * @throws ClienteNaoExisteException
 	 */
-	public Cliente getCliente(String nif) {
-		// TODO - implement GestClientesFacade.getCliente
-		throw new UnsupportedOperationException();
+	public Cliente getCliente(String nif) throws ClienteNaoExisteException {
+		if(clientes.containsKey(nif)) {
+			return clientes.get(nif);
+		}
+		throw new ClienteNaoExisteException("nif");
 	}
 
 	/**
@@ -67,8 +72,9 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param codR
 	 * @param marca
 	 * @param nif
+	 * @throws ClienteNaoExisteException
 	 */
-	public void registaEquipamento(String codR, String marca, String nif) {
+	public void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException {
 		Equipamento e = new Equipamento(codR, marca, getCliente(nif));
 	}
 
