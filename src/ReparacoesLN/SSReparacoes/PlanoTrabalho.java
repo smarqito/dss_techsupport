@@ -30,8 +30,12 @@ public class PlanoTrabalho {
 		return passosRealizados.stream().map(PassoReparacao::clone).collect(Collectors.toList());
 	}
 
+	public Integer getTempo() {
+		return tempo;
+	}
+
 	public void setPassos(List<PassoReparacao> passos) {
-		this.passos = passos;
+		this.passos = passos.stream().map(PassoReparacao::clone).collect(Collectors.toList());
 	}
 
 	/**
