@@ -26,7 +26,7 @@ public class ReparacaoExpresso extends Reparacao {
 	 */
 	@Override
 	public CustoTotalReparacao getPrecoEfetivo() {
-		CustoTotalReparacao custoXPresso = new CustoTotalReparacao();
+		CustoTotalReparacao custoXPresso = new CustoTotalReparacao(0.0);
 		
 		custoXPresso.addPasso(tempoEstimado, tempoEstimado, precoFixo);
 		

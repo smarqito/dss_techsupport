@@ -5,9 +5,9 @@ public class CustoTotalReparacao {
 	private int tempoTotal;
 	private double custoMaterial;
 	private int tempoTotalEstimado;
-	private int precoHora;
+	private double precoHora;
 
-	public CustoTotalReparacao(Integer precoHora) {
+	public CustoTotalReparacao(Double precoHora) {
 		tempoTotal = 0;
 		custoMaterial = 0;
 		tempoTotalEstimado = 0;
