@@ -9,9 +9,9 @@ import ReparacoesLN.SSClientes.*;
 
 public class GestReparacoesFacade implements IGestReparacoes {
 
-	private Reparacao reps;
-	private Orcamento orcs;
-	private List<ReparacaoExpresso> reparacoesDisponiveis;
+	private Map<String, Reparacao> reps;
+    private Map<String, Orcamento> orcs;
+    private Set<ReparacaoExpresso> reparacoesDisponiveis;
 
 	public List<Orcamento> getOrcamentosAtivos() {
 		// TODO - implement GestReparacoesFacade.getOrcamentosAtivos
@@ -176,15 +176,29 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova 
+	 * A reparação só é efetuada se o tipo de reparação existir no sistema
 	 * 
-	 * @param equip
-	 * @param nomeRepXpresso
-	 * @param tec
+	 * @param equip Equipamento a reparar
+	 * @param nomeRepXpresso Nome da reparação a efetuar
+	 * @param tec Técnico a realizar a reparação
 	 */
 	public void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) {
-		// TODO - implement GestReparacoesFacade.addRepExpresso
-		throw new UnsupportedOperationException();
-	}
+		
+		ReparacaoExpresso repXpresso = reparacoesDisponiveis.stream().filter(x -> x.getNome().equals(nomeRepXpresso)).findAny().orElse(null);
+	
+		//if(repXpresso == null)
+			//throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não existe!");
+		
+		Double preco = repXpresso.getPrecoFixo();
+		Integer tempo = repXpresso.getTempoEstimado();
+
+		//ReparacaoExpresso res = new ReparacaoExpresso(nomeRepXpresso, preco, tempo, equip, tec);
+
+		//String repXpressoID = res.getID();
+
+		//reps.put(repXpressoID, res);
+	}	
 
 	/**
 	 * 

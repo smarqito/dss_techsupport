@@ -20,14 +20,41 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
+	 * Só acontece se houver disponibilidade e a reparação expresso pedida corresponde
+	 * a um tipo existente na pool de reparações expresso válidas
 	 * 
-	 * @param equipId
-	 * @param nomeRepExp
+	 * Este método utiliza outro do GestReparacoesFacade para realizar a adição.
+	 * 
+	 * @param equipId Identificador do equipamento a adicionar 
+	 * @param nomeRepExp Nome da reparação a realizar
 	 */
 	public void addRepExpresso(String equipId, String nomeRepExp) {
-		// TODO - implement ReparacoesLNFacade.addRepExpresso
-		throw new UnsupportedOperationException();
-	}
+		
+		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
+		
+		if(existeRepX) {
+
+			Equipamento eq = gestClientes.getEquipamento(equipId);
+
+			Integer duracao_estimada = gestReparacoes.getTempoEstimado(nomeRepExp);
+
+			/** 
+			 try {
+ 
+				 String tecID = gestColaboradores.existeDisponibilidade(duracao_estimada);
+				 Tecnico tecnico = gestColaboradores.getTecnico(tecID);
+				 gestReparacoes.addRepExpresso(eq, nomeRepExp, tecnico);
+				 
+			 } catch (NaoExisteDisponibilidadeException e) {
+				 
+				 throw new NaoExisteDisponibilidadeException("Não existem técnicos disponíveis para efetuar "+nomeRepExp+" no equipamento "+equipId);
+			 }
+		 
+		} else throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não existe!"); 
+			*/
+		}
+	}	
 
 	/**
 	 * 
