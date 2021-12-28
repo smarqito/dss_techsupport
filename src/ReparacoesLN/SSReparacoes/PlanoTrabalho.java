@@ -70,10 +70,10 @@ public class PlanoTrabalho {
 	 */
 	public void removePasso(PassoReparacao passo) {
 		this.passos.remove(passo);
-		this.passosRealizados.add(passo);
 	}
 
 	public void addPassoRealizado(PassoReparacao p) {
+		this.removePasso(p);
 		this.passosRealizados.add(p);
 	}
 
@@ -110,11 +110,13 @@ public class PlanoTrabalho {
 	 * @param nomePasso
 	 */
 	public PassoReparacao getPasso(String nomePasso) throws PassoNaoExisteException {
-		PassoReparacao p = this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().orElse(null);
-		if (p != null)
-			return p;
-		else
-			throw new PassoNaoExisteException("Passo " + nomePasso + " não existe no Plano de Trabalhos.");
+		try {
+			return this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().get();
+		} catch (NoSuchElementException e){
+			throw new PassoNaoExisteException("Passo " + nomePasso + " não existe no PlanoTrabalho.");
+		}
+
+
 	}
 
 }

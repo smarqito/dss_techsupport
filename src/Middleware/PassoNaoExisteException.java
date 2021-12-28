@@ -1,6 +1,8 @@
 package Middleware;
 
-public class PassoNaoExisteException extends Exception{
+import java.util.function.Supplier;
+
+public class PassoNaoExisteException extends Exception  {
     public PassoNaoExisteException(){
         super();
     }
