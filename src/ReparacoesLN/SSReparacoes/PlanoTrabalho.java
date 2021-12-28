@@ -7,7 +7,11 @@ public class PlanoTrabalho {
 	private List<PassoReparacao> passos;
 	private Integer tempo;
 
-	/**
+    public PlanoTrabalho(List<PassoReparacao> passos) {
+		this.passos = new ArrayList<>(passos);
+    }
+
+    /**
 	 * 
 	 * @param nome
 	 * @param tempo
@@ -16,7 +20,6 @@ public class PlanoTrabalho {
 	public void addPasso(String nome, Integer tempo, Material material) {
 		PassoReparacao p = new PassoReparacao(nome, tempo, material);
 		passos.add(p);
-
 	}
 
 	/**
@@ -27,6 +30,7 @@ public class PlanoTrabalho {
 	 * @param m
 	 */
 	public void addSubPasso(String nomeP, String nomeSub, Integer t, Material m) {
+		this.getPasso(nomeP).addSubPasso(nomeSub, t, m);
 	}
 
 	/**
@@ -37,9 +41,8 @@ public class PlanoTrabalho {
 		this.passos.remove(passo);
 	}
 
-	public void getPassoAtual() {
-		// TODO - implement PlanoTrabalho.getPassoAtual
-		throw new UnsupportedOperationException();
+	public PassoReparacao getPassoAtual() {
+		return this.passos.get(0);
 	}
 
 	/**
@@ -47,8 +50,7 @@ public class PlanoTrabalho {
 	 * @param nomePasso
 	 */
 	public Boolean existePasso(String nomePasso) {
-		// TODO - implement PlanoTrabalho.existePasso
-		throw new UnsupportedOperationException();
+		return this.passos.stream().anyMatch(x -> x.getNome().equals(nomePasso));
 	}
 
 	/**
@@ -56,13 +58,11 @@ public class PlanoTrabalho {
 	 * @param nomePasso
 	 */
 	public PassoReparacao getPasso(String nomePasso) {
-		// TODO - implement PlanoTrabalho.getPasso
-		throw new UnsupportedOperationException();
+		return this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().orElse(null);
 	}
 
 	public void atualizarPassoAtual() {
-		// TODO - implement PlanoTrabalho.atualizarPassoAtual
-		throw new UnsupportedOperationException();
+		//nao faz nada :)
 	}
 
 }

@@ -7,6 +7,10 @@ public class GestAgenda {
 
 	private List<Agenda> agendas;
 
+	public Agenda getAgenda(String tecId){
+		return this.agendas.stream().filter(x -> Objects.equals(x.getTecnicoId(), tecId)).findFirst().orElse(null);
+	}
+
 	/**
 	 * 
 	 * @param duracao
@@ -23,8 +27,7 @@ public class GestAgenda {
 	 * @param detalhes
 	 */
 	public LocalDateTime addEvento(String tecId, Integer tempo, String detalhes) {
-		// TODO - implement GestAgenda.addEvento
-		throw new UnsupportedOperationException();
+		return getAgenda(tecId).addEvento(tempo, detalhes);
 	}
 
 	/**
@@ -52,8 +55,7 @@ public class GestAgenda {
 	 * @param data
 	 */
 	public void removeEvento(String tecId, LocalDateTime data) {
-		// TODO - implement GestAgenda.removeEvento
-		throw new UnsupportedOperationException();
+		getAgenda(tecId).removeEvento(data);
 	}
 
 	/**

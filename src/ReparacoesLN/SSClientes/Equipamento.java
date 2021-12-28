@@ -37,4 +37,7 @@ public class Equipamento {
 		throw new UnsupportedOperationException();
 	}
 
+	public void setState(EstadoEquipamento state) {
+		this.estado = state;
+	}
 }

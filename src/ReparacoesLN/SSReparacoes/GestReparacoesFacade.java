@@ -171,8 +171,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param passos
 	 */
 	public void registaPT(String orcId, List<PassoReparacao> passos) {
-		// TODO - implement GestReparacoesFacade.registaPT
-		throw new UnsupportedOperationException();
+		Orcamento o = this.orcs.get(orcId);
+		o.setPT(passos);
 	}
 
 	/**

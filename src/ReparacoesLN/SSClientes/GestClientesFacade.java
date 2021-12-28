@@ -80,8 +80,8 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param state
 	 */
 	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
-		// TODO - implement GestClientesFacade.alteraEstadoEq
-		throw new UnsupportedOperationException();
+		Equipamento eq = getEquipamento(equiID);
+		eq.setState(state);
 	}
 
 	/**

@@ -1,10 +1,10 @@
 package ReparacoesLN.SSColaboradores;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 public class EntradaAgenda {
 
-	private Time inicio;
+	private LocalTime inicio;
 	private Integer duracao;
 	private String detalhes;
 
@@ -14,14 +14,14 @@ public class EntradaAgenda {
 	 * @param duracao
 	 * @param det
 	 */
-	public EntradaAgenda(Time inicio, Integer duracao, String det) {
-		// TODO - implement EntradaAgenda.EntradaAgenda
-		throw new UnsupportedOperationException();
+	public EntradaAgenda(LocalTime inicio, Integer duracao, String det) {
+		this.inicio = inicio;
+		this.duracao = duracao;
+		this.detalhes = det;
 	}
 
-	public Time fim() {
-		// TODO - implement EntradaAgenda.fim
-		throw new UnsupportedOperationException();
+	public LocalTime fim() {
+		return inicio.plusMinutes(duracao);
 	}
 
 }

@@ -18,4 +18,8 @@ public class ReparacaoProgramada extends Reparacao {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public CustoTotalReparacao getPrecoEfetivo() {
+		return null;
+	}
 }

@@ -11,9 +11,8 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	private GestAgenda agenda;
 	private int id;
 
-	public void registaColaborador() {
-		// TODO - implement GestColaboradoresFacade.registaColaborador
-		throw new UnsupportedOperationException();
+	public void registaColaborador(Class c) {
+		//recebe um clase?
 	}
 
 	/**
@@ -81,8 +80,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param detalhes
 	 */
 	public LocalDateTime addEventoAgenda(String tecId, Integer tempo, String detalhes) {
-		// TODO - implement GestColaboradoresFacade.addEventoAgenda
-		throw new UnsupportedOperationException();
+		return this.agenda.addEvento(tecId, tempo, detalhes);
 	}
 
 	/**
@@ -101,8 +99,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param data
 	 */
 	public void removeEventoAgenda(String tecId, LocalDateTime data) {
-		// TODO - implement GestColaboradoresFacade.removeEventoAgenda
-		throw new UnsupportedOperationException();
+		agenda.removeEvento(tecId, data);
 	}
 
 	/**

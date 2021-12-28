@@ -40,10 +40,7 @@ public abstract class Reparacao {
 		return this.estados.get(0);
 	}
 
-	public CustoTotalReparacao getPrecoEfetivo() {
-		// TODO - implement Reparacao.getPrecoEfetivo
-		throw new UnsupportedOperationException();
-	}
+	public abstract CustoTotalReparacao getPrecoEfetivo();
 
 	public LocalDateTime getDataCriacao() {
 		return this.dataCriacao;

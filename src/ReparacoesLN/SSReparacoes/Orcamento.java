@@ -132,4 +132,8 @@ public class Orcamento {
 		throw new UnsupportedOperationException();
 	}
 
+	public void setPT(List<PassoReparacao> passos) {
+		PlanoTrabalho pt = new PlanoTrabalho(passos);
+		this.plano = pt;
+	}
 }

@@ -27,4 +27,12 @@ public class PassoReparacao {
 		throw new UnsupportedOperationException();
 	}
 
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void addSubPasso(String nomeSub, Integer t, Material m) {
+		PassoReparacao p = new PassoReparacao(nomeSub, t, m);
+		this.subpassos.add(p);
+	}
 }
