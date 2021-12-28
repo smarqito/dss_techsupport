@@ -10,6 +10,7 @@ import java.util.Map;
 
 import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoNaoExisteException;
+import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
 
 public interface IReparacoesLN {
@@ -39,8 +40,9 @@ public interface IReparacoesLN {
 	 * 
 	 * @param orcID
 	 * @param estado
+	 * @throws EstadoOrcNaoEValidoException
 	 */
-	void alterarEstadoOrc(String orcID, OrcamentoEstado estado);
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException;
 
 	/**
 	 * 
