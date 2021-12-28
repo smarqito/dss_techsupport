@@ -8,12 +8,6 @@ public class Material {
 	private Float custo;
 	private Integer quantidade;
 
-	public Material() {
-		this.nome = null;
-		this.custo = 0f;
-		this.quantidade = 0;
-	}
-
 	public Material(CategoriaMaterial categoria, String nome, Float custo, Integer quantidade) {
 		this.nome = nome;
 		this.custo = custo;

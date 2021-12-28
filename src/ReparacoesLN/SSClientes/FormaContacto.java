@@ -7,11 +7,6 @@ public class FormaContacto {
 	private String email;
 	private String numero;
 
-    public FormaContacto() {
-        this.email = null;
-        this.numero = null;
-    }
-
     public FormaContacto(String em, String num) {
         this.email = em;
         this.numero = num;
