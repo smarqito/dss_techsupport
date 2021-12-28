@@ -71,12 +71,11 @@ public class PlanoTrabalho {
 	}
 
 	public void addPassoRealizado(PassoReparacao p) {
-		// TODO
+		this.passosRealizados.add(p);
 	}
 
 	public boolean haMaisPassos() {
-		// TODO
-		return false;
+		return this.passos.isEmpty();
 	}
 
 	public List<Material> getMaterial() {
