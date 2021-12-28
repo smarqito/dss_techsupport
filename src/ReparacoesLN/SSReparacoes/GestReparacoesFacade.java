@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
 
@@ -31,10 +32,13 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	/**
 	 * 
 	 * @param id
+	 * @throws ReparacaoNaoExisteException
 	 */
-	public Reparacao getReparacao(String id) {
-		// TODO - implement GestReparacoesFacade.getReparacao
-		throw new UnsupportedOperationException();
+	public Reparacao getReparacao(String id) throws ReparacaoNaoExisteException {
+		if (reps.containsKey(id)) {
+			return reps.get(id);
+		}
+		throw new ReparacaoNaoExisteException("id");
 	}
 
 	/**
@@ -127,8 +131,9 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param repId
 	 * @param msg
 	 * @param tec
+	 * @throws ReparacaoNaoExisteException
 	 */
-	public void registaContacto(String repId, String msg, Tecnico tec) {
+	public void registaContacto(String repId, String msg, Tecnico tec) throws ReparacaoNaoExisteException {
 		Comunicacao c = new Comunicacao(tec, LocalDateTime.now(), msg);
 		Reparacao r = getReparacao(repId);
 		r.addComunicacao(c);
@@ -137,22 +142,23 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	/**
 	 * Método que regista a realização de um passo de reparação
 	 * Atualiza os valores efetivos do passo atual a realizar-se
-	 * Atualiza a lista de passos realizados 
+	 * Atualiza a lista de passos realizados
 	 * Atualiza o próximo passo a ser realizado como atual
 	 * 
 	 * @param repID Identificador da reparação a realizar
-	 * @param mins Tempo efetivo da reparação
+	 * @param mins  Tempo efetivo da reparação
 	 * @param custo Custo efetivo da reparação
 	 */
 	public void registaPasso(String repID, Integer mins, Double custo) {
-		
+
 		ReparacaoProgramada rep = (ReparacaoProgramada) reps.get(repID);
 
-		if(rep != null) {
+		if (rep != null) {
 
 			rep.registaPassoRealizado(mins, custo);
-		} 
-		//else throw new ReparacaoNaoExisteException("A reparação com ID "+repID+" não existe!");
+		}
+		// else throw new ReparacaoNaoExisteException("A reparação com ID "+repID+" não
+		// existe!");
 	}
 
 	/**
@@ -187,30 +193,33 @@ public class GestReparacoesFacade implements IGestReparacoes {
 		o.setPT(passos);
 	}
 
-  	/**
-	 * Método que adiciona ás reparações por realizar uma reparação expresso nova 
+	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
 	 * A reparação só é efetuada se o tipo de reparação existir no sistema
 	 * 
-	 * @param equip Equipamento a reparar
+	 * @param equip          Equipamento a reparar
 	 * @param nomeRepXpresso Nome da reparação a efetuar
-	 * @param tec Técnico a realizar a reparação
+	 * @param tec            Técnico a realizar a reparação
 	 */
 	public void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) {
-		
-		ReparacaoExpresso repXpresso = reparacoesDisponiveis.stream().filter(x -> x.getNome().equals(nomeRepXpresso)).findAny().orElse(null);
-	
-		//if(repXpresso == null)
-			//throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não existe!");
-		
+
+		ReparacaoExpresso repXpresso = reparacoesDisponiveis.stream().filter(x -> x.getNome().equals(nomeRepXpresso))
+				.findAny().orElse(null);
+
+		// if(repXpresso == null)
+		// throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não
+		// existe!");
+
 		Double preco = repXpresso.getPrecoFixo();
 		Integer tempo = repXpresso.getTempoEstimado();
 
-		//ReparacaoExpresso res = new ReparacaoExpresso(nomeRepXpresso, preco, tempo, equip, tec);
+		// ReparacaoExpresso res = new ReparacaoExpresso(nomeRepXpresso, preco, tempo,
+		// equip, tec);
 
-		//String repXpressoID = res.getID();
+		// String repXpressoID = res.getID();
 
-		//reps.put(repXpressoID, res);
-	}	
+		// reps.put(repXpressoID, res);
+	}
 
 	/**
 	 * 
@@ -231,12 +240,16 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
-	 * 
-	 * @param repID
+	 * Calcula o preco efetivo de uma reparacao. Apenas utiliza os passos que foram realizados
+	 * Se a reparacao for interrompida a meio, apenas paga o relativo ao que foi feito!
+	 * @param repID ID da reparacao a ser calculado
+	 * @return Custo total Reparacao
+	 * @throws ReparacaoNaoExisteException Caso a reparacao a ser calculado nao exista
 	 */
-	public CustoTotalReparacao calcularPrecoRep(String repID) {
-		// TODO - implement GestReparacoesFacade.calcularPrecoRep
-		throw new UnsupportedOperationException();
+	public CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException {
+		Reparacao rep = this.getReparacao(repID);
+		return rep.getPrecoEfetivo();
+
 	}
 
 	public Reparacao pedidoRepMaisUrg() {
@@ -284,30 +297,33 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
-	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um orçamento
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um
+	 * orçamento
 	 * 
 	 * Esse passo não pode existir já no plano de trabalhos
 	 * 
-	 * @param orcID Orçamento a realizar
+	 * @param orcID     Orçamento a realizar
 	 * @param nomePasso Nome do passo a criar
-	 * @param mat Material usado no passo
-	 * @param tempo tempo estimado para o passo
+	 * @param mat       Material usado no passo
+	 * @param tempo     tempo estimado para o passo
 	 */
 	public void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) {
-		
+
 		Orcamento orc = orcs.get(orcID);
 
-		//if(orc == null)
-		//	throw new OrcamentoNaoExisteException("O orçamento com identificador "+orcID+" não existe!");
+		// if(orc == null)
+		// throw new OrcamentoNaoExisteException("O orçamento com identificador
+		// "+orcID+" não existe!");
 
 		Boolean existePasso = orc.existePasso(nomePasso);
 
-		if(existePasso == false) {
+		if (existePasso == false) {
 
 			orc.addPasso(nomePasso, tempo, mat);
-		
-		} 
-		//else throw new PassoNaoValidoException("O passo "+nomePasso+" não é válido!") ;
+
+		}
+		// else throw new PassoNaoValidoException("O passo "+nomePasso+" não é válido!")
+		// ;
 	}
 
 	public void arquivarOrcamentos() {

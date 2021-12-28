@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import Middleware.ReparacaoNaoExisteException;
+
 public interface IGestReparacoes {
 
 	List<Orcamento> getOrcamentosAtivos();
@@ -22,7 +24,7 @@ public interface IGestReparacoes {
 	 * 
 	 * @param id
 	 */
-	Reparacao getReparacao(String id);
+	Reparacao getReparacao(String id) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -87,8 +89,9 @@ public interface IGestReparacoes {
 	 * @param repId
 	 * @param msg
 	 * @param tec
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void registaContacto(String repId, String msg, Tecnico tec);
+	void registaContacto(String repId, String msg, Tecnico tec) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -145,7 +148,7 @@ public interface IGestReparacoes {
 	 * 
 	 * @param repID
 	 */
-	CustoTotalReparacao calcularPrecoRep(String repID);
+	CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException;
 
 	Reparacao pedidoRepMaisUrg();
 
