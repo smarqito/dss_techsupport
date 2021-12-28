@@ -1,5 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 import ReparacoesLN.SSClientes.*;
@@ -11,8 +12,17 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	private GestAgenda agenda;
 	private int id;
 
+	public int getId() {
+		return id++;
+	}
+
 	public void registaColaborador(Class c) {
-		//recebe um clase?
+		try {
+			Colaborador colab = (Colaborador) c.getDeclaredConstructor().newInstance();
+			this.colabs.put(colab.getId(), colab);
+		} catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
