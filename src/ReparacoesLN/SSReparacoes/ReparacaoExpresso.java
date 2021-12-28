@@ -34,5 +34,11 @@ public class ReparacaoExpresso extends Reparacao {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	@Override
+	public void registaPassoRealizado(Integer tempo, Double custo) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

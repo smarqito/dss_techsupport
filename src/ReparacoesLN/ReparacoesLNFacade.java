@@ -75,7 +75,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param orcID
 	 * @param estado
 	 */
-	public void alterarEstadoOrc(String orcID, EstadoOrcamento estado) {
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 	}
 
@@ -84,7 +84,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param repID
 	 * @param estado
 	 */
-	public void alterarEstadoRep(String repID, EstadoReparacao estado) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
 		this.gestReparacoes.alterarEstadoRep(repID, estado);
 	}
 
@@ -94,7 +94,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param estado
 	 * @param comentario
 	 */
-	public void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) {
 		this.gestReparacoes.alterarEstadoRep(repID, estado, comentario);
 	}
 

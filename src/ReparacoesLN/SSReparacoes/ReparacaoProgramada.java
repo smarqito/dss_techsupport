@@ -1,12 +1,14 @@
 package ReparacoesLN.SSReparacoes;
 
-import java.util.*;
-
 public class ReparacaoProgramada extends Reparacao {
 
-	private List<PassoReparacao> passosRealizados;
 	private PlanoTrabalho plano;
 	private Orcamento docOrigem;
+
+	public ReparacaoProgramada(Orcamento docOrigem) {
+		this.docOrigem = docOrigem;
+		plano = docOrigem.getPT();
+	}
 
 	/**
 	 * Método que regista a realização de um passo de uma reparação programada
@@ -14,24 +16,25 @@ public class ReparacaoProgramada extends Reparacao {
 	 * @param tempo Tempo efetivo gasto
 	 * @param custo Custo efetivo gasto
 	 */
+	@Override
 	public void registaPassoRealizado(Integer tempo, Double custo) {
 
-		PassoReparacao pAtual;
-
-		//pAtual = plano.getPassoAtual();
-
-		//pAtual.setTempoEfetivo(tempo);
-
-		//setCustoEfetivo(custo);
-
-		//passosRealizados.add(pAtual);
-
-		//plano.removePasso(pAtual);
-
+		PassoReparacao pAtual = plano.getPassoAtual();
+		pAtual.setCustoEfetivo(custo);
+		pAtual.setTempoGasto(tempo);
+		plano.addPassoRealizado(pAtual);
+		if(!plano.haMaisPassos()) {
+			super.alteraEstado(ReparacaoEstado.reparado, "reparado!");
+		}
 	}
 
+	/**
+	 * Calcula o preco efetivo da reparacao, utilizando os passos realizados do plano
+	 * 
+	 * @return Custo total de Reparacao
+	 */
 	@Override
 	public CustoTotalReparacao getPrecoEfetivo() {
-		return null;
+		return plano.getPrecoEfetivo();		
 	}
 }
