@@ -49,8 +49,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param estado
 	 */
 	public void alterarEstadoOrc(String orcID, EstadoOrcamento estado) {
-		// TODO - implement ReparacoesLNFacade.alterarEstadoOrc
-		throw new UnsupportedOperationException();
+		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 	}
 
 	/**
@@ -59,8 +58,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param estado
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado) {
-		// TODO - implement ReparacoesLNFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		this.gestReparacoes.alterarEstadoRep(repID, estado);
 	}
 
 	/**
@@ -70,8 +68,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param comentario
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario) {
-		// TODO - implement ReparacoesLNFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		this.gestReparacoes.alterarEstadoRep(repID, estado, comentario);
 	}
 
 	/**
@@ -141,8 +138,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	public List<Equipamento> getEqProntoLevantar() {
-		// TODO - implement ReparacoesLNFacade.getEqProntoLevantar
-		throw new UnsupportedOperationException();
+		return this.gestClientes.getEqProntoLevantar();
 	}
 
 	/**
@@ -172,8 +168,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param state
 	 */
 	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
-		// TODO - implement ReparacoesLNFacade.alteraEstadoEq
-		throw new UnsupportedOperationException();
+		this.gestClientes.alteraEstadoEq(equiID, state);
 	}
 
 	/**
@@ -197,8 +192,10 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param descr
 	 */
 	public void registarOrcamento(String nif, String equipId, String descr) {
-		// TODO - implement ReparacoesLNFacade.registarOrcamento
-		throw new UnsupportedOperationException();
+		Equipamento e = this.gestClientes.getEquipamento(equipId);
+		if (e.isProprietario(nif)){
+			this.gestReparacoes.registarOrcamento(e, descr);
+		}
 	}
 
 	/**
@@ -212,9 +209,8 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 		throw new UnsupportedOperationException();
 	}
 
-	public void registaColaborador() {
-		// TODO - implement ReparacoesLNFacade.registaColaborador
-		throw new UnsupportedOperationException();
+	public void registaColaborador(Class c) {
+		this.gestColaboradores.registaColaborador(c);
 	}
 
 	/**
@@ -248,8 +244,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param passos
 	 */
 	public void registaPT(String orcId, List<PassoReparacao> passos) {
-		// TODO - implement ReparacoesLNFacade.registaPT
-		throw new UnsupportedOperationException();
+		this.gestReparacoes.registaPT(orcId, passos);
 	}
 
 	/**
