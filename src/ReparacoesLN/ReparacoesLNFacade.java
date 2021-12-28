@@ -22,17 +22,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
-	 * Só acontece se houver disponibilidade e a reparação expresso pedida corresponde
-	 * a um tipo existente na pool de reparações expresso válidas
-	 * 
-	 * Este método utiliza outro do GestReparacoesFacade para realizar a adição.
-	 * 
-	 * @param equipId Identificador do equipamento a adicionar 
-	 * @param nomeRepExp Nome da reparação a realizar
-	 * @throws EquipamentoNaoExisteException
-	 */
+	@Override
 	public void addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException {
 		
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
@@ -60,102 +50,67 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 		}
 	}	
 
-	/**
-	 * 
-	 * @param orcId
-	 */
+	@Override
 	public void enviarOrcamento(String orcId) {
 		// TODO - implement ReparacoesLNFacade.enviarOrcamento
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public List<Orcamento> getOrcamentosAtivos() {
 		// TODO - implement ReparacoesLNFacade.getOrcamentosAtivos
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param orcID
-	 * @param estado
-	 */
+	@Override
 	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 	}
 
-	/**
-	 * 
-	 * @param repID
-	 * @param estado
-	 */
+	@Override
 	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
 		this.gestReparacoes.alterarEstadoRep(repID, estado);
 	}
 
-	/**
-	 * 
-	 * @param repID
-	 * @param estado
-	 * @param comentario
-	 */
+	@Override
 	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) {
 		this.gestReparacoes.alterarEstadoRep(repID, estado, comentario);
 	}
 
-	/**
-	 * Calcula o preco de uma reparacao utilizando o custo efetivo e tempo efetivo
-	 * @param repID ID da reparacao
-	 * @throws ReparacaoNaoExisteException Caso a reparacao nao exista
-	 */
+	@Override
 	public CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException {
 		return gestReparacoes.calcularPrecoRep(repID);
 	}
 
-	/**
-	 * 
-	 * @param orcId
-	 */
+	@Override
 	public void generateOrc(String orcId) {
 		// TODO - implement ReparacoesLNFacade.generateOrc
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * Método que regista a realização de um passo de reparação
-	 * 
-	 * Consiste na chamada do método do GestReparacoesFacade com o mesmo nome
-	 * 
-	 * @param repID Reparação a realizar
-	 * @param mins Tempo Efetivo gasto
-	 * @param custo Custo efetivo gasto
-	 */
+	@Override
 	public void registaPasso(String repID, Integer mins, Double custo) {
 		
 		gestReparacoes.registaPasso(repID, mins, custo);
 	}
 
-	/**
-	 * 
-	 * @param nif
-	 * @throws ClienteNaoExisteException
-	 */
+	@Override
 	public Cliente getCliente(String nif) throws ClienteNaoExisteException {
 		return gestClientes.getCliente(nif);
 	}
 
-	/**
-	 * 
-	 * @param equipID
-	 * @throws EquipamentoNaoExisteException
-	 */
+	@Override
 	public Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException {
 		return gestClientes.getEquipamento(equipID);
 	}
 
-	/**
-	 * 
-	 * @param nif
-	 */
+	
+	@Override
+	public Equipamento getEquipamento(String codR, String marca) throws EquipamentoNaoExisteException {
+		return this.gestClientes.getEquipamento(codR, marca);
+	}
+
+	@Override
 	public Boolean existeCliente(String nif) {
 		try {
 			this.getCliente(nif);
@@ -165,81 +120,42 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 		return true;
 	}
 
-	/**
-	 * 
-	 * @param codR
-	 * @param marca
-	 */
+	@Override
 	public Boolean existeEquipamento(String codR, String marca) {
-		// TODO - implement ReparacoesLNFacade.existeEquipamento
-		throw new UnsupportedOperationException();
+		return gestClientes.existeEquipamento(codR, marca);
 	}
 
+	@Override
 	public List<Equipamento> getEqProntoLevantar() {
 		return this.gestClientes.getEqProntoLevantar();
 	}
 
-	/**
-	 * 
-	 * @param nif
-	 * @param numero
-	 * @param email
-	 */
+	@Override
 	public void registaCliente(String nif, String numero, String email) {
 		// TODO - implement ReparacoesLNFacade.registaCliente
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param codR
-	 * @param marca
-	 * @param nif
-	 */
+	@Override
 	public void registaEquipamento(String codR, String marca, String nif) {
 		// TODO - implement ReparacoesLNFacade.registaEquipamento
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param equiID
-	 * @param state
-	 * @throws EquipamentoNaoExisteException
-	 */
+	@Override
 	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException {
 		this.gestClientes.alteraEstadoEq(equiID, state);
 	}
 
-	/**
-	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um orçamento
-	 * 
-	 * Utiliza o método do GestReparacoesFacade com o mesmo nome
-	 * 
-	 * @param orcID Orçamento a realizar
-	 * @param nomePasso Nome do Passo a criar
-	 * @param mat Todos os materiais usados, separados por ","
-	 * @param tempo Tempo estimado
-	 * @param qMat Quantidade de material usado
-	 * @param custoMat Custo total do material usado
-	 */
+	@Override
 	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) {
 		
 		Material newMat = new Material(null, mat, custoMat, qMat); 
-
-		//newMat = new Material(mat, qMat, custoMat);
-		
 		gestReparacoes.criarPasso(orcID, nomePasso, newMat, tempo);
 
 	}
 
-	/**
-	 * 
-	 * @param nif
-	 * @param equipId
-	 * @param descr
-	 * @throws EquipamentoNaoExisteException
-	 */
+	@Override
 	public void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
 		if (e.isProprietario(nif)){
@@ -247,81 +163,53 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 		}
 	}
 
-	/**
-	 * 
-	 * @param repID
-	 * @param tecID
-	 * @param msg
-	 */
+	@Override
 	public void registaContacto(String repID, String tecID, String msg) {
 		// TODO - implement ReparacoesLNFacade.registaContacto
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void registaColaborador(String nome, String tipo) {
 		this.gestColaboradores.registaColaborador(nome, tipo);
 	}
 
-	/**
-	 * 
-	 * @param de
-	 * @param ate
-	 */
+	@Override
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate) {
 		// TODO - implement ReparacoesLNFacade.getEquipRecebidos
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param de
-	 * @param ate
-	 */
+	@Override
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate) {
 		// TODO - implement ReparacoesLNFacade.getEquipEntregue
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void saveInstance() {
 		// TODO - implement ReparacoesLNFacade.saveInstance
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param orcId
-	 * @param passos
-	 */
+	@Override
 	public void registaPT(String orcId, List<PassoReparacao> passos) {
 		this.gestReparacoes.registaPT(orcId, passos);
 	}
 
-	/**
-	 * 
-	 * @param orcId
-	 * @param msg
-	 * @param tecID
-	 */
+	@Override
 	public void comunicarErro(String orcId, String msg, String tecID) {
 		// TODO - implement ReparacoesLNFacade.comunicarErro
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param data
-	 */
+	@Override
 	public Map<Tecnico, List<ReparacoesPorMes>> getReparacoesMes(LocalDateTime data) {
 		// TODO - implement ReparacoesLNFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param nome
-	 * @param tempo
-	 * @param custo
-	 */
+	@Override
 	public void registarRepExpresso(String nome, Integer tempo, Double custo) {
 		// TODO - implement ReparacoesLNFacade.registarRepExpresso
 		throw new UnsupportedOperationException();

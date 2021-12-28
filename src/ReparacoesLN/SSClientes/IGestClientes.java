@@ -21,6 +21,13 @@ public interface IGestClientes {
 	 * @throws EquipamentoNaoExisteException
 	 */
 	Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException;
+	
+	/**
+	 * Obtem um equipamento caso este existe 
+	 * @param equipID Id do equipamento a procurar
+	 * @throws EquipamentoNaoExisteException
+	 */
+	Equipamento getEquipamento(String codR, String marca) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 
