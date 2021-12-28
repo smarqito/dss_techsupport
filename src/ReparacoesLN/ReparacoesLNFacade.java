@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import Middleware.EquipaNaoExisteException;
+import Middleware.OrcamentoNaoExisteException;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSColaboradores.*;
@@ -76,7 +77,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param orcID
 	 * @param estado
 	 */
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) {
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws OrcamentoNaoExisteException {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 	}
 
@@ -215,7 +216,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param qMat Quantidade de material usado
 	 * @param custoMat Custo total do material usado
 	 */
-	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) {
+	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) throws OrcamentoNaoExisteException {
 		
 		Material newMat = new Material(null, mat, custoMat, qMat); 
 
@@ -283,7 +284,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param orcId
 	 * @param passos
 	 */
-	public void registaPT(String orcId, List<PassoReparacao> passos) {
+	public void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException {
 		this.gestReparacoes.registaPT(orcId, passos);
 	}
 

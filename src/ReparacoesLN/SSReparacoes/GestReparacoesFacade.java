@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import Middleware.OrcamentoNaoExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
@@ -24,9 +25,11 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * 
 	 * @param ref
 	 */
-	public Orcamento getOrcamento(String ref) {
-		// TODO - implement GestReparacoesFacade.getOrcamento
-		throw new UnsupportedOperationException();
+	public Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException {
+		if (orcs.containsKey(ref))
+			return orcs.get(ref);
+		else
+			throw new OrcamentoNaoExisteException("Orcamento com referencia: " + ref + "não existe no Sistema.");
 	}
 
 	/**
@@ -55,8 +58,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param orcID
 	 * @param estado
 	 */
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) {
-		Orcamento o = this.orcs.get(orcID);
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws OrcamentoNaoExisteException {
+		Orcamento o = getOrcamento(orcID);
 		o.alteraEstado(estado);
 	}
 
@@ -188,8 +191,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param orcId
 	 * @param passos
 	 */
-	public void registaPT(String orcId, List<PassoReparacao> passos) {
-		Orcamento o = this.orcs.get(orcId);
+	public void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException {
+		Orcamento o = getOrcamento(orcId);
 		o.setPT(passos);
 	}
 
@@ -307,9 +310,9 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param mat       Material usado no passo
 	 * @param tempo     tempo estimado para o passo
 	 */
-	public void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) {
+	public void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) throws OrcamentoNaoExisteException {
 
-		Orcamento orc = orcs.get(orcID);
+		Orcamento orc = getOrcamento(orcID);
 
 		// if(orc == null)
 		// throw new OrcamentoNaoExisteException("O orçamento com identificador

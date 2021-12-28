@@ -1,5 +1,6 @@
 package ReparacoesLN.SSReparacoes;
 
+import Middleware.OrcamentoNaoExisteException;
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
 
@@ -18,7 +19,7 @@ public interface IGestReparacoes {
 	 * 
 	 * @param ref
 	 */
-	Orcamento getOrcamento(String ref);
+	Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -37,7 +38,7 @@ public interface IGestReparacoes {
 	 * @param orcID
 	 * @param estado
 	 */
-	void alterarEstadoOrc(String orcID, OrcamentoEstado estado);
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -122,7 +123,7 @@ public interface IGestReparacoes {
 	 * @param orcId
 	 * @param passos
 	 */
-	void registaPT(String orcId, List<PassoReparacao> passos);
+	void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -186,7 +187,7 @@ public interface IGestReparacoes {
 	 * @param mat
 	 * @param tempo
 	 */
-	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo);
+	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) throws OrcamentoNaoExisteException;
 
 	void arquivarOrcamentos();
 
