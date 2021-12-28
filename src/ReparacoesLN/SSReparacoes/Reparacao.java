@@ -9,7 +9,7 @@ import ReparacoesLN.SSColaboradores.*;
 public abstract class Reparacao {
 
 	private Equipamento equipamento;
-	private List<EstadoReparacao> estados;
+	private Set<EstadoReparacao> estados;
 	private List<Comunicacao> comunicacoes;
 	private Tecnico tecnico;
 	private String id;
@@ -20,8 +20,28 @@ public abstract class Reparacao {
 		return equipamento;
 	}
 
+	public Set<EstadoReparacao> getEstados() {
+		return new HashSet<>(estados);
+	}
+
+	public List<Comunicacao> getComunicacoes() {
+		return comunicacoes;
+	}
+
 	public Tecnico getTecnico() {
 		return tecnico;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public LocalDateTime getPrazoReparacao() {
+		return prazoReparacao;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return this.dataCriacao;
 	}
 
 	/**
@@ -33,18 +53,15 @@ public abstract class Reparacao {
 
 	public void alteraEstado(EstadoReparacao novoEstado, String msg) {
 		novoEstado.setComentario(msg);
-		this.estados.add(0, novoEstado);
+		this.estados.add(novoEstado);
 	}
 
 	public EstadoReparacao getUltimoEstado() {
-		return this.estados.get(0);
+		return this.estados.iterator().next();
 	}
 
 	public abstract CustoTotalReparacao getPrecoEfetivo();
 
-	public LocalDateTime getDataCriacao() {
-		return this.dataCriacao;
-	}
 
 	public void addComunicacao(Comunicacao c) {
 		this.comunicacoes.add(c);

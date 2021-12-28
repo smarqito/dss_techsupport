@@ -2,11 +2,31 @@ package ReparacoesLN.SSReparacoes;
 
 import java.time.LocalDateTime;
 
-public class EstadoReparacao {
+public class EstadoReparacao implements Comparable<EstadoReparacao>{
 
 	private ReparacaoEstado estado;
 	private LocalDateTime data;
 	private String comentario;
+
+	public LocalDateTime getData() {
+		return data;
+	}
+
+	public ReparacaoEstado getEstado() {
+		return this.estado;
+	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
+	}
+
+	public void setEstado(ReparacaoEstado estado) {
+		this.estado = estado;
+	}
 
 	/**
 	 * 
@@ -22,12 +42,14 @@ public class EstadoReparacao {
 	 * @param msg
 	 */
 	public EstadoReparacao(ReparacaoEstado s, String msg) {
-		// TODO - implement EstadoReparacao.EstadoReparacao
-		throw new UnsupportedOperationException();
+		this.estado = s;
+		this.data = LocalDateTime.now();
+		this.comentario = msg;
 	}
 
-	public ReparacaoEstado getEstado() {
-		return this.estado;
-	}
 
+	@Override
+	public int compareTo(EstadoReparacao o) {
+		return o.getData().compareTo(this.data);
+	}
 }
