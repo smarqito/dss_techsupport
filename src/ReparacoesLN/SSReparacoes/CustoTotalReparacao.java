@@ -30,9 +30,8 @@ public class CustoTotalReparacao {
 		return this.custoMaterial;
 	}
 
-	public void getTempoTotalEstimado() {
-		// TODO - implement CustoTotalReparacao.getTempoTotalEstimado
-		throw new UnsupportedOperationException();
+	public int getTempoTotalEstimado() {
+		return this.tempoTotalEstimado;
 	}
 
 }
