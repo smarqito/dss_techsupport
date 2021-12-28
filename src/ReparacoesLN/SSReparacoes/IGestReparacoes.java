@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import Middleware.ReparacaoNaoExisteException;
+
 public interface IGestReparacoes {
 
 	List<Orcamento> getOrcamentosAtivos();
@@ -22,7 +24,7 @@ public interface IGestReparacoes {
 	 * 
 	 * @param id
 	 */
-	Reparacao getReparacao(String id);
+	Reparacao getReparacao(String id) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -35,14 +37,14 @@ public interface IGestReparacoes {
 	 * @param orcID
 	 * @param estado
 	 */
-	void alterarEstadoOrc(String orcID, EstadoOrcamento estado);
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado);
 
 	/**
 	 * 
 	 * @param repID
 	 * @param estado
 	 */
-	void alterarEstadoRep(String repID, EstadoReparacao estado);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado);
 
 	/**
 	 * 
@@ -50,7 +52,7 @@ public interface IGestReparacoes {
 	 * @param estado
 	 * @param comentario
 	 */
-	void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario);
 
 	/**
 	 * 
@@ -87,8 +89,9 @@ public interface IGestReparacoes {
 	 * @param repId
 	 * @param msg
 	 * @param tec
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void registaContacto(String repId, String msg, Tecnico tec);
+	void registaContacto(String repId, String msg, Tecnico tec) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -145,7 +148,7 @@ public interface IGestReparacoes {
 	 * 
 	 * @param repID
 	 */
-	CustoTotalReparacao calcularPrecoRep(String repID);
+	CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException;
 
 	Reparacao pedidoRepMaisUrg();
 

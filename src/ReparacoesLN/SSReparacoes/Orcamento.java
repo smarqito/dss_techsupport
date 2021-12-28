@@ -118,10 +118,11 @@ public class Orcamento implements Serializable {
 	 * 
 	 * @param novoEstado
 	 */
-	public void alteraEstado(EstadoOrcamento novoEstado) {
+	public void alteraEstado(OrcamentoEstado novoEstado) {
+		EstadoOrcamento novo = new EstadoOrcamento(novoEstado);
 		EstadoOrcamento atual = this.estados.get(0);
-		if (!atual.equals(novoEstado)) {
-			this.estados.add(0, novoEstado);
+		if (!atual.equals(novo)) {
+			this.estados.add(0, novo);
 		}
 	}
 	

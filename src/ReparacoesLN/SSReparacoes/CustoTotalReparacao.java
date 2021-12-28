@@ -2,13 +2,14 @@ package ReparacoesLN.SSReparacoes;
 
 public class CustoTotalReparacao {
 
-	private Integer tempoTotal;
-	private Double custoMaterial;
+	private int tempoTotal;
+	private double custoMaterial;
 	private int tempoTotalEstimado;
 
 	public CustoTotalReparacao() {
-		// TODO - implement CustoTotalReparacao.CustoTotalReparacao
-		throw new UnsupportedOperationException();
+		tempoTotal = 0;
+		custoMaterial = 0;
+		tempoTotalEstimado = 0;
 	}
 
 	/**
@@ -18,8 +19,9 @@ public class CustoTotalReparacao {
 	 * @param custoMaterial
 	 */
 	public void addPasso(Integer tempo, Integer tempEstimado, Double custoMaterial) {
-		// TODO - implement CustoTotalReparacao.addPasso
-		throw new UnsupportedOperationException();
+		tempoTotal += tempo;
+		this.custoMaterial += custoMaterial;
+		tempoTotalEstimado += tempEstimado;
 	}
 
 	public Integer getTempoTotal() {
@@ -30,9 +32,8 @@ public class CustoTotalReparacao {
 		return this.custoMaterial;
 	}
 
-	public void getTempoTotalEstimado() {
-		// TODO - implement CustoTotalReparacao.getTempoTotalEstimado
-		throw new UnsupportedOperationException();
+	public int getTempoTotalEstimado() {
+		return this.tempoTotalEstimado;
 	}
 
 }

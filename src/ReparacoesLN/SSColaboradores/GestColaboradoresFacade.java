@@ -16,8 +16,22 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 		return id++;
 	}
 
-	public void registaColaborador(Colaborador c) {
-		this.colabs.put(c.getId(), c);
+	public void registaColaborador(String nome, String tipo) {
+		Colaborador c = null;
+		switch (tipo){
+			case "Tecnico":
+				c = new Tecnico(getId(), nome);
+				agenda.addAgenda((Tecnico) c);
+				break;
+			case "FuncionarioBalcao":
+				c = new FuncionarioBalcao(getId(), nome);
+				break;
+			case "Gestor":
+				c = new Gestor(getId(), nome);
+				break;
+		}
+		if (c!= null)
+			colabs.put(c.getId(), c);
 	}
 
 	/**

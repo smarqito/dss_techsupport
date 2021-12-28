@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface IGestColaboradores {
 
-	void registaColaborador(Colaborador c);
+	void registaColaborador(String nome, String tipo);
 
 	/**
 	 * 
