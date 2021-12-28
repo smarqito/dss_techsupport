@@ -1,11 +1,12 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 import ReparacoesLN.SSClientes.*;
 
-public class GestColaboradoresFacade implements IGestColaboradores {
+public class GestColaboradoresFacade implements IGestColaboradores, Serializable {
 
 	private Map<String, Colaborador> colabs;
 	private List<Balcao> balcao;

@@ -1,8 +1,9 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
-public class EntradaAgenda {
+public class EntradaAgenda implements Serializable {
 
 	private LocalTime inicio;
 	private Integer duracao;

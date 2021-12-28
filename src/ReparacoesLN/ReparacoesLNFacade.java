@@ -1,5 +1,6 @@
 package ReparacoesLN;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSColaboradores.*;
 
-public class ReparacoesLNFacade implements IReparacoesLN {
+public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	private IGestClientes gestClientes;
 	private IGestReparacoes gestReparacoes;

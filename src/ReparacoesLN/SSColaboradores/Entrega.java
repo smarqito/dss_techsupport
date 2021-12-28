@@ -1,4 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
-public class Entrega extends Balcao {
+import java.io.Serializable;
+
+public class Entrega extends Balcao implements Serializable {
 }

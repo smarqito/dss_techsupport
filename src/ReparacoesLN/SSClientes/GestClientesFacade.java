@@ -1,5 +1,6 @@
 package ReparacoesLN.SSClientes;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoNaoExisteException;
 
-public class GestClientesFacade implements IGestClientes {
+public class GestClientesFacade implements IGestClientes, Serializable {
 
 	private Map<String, Cliente> clientes;
 	private Map<String, Equipamento> equipamentos;
