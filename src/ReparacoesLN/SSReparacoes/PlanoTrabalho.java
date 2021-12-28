@@ -115,8 +115,6 @@ public class PlanoTrabalho {
 		} catch (NoSuchElementException e){
 			throw new PassoNaoExisteException("Passo " + nomePasso + " não existe no PlanoTrabalho.");
 		}
-
-
 	}
 
 }
