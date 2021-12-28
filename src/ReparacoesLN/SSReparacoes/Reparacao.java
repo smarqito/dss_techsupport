@@ -55,7 +55,7 @@ public abstract class Reparacao {
 
 	public void alteraEstado(EstadoReparacao novoEstado, String msg) {
 		novoEstado.setComentario(msg);
-		this.estados.add(novoEstado);
+		this.estados.add(novoEstado.clone());
 	}
 
 	public EstadoReparacao getUltimoEstado() {
@@ -66,6 +66,6 @@ public abstract class Reparacao {
 
 
 	public void addComunicacao(Comunicacao c) {
-		this.comunicacoes.add(c);
+		this.comunicacoes.add(c.clone());
 	}
 }
