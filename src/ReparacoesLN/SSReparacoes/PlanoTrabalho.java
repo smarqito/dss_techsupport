@@ -49,6 +49,7 @@ public class PlanoTrabalho {
 	public void addPasso(String nome, Integer tempo, Material material) {
 		PassoReparacao p = new PassoReparacao(nome, tempo, material);
 		passos.add(p);
+		this.tempo += tempo;
 	}
 
 	/**
@@ -60,6 +61,7 @@ public class PlanoTrabalho {
 	 */
 	public void addSubPasso(String nomeP, String nomeSub, Integer t, Material m) throws PassoNaoExisteException {
 		this.getPasso(nomeP).addSubPasso(nomeSub, t, m);
+		this.tempo += t;
 	}
 
 	/**
@@ -110,10 +112,6 @@ public class PlanoTrabalho {
 			return p;
 		else
 			throw new PassoNaoExisteException("Passo " + nomePasso + " não existe no Plano de Trabalhos.");
-	}
-
-	public void atualizarPassoAtual() {
-		// nao faz nada :)
 	}
 
 }
