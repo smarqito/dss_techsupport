@@ -48,7 +48,7 @@ public class GestClientesFacade implements IGestClientes {
 	}
 
 	public List<Equipamento> getEqProntoLevantar() {
-		Predicate<Equipamento> p = x -> (x.getEstado() == EstadoEquipamento.prontoLevantar);
+		Predicate<Equipamento> p = x -> (x.getEstado().equals(EstadoEquipamento.prontoLevantar));
 		return this.filterEquipamentos(p);
 	}
 
