@@ -1,5 +1,6 @@
 package ReparacoesLN;
 
+import Middleware.EquipaNaoExisteException;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSColaboradores.*;
@@ -15,7 +16,7 @@ public interface IReparacoesLN {
 	 * @param equipId
 	 * @param nomeRepExp
 	 */
-	void addRepExpresso(String equipId, String nomeRepExp);
+	void addRepExpresso(String equipId, String nomeRepExp) throws EquipaNaoExisteException;
 
 	/**
 	 * 
@@ -115,7 +116,7 @@ public interface IReparacoesLN {
 	 * @param equiID
 	 * @param state
 	 */
-	void alteraEstadoEq(String equiID, EstadoEquipamento state);
+	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipaNaoExisteException;
 
 	/**
 	 * 
@@ -134,7 +135,7 @@ public interface IReparacoesLN {
 	 * @param equipId
 	 * @param descr
 	 */
-	void registarOrcamento(String nif, String equipId, String descr);
+	void registarOrcamento(String nif, String equipId, String descr) throws EquipaNaoExisteException;
 
 	/**
 	 * 

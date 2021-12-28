@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.EquipaNaoExisteException;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSColaboradores.*;
@@ -29,7 +30,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param equipId Identificador do equipamento a adicionar 
 	 * @param nomeRepExp Nome da reparação a realizar
 	 */
-	public void addRepExpresso(String equipId, String nomeRepExp) {
+	public void addRepExpresso(String equipId, String nomeRepExp) throws EquipaNaoExisteException {
 		
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
 		
@@ -198,7 +199,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param equiID
 	 * @param state
 	 */
-	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipaNaoExisteException {
 		this.gestClientes.alteraEstadoEq(equiID, state);
 	}
 
@@ -230,7 +231,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param equipId
 	 * @param descr
 	 */
-	public void registarOrcamento(String nif, String equipId, String descr) {
+	public void registarOrcamento(String nif, String equipId, String descr) throws EquipaNaoExisteException {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
 		if (e.isProprietario(nif)){
 			this.gestReparacoes.registarOrcamento(e, descr);

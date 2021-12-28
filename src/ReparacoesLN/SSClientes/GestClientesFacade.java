@@ -1,5 +1,7 @@
 package ReparacoesLN.SSClientes;
 
+import Middleware.EquipaNaoExisteException;
+
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -23,9 +25,12 @@ public class GestClientesFacade implements IGestClientes {
 	 * 
 	 * @param equipID
 	 */
-	public Equipamento getEquipamento(String equipID) {
-		// TODO - implement GestClientesFacade.getEquipamento
-		throw new UnsupportedOperationException();
+	public Equipamento getEquipamento(String equipID) throws EquipaNaoExisteException {
+		if (this.equipamentos.containsKey(equipID))
+				return this.equipamentos.get(equipID);
+		else
+			throw new EquipaNaoExisteException("Equipamento com id: "  + equipID + " não existe no sistema!");
+
 	}
 
 	/**
@@ -77,7 +82,7 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param equiID
 	 * @param state
 	 */
-	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipaNaoExisteException {
 		Equipamento eq = getEquipamento(equiID);
 		eq.setState(state);
 	}

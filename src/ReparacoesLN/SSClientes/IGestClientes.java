@@ -1,5 +1,7 @@
 package ReparacoesLN.SSClientes;
 
+import Middleware.EquipaNaoExisteException;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -15,7 +17,7 @@ public interface IGestClientes {
 	 * 
 	 * @param equipID
 	 */
-	Equipamento getEquipamento(String equipID);
+	Equipamento getEquipamento(String equipID) throws EquipaNaoExisteException;
 
 	/**
 	 * 
@@ -53,7 +55,7 @@ public interface IGestClientes {
 	 * @param equiID
 	 * @param state
 	 */
-	void alteraEstadoEq(String equiID, EstadoEquipamento state);
+	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipaNaoExisteException;
 
 	/**
 	 * 
