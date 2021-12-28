@@ -1,91 +1,85 @@
 package ReparacoesLN.SSClientes;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class GestClientesFacade implements IGestClientes {
+import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoNaoExisteException;
 
-	private Cliente clientes;
+public class GestClientesFacade implements IGestClientes, Serializable {
+
+	private Map<String, Cliente> clientes;
 	private Map<String, Equipamento> equipamentos;
 
-	/**
-	 * 
-	 * @param nif
-	 */
-	public Cliente getCliente(String nif) {
-		// TODO - implement GestClientesFacade.getCliente
-		throw new UnsupportedOperationException();
+	@Override
+	public Cliente getCliente(String nif) throws ClienteNaoExisteException {
+		if (clientes.containsKey(nif)) {
+			return clientes.get(nif);
+		}
+		throw new ClienteNaoExisteException(nif);
 	}
 
-	/**
-	 * 
-	 * @param equipID
-	 */
-	public Equipamento getEquipamento(String equipID) {
-		// TODO - implement GestClientesFacade.getEquipamento
-		throw new UnsupportedOperationException();
+	@Override
+	public Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException {
+		if (equipamentos.containsKey(equipID)) {
+			return equipamentos.get(equipID);
+		}
+		throw new EquipamentoNaoExisteException(equipID);
 	}
 
-	/**
-	 * 
-	 * @param nif
-	 */
+	@Override
+	public Equipamento getEquipamento(String codR, String marca) throws EquipamentoNaoExisteException {
+		try {
+			return equipamentos.values().stream()
+					.filter(x -> x.getCodRegisto().equals(codR) && x.getMarca().equals(marca)).findFirst().get();
+		} catch (NoSuchElementException e) {
+			throw new EquipamentoNaoExisteException(codR + " marca " + marca);
+		}
+	}
+
+	@Override
 	public Boolean existeCliente(String nif) {
-		// TODO - implement GestClientesFacade.existeCliente
-		throw new UnsupportedOperationException();
+		try {
+			this.getCliente(nif);
+		} catch (ClienteNaoExisteException e) {
+			return false;
+		}
+		return true;
 	}
 
-	/**
-	 * 
-	 * @param codR
-	 * @param marca
-	 */
+	@Override
 	public Boolean existeEquipamento(String codR, String marca) {
-		// TODO - implement GestClientesFacade.existeEquipamento
-		throw new UnsupportedOperationException();
+		return this.equipamentos.values().stream()
+				.anyMatch(x -> x.getCodRegisto().equals(codR) && x.getMarca().equals(marca));
 	}
 
+	@Override
 	public List<Equipamento> getEqProntoLevantar() {
 		Predicate<Equipamento> p = x -> (x.getEstado().equals(EstadoEquipamento.prontoLevantar));
 		return this.filterEquipamentos(p);
 	}
 
-	/**
-	 * 
-	 * @param nif
-	 * @param numero
-	 * @param email
-	 */
+	@Override
 	public void registaCliente(String nif, String numero, String email) {
 		Cliente newC = new Cliente(nif, new FormaContacto(email, numero));
 	}
 
-	/**
-	 * 
-	 * @param codR
-	 * @param marca
-	 * @param nif
-	 */
-	public void registaEquipamento(String codR, String marca, String nif) {
+	@Override
+	public void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException {
 		Equipamento e = new Equipamento(codR, marca, getCliente(nif));
 	}
 
-	/**
-	 * 
-	 * @param equiID
-	 * @param state
-	 */
-	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
+	@Override
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException {
 		Equipamento eq = getEquipamento(equiID);
 		eq.setState(state);
 	}
 
-	/**
-	 * 
-	 * @param p
-	 */
+	@Override
 	public List<Equipamento> filterEquipamentos(Predicate<Equipamento> p) {
 		return this.equipamentos.values().stream().filter(p).collect(Collectors.toList());
 	}

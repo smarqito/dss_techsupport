@@ -1,9 +1,10 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class GestAgenda {
+public class GestAgenda implements Serializable {
 
 	private List<Agenda> agendas;
 

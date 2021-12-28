@@ -3,19 +3,31 @@ package ReparacoesLN.SSClientes;
 import java.util.List;
 import java.util.function.Predicate;
 
+import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoNaoExisteException;
+
 public interface IGestClientes {
 
 	/**
 	 * 
 	 * @param nif
+	 * @throws ClienteNaoExisteException
 	 */
-	Cliente getCliente(String nif);
+	Cliente getCliente(String nif) throws ClienteNaoExisteException;
 
 	/**
-	 * 
-	 * @param equipID
+	 * Obtem um equipamento caso este existe 
+	 * @param equipID Id do equipamento a procurar
+	 * @throws EquipamentoNaoExisteException
 	 */
-	Equipamento getEquipamento(String equipID);
+	Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException;
+	
+	/**
+	 * Obtem um equipamento caso este existe 
+	 * @param equipID Id do equipamento a procurar
+	 * @throws EquipamentoNaoExisteException
+	 */
+	Equipamento getEquipamento(String codR, String marca) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 
@@ -45,15 +57,17 @@ public interface IGestClientes {
 	 * @param codR
 	 * @param marca
 	 * @param nif
+	 * @throws ClienteNaoExisteException
 	 */
-	void registaEquipamento(String codR, String marca, String nif);
+	void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException;
 
 	/**
 	 * 
 	 * @param equiID
 	 * @param state
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void alteraEstadoEq(String equiID, EstadoEquipamento state);
+	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 

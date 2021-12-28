@@ -1,6 +1,8 @@
 package ReparacoesLN.SSColaboradores;
 
-public abstract class Colaborador {
+import java.io.Serializable;
+
+public abstract class Colaborador implements Serializable {
 
 	private String colaboradorID;
 	private String nome;

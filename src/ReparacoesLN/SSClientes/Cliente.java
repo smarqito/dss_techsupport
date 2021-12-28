@@ -1,12 +1,13 @@
 package ReparacoesLN.SSClientes;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 import Middleware.EquipamentoNaoAssociadoAoCliente;
 
-public class Cliente {
+public class Cliente implements Serializable {
 
 	private Map<String, Equipamento> equipamentos;
 	private FormaContacto contacto;

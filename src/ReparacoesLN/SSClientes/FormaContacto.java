@@ -1,8 +1,9 @@
 package ReparacoesLN.SSClientes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class FormaContacto {
+public class FormaContacto implements Serializable {
 
 	private String email;
 	private String numero;

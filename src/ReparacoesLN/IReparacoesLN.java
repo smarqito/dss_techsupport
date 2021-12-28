@@ -8,14 +8,24 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoNaoExisteException;
+import Middleware.ReparacaoNaoExisteException;
+
 public interface IReparacoesLN {
 
 	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
+	 * Só acontece se houver disponibilidade e a reparação expresso pedida corresponde
+	 * a um tipo existente na pool de reparações expresso válidas
 	 * 
-	 * @param equipId
-	 * @param nomeRepExp
+	 * Este método utiliza outro do GestReparacoesFacade para realizar a adição.
+	 * 
+	 * @param equipId Identificador do equipamento a adicionar 
+	 * @param nomeRepExp Nome da reparação a realizar
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void addRepExpresso(String equipId, String nomeRepExp);
+	void addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 
@@ -48,10 +58,11 @@ public interface IReparacoesLN {
 	void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario);
 
 	/**
-	 * 
-	 * @param repID
+	 * Calcula o preco de uma reparacao utilizando o custo efetivo e tempo efetivo
+	 * @param repID ID da reparacao
+	 * @throws ReparacaoNaoExisteException Caso a reparacao nao exista
 	 */
-	CustoTotalReparacao calcularPrecoRep(String repID);
+	CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -60,35 +71,48 @@ public interface IReparacoesLN {
 	void generateOrc(String orcId);
 
 	/**
+	 * Método que regista a realização de um passo de reparação
 	 * 
-	 * @param repID
-	 * @param mins
-	 * @param custo
+	 * Consiste na chamada do método do GestReparacoesFacade com o mesmo nome
+	 * 
+	 * @param repID Reparação a realizar
+	 * @param mins Tempo Efetivo gasto
+	 * @param custo Custo efetivo gasto
 	 */
 	void registaPasso(String repID, Integer mins, Double custo);
 
 	/**
-	 * 
-	 * @param nif
+	 * Retorna um cliente a partir do seu nif
+	 * @param nif Nif do cliente a procurar
+	 * @throws ClienteNaoExisteException Caso o cliente nao exista
 	 */
-	Cliente getCliente(String nif);
+	Cliente getCliente(String nif) throws ClienteNaoExisteException;
 
 	/**
-	 * 
-	 * @param equipID
+	 * Retorna um equipamento a partir do seu id
+	 * @param equipID Id do equipamento a procurar
+	 * @throws EquipamentoNaoExisteException Caso o equipamento nao exista
 	 */
-	Equipamento getEquipamento(String equipID);
+	Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException;
+	
+	/**
+	 * Retorna equipamento a partir do seu codigo de registo (n' serie) e marca
+	 * @param codR Codigo de registo
+	 * @param marca Marca
+	 * @throws EquipamentoNaoExisteException Caso o Equipamento nao exista
+	 */
+	Equipamento getEquipamento(String codR, String marca) throws EquipamentoNaoExisteException;
 
 	/**
-	 * 
-	 * @param nif
+	 * Verifica se um cliente existe
+	 * @param nif Nif do cliente a ser verificado
 	 */
 	Boolean existeCliente(String nif);
 
 	/**
-	 * 
-	 * @param codR
-	 * @param marca
+	 * Verifica se um equipamento existe a partir do seu codigo de registo (n' serie) e marca
+	 * @param codR Codigo de registo
+	 * @param marca Marca
 	 */
 	Boolean existeEquipamento(String codR, String marca);
 
@@ -114,17 +138,21 @@ public interface IReparacoesLN {
 	 * 
 	 * @param equiID
 	 * @param state
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void alteraEstadoEq(String equiID, EstadoEquipamento state);
+	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException;
 
 	/**
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um orçamento
 	 * 
-	 * @param orcID
-	 * @param nomePasso
-	 * @param mat
-	 * @param tempo
-	 * @param qMat
-	 * @param custoMat
+	 * Utiliza o método do GestReparacoesFacade com o mesmo nome
+	 * 
+	 * @param orcID Orçamento a realizar
+	 * @param nomePasso Nome do Passo a criar
+	 * @param mat Todos os materiais usados, separados por ","
+	 * @param tempo Tempo estimado
+	 * @param qMat Quantidade de material usado
+	 * @param custoMat Custo total do material usado
 	 */
 	void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat);
 
@@ -133,8 +161,9 @@ public interface IReparacoesLN {
 	 * @param nif
 	 * @param equipId
 	 * @param descr
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void registarOrcamento(String nif, String equipId, String descr);
+	void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 

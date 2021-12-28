@@ -2,9 +2,10 @@ package ReparacoesLN.SSReparacoes;
 
 import ReparacoesLN.SSColaboradores.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Comunicacao {
+public class Comunicacao implements Serializable {
 
 	private Colaborador colaborador;
 	private LocalDateTime data;
