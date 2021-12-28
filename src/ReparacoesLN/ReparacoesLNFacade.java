@@ -20,14 +20,41 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
+	 * Só acontece se houver disponibilidade e a reparação expresso pedida corresponde
+	 * a um tipo existente na pool de reparações expresso válidas
 	 * 
-	 * @param equipId
-	 * @param nomeRepExp
+	 * Este método utiliza outro do GestReparacoesFacade para realizar a adição.
+	 * 
+	 * @param equipId Identificador do equipamento a adicionar 
+	 * @param nomeRepExp Nome da reparação a realizar
 	 */
 	public void addRepExpresso(String equipId, String nomeRepExp) {
-		// TODO - implement ReparacoesLNFacade.addRepExpresso
-		throw new UnsupportedOperationException();
-	}
+		
+		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
+		
+		if(existeRepX) {
+
+			Equipamento eq = gestClientes.getEquipamento(equipId);
+
+			Integer duracao_estimada = gestReparacoes.getTempoEstimado(nomeRepExp);
+
+			/** 
+			 try {
+ 
+				 String tecID = gestColaboradores.existeDisponibilidade(duracao_estimada);
+				 Tecnico tecnico = gestColaboradores.getTecnico(tecID);
+				 gestReparacoes.addRepExpresso(eq, nomeRepExp, tecnico);
+				 
+			 } catch (NaoExisteDisponibilidadeException e) {
+				 
+				 throw new NaoExisteDisponibilidadeException("Não existem técnicos disponíveis para efetuar "+nomeRepExp+" no equipamento "+equipId);
+			 }
+		 
+		} else throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não existe!"); 
+			*/
+		}
+	}	
 
 	/**
 	 * 
@@ -90,14 +117,17 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	/**
+	 * Método que regista a realização de um passo de reparação
 	 * 
-	 * @param repID
-	 * @param mins
-	 * @param custo
+	 * Consiste na chamada do método do GestReparacoesFacade com o mesmo nome
+	 * 
+	 * @param repID Reparação a realizar
+	 * @param mins Tempo Efetivo gasto
+	 * @param custo Custo efetivo gasto
 	 */
 	public void registaPasso(String repID, Integer mins, Double custo) {
-		// TODO - implement ReparacoesLNFacade.registaPasso
-		throw new UnsupportedOperationException();
+		
+		gestReparacoes.registaPasso(repID, mins, custo);
 	}
 
 	/**
@@ -172,17 +202,25 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	/**
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um orçamento
 	 * 
-	 * @param orcID
-	 * @param nomePasso
-	 * @param mat
-	 * @param tempo
-	 * @param qMat
-	 * @param custoMat
+	 * Utiliza o método do GestReparacoesFacade com o mesmo nome
+	 * 
+	 * @param orcID Orçamento a realizar
+	 * @param nomePasso Nome do Passo a criar
+	 * @param mat Todos os materiais usados, separados por ","
+	 * @param tempo Tempo estimado
+	 * @param qMat Quantidade de material usado
+	 * @param custoMat Custo total do material usado
 	 */
 	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) {
-		// TODO - implement ReparacoesLNFacade.criarPasso
-		throw new UnsupportedOperationException();
+		
+		Material newMat = new Material(); 
+
+		//newMat = new Material(mat, qMat, custoMat);
+		
+		gestReparacoes.criarPasso(orcID, nomePasso, newMat, tempo);
+
 	}
 
 	/**
