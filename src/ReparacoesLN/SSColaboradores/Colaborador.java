@@ -16,16 +16,11 @@ public abstract class Colaborador implements Serializable {
 	 * Retorna o ID atual e incrementa a variável para o próximo
 	 */
 	private static String GetCurrentID() {
-		int curr_id = CURRENT_ID; 
-		up_ID(); 
+		int curr_id = CURRENT_ID++; 
 		 
 		String id = String.valueOf(curr_id); 
  
 		return id;
-	}
-
-	private static void up_ID(){
-		CURRENT_ID++;
 	}
 
 	/**
