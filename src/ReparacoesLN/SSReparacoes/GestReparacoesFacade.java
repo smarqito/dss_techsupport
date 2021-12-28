@@ -3,10 +3,10 @@ package ReparacoesLN.SSReparacoes;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
-import b.C.S;
 
 public class GestReparacoesFacade implements IGestReparacoes {
 
@@ -15,7 +15,7 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	private List<ReparacaoExpresso> reparacoesDisponiveis;
 
 	public List<Orcamento> getOrcamentosAtivos() {
-		return this.orcs.values().stream().filter(Orcamento::estaAtivo).toList();
+		return this.orcs.values().stream().filter(Orcamento::estaAtivo).collect(Collectors.toList());
 	}
 
 	/**

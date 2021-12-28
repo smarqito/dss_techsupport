@@ -1,12 +1,12 @@
 package ReparacoesLN;
 
-import ReparacoesLN.SSClientes.*;
-import ReparacoesLN.SSReparacoes.*;
-import ReparacoesLN.SSColaboradores.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+
+import ReparacoesLN.SSClientes.*;
+import ReparacoesLN.SSReparacoes.*;
+import ReparacoesLN.SSColaboradores.*;
 
 public class ReparacoesLNFacade implements IReparacoesLN {
 
@@ -152,7 +152,8 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param email
 	 */
 	public void registaCliente(String nif, String numero, String email) {
-
+		// TODO - implement ReparacoesLNFacade.registaCliente
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -267,7 +268,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * 
 	 * @param data
 	 */
-	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
+	public Map<Tecnico, List<ReparacoesPorMes>> getReparacoesMes(LocalDateTime data) {
 		// TODO - implement ReparacoesLNFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}

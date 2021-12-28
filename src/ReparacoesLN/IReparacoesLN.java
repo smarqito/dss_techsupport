@@ -181,7 +181,7 @@ public interface IReparacoesLN {
 	 * 
 	 * @param data
 	 */
-	Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data);
+	Map<Tecnico, List<ReparacoesPorMes>> getReparacoesMes(LocalDateTime data);
 
 	/**
 	 * 

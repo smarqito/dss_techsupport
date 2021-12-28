@@ -1,10 +1,10 @@
 package ReparacoesLN.SSClientes;
 
-import Exceptions.EquipamentoNaoAssociadoAoCliente;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import Middleware.EquipamentoNaoAssociadoAoCliente;
 
 public class Cliente {
 
@@ -13,11 +13,11 @@ public class Cliente {
 	private String nif;
 
 
-	public Cliente() {
-		this.equipamentos = new HashMap<>();
-		this.contacto = new FormaContacto();
-		this.nif = null;
-	}
+	// public Cliente() {
+	// 	this.equipamentos = new HashMap<>();
+	// 	this.contacto = new FormaContacto();
+	// 	this.nif = null;
+	// }
 
 	public Cliente(Map<String, Equipamento> e, FormaContacto fc, String nif) {
 		setEquipamentos(e);
