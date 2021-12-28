@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import ReparacoesLN.SSColaboradores.*;
 
 public class Orcamento implements Serializable {
@@ -20,7 +22,7 @@ public class Orcamento implements Serializable {
 	private Double custoHora;
 	private String descrProb;
 	private PlanoTrabalho plano;
-	private TreeSet<EstadoOrcamento> estados;
+	private Set<EstadoOrcamento> estados;
 	private List<Comunicacao> comunicacoes;
 
 	/**
@@ -31,7 +33,7 @@ public class Orcamento implements Serializable {
 	/**
 	 * Retorna o ID atual e incrementa a variável para o próximo
 	 */
-	private static String getCurrentID() {
+	private static String GetCurrentID() {
 		
 		int curr_id = CURRENT_ID;
 		up_ID();
@@ -55,7 +57,7 @@ public class Orcamento implements Serializable {
 	 * @param descr Descrição do Orçamento
 	 */
 	public Orcamento(Equipamento e, String descr) {
-		this.id = getCurrentID();
+		this.id = GetCurrentID();
 		this.reparacao = null;
 		this.equipamento = e;
 		this.prazoReparacao = null;
@@ -63,7 +65,7 @@ public class Orcamento implements Serializable {
 		this.custoHora = 0.0;
 		this.descrProb = descr;
 		this.plano = null;
-		this.estados = new TreeSet<EstadoOrcamento>();
+		this.estados = new TreeSet<>();
 		this.estados.add(new EstadoOrcamento(OrcamentoEstado.porCalcular));
 		this.comunicacoes = new ArrayList<Comunicacao>();
 	}
@@ -109,14 +111,7 @@ public class Orcamento implements Serializable {
 	 */
 	public Boolean estaAtivo() {
 		
-		EstadoOrcamento estadoAtual = estados.first();
-		Boolean isAtivo = true;
-
-		if(estadoAtual.getEstado() == OrcamentoEstado.arquivado) {
-			isAtivo = false;
-		}
-
-		return isAtivo;
+		return getEstadoAtual().estaAtivo();
 	}
 	
 	/**
@@ -135,8 +130,9 @@ public class Orcamento implements Serializable {
 	 * @return
 	 */
 	public String generateResume() {
-		return "Orcamento [comunicacoes =" + comunicacoes + ", custoHora =" + custoHora + ", descrProb =" + descrProb
-				+ ", equipamento =" + equipamento + ", estado atual =" + estados.first() + ", id =" + id + ", plano =" + plano
+		return "Orcamento [comunicacoes =" + comunicacoes.stream().map(Comunicacao::toString).collect(Collectors.joining(",")) 
+				+ ", custoHora =" + custoHora + ", descrProb =" + descrProb
+				+ ", equipamento =" + equipamento + ", estado atual =" + getEstadoAtual() + ", id =" + id + ", plano =" + plano
 				+ ", prazoReparacao =" + prazoReparacao + ", preco =" + preco + ", reparacao =" + reparacao + "]";
 	}
 	
@@ -167,7 +163,7 @@ public class Orcamento implements Serializable {
 	 */
 	public Boolean passouPrazo() {
 		
-		EstadoOrcamento estadoAtual = estados.first();
+		EstadoOrcamento estadoAtual = getEstadoAtual();
 		LocalDateTime tempoAtual = LocalDateTime.now();
 		Boolean passouPrazo = false;
 
@@ -223,7 +219,7 @@ public class Orcamento implements Serializable {
 		this.descrProb = descrProb;
 	}
 	
-	public TreeSet<EstadoOrcamento> getEstados() {
+	public Set<EstadoOrcamento> getEstados() {
 		return estados;
 	}
 	
@@ -269,6 +265,74 @@ public class Orcamento implements Serializable {
 	 */
 	public FormaContacto getFormaContacto() {
 		return equipamento.getProprietario().getContacto();
+	}
+
+	public EstadoOrcamento getEstadoAtual() {
+		return estados.iterator().next();
+	}
+
+	// Equals
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Orcamento other = (Orcamento) obj;
+		if (comunicacoes == null) {
+			if (other.comunicacoes != null)
+				return false;
+		} else if (!comunicacoes.equals(other.comunicacoes))
+			return false;
+		if (custoHora == null) {
+			if (other.custoHora != null)
+				return false;
+		} else if (!custoHora.equals(other.custoHora))
+			return false;
+		if (descrProb == null) {
+			if (other.descrProb != null)
+				return false;
+		} else if (!descrProb.equals(other.descrProb))
+			return false;
+		if (equipamento == null) {
+			if (other.equipamento != null)
+				return false;
+		} else if (!equipamento.equals(other.equipamento))
+			return false;
+		if (estados == null) {
+			if (other.estados != null)
+				return false;
+		} else if (!estados.equals(other.estados))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (plano == null) {
+			if (other.plano != null)
+				return false;
+		} else if (!plano.equals(other.plano))
+			return false;
+		if (prazoReparacao == null) {
+			if (other.prazoReparacao != null)
+				return false;
+		} else if (!prazoReparacao.equals(other.prazoReparacao))
+			return false;
+		if (preco == null) {
+			if (other.preco != null)
+				return false;
+		} else if (!preco.equals(other.preco))
+			return false;
+		if (reparacao == null) {
+			if (other.reparacao != null)
+				return false;
+		} else if (!reparacao.equals(other.reparacao))
+			return false;
+		return true;
 	}
 	
 }
