@@ -80,8 +80,7 @@ public class PlanoTrabalho {
 	}
 
 	public List<Material> getMaterial() {
-		// TODO
-		return null;
+		return this.passos.stream().map(PassoReparacao::getMateriais).collect(Collectors.toList());
 	}
 
 	public CustoTotalReparacao getPrecoEfetivo() {
