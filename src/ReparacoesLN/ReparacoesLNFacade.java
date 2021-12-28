@@ -248,8 +248,8 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 		throw new UnsupportedOperationException();
 	}
 
-	public void registaColaborador(Colaborador c) {
-		this.gestColaboradores.registaColaborador(c);
+	public void registaColaborador(String nome, String tipo) {
+		this.gestColaboradores.registaColaborador(nome, tipo);
 	}
 
 	/**

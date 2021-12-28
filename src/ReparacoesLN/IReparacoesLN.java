@@ -144,7 +144,7 @@ public interface IReparacoesLN {
 	 */
 	void registaContacto(String repID, String tecID, String msg);
 
-	void registaColaborador(Colaborador c);
+	void registaColaborador(String nome, String tipo);
 
 	/**
 	 * 
