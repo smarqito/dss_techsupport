@@ -1,7 +1,14 @@
 package ReparacoesLN.SSColaboradores;
 
 public class Tecnico extends ColaboradorEspecializado {
-    public Tecnico(int id, String nome) {
-        //
+
+    /**
+     * Construtor para a classe Técnico
+     * 
+     * @param nome Nome do Técnico
+     */
+    public Tecnico(String nome) {
+        super(nome);
     }
+    
 }
