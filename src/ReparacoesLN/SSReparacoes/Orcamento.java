@@ -87,8 +87,10 @@ public class Orcamento {
 	 * @param novoEstado
 	 */
 	public void alteraEstado(EstadoOrcamento novoEstado) {
-		// TODO - implement Orcamento.alteraEstado
-		throw new UnsupportedOperationException();
+		EstadoOrcamento atual = this.estados.get(0);
+		if (!atual.equals(novoEstado)) {
+			this.estados.add(0, novoEstado);
+		}
 	}
 
 	public String generateResume() {
@@ -114,15 +116,8 @@ public class Orcamento {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param data
-	 * @param msg
-	 * @param tec
-	 */
-	public void addComunicacao(LocalDateTime data, String msg, Tecnico tec) {
-		// TODO - implement Orcamento.addComunicacao
-		throw new UnsupportedOperationException();
+	public void addComunicacao(Comunicacao c) {
+		this.comunicacoes.add(c);
 	}
 
 	public Boolean passouPrazo() {
@@ -130,4 +125,8 @@ public class Orcamento {
 		throw new UnsupportedOperationException();
 	}
 
+	public void setPT(List<PassoReparacao> passos) {
+		PlanoTrabalho pt = new PlanoTrabalho(passos);
+		this.plano = pt;
+	}
 }

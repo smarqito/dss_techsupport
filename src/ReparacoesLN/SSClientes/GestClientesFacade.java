@@ -1,12 +1,14 @@
 package ReparacoesLN.SSClientes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class GestClientesFacade implements IGestClientes {
 
 	private Cliente clientes;
-	private Equipamento equipamentos;
+	private Map<String, Equipamento> equipamentos;
 
 	/**
 	 * 
@@ -46,8 +48,8 @@ public class GestClientesFacade implements IGestClientes {
 	}
 
 	public List<Equipamento> getEqProntoLevantar() {
-		// TODO - implement GestClientesFacade.getEqProntoLevantar
-		throw new UnsupportedOperationException();
+		Predicate<Equipamento> p = x -> (x.getEstado().equals(EstadoEquipamento.prontoLevantar));
+		return this.filterEquipamentos(p);
 	}
 
 	/**
@@ -57,8 +59,7 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param email
 	 */
 	public void registaCliente(String nif, String numero, String email) {
-		// TODO - implement GestClientesFacade.registaCliente
-		throw new UnsupportedOperationException();
+		Cliente newC = new Cliente(nif, new FormaContacto(email, numero));
 	}
 
 	/**
@@ -68,8 +69,7 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param nif
 	 */
 	public void registaEquipamento(String codR, String marca, String nif) {
-		// TODO - implement GestClientesFacade.registaEquipamento
-		throw new UnsupportedOperationException();
+		Equipamento e = new Equipamento(codR, marca, getCliente(nif));
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param state
 	 */
 	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
-		// TODO - implement GestClientesFacade.alteraEstadoEq
-		throw new UnsupportedOperationException();
+		Equipamento eq = getEquipamento(equiID);
+		eq.setState(state);
 	}
 
 	/**
@@ -87,8 +87,7 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param p
 	 */
 	public List<Equipamento> filterEquipamentos(Predicate<Equipamento> p) {
-		// TODO - implement GestClientesFacade.filterEquipamentos
-		throw new UnsupportedOperationException();
+		return this.equipamentos.values().stream().filter(p).collect(Collectors.toList());
 	}
 
 }

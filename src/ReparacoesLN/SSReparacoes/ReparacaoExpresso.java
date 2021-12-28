@@ -6,4 +6,8 @@ public class ReparacaoExpresso extends Reparacao {
 	private Integer tempoEstimado;
 	private String nome;
 
+	@Override
+	public CustoTotalReparacao getPrecoEfetivo() {
+		return null;
+	}
 }

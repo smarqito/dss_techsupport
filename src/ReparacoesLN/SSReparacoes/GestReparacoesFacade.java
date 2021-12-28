@@ -1,3 +1,4 @@
+
 package ReparacoesLN.SSReparacoes;
 
 import java.time.LocalDateTime;
@@ -6,16 +7,16 @@ import java.util.function.Predicate;
 
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
+import b.C.S;
 
 public class GestReparacoesFacade implements IGestReparacoes {
 
 	private Map<String, Reparacao> reps;
-    private Map<String, Orcamento> orcs;
-    private Set<ReparacaoExpresso> reparacoesDisponiveis;
+	private Map<String, Orcamento> orcs;
+	private List<ReparacaoExpresso> reparacoesDisponiveis;
 
 	public List<Orcamento> getOrcamentosAtivos() {
-		// TODO - implement GestReparacoesFacade.getOrcamentosAtivos
-		throw new UnsupportedOperationException();
+		return this.orcs.values().stream().filter(Orcamento::estaAtivo).collect(Collectors.toList());
 	}
 
 	/**
@@ -51,8 +52,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param estado
 	 */
 	public void alterarEstadoOrc(String orcID, EstadoOrcamento estado) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoOrc
-		throw new UnsupportedOperationException();
+		Orcamento o = this.orcs.get(orcID);
+		o.alteraEstado(estado);
 	}
 
 	/**
@@ -61,8 +62,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param estado
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		Reparacao r = this.reps.get(repID);
+		r.alteraEstado(estado, null);
 	}
 
 	/**
@@ -72,8 +73,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param comentario
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		Reparacao r = this.reps.get(repID);
+		r.alteraEstado(estado, comentario);
 	}
 
 	/**
@@ -128,8 +129,9 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param tec
 	 */
 	public void registaContacto(String repId, String msg, Tecnico tec) {
-		// TODO - implement GestReparacoesFacade.registaContacto
-		throw new UnsupportedOperationException();
+		Comunicacao c = new Comunicacao(tec, LocalDateTime.now(), msg);
+		Reparacao r = getReparacao(repId);
+		r.addComunicacao(c);
 	}
 
 	/**
@@ -171,8 +173,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param descr
 	 */
 	public void registarOrcamento(Equipamento equip, String descr) {
-		// TODO - implement GestReparacoesFacade.registarOrcamento
-		throw new UnsupportedOperationException();
+		Orcamento o = new Orcamento(equip, descr);
+		this.orcs.put(o.getID(), o);
 	}
 
 	/**
@@ -181,11 +183,11 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param passos
 	 */
 	public void registaPT(String orcId, List<PassoReparacao> passos) {
-		// TODO - implement GestReparacoesFacade.registaPT
-		throw new UnsupportedOperationException();
+		Orcamento o = this.orcs.get(orcId);
+		o.setPT(passos);
 	}
 
-	/**
+  	/**
 	 * Método que adiciona ás reparações por realizar uma reparação expresso nova 
 	 * A reparação só é efetuada se o tipo de reparação existir no sistema
 	 * 
@@ -267,8 +269,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param msg
 	 */
 	public void comunicarErro(Orcamento orc, Tecnico tec, String msg) {
-		// TODO - implement GestReparacoesFacade.comunicarErro
-		throw new UnsupportedOperationException();
+		Comunicacao c = new Comunicacao(tec, LocalDateTime.now(), msg);
+		orc.addComunicacao(c);
 	}
 
 	/**
@@ -322,5 +324,4 @@ public class GestReparacoesFacade implements IGestReparacoes {
 		// TODO - implement GestReparacoesFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}
-
 }

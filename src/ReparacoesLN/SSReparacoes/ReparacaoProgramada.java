@@ -30,4 +30,8 @@ public class ReparacaoProgramada extends Reparacao {
 
 	}
 
+	@Override
+	public CustoTotalReparacao getPrecoEfetivo() {
+		return null;
+	}
 }
