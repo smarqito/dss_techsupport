@@ -8,6 +8,12 @@ public class EstadoReparacao implements Comparable<EstadoReparacao>{
 	private LocalDateTime data;
 	private String comentario;
 
+	public EstadoReparacao(EstadoReparacao e){
+		this.estado = e.getEstado();
+		this.data = e.getData();
+		this.comentario = e.getComentario();
+	}
+
 	public LocalDateTime getData() {
 		return data;
 	}
@@ -52,4 +58,9 @@ public class EstadoReparacao implements Comparable<EstadoReparacao>{
 	public int compareTo(EstadoReparacao o) {
 		return o.getData().compareTo(this.data);
 	}
+
+	public EstadoReparacao clone(){
+		return new EstadoReparacao(this);
+	}
+
 }

@@ -4,6 +4,8 @@ import ReparacoesLN.SSClientes.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import ReparacoesLN.SSColaboradores.*;
 
 public abstract class Reparacao {
@@ -21,11 +23,11 @@ public abstract class Reparacao {
 	}
 
 	public Set<EstadoReparacao> getEstados() {
-		return new HashSet<>(estados);
+		return estados.stream().map(EstadoReparacao::clone).collect(Collectors.toSet());
 	}
 
 	public List<Comunicacao> getComunicacoes() {
-		return comunicacoes;
+		return comunicacoes.stream().map(Comunicacao::clone).collect(Collectors.toList());
 	}
 
 	public Tecnico getTecnico() {
@@ -41,7 +43,7 @@ public abstract class Reparacao {
 	}
 
 	public LocalDateTime getDataCriacao() {
-		return this.dataCriacao;
+		return dataCriacao;
 	}
 
 	/**
