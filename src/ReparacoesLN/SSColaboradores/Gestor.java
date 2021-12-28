@@ -1,7 +1,14 @@
 package ReparacoesLN.SSColaboradores;
 
 public class Gestor extends ColaboradorEspecializado {
-    public Gestor(int id, String nome) {
-        //
+
+    /**
+     * Construtor para a classe Gestor
+     * 
+     * @param nome Nome do Gestor
+     */
+    public Gestor(String nome) {
+        super(nome);
     }
+   
 }

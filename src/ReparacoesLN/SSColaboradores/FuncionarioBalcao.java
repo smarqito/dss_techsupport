@@ -1,7 +1,14 @@
 package ReparacoesLN.SSColaboradores;
 
 public class FuncionarioBalcao extends Colaborador {
-    public FuncionarioBalcao(int id, String nome) {
-        //
+
+    /**
+     * Construtor para o Funcionário de Balcão
+     * 
+     * @param nome Nome do Funcionário de Balcão
+     */
+    public FuncionarioBalcao(String nome) {
+        super(nome);
     }
+    
 }
