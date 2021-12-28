@@ -1,14 +1,20 @@
 package ReparacoesLN.SSColaboradores;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class AgendaPorDia {
 
 	private List<EntradaAgenda> tarefas;
 	private Integer tempoDisp = 8*60;
-	private Date data;
+	private LocalDate data;
+
+	public LocalDate getData() {
+		return data;
+	}
 
 	/**
 	 * 
@@ -23,7 +29,7 @@ public class AgendaPorDia {
 	 * 
 	 * @param t
 	 */
-	public Time temDisponibilidade(Integer t) {
+	public LocalTime temDisponibilidade(Integer t) {
 		// TODO - implement AgendaPorDia.temDisponibilidade
 		throw new UnsupportedOperationException();
 	}

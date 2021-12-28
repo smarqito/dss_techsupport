@@ -1,18 +1,23 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 import ReparacoesLN.SSClientes.*;
 
 public class GestColaboradoresFacade implements IGestColaboradores {
 
-	private Colaborador colabs;
+	private Map<String, Colaborador> colabs;
 	private List<Balcao> balcao;
 	private GestAgenda agenda;
+	private int id;
 
-	public void registaColaborador() {
-		// TODO - implement GestColaboradoresFacade.registaColaborador
-		throw new UnsupportedOperationException();
+	public int getId() {
+		return id++;
+	}
+
+	public void registaColaborador(Colaborador c) {
+		this.colabs.put(c.getId(), c);
 	}
 
 	/**
@@ -21,7 +26,8 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param de
 	 * @param ate
 	 */
-	public Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate) {
+	public Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Colaborador tipo, LocalDateTime de,
+			LocalDateTime ate) {
 		// TODO - implement GestColaboradoresFacade.getEquipFuncBalcao
 		throw new UnsupportedOperationException();
 	}
@@ -80,8 +86,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param detalhes
 	 */
 	public LocalDateTime addEventoAgenda(String tecId, Integer tempo, String detalhes) {
-		// TODO - implement GestColaboradoresFacade.addEventoAgenda
-		throw new UnsupportedOperationException();
+		return this.agenda.addEvento(tecId, tempo, detalhes);
 	}
 
 	/**
@@ -100,8 +105,7 @@ public class GestColaboradoresFacade implements IGestColaboradores {
 	 * @param data
 	 */
 	public void removeEventoAgenda(String tecId, LocalDateTime data) {
-		// TODO - implement GestColaboradoresFacade.removeEventoAgenda
-		throw new UnsupportedOperationException();
+		agenda.removeEvento(tecId, data);
 	}
 
 	/**

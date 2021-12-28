@@ -13,6 +13,10 @@ public class PassoReparacao {
 	private Integer tempoGasto;
 	private Double custoEfetivo;
 
+	public PassoReparacao(String nome, Integer tempo, Material material) {
+		this.nome = nome;
+		this.tempoEstimado = tempo;
+		this.materiais = material;
 	public PassoReparacao() {
 		this.materiais = null;
 		this.subpassos = new ArrayList<>();
@@ -108,6 +112,12 @@ public class PassoReparacao {
 		throw new UnsupportedOperationException();
 	}
 
+
+
+	public void addSubPasso(String nomeSub, Integer t, Material m) {
+		PassoReparacao p = new PassoReparacao(nomeSub, t, m);
+		this.subpassos.add(p);
+    
 	public PassoReparacao clone() {
 		return new PassoReparacao(this);
 	}

@@ -1,6 +1,9 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Agenda {
@@ -13,8 +16,10 @@ public class Agenda {
 	 * @param t
 	 */
 	public String temDisponibilidade(Integer t) {
-		// TODO - implement Agenda.temDisponibilidade
-		throw new UnsupportedOperationException();
+		if (getAgendaDia(LocalDate.now()).temDisponibilidade(t) != null){
+			return getTecnicoId();
+		}
+		return null;
 	}
 
 	/**
@@ -23,8 +28,8 @@ public class Agenda {
 	 * @param detalhes
 	 */
 	public LocalDateTime addEvento(Integer tempo, String detalhes) {
-		// TODO - implement Agenda.addEvento
-		throw new UnsupportedOperationException();
+		TecData td = this.prazoMaisProx(tempo);
+		return this.getAgendaDia(td.data.toLocalDate()).addEvento(tempo, detalhes);
 	}
 
 	/**
@@ -32,8 +37,19 @@ public class Agenda {
 	 * @param t
 	 */
 	public TecData prazoMaisProx(Integer t) {
-		// TODO - implement Agenda.prazoMaisProx
-		throw new UnsupportedOperationException();
+		boolean disp = false;
+		int days = 0;
+		TecData td = null;
+		while (!disp){
+			AgendaPorDia agPd = getAgendaDia(LocalDate.now().plusDays(days++));
+			LocalTime time;
+			if ((time = agPd.temDisponibilidade(t)) != null){
+				disp = true;
+				LocalDateTime data = LocalDateTime.of(agPd.getData(), time);
+				td = new TecData(getTecnicoId(), data);
+			}
+		}
+		return td;
 	}
 
 	/**
@@ -41,22 +57,19 @@ public class Agenda {
 	 * @param data
 	 */
 	public void removeEvento(LocalDateTime data) {
-		// TODO - implement Agenda.removeEvento
-		throw new UnsupportedOperationException();
+		this.getAgendaDia(data.toLocalDate()).removeEvento(data);
 	}
 
 	/**
 	 * 
 	 * @param data
 	 */
-	public AgendaPorDia getAgendaDia(Date data) {
-		// TODO - implement Agenda.getAgendaDia
-		throw new UnsupportedOperationException();
+	public AgendaPorDia getAgendaDia(LocalDate data) {
+		return tarefasDia.stream().filter(x -> x.getData().equals(data)).findFirst().orElse(null);
 	}
 
 	public String getTecnicoId() {
-		// TODO - implement Agenda.getTecnicoId
-		throw new UnsupportedOperationException();
+		return tecnico.getId();
 	}
 
 }

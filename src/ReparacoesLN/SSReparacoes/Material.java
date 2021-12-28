@@ -5,10 +5,10 @@ import java.util.Objects;
 public class Material {
 
 	private String nome;
-	private Float custo;
+	private double custo;
 	private Integer quantidade;
 
-	public Material(CategoriaMaterial categoria, String nome, Float custo, Integer quantidade) {
+	public Material(CategoriaMaterial categoria, String nome, Double custo, Integer quantidade) {
 		this.nome = nome;
 		this.custo = custo;
 		this.quantidade = quantidade;
@@ -28,7 +28,7 @@ public class Material {
 		this.nome = nome;
 	}
 
-	public Float getCusto() {
+	public double getCusto() {
 		return custo;
 	}
 

@@ -1,3 +1,4 @@
+
 package ReparacoesLN.SSReparacoes;
 
 import java.time.LocalDateTime;
@@ -51,8 +52,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param estado
 	 */
 	public void alterarEstadoOrc(String orcID, EstadoOrcamento estado) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoOrc
-		throw new UnsupportedOperationException();
+		Orcamento o = this.orcs.get(orcID);
+		o.alteraEstado(estado);
 	}
 
 	/**
@@ -61,8 +62,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param estado
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		Reparacao r = this.reps.get(repID);
+		r.alteraEstado(estado, null);
 	}
 
 	/**
@@ -72,8 +73,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param comentario
 	 */
 	public void alterarEstadoRep(String repID, EstadoReparacao estado, String comentario) {
-		// TODO - implement GestReparacoesFacade.alterarEstadoRep
-		throw new UnsupportedOperationException();
+		Reparacao r = this.reps.get(repID);
+		r.alteraEstado(estado, comentario);
 	}
 
 	/**
@@ -134,14 +135,24 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
+	 * Método que regista a realização de um passo de reparação
+	 * Atualiza os valores efetivos do passo atual a realizar-se
+	 * Atualiza a lista de passos realizados 
+	 * Atualiza o próximo passo a ser realizado como atual
 	 * 
-	 * @param repID
-	 * @param mins
-	 * @param custo
+	 * @param repID Identificador da reparação a realizar
+	 * @param mins Tempo efetivo da reparação
+	 * @param custo Custo efetivo da reparação
 	 */
 	public void registaPasso(String repID, Integer mins, Double custo) {
-		// TODO - implement GestReparacoesFacade.registaPasso
-		throw new UnsupportedOperationException();
+		
+		ReparacaoProgramada rep = (ReparacaoProgramada) reps.get(repID);
+
+		if(rep != null) {
+
+			rep.registaPassoRealizado(mins, custo);
+		} 
+		//else throw new ReparacaoNaoExisteException("A reparação com ID "+repID+" não existe!");
 	}
 
 	/**
@@ -162,8 +173,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param descr
 	 */
 	public void registarOrcamento(Equipamento equip, String descr) {
-		// TODO - implement GestReparacoesFacade.registarOrcamento
-		throw new UnsupportedOperationException();
+		Orcamento o = new Orcamento(equip, descr);
+		this.orcs.put(o.getID(), o);
 	}
 
 	/**
@@ -172,20 +183,34 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param passos
 	 */
 	public void registaPT(String orcId, List<PassoReparacao> passos) {
-		// TODO - implement GestReparacoesFacade.registaPT
-		throw new UnsupportedOperationException();
+		Orcamento o = this.orcs.get(orcId);
+		o.setPT(passos);
 	}
 
-	/**
+  	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova 
+	 * A reparação só é efetuada se o tipo de reparação existir no sistema
 	 * 
-	 * @param equip
-	 * @param nomeRepXpresso
-	 * @param tec
+	 * @param equip Equipamento a reparar
+	 * @param nomeRepXpresso Nome da reparação a efetuar
+	 * @param tec Técnico a realizar a reparação
 	 */
 	public void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) {
-		// TODO - implement GestReparacoesFacade.addRepExpresso
-		throw new UnsupportedOperationException();
-	}
+		
+		ReparacaoExpresso repXpresso = reparacoesDisponiveis.stream().filter(x -> x.getNome().equals(nomeRepXpresso)).findAny().orElse(null);
+	
+		//if(repXpresso == null)
+			//throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não existe!");
+		
+		Double preco = repXpresso.getPrecoFixo();
+		Integer tempo = repXpresso.getTempoEstimado();
+
+		//ReparacaoExpresso res = new ReparacaoExpresso(nomeRepXpresso, preco, tempo, equip, tec);
+
+		//String repXpressoID = res.getID();
+
+		//reps.put(repXpressoID, res);
+	}	
 
 	/**
 	 * 
@@ -259,15 +284,30 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um orçamento
 	 * 
-	 * @param orcID
-	 * @param nomePasso
-	 * @param mat
-	 * @param tempo
+	 * Esse passo não pode existir já no plano de trabalhos
+	 * 
+	 * @param orcID Orçamento a realizar
+	 * @param nomePasso Nome do passo a criar
+	 * @param mat Material usado no passo
+	 * @param tempo tempo estimado para o passo
 	 */
 	public void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) {
-		// TODO - implement GestReparacoesFacade.criarPasso
-		throw new UnsupportedOperationException();
+		
+		Orcamento orc = orcs.get(orcID);
+
+		//if(orc == null)
+		//	throw new OrcamentoNaoExisteException("O orçamento com identificador "+orcID+" não existe!");
+
+		Boolean existePasso = orc.existePasso(nomePasso);
+
+		if(existePasso == false) {
+
+			orc.addPasso(nomePasso, tempo, mat);
+		
+		} 
+		//else throw new PassoNaoValidoException("O passo "+nomePasso+" não é válido!") ;
 	}
 
 	public void arquivarOrcamentos() {
@@ -284,5 +324,4 @@ public class GestReparacoesFacade implements IGestReparacoes {
 		// TODO - implement GestReparacoesFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}
-
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface IGestColaboradores {
 
-	void registaColaborador();
+	void registaColaborador(Colaborador c);
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public interface IGestColaboradores {
 	 * @param de
 	 * @param ate
 	 */
-	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Colaborador tipo, LocalDateTime de, LocalDateTime ate);
 
 	/**
 	 * 
