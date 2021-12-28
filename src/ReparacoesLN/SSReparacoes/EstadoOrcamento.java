@@ -1,13 +1,23 @@
 package ReparacoesLN.SSReparacoes;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public enum EstadoOrcamento {
-	aceite,
-	arquivado,
-	enviado,
-	porCalcular;
+public class EstadoOrcamento {
 
-	private Date data;
+	private OrcamentoEstado estado;
+	private LocalDateTime data;
+
+	/**
+	 * 
+	 * @param s
+	 */
+	public EstadoOrcamento(OrcamentoEstado s) {
+		// TODO - implement EstadoOrcamento.EstadoOrcamento
+		throw new UnsupportedOperationException();
+	}
+
+	public OrcamentoEstado getEstado() {
+		return this.estado;
+	}
 
 }

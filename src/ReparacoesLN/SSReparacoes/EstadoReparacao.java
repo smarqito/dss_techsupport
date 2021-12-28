@@ -1,17 +1,11 @@
 package ReparacoesLN.SSReparacoes;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public enum EstadoReparacao {
-	reparado,
-	aguadaReparacao,
-	emReparacao,
-	cancelada,
-	pago,
-	recusaPagar,
-	prontoLevantar;
+public class EstadoReparacao {
 
-	private Date data;
+	private ReparacaoEstado estado;
+	private LocalDateTime data;
 	private String comentario;
 
 	/**
@@ -20,6 +14,20 @@ public enum EstadoReparacao {
 	 */
 	public void setComentario(String msg) {
 		this.comentario = msg;
+	}
+
+	/**
+	 * 
+	 * @param s
+	 * @param msg
+	 */
+	public EstadoReparacao(ReparacaoEstado s, String msg) {
+		// TODO - implement EstadoReparacao.EstadoReparacao
+		throw new UnsupportedOperationException();
+	}
+
+	public ReparacaoEstado getEstado() {
+		return this.estado;
 	}
 
 }
