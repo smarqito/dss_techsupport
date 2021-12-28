@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoNaoExisteException;
 
 public class GestClientesFacade implements IGestClientes {
 
@@ -27,10 +28,13 @@ public class GestClientesFacade implements IGestClientes {
 	/**
 	 * 
 	 * @param equipID
+	 * @throws EquipamentoNaoExisteException
 	 */
-	public Equipamento getEquipamento(String equipID) {
-		// TODO - implement GestClientesFacade.getEquipamento
-		throw new UnsupportedOperationException();
+	public Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException {
+		if(equipamentos.containsKey(equipID)) {
+			return equipamentos.get(equipID);
+		}
+		throw new EquipamentoNaoExisteException(equipID);
 	}
 
 	/**
@@ -82,8 +86,9 @@ public class GestClientesFacade implements IGestClientes {
 	 * 
 	 * @param equiID
 	 * @param state
+	 * @throws EquipamentoNaoExisteException
 	 */
-	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException {
 		Equipamento eq = getEquipamento(equiID);
 		eq.setState(state);
 	}

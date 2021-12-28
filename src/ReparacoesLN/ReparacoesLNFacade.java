@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoNaoExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
@@ -30,8 +31,9 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * 
 	 * @param equipId Identificador do equipamento a adicionar 
 	 * @param nomeRepExp Nome da reparação a realizar
+	 * @throws EquipamentoNaoExisteException
 	 */
-	public void addRepExpresso(String equipId, String nomeRepExp) {
+	public void addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException {
 		
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
 		
@@ -144,10 +146,10 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	/**
 	 * 
 	 * @param equipID
+	 * @throws EquipamentoNaoExisteException
 	 */
-	public Equipamento getEquipamento(String equipID) {
-		// TODO - implement ReparacoesLNFacade.getEquipamento
-		throw new UnsupportedOperationException();
+	public Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException {
+		return gestClientes.getEquipamento(equipID);
 	}
 
 	/**
@@ -155,8 +157,12 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param nif
 	 */
 	public Boolean existeCliente(String nif) {
-		// TODO - implement ReparacoesLNFacade.existeCliente
-		throw new UnsupportedOperationException();
+		try {
+			this.getCliente(nif);
+		} catch (ClienteNaoExisteException e) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -199,8 +205,9 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * 
 	 * @param equiID
 	 * @param state
+	 * @throws EquipamentoNaoExisteException
 	 */
-	public void alteraEstadoEq(String equiID, EstadoEquipamento state) {
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException {
 		this.gestClientes.alteraEstadoEq(equiID, state);
 	}
 
@@ -231,8 +238,9 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param nif
 	 * @param equipId
 	 * @param descr
+	 * @throws EquipamentoNaoExisteException
 	 */
-	public void registarOrcamento(String nif, String equipId, String descr) {
+	public void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
 		if (e.isProprietario(nif)){
 			this.gestReparacoes.registarOrcamento(e, descr);

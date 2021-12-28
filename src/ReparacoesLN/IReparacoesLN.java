@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoNaoExisteException;
 import Middleware.ReparacaoNaoExisteException;
 
 public interface IReparacoesLN {
@@ -16,8 +18,9 @@ public interface IReparacoesLN {
 	 * 
 	 * @param equipId
 	 * @param nomeRepExp
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void addRepExpresso(String equipId, String nomeRepExp);
+	void addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 
@@ -73,14 +76,16 @@ public interface IReparacoesLN {
 	/**
 	 * 
 	 * @param nif
+	 * @throws ClienteNaoExisteException
 	 */
-	Cliente getCliente(String nif);
+	Cliente getCliente(String nif) throws ClienteNaoExisteException;
 
 	/**
 	 * 
 	 * @param equipID
+	 * @throws EquipamentoNaoExisteException
 	 */
-	Equipamento getEquipamento(String equipID);
+	Equipamento getEquipamento(String equipID) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 
@@ -117,8 +122,9 @@ public interface IReparacoesLN {
 	 * 
 	 * @param equiID
 	 * @param state
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void alteraEstadoEq(String equiID, EstadoEquipamento state);
+	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 
@@ -136,8 +142,9 @@ public interface IReparacoesLN {
 	 * @param nif
 	 * @param equipId
 	 * @param descr
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void registarOrcamento(String nif, String equipId, String descr);
+	void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException;
 
 	/**
 	 * 
