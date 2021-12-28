@@ -232,7 +232,11 @@ public class Orcamento implements Serializable {
 	}
 	
 	public Set<EstadoOrcamento> getEstados() {
-		return estados;
+		Set<EstadoOrcamento> novoPointer = new TreeSet<>();
+
+		estados.stream().map(x -> novoPointer.add(x));
+
+		return novoPointer;
 	}
 	
 	public List<Comunicacao> getComunicacoes() {
@@ -287,64 +291,26 @@ public class Orcamento implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		
+		if(obj == this)
 			return true;
-		if (obj == null)
+		
+		if((obj == null) || !obj.getClass().equals(this.getClass()))
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Orcamento other = (Orcamento) obj;
-		if (comunicacoes == null) {
-			if (other.comunicacoes != null)
-				return false;
-		} else if (!comunicacoes.equals(other.comunicacoes))
-			return false;
-		if (custoHora == null) {
-			if (other.custoHora != null)
-				return false;
-		} else if (!custoHora.equals(other.custoHora))
-			return false;
-		if (descrProb == null) {
-			if (other.descrProb != null)
-				return false;
-		} else if (!descrProb.equals(other.descrProb))
-			return false;
-		if (equipamento == null) {
-			if (other.equipamento != null)
-				return false;
-		} else if (!equipamento.equals(other.equipamento))
-			return false;
-		if (estados == null) {
-			if (other.estados != null)
-				return false;
-		} else if (!estados.equals(other.estados))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (plano == null) {
-			if (other.plano != null)
-				return false;
-		} else if (!plano.equals(other.plano))
-			return false;
-		if (prazoReparacao == null) {
-			if (other.prazoReparacao != null)
-				return false;
-		} else if (!prazoReparacao.equals(other.prazoReparacao))
-			return false;
-		if (preco == null) {
-			if (other.preco != null)
-				return false;
-		} else if (!preco.equals(other.preco))
-			return false;
-		if (reparacao == null) {
-			if (other.reparacao != null)
-				return false;
-		} else if (!reparacao.equals(other.reparacao))
-			return false;
-		return true;
+
+		Orcamento o = (Orcamento) obj;
+
+		return o.getID().equals(this.getID()) &&
+			   o.getEquipamento().equals(this.getEquipamento()) &&
+			   o.getReparacao().equals(this.getReparacao()) &&
+			   o.getPrazoRep().equals(this.getPrazoRep()) &&
+			   o.getPreco().equals(this.getPreco()) &&
+			   o.getCustoHora().equals(this.getCustoHora()) &&
+			   o.getDescrProb().equals(this.getDescrProb()) &&
+			   o.getPT().equals(this.getPT()) &&
+			   o.getEstados().equals(this.getEstados()) &&
+			   o.getComunicacoes().equals(this.getComunicacoes());
+
 	}
 	
 }
