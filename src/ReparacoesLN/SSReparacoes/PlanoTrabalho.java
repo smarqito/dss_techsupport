@@ -1,5 +1,7 @@
 package ReparacoesLN.SSReparacoes;
 
+import Middleware.PassoNaoExisteException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -56,7 +58,7 @@ public class PlanoTrabalho {
 	 * @param t
 	 * @param m
 	 */
-	public void addSubPasso(String nomeP, String nomeSub, Integer t, Material m) {
+	public void addSubPasso(String nomeP, String nomeSub, Integer t, Material m) throws PassoNaoExisteException {
 		this.getPasso(nomeP).addSubPasso(nomeSub, t, m);
 	}
 
@@ -103,8 +105,12 @@ public class PlanoTrabalho {
 	 * 
 	 * @param nomePasso
 	 */
-	public PassoReparacao getPasso(String nomePasso) {
-		return this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().orElse(null);
+	public PassoReparacao getPasso(String nomePasso) throws PassoNaoExisteException {
+		PassoReparacao p = this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().orElse(null);
+		if (p != null)
+			return p;
+		else
+			throw new PassoNaoExisteException("Passo " + nomePasso + " não existe no Plano de Trabalhos.");
 	}
 
 	public void atualizarPassoAtual() {
