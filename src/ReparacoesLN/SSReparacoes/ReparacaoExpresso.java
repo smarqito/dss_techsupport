@@ -19,7 +19,7 @@ public class ReparacaoExpresso extends Reparacao {
 		this.tempoEstimado = tempoEstimado;
 		this.nome = nome;
 	}
-
+	
 	/**
 	 * Método que retorna sobre a forma da classe CustoTotalReparacao o custo da reparacao expresso1
 	 * 
@@ -27,9 +27,9 @@ public class ReparacaoExpresso extends Reparacao {
 	@Override
 	public CustoTotalReparacao getPrecoEfetivo() {
 		CustoTotalReparacao custoXPresso = new CustoTotalReparacao();
-
+		
 		custoXPresso.addPasso(tempoEstimado, tempoEstimado, precoFixo);
-
+		
 		return custoXPresso;
 	}
 	
@@ -42,8 +42,14 @@ public class ReparacaoExpresso extends Reparacao {
 	public void registaPassoRealizado(Integer tempo, Double custo) {
 		
 		ReparacaoEstado novoEstado = ReparacaoEstado.reparado;
-
+		
 		alteraEstado(novoEstado, "");
+	}
+
+	@Override
+	public String toString() {
+		return "ReparacaoExpresso [nome=" + nome + ", precoFixo=" + precoFixo + ", tempoEstimado=" + tempoEstimado
+				+ "]";
 	}
 
 	// Getters e Setters
@@ -72,12 +78,6 @@ public class ReparacaoExpresso extends Reparacao {
 		this.nome = nome;
 	}
 
-	@Override
-	public String toString() {
-		return "ReparacaoExpresso [nome=" + nome + ", precoFixo=" + precoFixo + ", tempoEstimado=" + tempoEstimado
-				+ "]";
-	}
-
 	// Método equals
 
     @Override
@@ -86,7 +86,7 @@ public class ReparacaoExpresso extends Reparacao {
 			return true;
 	
 		if((obj == null) || !obj.getClass().equals(this.getClass()))
-			return true;
+			return false;
 		
 		ReparacaoExpresso r = (ReparacaoExpresso) obj;
 
