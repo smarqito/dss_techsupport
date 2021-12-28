@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 public class PlanoTrabalho {
 
 	private List<PassoReparacao> passos;
+	private List<PassoReparacao> passosRealizados;
 	private Integer tempo;
 
 	public PlanoTrabalho(List<PassoReparacao> passos) {
 		this.passos = new ArrayList<>(passos);
+		this.passosRealizados = new ArrayList<>(passos);
 	}
 
 	/**
@@ -18,6 +20,14 @@ public class PlanoTrabalho {
 	 */
 	public List<PassoReparacao> getPassos() {
 		return passos.stream().map(PassoReparacao::clone).collect(Collectors.toList());
+	}
+
+	/**
+	 * Calcula todos os passos de reparacao
+	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de lista
+	 */
+	public List<PassoReparacao> getPassosRealizados() {
+		return passosRealizados.stream().map(PassoReparacao::clone).collect(Collectors.toList());
 	}
 
 	public void setPassos(List<PassoReparacao> passos) {
