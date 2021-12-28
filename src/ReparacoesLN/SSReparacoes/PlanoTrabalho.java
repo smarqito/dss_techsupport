@@ -68,6 +68,7 @@ public class PlanoTrabalho {
 	 */
 	public void removePasso(PassoReparacao passo) {
 		this.passos.remove(passo);
+		this.passosRealizados.add(passo);
 	}
 
 	public void addPassoRealizado(PassoReparacao p) {
