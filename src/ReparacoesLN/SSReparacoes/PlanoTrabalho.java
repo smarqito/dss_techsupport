@@ -2,10 +2,11 @@ package ReparacoesLN.SSReparacoes;
 
 import Middleware.PassoNaoExisteException;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PlanoTrabalho {
+public class PlanoTrabalho implements Serializable {
 
 	private List<PassoReparacao> passos;
 	private List<PassoReparacao> passosRealizados;

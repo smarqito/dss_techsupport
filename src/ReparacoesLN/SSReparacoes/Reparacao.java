@@ -2,13 +2,14 @@ package ReparacoesLN.SSReparacoes;
 
 import ReparacoesLN.SSClientes.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import ReparacoesLN.SSColaboradores.*;
 
-public abstract class Reparacao {
+public abstract class Reparacao implements Serializable {
 
 	private Equipamento equipamento;
 	private Set<EstadoReparacao> estados;
