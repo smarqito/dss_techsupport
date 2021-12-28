@@ -41,4 +41,7 @@ public abstract class Reparacao {
 		throw new UnsupportedOperationException();
 	}
 
+	public void addComunicacao(Comunicacao c) {
+		this.comunicacoes.add(c);
+	}
 }

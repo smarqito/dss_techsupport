@@ -13,6 +13,65 @@ public class Equipamento {
 	private String codRegisto;
 	private String marca;
 
+	//duvidas neste construtor
+	public Equipamento(String codRegisto, String marca, Cliente proprietario) {
+		this.historicoReps = null;
+		this.historicoOrcs = null;
+		this.estado = EstadoEquipamento.emProcesso;
+		setProprietario(proprietario);
+		this.id = null;
+		this.codRegisto = codRegisto;
+		this.marca = marca;
+	}
+
+	public List<Reparacao> getHistoricoReps() {
+		return historicoReps;
+	}
+
+	public void setHistoricoReps(List<Reparacao> historicoReps) {
+		this.historicoReps = historicoReps;
+	}
+
+	public List<Orcamento> getHistoricoOrcs() {
+		return historicoOrcs;
+	}
+
+	public void setHistoricoOrcs(List<Orcamento> historicoOrcs) {
+		this.historicoOrcs = historicoOrcs;
+	}
+
+	public void setEstado(EstadoEquipamento estado) {
+		this.estado = estado;
+	}
+
+	public void setProprietario(Cliente proprietario) {
+		this.proprietario = proprietario;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCodRegisto() {
+		return codRegisto;
+	}
+
+	public void setCodRegisto(String codRegisto) {
+		this.codRegisto = codRegisto;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
 	public Cliente getProprietario() {
 		return this.proprietario;
 	}
