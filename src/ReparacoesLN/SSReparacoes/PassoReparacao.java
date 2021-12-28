@@ -1,7 +1,7 @@
 package ReparacoesLN.SSReparacoes;
 
-
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PassoReparacao {
 
@@ -18,6 +18,7 @@ public class PassoReparacao {
 		this.tempoEstimado = tempo;
 		this.materiais = material;
 	}
+
 	public PassoReparacao() {
 		this.materiais = null;
 		this.subpassos = new ArrayList<>();
@@ -28,7 +29,8 @@ public class PassoReparacao {
 		this.custoEfetivo = 0.0;
 	}
 
-	public PassoReparacao(Material materiais, List<PassoReparacao> subpassos, String nome, Integer tempoEstimado, Double custoEstimado, Integer tempoGasto, Double custoEfetivo) {
+	public PassoReparacao(Material materiais, List<PassoReparacao> subpassos, String nome, Integer tempoEstimado,
+			Double custoEstimado, Integer tempoGasto, Double custoEfetivo) {
 		this.materiais = materiais;
 		this.subpassos = subpassos;
 		this.nome = nome;
@@ -57,7 +59,7 @@ public class PassoReparacao {
 	}
 
 	public List<PassoReparacao> getSubpassos() {
-		return subpassos;
+		return subpassos.stream().collect(Collectors.toList());
 	}
 
 	public void setSubpassos(List<PassoReparacao> subpassos) {
@@ -109,27 +111,32 @@ public class PassoReparacao {
 	 * @param ctr
 	 */
 	public void getCusto(CustoTotalReparacao ctr) {
-		// TODO - implement PassoReparacao.getCusto
-		throw new UnsupportedOperationException();
+		ctr.addPasso(this.tempoGasto, this.tempoEstimado, this.custoEfetivo);
+		for (PassoReparacao passoReparacao : subpassos) {
+			passoReparacao.getCusto(ctr);
+		}
 	}
-
-
 
 	public void addSubPasso(String nomeSub, Integer t, Material m) {
 		PassoReparacao p = new PassoReparacao(nomeSub, t, m);
 		this.subpassos.add(p);
 	}
-    
+
 	public PassoReparacao clone() {
 		return new PassoReparacao(this);
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 		PassoReparacao that = (PassoReparacao) o;
-		return Objects.equals(materiais, that.materiais) && Objects.equals(subpassos, that.subpassos) && Objects.equals(nome, that.nome) && Objects.equals(tempoEstimado, that.tempoEstimado) && Objects.equals(custoEstimado, that.custoEstimado) && Objects.equals(tempoGasto, that.tempoGasto) && Objects.equals(custoEfetivo, that.custoEfetivo);
+		return Objects.equals(materiais, that.materiais) && Objects.equals(subpassos, that.subpassos)
+				&& Objects.equals(nome, that.nome) && Objects.equals(tempoEstimado, that.tempoEstimado)
+				&& Objects.equals(custoEstimado, that.custoEstimado) && Objects.equals(tempoGasto, that.tempoGasto)
+				&& Objects.equals(custoEfetivo, that.custoEfetivo);
 	}
 
 	@Override
