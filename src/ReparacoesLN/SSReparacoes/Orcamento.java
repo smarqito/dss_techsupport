@@ -10,6 +10,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.PassoNaoExisteException;
 import ReparacoesLN.SSColaboradores.*;
 
 public class Orcamento implements Serializable {
@@ -76,8 +78,9 @@ public class Orcamento implements Serializable {
 	 * Utiliza o método da classe PlanoTrabalho com o mesmo nome
 	 * 
 	 * @param nomePasso nome do passo a procurar
+	 * @throws PassoNaoExisteException
 	 */
-	public PassoReparacao getPasso(String nomePasso) {
+	public PassoReparacao getPasso(String nomePasso) throws PassoNaoExisteException {
 		return plano.getPasso(nomePasso);
 	}
 	
@@ -99,8 +102,9 @@ public class Orcamento implements Serializable {
 	 * @param nomeSub Nome do subpasso a adicionar
 	 * @param tempo Tempo estimado
 	 * @param material Material usado
+	 * @throws PassoNaoExisteException
 	 */
-	public void addSubPasso(String nomeP, String nomeSub, Integer tempo, Material material) {
+	public void addSubPasso(String nomeP, String nomeSub, Integer tempo, Material material) throws PassoNaoExisteException {
 		plano.addSubPasso(nomeP, nomeSub, tempo, material);
 	}
 	
@@ -115,15 +119,22 @@ public class Orcamento implements Serializable {
 	}
 	
 	/**
+	 * Altera o estado de um orçamento
+	 * 
+	 * Só altera o estado caso 
 	 * 
 	 * @param novoEstado
+	 * @throws EstadoOrcNaoEValidoException
 	 */
-	public void alteraEstado(OrcamentoEstado novoEstado) {
+	public void alteraEstado(OrcamentoEstado novoEstado) throws EstadoOrcNaoEValidoException {
+		
 		EstadoOrcamento novo = new EstadoOrcamento(novoEstado);
-		EstadoOrcamento atual = this.estados.get(0);
-		if (!atual.equals(novo)) {
-			this.estados.add(0, novo);
-		}
+
+		if (estados.stream().noneMatch(x -> x.getEstado().equals(novoEstado))) {
+			this.estados.add(novo);
+		
+		} else 
+			throw new EstadoOrcNaoEValidoException("Estado "+novoEstado+" não é válido!");
 	}
 	
 	/**
