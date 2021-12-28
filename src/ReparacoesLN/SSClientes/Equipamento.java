@@ -1,9 +1,17 @@
 package ReparacoesLN.SSClientes;
 
+import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import ReparacoesLN.SSReparacoes.*;
 
-public class Equipamento {
+public class Equipamento implements Serializable {
+	private static int ID = 0;
+
+	private static int GetID() {
+		return ID++;
+	}
 
 	private List<Reparacao> historicoReps;
 	private List<Orcamento> historicoOrcs;
@@ -13,63 +21,86 @@ public class Equipamento {
 	private String codRegisto;
 	private String marca;
 
-	//duvidas neste construtor
+	// duvidas neste construtor
 	public Equipamento(String codRegisto, String marca, Cliente proprietario) {
-		this.historicoReps = null;
-		this.historicoOrcs = null;
+		this.historicoReps = new ArrayList<>();
+		this.historicoOrcs = new ArrayList<>();
 		this.estado = EstadoEquipamento.emProcesso;
 		setProprietario(proprietario);
-		this.id = null;
+		this.id = "" + GetID();
 		this.codRegisto = codRegisto;
 		this.marca = marca;
 	}
 
+	/**
+	 * devolve a lista de reparacoes
+	 * 
+	 * @return lista de reparacoes
+	 */
 	public List<Reparacao> getHistoricoReps() {
-		return historicoReps;
+		return historicoReps.stream().collect(Collectors.toList());
 	}
 
-	public void setHistoricoReps(List<Reparacao> historicoReps) {
-		this.historicoReps = historicoReps;
+	/**
+	 * adiciona uma reparacao ao historico
+	 * 
+	 * @param rep Reparacao a adicionar
+	 */
+	public void addHistoricoReps(Reparacao rep) {
+		this.historicoReps.add(rep);
 	}
 
+	/**
+	 * devolve uma lista de orcamentos
+	 * 
+	 * @return lista de orcamentos
+	 */
 	public List<Orcamento> getHistoricoOrcs() {
-		return historicoOrcs;
+		return historicoOrcs.stream().collect(Collectors.toList());
 	}
 
-	public void setHistoricoOrcs(List<Orcamento> historicoOrcs) {
-		this.historicoOrcs = historicoOrcs;
+	/**
+	 * adiciona um orcamento ao historico
+	 * 
+	 * @param orc Orcamento a adicionar
+	 */
+	public void addHistoricoOrcs(Orcamento orc) {
+		this.historicoOrcs.add(orc);
 	}
 
+	/**
+	 * Define o estado do equipamento
+	 * 
+	 * @param estado
+	 */
 	public void setEstado(EstadoEquipamento estado) {
 		this.estado = estado;
 	}
 
+	/**
+	 * Define o proprietario do equipamento
+	 * 
+	 * @param proprietario Novo proprietario
+	 */
 	public void setProprietario(Cliente proprietario) {
 		this.proprietario = proprietario;
 	}
 
+	/**
+	 * retorna o ID do equipamento
+	 * 
+	 * @return ID do equipamento
+	 */
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getCodRegisto() {
 		return codRegisto;
 	}
 
-	public void setCodRegisto(String codRegisto) {
-		this.codRegisto = codRegisto;
-	}
-
 	public String getMarca() {
 		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	public Cliente getProprietario() {
@@ -77,13 +108,11 @@ public class Equipamento {
 	}
 
 	public FormaContacto getFormaContacto() {
-		// TODO - implement Equipamento.getFormaContacto
-		throw new UnsupportedOperationException();
+		return proprietario.getContacto();
 	}
 
 	public EstadoEquipamento getEstado() {
-		// TODO - implement Equipamento.getEstado
-		throw new UnsupportedOperationException();
+		return estado;
 	}
 
 	/**
@@ -92,11 +121,28 @@ public class Equipamento {
 	 * @return
 	 */
 	public boolean isProprietario(String nif) {
-		// TODO - implement Equipamento.isProprietario
-		throw new UnsupportedOperationException();
+		return proprietario.getNif().equals(nif);
 	}
 
 	public void setState(EstadoEquipamento state) {
 		this.estado = state;
+	}
+
+	/**
+	 * Verifica se o equipamento contem um determinado orcamento, a partir do seu ID
+	 * @param orcId Id do orcamento a pesquisar
+	 * @return True se encontrar
+	 */
+	public boolean temOrcamento(String orcId) {
+		return historicoOrcs.stream().anyMatch(x -> x.getID().equals(orcId));
+	}
+
+	/**
+	 * Verifica se o equipamento contem um determinado reparacao, a partir do seu ID
+	 * @param repId Id do reparacao a pesquisar
+	 * @return True se encontrar
+	 */
+	public boolean temReparacao(String repId) {
+		return historicoReps.stream().anyMatch(x -> x.getId().equals(repId));
 	}
 }
