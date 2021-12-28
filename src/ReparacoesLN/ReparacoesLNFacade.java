@@ -208,17 +208,25 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	/**
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um orçamento
 	 * 
-	 * @param orcID
-	 * @param nomePasso
-	 * @param mat
-	 * @param tempo
-	 * @param qMat
-	 * @param custoMat
+	 * Utiliza o método do GestReparacoesFacade com o mesmo nome
+	 * 
+	 * @param orcID Orçamento a realizar
+	 * @param nomePasso Nome do Passo a criar
+	 * @param mat Todos os materiais usados, separados por ","
+	 * @param tempo Tempo estimado
+	 * @param qMat Quantidade de material usado
+	 * @param custoMat Custo total do material usado
 	 */
 	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) {
-		// TODO - implement ReparacoesLNFacade.criarPasso
-		throw new UnsupportedOperationException();
+		
+		Material newMat = new Material(); 
+
+		//newMat = new Material(mat, qMat, custoMat);
+		
+		gestReparacoes.criarPasso(orcID, nomePasso, newMat, tempo);
+
 	}
 
 	/**

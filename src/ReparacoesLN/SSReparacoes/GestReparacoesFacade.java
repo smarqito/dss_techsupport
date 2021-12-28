@@ -282,15 +282,30 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um orçamento
 	 * 
-	 * @param orcID
-	 * @param nomePasso
-	 * @param mat
-	 * @param tempo
+	 * Esse passo não pode existir já no plano de trabalhos
+	 * 
+	 * @param orcID Orçamento a realizar
+	 * @param nomePasso Nome do passo a criar
+	 * @param mat Material usado no passo
+	 * @param tempo tempo estimado para o passo
 	 */
 	public void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) {
-		// TODO - implement GestReparacoesFacade.criarPasso
-		throw new UnsupportedOperationException();
+		
+		Orcamento orc = orcs.get(orcID);
+
+		//if(orc == null)
+		//	throw new OrcamentoNaoExisteException("O orçamento com identificador "+orcID+" não existe!");
+
+		Boolean existePasso = orc.existePasso(nomePasso);
+
+		if(existePasso == false) {
+
+			orc.addPasso(nomePasso, tempo, mat);
+		
+		} 
+		//else throw new PassoNaoValidoException("O passo "+nomePasso+" não é válido!") ;
 	}
 
 	public void arquivarOrcamentos() {
