@@ -22,7 +22,7 @@ public class GestClientesFacade implements IGestClientes {
 		if(clientes.containsKey(nif)) {
 			return clientes.get(nif);
 		}
-		throw new ClienteNaoExisteException("nif");
+		throw new ClienteNaoExisteException(nif);
 	}
 
 	/**
