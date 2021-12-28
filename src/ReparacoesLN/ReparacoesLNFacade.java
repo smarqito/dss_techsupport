@@ -7,6 +7,7 @@ import java.util.Map;
 
 import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoNaoExisteException;
+import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
@@ -64,7 +65,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) {
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 	}
 

@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
@@ -54,8 +55,9 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * 
 	 * @param orcID
 	 * @param estado
+	 * @throws EstadoOrcNaoEValidoException
 	 */
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) {
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException {
 		Orcamento o = this.orcs.get(orcID);
 		o.alteraEstado(estado);
 	}

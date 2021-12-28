@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
 
 public interface IGestReparacoes {
@@ -36,8 +37,9 @@ public interface IGestReparacoes {
 	 * 
 	 * @param orcID
 	 * @param estado
+	 * @throws EstadoOrcNaoEValidoException
 	 */
-	void alterarEstadoOrc(String orcID, OrcamentoEstado estado);
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException;
 
 	/**
 	 * 
