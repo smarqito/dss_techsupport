@@ -3,7 +3,9 @@ package ReparacoesLN.SSClientes;
 import java.util.List;
 import java.util.function.Predicate;
 
+import Middleware.ClienteJaExisteException;
 import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 
 public interface IGestClientes {
@@ -30,8 +32,8 @@ public interface IGestClientes {
 	Equipamento getEquipamento(String codR, String marca) throws EquipamentoNaoExisteException;
 
 	/**
-	 * 
-	 * @param nif
+	 * Verifica se um cliente existe
+	 * @param nif Nif do cliente
 	 */
 	Boolean existeCliente(String nif);
 
@@ -42,6 +44,7 @@ public interface IGestClientes {
 	 */
 	Boolean existeEquipamento(String codR, String marca);
 
+	
 	List<Equipamento> getEqProntoLevantar();
 
 	/**
@@ -49,8 +52,9 @@ public interface IGestClientes {
 	 * @param nif
 	 * @param numero
 	 * @param email
+	 * @throws ClienteJaExisteException
 	 */
-	void registaCliente(String nif, String numero, String email);
+	void registaCliente(String nif, String numero, String email) throws ClienteJaExisteException;
 
 	/**
 	 * 
@@ -58,8 +62,9 @@ public interface IGestClientes {
 	 * @param marca
 	 * @param nif
 	 * @throws ClienteNaoExisteException
+	 * @throws EquipamentoJaAssociadoException
 	 */
-	void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException;
+	void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException, EquipamentoJaAssociadoException;
 
 	/**
 	 * 
@@ -74,5 +79,13 @@ public interface IGestClientes {
 	 * @param p
 	 */
 	List<Equipamento> filterEquipamentos(Predicate<Equipamento> p);
+
+	/**
+	 * Associa um equipamento a um cliente
+	 * @param c Cliente proprietario
+	 * @param e Equipamento
+	 * @throws EquipamentoJaAssociadoException Caso a associacao ja exista
+	 */
+	void associaEquipamentoCliente(Cliente c, Equipamento e) throws EquipamentoJaAssociadoException;
 
 }

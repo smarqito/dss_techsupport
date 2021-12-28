@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
@@ -129,12 +130,14 @@ public interface IReparacoesLN {
 	void registaCliente(String nif, String numero, String email);
 
 	/**
-	 * 
-	 * @param codR
-	 * @param marca
-	 * @param nif
+	 * Efetua o registo de um equipamento e associa-o ao cliente
+	 * @param codR Codigo de registo
+	 * @param marca Marca do equipamento
+	 * @param nif Nif do cliente proprietario
+	 * @throws ClienteNaoExisteException	Caso o cliente com nif indicado nao exista
+	 * @throws EquipamentoJaAssociadoException Caso o equipamento ja esteja associado ao cliente (ou outro)
 	 */
-	void registaEquipamento(String codR, String marca, String nif);
+	void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException, EquipamentoJaAssociadoException;
 
 	/**
 	 * 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
@@ -139,9 +140,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif) {
-		// TODO - implement ReparacoesLNFacade.registaEquipamento
-		throw new UnsupportedOperationException();
+	public void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
+		gestClientes.registaEquipamento(codR, marca, nif);
 	}
 
 	@Override

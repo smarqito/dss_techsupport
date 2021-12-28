@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoAssociadoAoCliente;
 
 public class Cliente implements Serializable {
@@ -40,6 +41,13 @@ public class Cliente implements Serializable {
 
 	public Map<String, Equipamento> getEquipamentos() {
 		return new HashMap<>(this.equipamentos);
+	}
+
+	public void addEquipamento(Equipamento equip) throws EquipamentoJaAssociadoException {
+		if(!this.equipamentos.containsKey(equip.getId())) {
+			equipamentos.put(equip.getId(), equip);
+		}
+		throw new EquipamentoJaAssociadoException("O cliente " + nif + " ja tem equipamento com ID: " + equip.getId());
 	}
 
 	public void setEquipamentos(Map<String, Equipamento> equipamentos) {

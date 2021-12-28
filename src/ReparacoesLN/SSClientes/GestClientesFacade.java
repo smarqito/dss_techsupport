@@ -7,7 +7,9 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import Middleware.ClienteJaExisteException;
 import Middleware.ClienteNaoExisteException;
+import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 
 public class GestClientesFacade implements IGestClientes, Serializable {
@@ -64,13 +66,21 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 	}
 
 	@Override
-	public void registaCliente(String nif, String numero, String email) {
-		Cliente newC = new Cliente(nif, new FormaContacto(email, numero));
+	public void registaCliente(String nif, String numero, String email) throws ClienteJaExisteException {
+		if (!existeCliente(nif)) {
+			Cliente newC = new Cliente(nif, new FormaContacto(email, numero));
+			this.clientes.put(nif, newC);
+		}
+		throw new ClienteJaExisteException(nif);
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException {
-		Equipamento e = new Equipamento(codR, marca, getCliente(nif));
+	public void registaEquipamento(String codR, String marca, String nif)
+			throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
+		Cliente c = getCliente(nif);
+		Equipamento equip = new Equipamento(codR, marca, c);
+		this.equipamentos.put(equip.getId(), equip);
+		associaEquipamentoCliente(c, equip);
 	}
 
 	@Override
@@ -82,6 +92,17 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 	@Override
 	public List<Equipamento> filterEquipamentos(Predicate<Equipamento> p) {
 		return this.equipamentos.values().stream().filter(p).collect(Collectors.toList());
+	}
+
+	@Override
+	public void associaEquipamentoCliente(Cliente c, Equipamento e) throws EquipamentoJaAssociadoException {
+		if (this.equipamentos.values().stream()
+				.noneMatch(x -> x.getCodRegisto().equals(e.getCodRegisto()) && x.getMarca().equals(e.getMarca()))) {
+			c.addEquipamento(e);
+		} else {
+			throw new EquipamentoJaAssociadoException(
+					"O equipamento ja se encontra associado a algum cliente! Verifique antes de inserir.");
+		}
 	}
 
 }
