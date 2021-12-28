@@ -1,5 +1,7 @@
 package ReparacoesLN.SSReparacoes;
 
+import Middleware.PassoNaoExisteException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,8 +32,12 @@ public class PlanoTrabalho {
 		return passosRealizados.stream().map(PassoReparacao::clone).collect(Collectors.toList());
 	}
 
+	public Integer getTempo() {
+		return tempo;
+	}
+
 	public void setPassos(List<PassoReparacao> passos) {
-		this.passos = passos;
+		this.passos = passos.stream().map(PassoReparacao::clone).collect(Collectors.toList());
 	}
 
 	/**
@@ -43,6 +49,7 @@ public class PlanoTrabalho {
 	public void addPasso(String nome, Integer tempo, Material material) {
 		PassoReparacao p = new PassoReparacao(nome, tempo, material);
 		passos.add(p);
+		this.tempo += tempo;
 	}
 
 	/**
@@ -52,8 +59,9 @@ public class PlanoTrabalho {
 	 * @param t
 	 * @param m
 	 */
-	public void addSubPasso(String nomeP, String nomeSub, Integer t, Material m) {
+	public void addSubPasso(String nomeP, String nomeSub, Integer t, Material m) throws PassoNaoExisteException {
 		this.getPasso(nomeP).addSubPasso(nomeSub, t, m);
+		this.tempo += t;
 	}
 
 	/**
@@ -65,22 +73,24 @@ public class PlanoTrabalho {
 	}
 
 	public void addPassoRealizado(PassoReparacao p) {
-		// TODO
+		this.removePasso(p);
+		this.passosRealizados.add(p);
 	}
 
 	public boolean haMaisPassos() {
-		// TODO
-		return false;
+		return this.passos.isEmpty();
 	}
 
 	public List<Material> getMaterial() {
-		// TODO
-		return null;
+		return this.passos.stream().map(PassoReparacao::getMateriais).collect(Collectors.toList());
 	}
 
 	public CustoTotalReparacao getPrecoEfetivo() {
-		// TODO
-		return null;
+		CustoTotalReparacao ctr = new CustoTotalReparacao();
+		for (PassoReparacao p : passosRealizados){
+			p.getCusto(ctr);
+		}
+		return ctr;
 	}
 
 	public PassoReparacao getPassoAtual() {
@@ -99,12 +109,12 @@ public class PlanoTrabalho {
 	 * 
 	 * @param nomePasso
 	 */
-	public PassoReparacao getPasso(String nomePasso) {
-		return this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().orElse(null);
-	}
-
-	public void atualizarPassoAtual() {
-		// nao faz nada :)
+	public PassoReparacao getPasso(String nomePasso) throws PassoNaoExisteException {
+		try {
+			return this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().get();
+		} catch (NoSuchElementException e){
+			throw new PassoNaoExisteException("Passo " + nomePasso + " não existe no PlanoTrabalho.");
+		}
 	}
 
 }
