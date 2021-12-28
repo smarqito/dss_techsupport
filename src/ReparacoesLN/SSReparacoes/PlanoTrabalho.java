@@ -86,8 +86,11 @@ public class PlanoTrabalho {
 	}
 
 	public CustoTotalReparacao getPrecoEfetivo() {
-		// TODO
-		return null;
+		CustoTotalReparacao ctr = new CustoTotalReparacao();
+		for (PassoReparacao p : passosRealizados){
+			p.getCusto(ctr);
+		}
+		return ctr;
 	}
 
 	public PassoReparacao getPassoAtual() {
