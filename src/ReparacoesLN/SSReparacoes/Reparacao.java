@@ -31,9 +31,9 @@ public abstract class Reparacao {
 	 */
 
 
-	public void alteraEstado(EstadoReparacao novoEstado, String msg) {
-		novoEstado.setComentario(msg);
-		this.estados.add(0, novoEstado);
+	public void alteraEstado(ReparacaoEstado novoEstado, String msg) {
+		EstadoReparacao novo = new EstadoReparacao(novoEstado, msg);
+		this.estados.add(0, novo);
 	}
 
 	public EstadoReparacao getUltimoEstado() {

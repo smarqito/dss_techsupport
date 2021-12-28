@@ -1,17 +1,30 @@
 package ReparacoesLN.SSReparacoes;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PlanoTrabalho {
 
 	private List<PassoReparacao> passos;
 	private Integer tempo;
 
-    public PlanoTrabalho(List<PassoReparacao> passos) {
+	public PlanoTrabalho(List<PassoReparacao> passos) {
 		this.passos = new ArrayList<>(passos);
-    }
+	}
 
-    /**
+	/**
+	 * Calcula todos os passos de reparacao
+	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de lista
+	 */
+	public List<PassoReparacao> getPassos() {
+		return passos.stream().map(PassoReparacao::clone).collect(Collectors.toList());
+	}
+
+	public void setPassos(List<PassoReparacao> passos) {
+		this.passos = passos;
+	}
+
+	/**
 	 * 
 	 * @param nome
 	 * @param tempo
@@ -55,6 +68,11 @@ public class PlanoTrabalho {
 		return null;
 	}
 
+	public CustoTotalReparacao getPrecoEfetivo() {
+		// TODO
+		return null;
+	}
+
 	public PassoReparacao getPassoAtual() {
 		return this.passos.get(0);
 	}
@@ -76,7 +94,7 @@ public class PlanoTrabalho {
 	}
 
 	public void atualizarPassoAtual() {
-		//nao faz nada :)
+		// nao faz nada :)
 	}
 
 }
