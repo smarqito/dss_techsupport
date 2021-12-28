@@ -4,12 +4,14 @@ import ReparacoesLN.SSClientes.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import ReparacoesLN.SSColaboradores.*;
 
 public abstract class Reparacao {
 
 	private Equipamento equipamento;
-	private List<EstadoReparacao> estados;
+	private Set<EstadoReparacao> estados;
 	private List<Comunicacao> comunicacoes;
 	private Tecnico tecnico;
 	private String id;
@@ -20,8 +22,28 @@ public abstract class Reparacao {
 		return equipamento;
 	}
 
+	public Set<EstadoReparacao> getEstados() {
+		return estados.stream().map(EstadoReparacao::clone).collect(Collectors.toSet());
+	}
+
+	public List<Comunicacao> getComunicacoes() {
+		return comunicacoes.stream().map(Comunicacao::clone).collect(Collectors.toList());
+	}
+
 	public Tecnico getTecnico() {
 		return tecnico;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public LocalDateTime getPrazoReparacao() {
+		return prazoReparacao;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
 	}
 
 	/**
@@ -33,20 +55,17 @@ public abstract class Reparacao {
 
 	public void alteraEstado(EstadoReparacao novoEstado, String msg) {
 		novoEstado.setComentario(msg);
-		this.estados.add(0, novoEstado);
+		this.estados.add(novoEstado.clone());
 	}
 
 	public EstadoReparacao getUltimoEstado() {
-		return this.estados.get(0);
+		return this.estados.iterator().next();
 	}
 
 	public abstract CustoTotalReparacao getPrecoEfetivo();
 
-	public LocalDateTime getDataCriacao() {
-		return this.dataCriacao;
-	}
 
 	public void addComunicacao(Comunicacao c) {
-		this.comunicacoes.add(c);
+		this.comunicacoes.add(c.clone());
 	}
 }

@@ -16,6 +16,12 @@ public class Comunicacao {
 		this.msg = msg;
 	}
 
+	public Comunicacao(Comunicacao c){
+		this.colaborador = c.getColaborador();
+		this.data = c.getData();
+		this.msg = c.getMsg();
+	}
+
 	public Colaborador getColaborador() {
 		return colaborador;
 	}
@@ -38,5 +44,9 @@ public class Comunicacao {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public Comunicacao clone(){
+		return new Comunicacao(this);
 	}
 }
