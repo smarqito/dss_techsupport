@@ -46,4 +46,7 @@ public abstract class Reparacao {
 		return this.dataCriacao;
 	}
 
+	public void addComunicacao(Comunicacao c) {
+		this.comunicacoes.add(c);
+	}
 }

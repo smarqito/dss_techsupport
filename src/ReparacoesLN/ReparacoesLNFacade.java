@@ -148,8 +148,7 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	 * @param email
 	 */
 	public void registaCliente(String nif, String numero, String email) {
-		// TODO - implement ReparacoesLNFacade.registaCliente
-		throw new UnsupportedOperationException();
+
 	}
 
 	/**

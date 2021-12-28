@@ -116,15 +116,8 @@ public class Orcamento {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param data
-	 * @param msg
-	 * @param tec
-	 */
-	public void addComunicacao(LocalDateTime data, String msg, Tecnico tec) {
-		// TODO - implement Orcamento.addComunicacao
-		throw new UnsupportedOperationException();
+	public void addComunicacao(Comunicacao c) {
+		this.comunicacoes.add(c);
 	}
 
 	public Boolean passouPrazo() {

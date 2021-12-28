@@ -6,16 +6,16 @@ import java.util.function.Predicate;
 
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
+import b.C.S;
 
 public class GestReparacoesFacade implements IGestReparacoes {
 
 	private Map<String, Reparacao> reps;
 	private Map<String, Orcamento> orcs;
-	private Set<ReparacaoExpresso> reparacoesDisponiveis;
+	private List<ReparacaoExpresso> reparacoesDisponiveis;
 
 	public List<Orcamento> getOrcamentosAtivos() {
-		// TODO - implement GestReparacoesFacade.getOrcamentosAtivos
-		throw new UnsupportedOperationException();
+		return this.orcs.values().stream().filter(Orcamento::estaAtivo).collect(Collectors.toList());
 	}
 
 	/**
@@ -128,8 +128,9 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param tec
 	 */
 	public void registaContacto(String repId, String msg, Tecnico tec) {
-		// TODO - implement GestReparacoesFacade.registaContacto
-		throw new UnsupportedOperationException();
+		Comunicacao c = new Comunicacao(tec, LocalDateTime.now(), msg);
+		Reparacao r = getReparacao(repId);
+		r.addComunicacao(c);
 	}
 
 	/**
@@ -243,8 +244,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param msg
 	 */
 	public void comunicarErro(Orcamento orc, Tecnico tec, String msg) {
-		// TODO - implement GestReparacoesFacade.comunicarErro
-		throw new UnsupportedOperationException();
+		Comunicacao c = new Comunicacao(tec, LocalDateTime.now(), msg);
+		orc.addComunicacao(c);
 	}
 
 	/**

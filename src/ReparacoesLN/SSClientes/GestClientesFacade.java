@@ -59,8 +59,7 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param email
 	 */
 	public void registaCliente(String nif, String numero, String email) {
-		// TODO - implement GestClientesFacade.registaCliente
-		throw new UnsupportedOperationException();
+		Cliente newC = new Cliente(nif, new FormaContacto(email, numero));
 	}
 
 	/**
@@ -70,8 +69,7 @@ public class GestClientesFacade implements IGestClientes {
 	 * @param nif
 	 */
 	public void registaEquipamento(String codR, String marca, String nif) {
-		// TODO - implement GestClientesFacade.registaEquipamento
-		throw new UnsupportedOperationException();
+		Equipamento e = new Equipamento(codR, marca, getCliente(nif));
 	}
 
 	/**
