@@ -5,11 +5,13 @@ public class CustoTotalReparacao {
 	private int tempoTotal;
 	private double custoMaterial;
 	private int tempoTotalEstimado;
+	private int precoHora;
 
-	public CustoTotalReparacao() {
+	public CustoTotalReparacao(Integer precoHora) {
 		tempoTotal = 0;
 		custoMaterial = 0;
 		tempoTotalEstimado = 0;
+		this.precoHora = precoHora;
 	}
 
 	/**
@@ -34,6 +36,10 @@ public class CustoTotalReparacao {
 
 	public int getTempoTotalEstimado() {
 		return this.tempoTotalEstimado;
+	}
+
+	public double getCustoTotal() {
+		return (precoHora * (tempoTotal / 60)) + custoMaterial;
 	}
 
 }

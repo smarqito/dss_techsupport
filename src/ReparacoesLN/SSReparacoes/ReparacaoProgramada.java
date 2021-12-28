@@ -35,6 +35,6 @@ public class ReparacaoProgramada extends Reparacao {
 	 */
 	@Override
 	public CustoTotalReparacao getPrecoEfetivo() {
-		return plano.getPrecoEfetivo();		
+		return plano.getPrecoEfetivo(docOrigem.getCustoHora());		
 	}
 }

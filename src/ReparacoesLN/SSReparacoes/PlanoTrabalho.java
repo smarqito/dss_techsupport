@@ -85,8 +85,8 @@ public class PlanoTrabalho {
 		return this.passos.stream().map(PassoReparacao::getMateriais).collect(Collectors.toList());
 	}
 
-	public CustoTotalReparacao getPrecoEfetivo() {
-		CustoTotalReparacao ctr = new CustoTotalReparacao();
+	public CustoTotalReparacao getPrecoEfetivo(Integer precoHora) {
+		CustoTotalReparacao ctr = new CustoTotalReparacao(precoHora);
 		for (PassoReparacao p : passosRealizados){
 			p.getCusto(ctr);
 		}
