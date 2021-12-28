@@ -120,14 +120,17 @@ public class ReparacoesLNFacade implements IReparacoesLN {
 	}
 
 	/**
+	 * Método que regista a realização de um passo de reparação
 	 * 
-	 * @param repID
-	 * @param mins
-	 * @param custo
+	 * Consiste na chamada do método do GestReparacoesFacade com o mesmo nome
+	 * 
+	 * @param repID Reparação a realizar
+	 * @param mins Tempo Efetivo gasto
+	 * @param custo Custo efetivo gasto
 	 */
 	public void registaPasso(String repID, Integer mins, Double custo) {
-		// TODO - implement ReparacoesLNFacade.registaPasso
-		throw new UnsupportedOperationException();
+		
+		gestReparacoes.registaPasso(repID, mins, custo);
 	}
 
 	/**

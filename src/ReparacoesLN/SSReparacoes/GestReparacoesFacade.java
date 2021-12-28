@@ -133,14 +133,24 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
+	 * Método que regista a realização de um passo de reparação
+	 * Atualiza os valores efetivos do passo atual a realizar-se
+	 * Atualiza a lista de passos realizados 
+	 * Atualiza o próximo passo a ser realizado como atual
 	 * 
-	 * @param repID
-	 * @param mins
-	 * @param custo
+	 * @param repID Identificador da reparação a realizar
+	 * @param mins Tempo efetivo da reparação
+	 * @param custo Custo efetivo da reparação
 	 */
 	public void registaPasso(String repID, Integer mins, Double custo) {
-		// TODO - implement GestReparacoesFacade.registaPasso
-		throw new UnsupportedOperationException();
+		
+		ReparacaoProgramada rep = (ReparacaoProgramada) reps.get(repID);
+
+		if(rep != null) {
+
+			rep.registaPassoRealizado(mins, custo);
+		} 
+		//else throw new ReparacaoNaoExisteException("A reparação com ID "+repID+" não existe!");
 	}
 
 	/**
