@@ -40,7 +40,7 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoTecnicoException
 	 * @throws TecnicoNaoTemAgendaException
 	 */
-	String addRepExpresso(String equipId, String nomeRepExp)
+	String addRepExpresso(String equipId, String nomeRepExp, String funcId)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
 			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException;
 
@@ -199,6 +199,16 @@ public interface IReparacoesLN {
 	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException;
 
 	/**
+	 * Altera o estado de um equipamento
+	 *
+	 * @param equiID Id do equipamento
+	 * @param state  Novo estado
+	 * @param funcId Id do Funcionário
+	 * @throws EquipamentoNaoExisteException
+	 */
+	void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId) throws EquipamentoNaoExisteException, ColaboradorNaoExisteException;
+
+	/**
 	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um
 	 * orçamento
 	 * 
@@ -225,7 +235,7 @@ public interface IReparacoesLN {
 	 * @throws EquipamentoNaoExisteException
 	 * @return
 	 */
-	String registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente;
+	String registarOrcamento(String nif, String equipId, String descr, String funcId) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException;
 
 	/**
 	 * Adiciona um contacto ao historico de reparacao
@@ -322,6 +332,16 @@ public interface IReparacoesLN {
 	 * @throws NaoExisteOrcamentosAtivosException
 	 */
 	Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException;
+
+	/**
+	 * Método que retorna um orçamento dado a sua referência (ID)
+	 * 
+	 * @param ref Identificador a procurar
+	 * 
+	 * @return Orcamento com este identificador
+	 * @throws OrcamentoNaoExisteException
+	 */
+	Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException;
 
 	/**
 	 * Arquiva os orcamentos que passaram de prazo (30 dias)

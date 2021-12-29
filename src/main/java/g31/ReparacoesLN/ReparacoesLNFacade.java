@@ -12,6 +12,9 @@ import java.util.Set;
 import g31.Middleware.*;
 import g31.ReparacoesBD.ReparacoesBDFacade;
 import g31.ReparacoesLN.SSClientes.*;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Balcao;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Entrega;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Rececao;
 import g31.ReparacoesLN.SSReparacoes.*;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
@@ -43,7 +46,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public String addRepExpresso(String equipId, String nomeRepExp)
+	public String addRepExpresso(String equipId, String nomeRepExp, String funcId)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
 			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException {
 
@@ -52,6 +55,10 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		if (existeRepX) {
 
 			Equipamento eq = gestClientes.getEquipamento(equipId);
+			FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
+			Balcao b = new Rececao(eq, f);
+
+			gestColaboradores.addBalcao(b);
 
 			Integer duracao_estimada = gestReparacoes.getTempoEstimado(nomeRepExp);
 
@@ -171,6 +178,15 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId) throws EquipamentoNaoExisteException, ColaboradorNaoExisteException {
+		Equipamento eq = this.getEquipamento(equiID);
+		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
+		Balcao b = new Entrega(eq, f);
+		gestColaboradores.addBalcao(b);
+		this.gestClientes.alteraEstadoEq(equiID, state);
+	}
+
+	@Override
 	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat)
 			throws PassoJaExisteException {
 
@@ -180,8 +196,11 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public String registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente {
+	public String registarOrcamento(String nif, String equipId, String descr, String funcId) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
+		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
+		Balcao b = new Rececao(e, f);
+		gestColaboradores.addBalcao(b);
 		if (e.isProprietario(nif)) {
 			return this.gestReparacoes.registarOrcamento(e, descr);
 		}
@@ -273,6 +292,11 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	@Override
 	public AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException {
 		return this.gestColaboradores.getAgendaDia(data, tecId);
+	}
+
+	@Override
+	public Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException {
+		return this.gestReparacoes.getOrcamento(ref);
 	}
 
 }

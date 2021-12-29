@@ -9,7 +9,7 @@ import static g31.ReparacoesUI.MyUI.model;
 import static g31.ReparacoesUI.MyUI.scin;
 
 public class MenuFuncBalcao {
-    public void menuFuncionarioBalcao() {
+    public void menuFuncionarioBalcao(String id) {
         Menu menu = new Menu(new String[] {
                 "Registar Cliente",
                 "Registar Equipamento",
@@ -22,10 +22,10 @@ public class MenuFuncBalcao {
         // Registar os handlers das transições
         menu.setHandler(1, this::registaCliente);
         menu.setHandler(2, this::registaEquipamento);
-        menu.setHandler(3, this::pedidoOrcamento);
+        menu.setHandler(3, () -> pedidoOrcamento(id));
         menu.setHandler(4, this::confirmarOrcamento);
-        menu.setHandler(5, this::pedidoRepXpresso);
-        menu.setHandler(6, this::registarEntregaEquip);
+        menu.setHandler(5, () -> pedidoRepXpresso(id));
+        menu.setHandler(6, () -> registarEntregaEquip(id));
 
         menu.run();
     }
@@ -64,7 +64,7 @@ public class MenuFuncBalcao {
         }
     }
 
-    private void pedidoOrcamento() {
+    private void pedidoOrcamento(String funcId) {
         String eqId = null, nif = null;
         try {
             System.out.println("Insira o nif do cliente: ");
@@ -73,12 +73,14 @@ public class MenuFuncBalcao {
             eqId = scin.nextLine();
             System.out.println("Insira a descrição do orçamento: ");
             String desc = scin.nextLine();
-            String id = model.registarOrcamento(nif, eqId, desc);
-            System.out.println("Pedido de Orcamento registado com o id: " + id);
+            String orcId = model.registarOrcamento(nif, eqId, desc, funcId);
+            System.out.println("Pedido de Orcamento registado com o id: " + orcId);
         } catch (EquipamentoNaoExisteException e) {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (EquipamentoNaoAssociadoAoCliente e) {
             System.out.println("Equipamento  " + eqId + " não está associado ao cliente com o nif: " + nif);
+        } catch (ColaboradorNaoExisteException e) {
+            System.out.println("Não existe o colaborador");
         }
     }
 
@@ -134,14 +136,14 @@ public class MenuFuncBalcao {
         }
     }
 
-    private void pedidoRepXpresso() {
+    private void pedidoRepXpresso(String funcId) {
         String eqId = null, tipo = null, id = null;
         try {
             System.out.println("Insira o tipo de reparação expresso: ");
             tipo = scin.nextLine();
             System.out.println("Insira o identificador do equipamento: ");
             eqId = scin.nextLine();
-            id = model.addRepExpresso(eqId, tipo);
+            id = model.addRepExpresso(eqId, tipo, funcId);
             System.out.println("Pedido de reparação com o id " + id + " efetuado com sucesso!");
         } catch (ColaboradorNaoExisteException e) {
             System.out.println("Não existe o colaborador");
@@ -158,20 +160,22 @@ public class MenuFuncBalcao {
         }
     }
 
-    private void registarEntregaEquip() {
+    private void registarEntregaEquip(String funcId) {
         String eqId = null, repId = null;
         try {
             System.out.println("Insira o identificador do equipamento: ");
             eqId = scin.nextLine();
             System.out.println(("Insira identificador da reparação"));
             repId = scin.nextLine();
-            model.alteraEstadoEq(eqId, EstadoEquipamento.entregue);
+            model.alteraEstadoEq(eqId, EstadoEquipamento.entregue, funcId);
             model.alterarEstadoRep(repId, ReparacaoEstado.pago);
             System.out.println("Equipamento " + eqId + " entregue e reparação " + repId + " paga!");
         } catch (EquipamentoNaoExisteException e) {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (ReparacaoNaoExisteException e) {
             System.out.println("Não existe a reparação: " + repId);
+        } catch (ColaboradorNaoExisteException e) {
+            System.out.println("Não existe o colaborador");
         }
     }
 }

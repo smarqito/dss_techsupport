@@ -13,6 +13,7 @@ import g31.Middleware.ClienteJaExisteException;
 import g31.Middleware.ClienteNaoExisteException;
 import g31.Middleware.EquipamentoJaAssociadoException;
 import g31.Middleware.EquipamentoNaoExisteException;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
 
 public class GestClientesFacade implements IGestClientes, Serializable {
 
