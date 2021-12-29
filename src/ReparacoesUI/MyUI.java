@@ -40,11 +40,12 @@ public class MyUI {
 		// mais pré-condições?
 
 		// Registar os handlers das transições
-		menu.setHandler(1, () -> autenticarColaborador());
+		menu.setHandler(1, this::autenticarColaborador);
 
 		// Executar o menu
 		menu.run();
-		System.out.println("Guardando...");
+
+		//System.out.println("Guardando...");
 		//this.model.save();
 
 	}
@@ -65,6 +66,8 @@ public class MyUI {
 					this.menuFuncionarioBalcao();
 					break;
 			}
+		} else {
+			System.out.println("Acesso Recusado");
 		}
 	}
 
@@ -282,6 +285,7 @@ public class MyUI {
 	private void menuFuncionarioBalcao(){
 		Menu menu = new Menu(new String[]{
 				"Registar cliente",
+				"Registar Equipamento",
 				"Registar pedido de orçamento",
 				"Confirmar orçamento",
 				"Registar pedido de Reparação Expresso",
@@ -292,10 +296,11 @@ public class MyUI {
 
 		// Registar os handlers das transições
 		menu.setHandler(1, this::registaCliente);
-		menu.setHandler(2, this::pedidoOrcamento);
-		menu.setHandler(3, this::confirmarOrcamento);
-		menu.setHandler(4, this::pedidoRepXpresso);
-		menu.setHandler(5, this::registarEntregaEquip);
+		menu.setHandler(2, this::registaEquipamento);
+		menu.setHandler(3, this::pedidoOrcamento);
+		menu.setHandler(4, this::confirmarOrcamento);
+		menu.setHandler(5, this::pedidoRepXpresso);
+		menu.setHandler(6, this::registarEntregaEquip);
 
 		menu.run();
 	}
@@ -311,6 +316,22 @@ public class MyUI {
 			model.registaCliente(nif, numero, email);
 			System.out.println("Cliente registado!");
 		} catch (ClienteJaExisteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void registaEquipamento(){
+		try {
+			System.out.println("Insira o nif do cliente: ");
+			String nif = scin.nextLine();
+			System.out.println("Insira a marca do equipamento: ");
+			String marca = scin.nextLine();
+			System.out.println("Insira o código de registo do equipamento: ");
+			String codR = scin.nextLine();
+			model.registaEquipamento(codR, marca, nif);
+		} catch (ClienteNaoExisteException e) {
+			e.printStackTrace();
+		} catch (EquipamentoJaAssociadoException e) {
 			e.printStackTrace();
 		}
 	}
