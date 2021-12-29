@@ -10,6 +10,7 @@ import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
+import Middleware.TecnicoJaTemAgendaException;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSColaboradores.*;
@@ -171,7 +172,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaColaborador(String nome, String tipo) {
+	public void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException {
 		this.gestColaboradores.registaColaborador(nome, tipo);
 	}
 
