@@ -1,11 +1,14 @@
 package ReparacoesLN.SSReparacoes;
 
+import ReparacoesLN.SSColaboradores.Tecnico;
+
 public class ReparacaoProgramada extends Reparacao {
 
 	private PlanoTrabalho plano;
 	private Orcamento docOrigem;
 
-	public ReparacaoProgramada(Orcamento docOrigem) {
+	public ReparacaoProgramada(Orcamento docOrigem, Tecnico tec) {
+		super(docOrigem.getEquipamento(), tec);
 		this.docOrigem = docOrigem;
 		plano = docOrigem.getPT();
 	}

@@ -167,13 +167,7 @@ public interface IGestReparacoes {
 	 * 
 	 * @param orc
 	 */
-	void addReparacao(Orcamento orc);
-
-	/**
-	 * 
-	 * @param orc
-	 */
-	Reparacao criarReparacao(Orcamento orc);
+	void addReparacao(Orcamento orc, Tecnico tec);
 
 	/**
 	 * 
@@ -192,8 +186,9 @@ public interface IGestReparacoes {
 	/**
 	 * 
 	 * @param orcId
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void enviarOrcamento(String orcId);
+	void enviarOrcamento(String orcId, Colaborador colaborador) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -211,11 +206,15 @@ public interface IGestReparacoes {
 	void enviarEmail(String msg, String dest);
 
 	/**
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um
+	 * orçamento
 	 * 
-	 * @param orcID
-	 * @param nomePasso
-	 * @param mat
-	 * @param tempo
+	 * Esse passo não pode existir já no plano de trabalhos
+	 * 
+	 * @param orcID     Orçamento a realizar
+	 * @param nomePasso Nome do passo a criar
+	 * @param mat       Material usado no passo
+	 * @param tempo     tempo estimado para o passo
 	 */
 	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo);
 
