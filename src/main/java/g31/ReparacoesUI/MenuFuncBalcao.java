@@ -47,7 +47,7 @@ public class MenuFuncBalcao {
     }
 
     private void registaEquipamento() {
-        String nif = null, codR = null;
+        String nif = null, codR = null, id = null;
         try {
             System.out.println("Insira o nif do cliente: ");
             nif = scin.nextLine();
@@ -55,7 +55,8 @@ public class MenuFuncBalcao {
             String marca = scin.nextLine();
             System.out.println("Insira o código de registo do equipamento: ");
             codR = scin.nextLine();
-            model.registaEquipamento(codR, marca, nif);
+            id = model.registaEquipamento(codR, marca, nif);
+            System.out.println("Equipamento registado com o identificador: " + id);
         } catch (ClienteNaoExisteException e) {
             System.out.println("Não existe cliente com nif: " + nif);
         } catch (EquipamentoJaAssociadoException e) {

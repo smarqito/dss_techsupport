@@ -7,7 +7,6 @@ import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.Reparacao;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
 import g31.ReparacoesLN.SSClientes.*;
-import g31.ReparacoesLN.SSColaboradores.*;
 import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
@@ -201,8 +200,9 @@ public interface IReparacoesLN {
 	 *                                         exista
 	 * @throws EquipamentoJaAssociadoException Caso o equipamento ja esteja
 	 *                                         associado ao cliente (ou outro)
+	 * @return
 	 */
-	void registaEquipamento(String codR, String marca, String nif)
+	String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException;
 
 	/**

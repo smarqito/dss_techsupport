@@ -82,12 +82,13 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif)
+	public String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
 		Cliente c = getCliente(nif);
 		Equipamento equip = new Equipamento(codR, marca, c);
 		this.equipamentos.put(equip.getId(), equip);
 		associaEquipamentoCliente(c, equip);
+		return equip.getId();
 	}
 
 	@Override

@@ -175,9 +175,9 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif)
+	public String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
-		gestClientes.registaEquipamento(codR, marca, nif);
+		return gestClientes.registaEquipamento(codR, marca, nif);
 	}
 
 	@Override
