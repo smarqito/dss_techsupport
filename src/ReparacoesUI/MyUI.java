@@ -134,9 +134,19 @@ public class MyUI {
 	}
 
 	private void criarRepXpresso() {
+		System.out.println("Insira o nome da reparação expresso a adicionar: ");
+		String nome = scin.nextLine();
+		System.out.println("Insira o preço: ");
+		double preco = scin.nextDouble();
+		System.out.println("Insira o tempo estimado");
+		int tempo = scin.nextInt();
+		model.registarRepExpresso(nome, tempo, preco);
 	}
 
 	private void criarPassoRep() {
+		System.out.println("Insira o identificador do orçamento a ser criado: ");
+		String orcId = scin.nextLine();
+		this.adicionarPasso(orcId);
 	}
 
 	private void menuTecnico(String tecId){
