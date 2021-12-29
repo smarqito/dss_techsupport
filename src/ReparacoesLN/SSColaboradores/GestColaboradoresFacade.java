@@ -20,12 +20,16 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	private GestAgenda agenda;
 
 	@Override
-	public String registaColaborador(String nome, Class<? extends Colaborador> tipo) throws TecnicoJaTemAgendaException, TipoColaboradorErradoException {
+	public String registaColaborador(String nome, Class<? extends Colaborador> tipo)
+			throws TecnicoJaTemAgendaException, TipoColaboradorErradoException {
 		var params = new Class[1];
 		params[0] = String.class;
 		try {
-			Colaborador c =  tipo.getDeclaredConstructor(params).newInstance(nome);
+			Colaborador c = tipo.getDeclaredConstructor(params).newInstance(nome);
 			colabs.put(c.getId(), c);
+			if (tipo.getSimpleName().equals(Tecnico.class.getSimpleName())) {
+				agenda.addAgenda((Tecnico) c);
+			}
 			return c.getId();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
