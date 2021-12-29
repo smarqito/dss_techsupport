@@ -229,5 +229,10 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return gestReparacoes.getOrcamentoMaisAntigo();
 	}
 
+	@Override
+	public List<Orcamento> arquivaOrcamentos() {
+		return gestReparacoes.arquivarOrcamentos();
+	}
+
 	
 }

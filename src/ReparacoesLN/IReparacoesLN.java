@@ -314,4 +314,11 @@ public interface IReparacoesLN {
 	 */
 	Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException;
 
+	/**
+	 * Arquiva os orcamentos que passaram de prazo (30 dias)
+	 * 
+	 * @return Orcamentos que foi mudado estado
+	 */
+	List<Orcamento> arquivaOrcamentos();
+
 }
