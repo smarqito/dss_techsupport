@@ -44,9 +44,11 @@ public class AgendaPorDia implements Comparator<AgendaPorDia> {
 	}
 
 	/**
+	 * Adiciona o evento e retorna o fim do mesmo
 	 * 
-	 * @param duracao
-	 * @param det
+	 * @param duracao Duracao do evento
+	 * @param det     Detalhes do evento
+	 * @return Fim do evento
 	 * @throws NaoExisteDisponibilidadeException
 	 */
 	public LocalDateTime addEvento(Integer duracao, String det) throws NaoExisteDisponibilidadeException {

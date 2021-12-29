@@ -25,9 +25,11 @@ public class Agenda {
 	}
 
 	/**
+	 * Adiciona o evento no prazo mais proximo e retorna o fim do mesmo
 	 * 
 	 * @param tempo
 	 * @param detalhes
+	 * @return Data e hora do fim do evento (permite colocar como prazo de)
 	 * @throws NaoExisteDisponibilidadeException
 	 */
 	public LocalDateTime addEvento(Integer tempo, String detalhes) throws NaoExisteDisponibilidadeException {
@@ -40,20 +42,20 @@ public class Agenda {
 	 * @param t
 	 * @throws NaoExisteDisponibilidadeException
 	 */
-	public TecData prazoMaisProx(Integer t) throws NaoExisteDisponibilidadeException {
-		boolean disp = false;
-		int days = 0;
+	public TecData prazoMaisProx(Integer t) {
+		int days = 0; // talvez colocar um limite de dias?
 		TecData td = null;
-		while (!disp) {
-			AgendaPorDia agPd = getAgendaDia(LocalDate.now().plusDays(days++));
-			LocalTime time;
-			if ((time = agPd.temDisponibilidade(t)) != null) {
-				disp = true;
+		while (true) {
+			try {
+				AgendaPorDia agPd = getAgendaDia(LocalDate.now().plusDays(days++));
+				LocalTime time = agPd.temDisponibilidade(t);
 				LocalDateTime data = LocalDateTime.of(agPd.getData(), time);
 				td = new TecData(getTecnicoId(), data);
+				return td;
+			} catch (NaoExisteDisponibilidadeException e) {
+				continue;
 			}
 		}
-		return td;
 	}
 
 	/**
