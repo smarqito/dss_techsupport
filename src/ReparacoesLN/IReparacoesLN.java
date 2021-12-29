@@ -334,7 +334,18 @@ public interface IReparacoesLN {
 	 */
 	List<Equipamento> darBaixaEquipamentos();
 
+	/**
+	 * Verifica se um colaborador existe
+	 * @param id Identificacao do colaborador
+	 * @return
+	 */
 	boolean existeColaborador(String id);
 
-	Colaborador getColaborador(String id);
+	/**
+	 * Retorna um colaborador, caso este exista
+	 * @param id Identificacao do colaborador
+	 * @return Colaborador
+	 * @throws ColaboradorNaoExisteException Caso nao exista
+	 */
+	Colaborador getColaborador(String id) throws ColaboradorNaoExisteException;
 }

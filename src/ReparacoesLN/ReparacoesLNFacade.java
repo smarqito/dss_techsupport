@@ -247,4 +247,14 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return gestClientes.darBaixaEquipamentos();
 	}
 
+	@Override
+	public boolean existeColaborador(String id) {
+		return this.gestColaboradores.existeColaborador(id);
+	}
+
+	@Override
+	public Colaborador getColaborador(String id) throws ColaboradorNaoExisteException {
+		return this.gestColaboradores.getColaborador(id);
+	}
+
 }

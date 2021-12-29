@@ -38,9 +38,9 @@ public class Menu {
      */
     public Menu() {
         this.titulo = "Menu";
-        this.opcoes = new ArrayList();
-        this.disponivel = new ArrayList();
-        this.handlers = new ArrayList();
+        this.opcoes = new ArrayList<>();
+        this.disponivel = new ArrayList<>();
+        this.handlers = new ArrayList<>();
     }
 
     /**
@@ -54,9 +54,9 @@ public class Menu {
      */
     public Menu(String titulo, List<String> opcoes) {
         this.titulo = titulo;
-        this.opcoes = new ArrayList(opcoes);
-        this.disponivel = new ArrayList();
-        this.handlers = new ArrayList();
+        this.opcoes = new ArrayList<>(opcoes);
+        this.disponivel = new ArrayList<>();
+        this.handlers = new ArrayList<>();
         this.opcoes.forEach(s-> {
             this.disponivel.add(()->true);
             this.handlers.add(()->System.out.println("\nATENÇÃO: Opção não implementada!"));

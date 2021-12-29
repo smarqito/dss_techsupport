@@ -102,7 +102,7 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	}
 
 	@Override
-	public Boolean validaIdentificacao(String cod) {
+	public Boolean existeColaborador(String cod) {
 		return this.colabs.containsKey(cod);
 	}
 

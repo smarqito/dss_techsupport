@@ -65,7 +65,7 @@ public interface IGestColaboradores {
 	 * 
 	 * @param cod
 	 */
-	Boolean validaIdentificacao(String cod);
+	Boolean existeColaborador(String cod);
 
 	/**
 	 * 
