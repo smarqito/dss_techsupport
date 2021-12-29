@@ -73,10 +73,12 @@ public interface IReparacoesLN {
 	 * @throws OrcamentoNaoExisteException
 	 * @throws ColaboradorNaoExisteException
 	 * @throws ColaboradorNaoTecnicoException
+	 * @throws TecnicoNaoTemAgendaException
+	 * @throws NaoExisteDisponibilidadeException
 	 */
 	void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
 			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException,
-			ColaboradorNaoExisteException;
+			ColaboradorNaoExisteException, NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException;
 
 	/**
 	 * Altera o estado de reparacao para o novo estado
