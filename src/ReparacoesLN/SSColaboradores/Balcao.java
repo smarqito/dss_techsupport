@@ -4,9 +4,8 @@ import ReparacoesLN.SSClientes.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public abstract class Balcao implements Serializable{
+public abstract class Balcao implements Serializable {
 
 	private Equipamento equipamento;
 	private FuncionarioBalcao funcionario;

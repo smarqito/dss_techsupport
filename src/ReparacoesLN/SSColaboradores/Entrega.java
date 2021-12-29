@@ -1,6 +1,5 @@
 package ReparacoesLN.SSColaboradores;
 
-import java.io.Serializable;
 
 import ReparacoesLN.SSClientes.Equipamento;
 

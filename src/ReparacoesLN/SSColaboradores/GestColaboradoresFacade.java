@@ -1,7 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 

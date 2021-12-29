@@ -79,12 +79,12 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado) throws ReparacaoNaoExisteException {
 		this.gestReparacoes.alterarEstadoRep(repID, estado);
 	}
 
 	@Override
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException {
 		this.gestReparacoes.alterarEstadoRep(repID, estado, comentario);
 	}
 
@@ -199,7 +199,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaPT(String orcId, List<PassoReparacao> passos) {
+	public void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException {
 		this.gestReparacoes.registaPT(orcId, passos);
 	}
 

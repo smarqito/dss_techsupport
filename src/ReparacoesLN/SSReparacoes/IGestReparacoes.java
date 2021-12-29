@@ -69,16 +69,18 @@ public interface IGestReparacoes {
 	 * 
 	 * @param repID
 	 * @param estado
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void alterarEstadoRep(String repID, ReparacaoEstado estado);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
 	 * @param repID
 	 * @param estado
 	 * @param comentario
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -170,8 +172,9 @@ public interface IGestReparacoes {
 	 * 
 	 * @param orcId
 	 * @param passos
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void registaPT(String orcId, List<PassoReparacao> passos);
+	void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException;
 
 	/**
 	 * Método que adiciona ás reparações por realizar uma reparação expresso nova

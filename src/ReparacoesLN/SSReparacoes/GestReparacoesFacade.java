@@ -96,8 +96,9 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	 * 
 	 * @param repID
 	 * @param estado
+	 * @throws ReparacaoNaoExisteException
 	 */
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado) throws ReparacaoNaoExisteException {
 		alterarEstadoRep(repID, estado, "");
 	}
 
@@ -106,9 +107,10 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	 * @param repID
 	 * @param estado
 	 * @param comentario
+	 * @throws ReparacaoNaoExisteException
 	 */
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) {
-		Reparacao r = this.reps.get(repID);
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException {
+		Reparacao r = getReparacao(repID);
 		r.alteraEstado(estado, comentario);
 	}
 
@@ -184,8 +186,8 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	@Override
-	public void registaPT(String orcId, List<PassoReparacao> passos) {
-		Orcamento o = this.orcs.get(orcId);
+	public void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException {
+		Orcamento o = getOrcamento(orcId);
 		o.setPT(passos);
 	}
 
