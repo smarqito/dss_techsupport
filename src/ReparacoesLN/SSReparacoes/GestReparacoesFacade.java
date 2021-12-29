@@ -303,7 +303,6 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
 		Map<Tecnico, ReparacoesPorMes> ret = new HashMap<>();
 
-		;
 		for (Reparacao r : filterReparacoes(x -> x.getDataCriacao().getMonth().equals(data.getMonth())
 				&& x.getDataCriacao().getYear() == data.getYear())) {
 			if (!ret.containsKey(r.getTecnico()))

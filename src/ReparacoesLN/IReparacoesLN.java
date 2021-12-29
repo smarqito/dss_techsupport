@@ -44,7 +44,8 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoTecnicoException
 	 */
 	String addRepExpresso(String equipId, String nomeRepExp)
-			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
+			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
 
 	/**
 	 * 
@@ -53,7 +54,8 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoExisteException
 	 * @throws OrcamentoNaoExisteException
 	 */
-	void enviarOrcamento(String orcId, String colabId) throws ColaboradorNaoExisteException, OrcamentoNaoExisteException;
+	void enviarOrcamento(String orcId, String colabId)
+			throws ColaboradorNaoExisteException, OrcamentoNaoExisteException;
 
 	Set<Orcamento> getOrcamentosAtivos();
 
@@ -71,7 +73,8 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoTecnicoException
 	 */
 	void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
-			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
+			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException,
+			ColaboradorNaoExisteException;
 
 	/**
 	 * Altera o estado de reparacao para o novo estado
@@ -233,7 +236,8 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoExisteException
 	 * @throws ColaboradorNaoTecnicoException
 	 */
-	void registaContacto(String repID, String tecID, String msg) throws ReparacaoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
+	void registaContacto(String repID, String tecID, String msg)
+			throws ReparacaoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
 
 	/**
 	 * 
@@ -242,7 +246,8 @@ public interface IReparacoesLN {
 	 * @throws TecnicoJaTemAgendaException
 	 * @throws TipoColaboradorErradoException
 	 */
-	void registaColaborador(String nome, Class<? extends Colaborador> tipo) throws TecnicoJaTemAgendaException, TipoColaboradorErradoException;
+	void registaColaborador(String nome, Class<? extends Colaborador> tipo)
+			throws TecnicoJaTemAgendaException, TipoColaboradorErradoException;
 
 	/**
 	 * Calcula os equipamentos recebidos por funcionario de balcao
@@ -284,7 +289,8 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoExisteException
 	 * @throws ColaboradorNaoTecnicoException
 	 */
-	void comunicarErro(String orcId, String msg, String tecID) throws OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
+	void comunicarErro(String orcId, String msg, String tecID)
+			throws OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
 
 	/**
 	 * Calcula as reparacoes para um dado mes, agrupadas por tecnico
@@ -320,5 +326,12 @@ public interface IReparacoesLN {
 	 * @return Orcamentos que foi mudado estado
 	 */
 	List<Orcamento> arquivaOrcamentos();
+
+	/**
+	 * Da baixa a equipamentos prontos a levantar ha mais de 90 dias
+	 * 
+	 * @return Equipamentos ao qual foi dado baixa
+	 */
+	List<Equipamento> darBaixaEquipamentos();
 
 }

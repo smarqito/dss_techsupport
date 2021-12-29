@@ -1,5 +1,6 @@
 package ReparacoesLN.SSReparacoes;
 
+import ReparacoesLN.SSClientes.EstadoEquipamento;
 import ReparacoesLN.SSColaboradores.Tecnico;
 
 public class ReparacaoProgramada extends Reparacao {
@@ -47,6 +48,7 @@ public class ReparacaoProgramada extends Reparacao {
 		plano.addPassoRealizado(pAtual);
 		if (!plano.haMaisPassos()) {
 			super.alteraEstado(ReparacaoEstado.reparado, "reparado!");
+			super.getEquipamento().setEstado(EstadoEquipamento.prontoLevantar);
 		}
 	}
 

@@ -38,7 +38,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public String addRepExpresso(String equipId, String nomeRepExp)
-			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
+			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
 
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
 
@@ -58,7 +59,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void enviarOrcamento(String orcId, String colabId) throws ColaboradorNaoExisteException, OrcamentoNaoExisteException {
+	public void enviarOrcamento(String orcId, String colabId)
+			throws ColaboradorNaoExisteException, OrcamentoNaoExisteException {
 		Colaborador colab = gestColaboradores.getColaborador(colabId);
 		this.gestReparacoes.enviarOrcamento(orcId, colab);
 	}
@@ -70,7 +72,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
-			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
+			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException,
+			ColaboradorNaoExisteException {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 		if (estado.equals(OrcamentoEstado.aceite)) {
 			Orcamento orc = gestReparacoes.getOrcamento(orcID);
@@ -87,7 +90,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario)
+			throws ReparacaoNaoExisteException {
 		this.gestReparacoes.alterarEstadoRep(repID, estado, comentario);
 	}
 
@@ -176,13 +180,15 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaContacto(String repID, String tecID, String msg) throws ReparacaoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
+	public void registaContacto(String repID, String tecID, String msg)
+			throws ReparacaoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
 		Tecnico tec = this.gestColaboradores.getTecnico(tecID);
 		this.gestReparacoes.registaContacto(repID, msg, tec);
 	}
 
 	@Override
-	public void registaColaborador(String nome, Class<? extends Colaborador> tipo) throws TecnicoJaTemAgendaException, TipoColaboradorErradoException {
+	public void registaColaborador(String nome, Class<? extends Colaborador> tipo)
+			throws TecnicoJaTemAgendaException, TipoColaboradorErradoException {
 		this.gestColaboradores.registaColaborador(nome, tipo);
 	}
 
@@ -207,7 +213,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void comunicarErro(String orcId, String msg, String tecID) throws OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
+	public void comunicarErro(String orcId, String msg, String tecID)
+			throws OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
 		Tecnico tec = this.gestColaboradores.getTecnico(tecID);
 		Orcamento orc = this.gestReparacoes.getOrcamento(orcId);
 		this.gestReparacoes.comunicarErro(orc, tec, msg);
@@ -234,5 +241,9 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return gestReparacoes.arquivarOrcamentos();
 	}
 
-	
+	@Override
+	public List<Equipamento> darBaixaEquipamentos() {
+		return gestClientes.darBaixaEquipamentos();
+	}
+
 }

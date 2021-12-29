@@ -1,6 +1,7 @@
 package ReparacoesLN.SSClientes;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -103,6 +104,20 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 			throw new EquipamentoJaAssociadoException(
 					"O equipamento ja se encontra associado a algum cliente! Verifique antes de inserir.");
 		}
+	}
+
+	@Override
+	public List<Equipamento> darBaixaEquipamentos() {
+		LocalDateTime porArq = LocalDateTime.now().minusDays(90).withHour(0).withMinute(0).withSecond(0);
+		List<Equipamento> abandonados = this.equipamentos
+				.values()
+				.stream()
+				.filter(
+						x -> x.getEstado().equals(EstadoEquipamento.prontoLevantar)
+								&& x.getUltimoEstado().isBefore(porArq))
+				.collect(Collectors.toList());
+		abandonados.stream().forEach(x -> x.setEstado(EstadoEquipamento.abandonado));
+		return abandonados;
 	}
 
 }

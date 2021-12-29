@@ -1,6 +1,7 @@
 package ReparacoesLN.SSClientes;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ public class Equipamento implements Serializable {
 	private List<Reparacao> historicoReps;
 	private List<Orcamento> historicoOrcs;
 	private EstadoEquipamento estado;
+	private LocalDateTime ultimoEstado;
 	private Cliente proprietario;
 	private String id;
 	private String codRegisto;
@@ -26,6 +28,7 @@ public class Equipamento implements Serializable {
 		this.historicoReps = new ArrayList<>();
 		this.historicoOrcs = new ArrayList<>();
 		this.estado = EstadoEquipamento.emProcesso;
+		this.ultimoEstado = LocalDateTime.now();
 		setProprietario(proprietario);
 		this.id = "" + GetID();
 		this.codRegisto = codRegisto;
@@ -75,6 +78,7 @@ public class Equipamento implements Serializable {
 	 */
 	public void setEstado(EstadoEquipamento estado) {
 		this.estado = estado;
+		this.ultimoEstado = LocalDateTime.now();
 	}
 
 	/**
@@ -93,6 +97,12 @@ public class Equipamento implements Serializable {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	
+
+	public LocalDateTime getUltimoEstado() {
+		return ultimoEstado;
 	}
 
 	public String getCodRegisto() {

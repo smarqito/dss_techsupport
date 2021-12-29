@@ -6,6 +6,5 @@ public enum ReparacaoEstado {
 	emReparacao,
 	cancelada,
 	pago,
-	recusaPagar,
-	prontoLevantar
+	recusaPagar
 }
