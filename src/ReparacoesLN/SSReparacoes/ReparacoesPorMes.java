@@ -18,6 +18,7 @@ public class ReparacoesPorMes {
 
 	/**
 	 * Retorna a duracao media das reparacoes
+	 * 
 	 * @return Duracao media das reparacoes
 	 */
 	public Double obterDuracaoReparacoes() {
@@ -25,7 +26,9 @@ public class ReparacoesPorMes {
 	}
 
 	/**
-	 * Retorna a media do desvio entre o tempo estimado e o tempo efetivo das reparacoes
+	 * Retorna a media do desvio entre o tempo estimado e o tempo efetivo das
+	 * reparacoes
+	 * 
 	 * @return Media do desvio do tempo efetivo e estimado das reparacoes
 	 */
 	public Double obterMediaDesvio() {
@@ -43,8 +46,8 @@ public class ReparacoesPorMes {
 		CustoTotalReparacao ctr = rep.getPrecoEfetivo();
 		int tT = ctr.getTempoTotal();
 		int tE = ctr.getTempoTotalEstimado();
-		duracaoMedia = ((duracaoMedia * total) + tT) / (total+1);
-		desvioMedio = ((desvioMedio * total) + Math.abs(tT - tE)) / (total+1);
+		duracaoMedia = ((duracaoMedia * total) + tT) / (total + 1);
+		desvioMedio = ((desvioMedio * total) + Math.abs(tT - tE)) / (total + 1);
 		total++;
 	}
 

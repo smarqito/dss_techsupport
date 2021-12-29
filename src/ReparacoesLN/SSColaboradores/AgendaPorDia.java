@@ -1,5 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,7 +9,7 @@ import java.util.*;
 import Middleware.EntradaNaoExisteException;
 import Middleware.NaoExisteDisponibilidadeException;
 
-public class AgendaPorDia implements Comparator<AgendaPorDia> {
+public class AgendaPorDia implements Comparator<AgendaPorDia>, Serializable {
 
 	private TreeSet<EntradaAgenda> tarefas;
 	/**

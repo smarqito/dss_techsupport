@@ -15,24 +15,30 @@ public interface IGestColaboradores {
 	void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException;
 
 	/**
+	 * Método que constroi um map com os equipamentos que passaram por um funcionário de balcão
+	 * Constroi um map para apenas uma interação: Receção ou Entrega
 	 * 
-	 * @param tipo
-	 * @param de
-	 * @param ate
+	 * @param tipo Tipo de interação
+	 * @param de Data limite miníma
+	 * @param ate Data limite máxima
 	 */
-	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Colaborador tipo, LocalDateTime de, LocalDateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate);
 
 	/**
+	 * Método que retorna um map de todos os equipamentos recebedidos
+	 * Todos os equipamentos que passaram pela interação Receção com o funcionário de balcão
 	 * 
-	 * @param de
-	 * @param ate
+	 * @param de Data limite miníma
+	 * @param ate Data limite máxima
 	 */
 	Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate);
 
 	/**
+	 * Método que retorna um map de todos os equipamentos entregues
+	 * Todos os equipamentos que passaram pela interação Entrega com o funcionário de balcão 
 	 * 
-	 * @param de
-	 * @param ate
+	 * @param de Data limite miníma
+	 * @param ate Data limite máxima
 	 */
 	Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate);
 

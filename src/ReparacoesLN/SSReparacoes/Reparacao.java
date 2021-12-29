@@ -2,13 +2,19 @@ package ReparacoesLN.SSReparacoes;
 
 import ReparacoesLN.SSClientes.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import ReparacoesLN.SSColaboradores.*;
 
-public abstract class Reparacao {
+public abstract class Reparacao implements Serializable {
+
+	private static int ID = 1;
+	private static int GetID() {
+		return ID++;
+	}
 
 	private Equipamento equipamento;
 	private Set<EstadoReparacao> estados;
@@ -17,6 +23,20 @@ public abstract class Reparacao {
 	private String id;
 	private LocalDateTime prazoReparacao;
 	private LocalDateTime dataCriacao;
+
+	
+	public Reparacao() {
+		dataCriacao = LocalDateTime.now();
+		comunicacoes = new ArrayList<>();
+		estados = new TreeSet<>();
+		id = GetID()+"";		
+	}
+
+	public Reparacao(Equipamento equip, Tecnico tec) {
+		this();
+		this.equipamento = equip;
+		this.tecnico = tec;
+	}
 
 	public Equipamento getEquipamento() {
 		return equipamento;
@@ -55,7 +75,7 @@ public abstract class Reparacao {
 
 	public void alteraEstado(ReparacaoEstado novoEstado, String msg) {
 		EstadoReparacao novo = new EstadoReparacao(novoEstado, msg);
-		this.estados.add(0, novo);
+		this.estados.add(novo);
 
 	}
 

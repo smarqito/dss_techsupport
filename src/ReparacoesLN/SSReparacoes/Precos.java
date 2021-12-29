@@ -1,20 +1,13 @@
 package ReparacoesLN.SSReparacoes;
 
-public class Precos {
+import java.io.Serializable;
+
+public class Precos implements Serializable {
 
 	private static Double horaTecnico;
 
-	public Double getHoraTecnico() {
-		return this.horaTecnico;
-	}
-
-	public void setHoraTecnico(Double horaTecnico) {
-		this.horaTecnico = horaTecnico;
-	}
-
 	public static Double getCustoTecnico() {
-		// TODO - implement Precos.getCustoTecnico
-		throw new UnsupportedOperationException();
+		return horaTecnico;
 	}
 
 	/**
@@ -22,8 +15,7 @@ public class Precos {
 	 * @param novoC
 	 */
 	public static void setCustoTecnico(Double novoC) {
-		// TODO - implement Precos.setCustoTecnico
-		throw new UnsupportedOperationException();
+		horaTecnico = novoC;
 	}
 
 }

@@ -1,8 +1,9 @@
 package ReparacoesLN.SSReparacoes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Material {
+public class Material implements Serializable {
 
 	private String nome;
 	private double custo;

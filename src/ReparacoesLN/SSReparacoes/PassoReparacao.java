@@ -1,9 +1,10 @@
 package ReparacoesLN.SSReparacoes;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PassoReparacao {
+public class PassoReparacao implements Serializable{
 
 	private Material materiais;
 	private List<PassoReparacao> subpassos;
