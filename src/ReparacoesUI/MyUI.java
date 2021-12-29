@@ -1,9 +1,6 @@
 package ReparacoesUI;
 
-import Middleware.ClienteJaExisteException;
-import Middleware.EquipamentoNaoExisteException;
-import Middleware.EstadoOrcNaoEValidoException;
-import Middleware.TecnicoJaTemAgendaException;
+import Middleware.*;
 import ReparacoesLN.*;
 import ReparacoesLN.SSClientes.Cliente;
 import ReparacoesLN.SSClientes.EstadoEquipamento;
@@ -62,7 +59,7 @@ public class MyUI {
 					this.menuGestor();
 					break;
 				case "Tecnico":
-					this.menuTecnico();
+					this.menuTecnico(id);
 					break;
 				case "FuncionarioBalcao":
 					this.menuFuncionarioBalcao();
@@ -142,7 +139,7 @@ public class MyUI {
 	private void criarPassoRep() {
 	}
 
-	private void menuTecnico(){
+	private void menuTecnico(String tecId){
 		Menu menu = new Menu(new String[]{
 				"Fazer orçamento",
 				"Realizar reparação",
@@ -154,14 +151,14 @@ public class MyUI {
 		//agenda nao vazia
 
 		// Registar os handlers das transições
-		menu.setHandler(1, this::fazerOrcamento);
-		menu.setHandler(2, this::realizarReparacao);
+		menu.setHandler(1, () -> fazerOrcamento(tecId));
+		menu.setHandler(2, () -> realizarReparacao(tecId));
 		menu.setHandler(3, this::menuColabEspecial);
 
 		menu.run();
 	}
 
-	private void fazerOrcamento() {
+	private void fazerOrcamento(String tecId) {
 
 		//get orcamento mais antigo
 		//print de algumas informações do orcamento
@@ -175,12 +172,12 @@ public class MyUI {
 		//agenda nao vazia
 
 		// Registar os handlers das transições
-		menu.setHandler(1, () -> definirPLano(orcId));
+		menu.setHandler(1, () -> definirPLano(orcId, tecId));
 
 		menu.runOnce();
 	}
 
-	private void definirPLano(String orcId) {
+	private void definirPLano(String orcId, String tecId) {
 		Menu menu = new Menu(new String[]{
 				"Adicionar passo de reparação",
 				"Gerar Orcamento",
@@ -194,7 +191,7 @@ public class MyUI {
 		// Registar os handlers das transições
 		menu.setHandler(1, () -> adicionarPasso(orcId));
 		menu.setHandler(2, () -> gerarOrc(orcId));
-		menu.setHandler(3, () -> registarComunic(orcId));
+		menu.setHandler(3, () -> registarComunic(orcId, tecId));
 
 		menu.run();
 	}
@@ -222,23 +219,27 @@ public class MyUI {
 		}
 	}
 
-	private void registarComunic(String orcId) {
+	private void registarComunic(String orcId, String tecId) {
 		System.out.println("Comentário sobre a comunicação: ");
 		String comentario = scin.nextLine();
 		model.comunicarErro(orcId, tecId, comentario);
 	}
 
-	private void realizarReparacao() {
-		String repId = null;
+	private void realizarReparacao(String tecId) {
+		System.out.println("Insira o identificador da reparação: ");
+		String repId = scin.nextLine();
 		Menu menu = new Menu(new String[]{
 				"Realizar passo da reparação",
 				"Registar comunicação com o cliente",
 				"Cancelar reparação"
 		});
 
+		Menu menu2 = new Menu(new String[]{
+				"Registar conclusão"
+		});
 		// Registar os handlers das transições
 		menu.setHandler(1, () -> realizarPasso(repId));
-		menu.setHandler(2, () -> comunicarErro(repId));
+		menu.setHandler(2, () -> comunicarErro(repId, tecId));
 		menu.setHandler(3, () -> cancelarRep(repId));
 
 		menu.run();
@@ -252,10 +253,14 @@ public class MyUI {
 		model.registaPasso(repId, tempo, custo);
 	}
 
-	private void comunicarErro(String repId) {
-		System.out.println("Comentário sobre a comunicação: ");
-		String msg = scin.nextLine();
-		model.registaContacto(repId, tecId, msg);
+	private void comunicarErro(String repId, String tecId) {
+		try {
+			System.out.println("Comentário sobre a comunicação: ");
+			String msg = scin.nextLine();
+			model.registaContacto(repId, tecId, msg);
+		} catch (ReparacaoNaoExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void cancelarRep(String repId) {
