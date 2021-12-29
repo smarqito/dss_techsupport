@@ -48,7 +48,7 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 			LocalDateTime data = b.getData();
 
 			if(data.isAfter(de) && data.isBefore(ate)) {
-				FuncionarioBalcao f = b.getFuncionarioBalcao();
+				FuncionarioBalcao f = b.getFuncionario();
 				Equipamento e = b.getEquipamento();
 
 				List<Equipamento> equips = balcao_equips.get(f);

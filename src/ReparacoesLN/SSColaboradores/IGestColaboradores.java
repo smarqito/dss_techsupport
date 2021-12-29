@@ -22,7 +22,7 @@ public interface IGestColaboradores {
 	 * @param de Data limite miníma
 	 * @param ate Data limite máxima
 	 */
-	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Colaborador tipo, LocalDateTime de, LocalDateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate);
 
 	/**
 	 * Método que retorna um map de todos os equipamentos recebedidos
