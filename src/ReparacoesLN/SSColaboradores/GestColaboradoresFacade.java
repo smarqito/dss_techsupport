@@ -43,29 +43,26 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 
 		Map<FuncionarioBalcao, List<Equipamento>> balcao_equips = new HashMap<>();
 
-		balcao.stream().forEach(b -> {
+		balcao.stream().forEach(b -> { 
 
-			LocalDateTime data = b.getData();
-
-			if (data.isAfter(de) && data.isBefore(ate)) {
-				FuncionarioBalcao f = b.getFuncionario();
-				Equipamento e = b.getEquipamento();
-
-				List<Equipamento> equips = balcao_equips.get(f);
-
-				if (equips == null) {
-
-					List<Equipamento> novo = new ArrayList<>();
-
-					novo.add(e);
-
-					balcao_equips.put(f, novo);
-
-				} else {
-
-					equips.add(e);
-
-					balcao_equips.replace(f, equips);
+			if(b.getClass().getSimpleName().equals(tipo.getSimpleName())) {				
+				LocalDateTime data = b.getData();
+	
+				if (data.isAfter(de) && data.isBefore(ate)) {
+					FuncionarioBalcao f = b.getFuncionario();
+					Equipamento e = b.getEquipamento();
+	
+					List<Equipamento> equips = balcao_equips.get(f);
+	
+					if (equips == null) {
+						List<Equipamento> novo = new ArrayList<>();
+						novo.add(e);
+						balcao_equips.put(f, novo);
+	
+					} else {
+						equips.add(e);
+						balcao_equips.replace(f, equips);
+					}
 				}
 			}
 		});
