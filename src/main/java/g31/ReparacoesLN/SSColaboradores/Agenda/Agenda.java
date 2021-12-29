@@ -1,4 +1,4 @@
-package g31.ReparacoesLN.SSColaboradores;
+package g31.ReparacoesLN.SSColaboradores.Agenda;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -8,6 +8,7 @@ import java.util.*;
 
 import g31.Middleware.EntradaNaoExisteException;
 import g31.Middleware.NaoExisteDisponibilidadeException;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
 
 public class Agenda implements Serializable {
 

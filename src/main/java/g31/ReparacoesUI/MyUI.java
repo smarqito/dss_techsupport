@@ -4,9 +4,14 @@ import g31.Middleware.*;
 import g31.ReparacoesLN.IReparacoesLN;
 import g31.ReparacoesLN.SSClientes.EstadoEquipamento;
 import g31.ReparacoesLN.SSColaboradores.*;
-import g31.ReparacoesLN.SSReparacoes.OrcamentoEstado;
-import g31.ReparacoesLN.SSReparacoes.ReparacaoEstado;
-import g31.ReparacoesLN.SSReparacoes.ReparacaoProgramada;
+import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
+import g31.ReparacoesLN.SSColaboradores.Agenda.EntradaAgenda;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Gestor;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

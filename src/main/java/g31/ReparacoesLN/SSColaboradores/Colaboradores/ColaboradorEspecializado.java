@@ -1,4 +1,4 @@
-package g31.ReparacoesLN.SSColaboradores;
+package g31.ReparacoesLN.SSColaboradores.Colaboradores;
 
 public abstract class ColaboradorEspecializado extends Colaborador {
 

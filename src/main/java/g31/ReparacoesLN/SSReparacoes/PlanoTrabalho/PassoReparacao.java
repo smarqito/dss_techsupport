@@ -1,8 +1,11 @@
-package g31.ReparacoesLN.SSReparacoes;
+package g31.ReparacoesLN.SSReparacoes.PlanoTrabalho;
 
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import g31.ReparacoesLN.SSReparacoes.CustoTotalReparacao;
+import g31.ReparacoesLN.SSReparacoes.Material;
 
 public class PassoReparacao implements Serializable{
 

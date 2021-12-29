@@ -2,6 +2,8 @@ package g31.ReparacoesLN.SSReparacoes;
 
 import java.util.*;
 
+import g31.ReparacoesLN.SSReparacoes.Reparacao.Reparacao;
+
 public class ReparacoesPorMes {
 
 	private List<Reparacao> reps;

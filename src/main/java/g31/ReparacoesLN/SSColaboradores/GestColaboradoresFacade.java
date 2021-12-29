@@ -14,6 +14,15 @@ import g31.Middleware.TecnicoJaTemAgendaException;
 import g31.Middleware.TecnicoNaoTemAgendaException;
 import g31.Middleware.TipoColaboradorErradoException;
 import g31.ReparacoesLN.SSClientes.*;
+import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
+import g31.ReparacoesLN.SSColaboradores.Agenda.GestAgenda;
+import g31.ReparacoesLN.SSColaboradores.Agenda.TecData;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Balcao;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Entrega;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Rececao;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
 
 public class GestColaboradoresFacade implements IGestColaboradores, Serializable {
 

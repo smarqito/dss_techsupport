@@ -1,7 +1,8 @@
-package g31.ReparacoesLN.SSColaboradores;
+package g31.ReparacoesLN.SSColaboradores.Balcao;
 
 
 import g31.ReparacoesLN.SSClientes.Equipamento;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
 
 public class Entrega extends Balcao {
 
