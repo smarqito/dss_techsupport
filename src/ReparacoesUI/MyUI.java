@@ -1,13 +1,17 @@
 package ReparacoesUI;
 
 import Middleware.*;
-import ReparacoesLN.*;
-import ReparacoesLN.SSClientes.Cliente;
+import ReparacoesLN.IReparacoesLN;
 import ReparacoesLN.SSClientes.EstadoEquipamento;
+import ReparacoesLN.SSColaboradores.AgendaPorDia;
+import ReparacoesLN.SSColaboradores.FuncionarioBalcao;
+import ReparacoesLN.SSColaboradores.Gestor;
+import ReparacoesLN.SSColaboradores.Tecnico;
 import ReparacoesLN.SSReparacoes.OrcamentoEstado;
 import ReparacoesLN.SSReparacoes.ReparacaoEstado;
 import ReparacoesLN.SSReparacoes.ReparacaoProgramada;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -53,21 +57,25 @@ public class MyUI {
 	private void autenticarColaborador() {
 		System.out.println("Insira o seu número de identificação: ");
 		String id = scin.nextLine();
-		if (this.model.existeColaborador(id)) {
-			System.out.println("Acesso garantido");
-			switch (this.model.getColaborador(id).getClass().getSimpleName()){
-				case "Gestor":
-					this.menuGestor();
-					break;
-				case "Tecnico":
-					this.menuTecnico(id);
-					break;
-				case "FuncionarioBalcao":
-					this.menuFuncionarioBalcao();
-					break;
+		try {
+			if (this.model.existeColaborador(id)) {
+				System.out.println("Acesso garantido");
+				switch (this.model.getColaborador(id).getClass().getSimpleName()) {
+					case "Gestor":
+						this.menuGestor();
+						break;
+					case "Tecnico":
+						this.menuTecnico(id);
+						break;
+					case "FuncionarioBalcao":
+						this.menuFuncionarioBalcao();
+						break;
+				}
+			} else {
+				System.out.println("Acesso Recusado");
 			}
-		} else {
-			System.out.println("Acesso Recusado");
+		}catch (ColaboradorNaoExisteException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -100,16 +108,16 @@ public class MyUI {
 			int tipo = scin.nextInt();
 			switch (tipo) {
 				case 1:
-					this.model.registaColaborador(nome, "Gestor");
+					this.model.registaColaborador(nome, Gestor.class);
 					break;
 				case 2:
-					this.model.registaColaborador(nome, "Tecnico");
+					this.model.registaColaborador(nome, Tecnico.class);
 					break;
 				case 3:
-					this.model.registaColaborador(nome, "FuncionarioBalcao");
+					this.model.registaColaborador(nome, FuncionarioBalcao.class);
 			}
 			System.out.println("Colaborador adicionado");
-		} catch (TecnicoJaTemAgendaException e) {
+		} catch (TecnicoJaTemAgendaException | TipoColaboradorErradoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -168,14 +176,18 @@ public class MyUI {
 	}
 
 	private void criarRepXpresso() {
-		System.out.println("Insira o nome da reparação expresso a adicionar: ");
-		String nome = scin.nextLine();
-		System.out.println("Insira o preço: ");
-		double preco = scin.nextDouble();
-		System.out.println("Insira o tempo estimado");
-		int tempo = scin.nextInt();
-		model.registarRepExpresso(nome, tempo, preco);
-		System.out.println("Reparação expresso criada com sucesso!");
+		try {
+			System.out.println("Insira o nome da reparação expresso a adicionar: ");
+			String nome = scin.nextLine();
+			System.out.println("Insira o preço: ");
+			double preco = scin.nextDouble();
+			System.out.println("Insira o tempo estimado");
+			int tempo = scin.nextInt();
+			model.registarRepExpresso(nome, tempo, preco);
+			System.out.println("Reparação expresso criada com sucesso!");
+		} catch (ReparacaoExpressoJaExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void criarPassoRep() {
@@ -188,7 +200,8 @@ public class MyUI {
 		Menu menu = new Menu(new String[]{
 				"Fazer orçamento",
 				"Realizar reparação",
-				"Menu Colaborador Especializado"
+				"Menu Colaborador Especializado",
+				"Verificar agenda"
 		});
 
 		// pré-condições
@@ -199,9 +212,11 @@ public class MyUI {
 		menu.setHandler(1, () -> fazerOrcamento(tecId));
 		menu.setHandler(2, () -> realizarReparacao(tecId));
 		menu.setHandler(3, this::menuColabEspecial);
+		menu.setHandler(4, () -> verificarAgenda(tecId));
 
 		menu.run();
 	}
+
 
 	private void fazerOrcamento(String tecId) {
 
@@ -236,33 +251,42 @@ public class MyUI {
 	}
 
 	private void adicionarPasso(String orcId) {
-		System.out.println("Insira nome do passo a adicionar: ");
-		String nome = scin.nextLine();
-		System.out.println("Insira o material a adicionar: ");
-		String material = scin.nextLine();
-		System.out.println("Insira quantidade de material: ");
-		int quantidade = scin.nextInt();
-		System.out.println("Insira custo total do material: ");
-		double custo = scin.nextDouble();
-		System.out.println("Insira o tempo estimado: ");
-		int tempo = scin.nextInt();
-		model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
-		System.out.println("Passo criado com sucesso");
+		try {
+			System.out.println("Insira nome do passo a adicionar: ");
+			String nome = scin.nextLine();
+			System.out.println("Insira o material a adicionar: ");
+			String material = scin.nextLine();
+			System.out.println("Insira quantidade de material: ");
+			int quantidade = scin.nextInt();
+			System.out.println("Insira custo total do material: ");
+			double custo = scin.nextDouble();
+			System.out.println("Insira o tempo estimado: ");
+			int tempo = scin.nextInt();
+			System.out.println("Passo criado com sucesso");
+			model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
+		} catch (PassoJaExisteException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void gerarOrc(String orcId) {
 		//print do orcamento
 		try {
 			model.alterarEstadoOrc(orcId, OrcamentoEstado.enviado);
-		} catch (EstadoOrcNaoEValidoException e) {
+		} catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void registarComunic(String orcId, String tecId) {
-		System.out.println("Comentário sobre a comunicação: ");
-		String comentario = scin.nextLine();
-		model.comunicarErro(orcId, tecId, comentario);
+		try {
+			System.out.println("Comentário sobre a comunicação: ");
+			String comentario = scin.nextLine();
+			model.comunicarErro(orcId, tecId, comentario);
+		} catch (OrcamentoNaoExisteException | ColaboradorNaoExisteException | ColaboradorNaoTecnicoException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void realizarReparacao(String tecId) {
@@ -292,16 +316,29 @@ public class MyUI {
 		}
 	}
 
+	private void verificarAgenda(String tecId) {
+		AgendaPorDia ag = model.getAgendaDia(LocalDate.now(), tecId);
+		//print da agenda
+	}
+
 	private void registarConclusao(String repId) {
-		model.alterarEstadoRep(repId, ReparacaoEstado.reparado);
+		try {
+			model.alterarEstadoRep(repId, ReparacaoEstado.reparado);
+		} catch (ReparacaoNaoExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void realizarPasso(String repId) {
-		System.out.println("Insira custo efetivo: ");
-		double custo = scin.nextDouble();
-		System.out.println("Insira o tempo gasto: ");
-		int tempo = scin.nextInt();
-		model.registaPasso(repId, tempo, custo);
+		try {
+			System.out.println("Insira custo efetivo: ");
+			double custo = scin.nextDouble();
+			System.out.println("Insira o tempo gasto: ");
+			int tempo = scin.nextInt();
+			model.registaPasso(repId, tempo, custo);
+		} catch (ReparacaoNaoExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void comunicarErro(String repId, String tecId) {
@@ -309,15 +346,19 @@ public class MyUI {
 			System.out.println("Comentário sobre a comunicação: ");
 			String msg = scin.nextLine();
 			model.registaContacto(repId, tecId, msg);
-		} catch (ReparacaoNaoExisteException e) {
+		} catch (ReparacaoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void cancelarRep(String repId) {
-		System.out.println("Insira as horas gastas: ");
-		int tempo = scin.nextInt();
-		model.alterarEstadoRep(repId, ReparacaoEstado.cancelada, "tempo gasto: " + tempo);
+		try {
+			System.out.println("Insira as horas gastas: ");
+			int tempo = scin.nextInt();
+			model.alterarEstadoRep(repId, ReparacaoEstado.cancelada, "tempo gasto: " + tempo);
+		} catch (ReparacaoNaoExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void menuFuncionarioBalcao(){
@@ -402,7 +443,7 @@ public class MyUI {
 	private void confirmaOrc(String id) {
 		try {
 			model.alterarEstadoOrc(id, OrcamentoEstado.aceite);
-		} catch (EstadoOrcNaoEValidoException e) {
+		} catch (EstadoOrcNaoEValidoException | ColaboradorNaoExisteException | ColaboradorNaoTecnicoException | OrcamentoNaoExisteException e) {
 			e.printStackTrace();
 		}
 	}
@@ -410,7 +451,7 @@ public class MyUI {
 	private void recusaOrc(String id) {
 		try {
 			model.alterarEstadoOrc(id, OrcamentoEstado.arquivado);
-		} catch (EstadoOrcNaoEValidoException e) {
+		} catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
 			e.printStackTrace();
 		}
 	}
@@ -422,7 +463,7 @@ public class MyUI {
 			System.out.println("Insira o identificador do equipamento: ");
 			String eqId = scin.nextLine();
 			model.addRepExpresso(eqId, tipo);
-		} catch (EquipamentoNaoExisteException e) {
+		} catch (EquipamentoNaoExisteException | ReparacaoNaoExisteException | NaoExisteDisponibilidadeException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
 			e.printStackTrace();
 		}
 	}
@@ -435,7 +476,7 @@ public class MyUI {
 			String repId = scin.nextLine();
 			model.alteraEstadoEq(eqId, EstadoEquipamento.entregue);
 			model.alterarEstadoRep(repId, ReparacaoEstado.pago);
-		} catch (EquipamentoNaoExisteException e) {
+		} catch (EquipamentoNaoExisteException | ReparacaoNaoExisteException e) {
 			e.printStackTrace();
 		}
 	}
