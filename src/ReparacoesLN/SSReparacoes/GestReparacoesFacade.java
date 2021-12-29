@@ -286,21 +286,23 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 
 	}
 
-	public void arquivarOrcamentos() {
+	public List<Orcamento> arquivarOrcamentos() {
+		List<Orcamento> arquivados = new ArrayList<>();
 		filterOrcamentos(x -> x.estaAtivo() && x.passouPrazo()).forEach(x -> {
 			try {
 				x.alteraEstado(OrcamentoEstado.arquivado);
+				arquivados.add(x);
 			} catch (EstadoOrcNaoEValidoException e) {
 				// nao acontece, e verificado se esta ativo!!
 			}
 		});
+		return arquivados;
 	}
 
 	@Override
 	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
 		Map<Tecnico, ReparacoesPorMes> ret = new HashMap<>();
 
-		;
 		for (Reparacao r : filterReparacoes(x -> x.getDataCriacao().getMonth().equals(data.getMonth())
 				&& x.getDataCriacao().getYear() == data.getYear())) {
 			if (!ret.containsKey(r.getTecnico()))

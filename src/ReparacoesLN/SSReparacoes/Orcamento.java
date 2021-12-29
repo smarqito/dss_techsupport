@@ -64,7 +64,7 @@ public class Orcamento implements Serializable, Comparator<Orcamento> {
 		this.dataCriacao = LocalDateTime.now();
 		this.prazoReparacao = null;
 		this.preco = 0.0;
-		this.custoHora = 0.0;
+		this.custoHora = Precos.getCustoTecnico();
 		this.descrProb = descr;
 		this.plano = new PlanoTrabalho();
 		this.estados = new TreeSet<>();

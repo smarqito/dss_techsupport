@@ -12,6 +12,7 @@ import ReparacoesLN.SSColaboradores.*;
 public abstract class Reparacao implements Serializable {
 
 	private static int ID = 1;
+
 	private static int GetID() {
 		return ID++;
 	}
@@ -24,12 +25,11 @@ public abstract class Reparacao implements Serializable {
 	private LocalDateTime prazoReparacao;
 	private LocalDateTime dataCriacao;
 
-	
 	public Reparacao() {
 		dataCriacao = LocalDateTime.now();
 		comunicacoes = new ArrayList<>();
 		estados = new TreeSet<>();
-		id = GetID()+"";		
+		id = GetID() + "";
 	}
 
 	public Reparacao(Equipamento equip, Tecnico tec) {
@@ -72,11 +72,12 @@ public abstract class Reparacao implements Serializable {
 	 * @param msg
 	 */
 
-
 	public void alteraEstado(ReparacaoEstado novoEstado, String msg) {
 		EstadoReparacao novo = new EstadoReparacao(novoEstado, msg);
 		this.estados.add(novo);
-
+		if (novoEstado.equals(ReparacaoEstado.reparado)) {
+			getEquipamento().setEstado(EstadoEquipamento.prontoLevantar);
+		}
 	}
 
 	public EstadoReparacao getUltimoEstado() {
@@ -84,7 +85,6 @@ public abstract class Reparacao implements Serializable {
 	}
 
 	public abstract CustoTotalReparacao getPrecoEfetivo();
-
 
 	public void addComunicacao(Comunicacao c) {
 		this.comunicacoes.add(c.clone());

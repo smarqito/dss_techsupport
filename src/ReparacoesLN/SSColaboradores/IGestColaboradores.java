@@ -6,13 +6,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.ColaboradorNaoExisteException;
+import Middleware.ColaboradorNaoTecnicoException;
 import Middleware.EntradaNaoExisteException;
 import Middleware.NaoExisteDisponibilidadeException;
 import Middleware.TecnicoJaTemAgendaException;
+import Middleware.TipoColaboradorErradoException;
 
 public interface IGestColaboradores {
 
-	void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException;
+	String registaColaborador(String nome, Class<? extends Colaborador> tipo) throws TecnicoJaTemAgendaException, TipoColaboradorErradoException;
 
 	/**
 	 * Método que constroi um map com os equipamentos que passaram por um funcionário de balcão
@@ -22,7 +25,7 @@ public interface IGestColaboradores {
 	 * @param de Data limite miníma
 	 * @param ate Data limite máxima
 	 */
-	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate);
+	Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class<? extends Balcao> tipo, LocalDateTime de, LocalDateTime ate);
 
 	/**
 	 * Método que retorna um map de todos os equipamentos recebedidos
@@ -45,14 +48,24 @@ public interface IGestColaboradores {
 	/**
 	 * 
 	 * @param tecID
+	 * @throws ColaboradorNaoTecnicoException
+	 * @throws ColaboradorNaoExisteException
 	 */
-	Tecnico getTecnico(String tecID);
+	Tecnico getTecnico(String tecID) throws ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
+	
+	/**
+	 * 
+	 * @param colabId
+	 * @return
+	 * @throws ColaboradorNaoExisteException
+	 */
+	public Colaborador getColaborador(String colabId) throws ColaboradorNaoExisteException;
 
 	/**
 	 * 
 	 * @param cod
 	 */
-	Boolean validaIdentificacao(String cod);
+	Boolean existeColaborador(String cod);
 
 	/**
 	 * 

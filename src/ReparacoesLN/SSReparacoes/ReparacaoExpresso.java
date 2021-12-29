@@ -55,9 +55,7 @@ public class ReparacaoExpresso extends Reparacao {
 	 */
 	@Override
 	public void registaPassoRealizado(Integer tempo, Double custo) {
-
 		ReparacaoEstado novoEstado = ReparacaoEstado.reparado;
-
 		alteraEstado(novoEstado, "");
 	}
 

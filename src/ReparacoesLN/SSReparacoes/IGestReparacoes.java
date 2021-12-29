@@ -248,7 +248,7 @@ public interface IGestReparacoes {
      * Filtra todso os Orcamentos que estejam ativos e ja passaram o prazo limite 
      *
      */
-	void arquivarOrcamentos();
+	List<Orcamento> arquivarOrcamentos();
 
 	
 	Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data);
