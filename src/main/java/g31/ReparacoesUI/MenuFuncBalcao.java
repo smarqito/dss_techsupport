@@ -30,9 +30,10 @@ public class MenuFuncBalcao {
     }
 
     private void registaCliente() {
+        String nif = null;
         try {
             System.out.println("Insira o nif do cliente: ");
-            String nif = scin.nextLine();
+            nif = scin.nextLine();
             System.out.println("Insira o numero do cliente: ");
             String numero = scin.nextLine();
             System.out.println("Insira o email do cliente: ");
@@ -40,36 +41,40 @@ public class MenuFuncBalcao {
             model.registaCliente(nif, numero, email);
             System.out.println("Cliente registado!");
         } catch (ClienteJaExisteException e) {
-            e.printStackTrace();
+            System.out.println("Já existe um cliente registado com o nif: " + nif);
         }
     }
 
     private void registaEquipamento() {
+        String nif = null, codR = null;
         try {
             System.out.println("Insira o nif do cliente: ");
-            String nif = scin.nextLine();
+            nif = scin.nextLine();
             System.out.println("Insira a marca do equipamento: ");
             String marca = scin.nextLine();
             System.out.println("Insira o código de registo do equipamento: ");
-            String codR = scin.nextLine();
+            codR = scin.nextLine();
             model.registaEquipamento(codR, marca, nif);
-        } catch (ClienteNaoExisteException | EquipamentoJaAssociadoException e) {
-            e.printStackTrace();
+        } catch (ClienteNaoExisteException e) {
+            System.out.println("Não existe cliente com nif: " + nif);
+        } catch (EquipamentoJaAssociadoException e) {
+            System.out.println("Já existe um equipamento registado com o codigo de registo: " + codR);
         }
     }
 
     private void pedidoOrcamento() {
+        String eqId = null;
         try {
             System.out.println("Insira o nif do cliente: ");
             String nif = scin.nextLine();
             System.out.println("Insira o identificador do equipamento: ");
-            String eqId = scin.nextLine();
+            eqId = scin.nextLine();
             System.out.println("Insira a descrição do orçamento: ");
             String desc = scin.nextLine();
             model.registarOrcamento(nif, eqId, desc);
             System.out.println("Pedido de Orcamento efetuado");
         } catch (EquipamentoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe equipamento com o identificador: " + eqId);
         }
     }
 
@@ -90,8 +95,17 @@ public class MenuFuncBalcao {
     private void confirmaOrc(String id) {
         try {
             model.alterarEstadoOrc(id, OrcamentoEstado.aceite);
-        } catch (EstadoOrcNaoEValidoException | ColaboradorNaoExisteException | ColaboradorNaoTecnicoException
-                | OrcamentoNaoExisteException | NaoExisteDisponibilidadeException | TecnicoNaoTemAgendaException e) {
+        } catch (ColaboradorNaoExisteException e) {
+            e.printStackTrace();
+        } catch (EstadoOrcNaoEValidoException e) {
+            e.printStackTrace();
+        } catch (ColaboradorNaoTecnicoException e) {
+            e.printStackTrace();
+        } catch (OrcamentoNaoExisteException e) {
+            e.printStackTrace();
+        } catch (NaoExisteDisponibilidadeException e) {
+            e.printStackTrace();
+        } catch (TecnicoNaoTemAgendaException e) {
             e.printStackTrace();
         }
     }
@@ -99,8 +113,17 @@ public class MenuFuncBalcao {
     private void recusaOrc(String id) {
         try {
             model.alterarEstadoOrc(id, OrcamentoEstado.arquivado);
-        } catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException
-                | ColaboradorNaoExisteException | NaoExisteDisponibilidadeException | TecnicoNaoTemAgendaException e) {
+        } catch (ColaboradorNaoExisteException e) {
+            e.printStackTrace();
+        } catch (EstadoOrcNaoEValidoException e) {
+            e.printStackTrace();
+        } catch (ColaboradorNaoTecnicoException e) {
+            e.printStackTrace();
+        } catch (OrcamentoNaoExisteException e) {
+            e.printStackTrace();
+        } catch (NaoExisteDisponibilidadeException e) {
+            e.printStackTrace();
+        } catch (TecnicoNaoTemAgendaException e) {
             e.printStackTrace();
         }
     }
@@ -112,8 +135,17 @@ public class MenuFuncBalcao {
             System.out.println("Insira o identificador do equipamento: ");
             String eqId = scin.nextLine();
             model.addRepExpresso(eqId, tipo);
-        } catch (EquipamentoNaoExisteException | ReparacaoNaoExisteException | NaoExisteDisponibilidadeException
-                | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException | TecnicoNaoTemAgendaException e) {
+        } catch (ColaboradorNaoExisteException e) {
+            e.printStackTrace();
+        } catch (EquipamentoNaoExisteException e) {
+            e.printStackTrace();
+        } catch (ColaboradorNaoTecnicoException e) {
+            e.printStackTrace();
+        } catch (NaoExisteDisponibilidadeException e) {
+            e.printStackTrace();
+        } catch (TecnicoNaoTemAgendaException e) {
+            e.printStackTrace();
+        } catch (ReparacaoNaoExisteException e) {
             e.printStackTrace();
         }
     }
@@ -126,7 +158,9 @@ public class MenuFuncBalcao {
             String repId = scin.nextLine();
             model.alteraEstadoEq(eqId, EstadoEquipamento.entregue);
             model.alterarEstadoRep(repId, ReparacaoEstado.pago);
-        } catch (EquipamentoNaoExisteException | ReparacaoNaoExisteException e) {
+        } catch (EquipamentoNaoExisteException e) {
+            e.printStackTrace();
+        } catch (ReparacaoNaoExisteException e) {
             e.printStackTrace();
         }
     }
