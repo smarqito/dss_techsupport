@@ -74,7 +74,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	@Override
 	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
 			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException,
-			ColaboradorNaoExisteException {
+			ColaboradorNaoExisteException, NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 		if (estado.equals(OrcamentoEstado.aceite)) {
 			Orcamento orc = gestReparacoes.getOrcamento(orcID);
@@ -82,6 +82,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 			orc.setPrazoRep(tecDataMaisProx.data);
 			Tecnico tec = gestColaboradores.getTecnico(tecDataMaisProx.tecID);
 			gestReparacoes.addReparacao(orc, tec);
+			gestColaboradores.addEventoAgenda(tecDataMaisProx.tecID, orc.getTempoEstimado(), "Reparacao: " + orc.getID());
 		}
 	}
 
