@@ -4,6 +4,7 @@ import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.TecnicoJaTemAgendaException;
 import ReparacoesLN.*;
 import ReparacoesLN.SSReparacoes.OrcamentoEstado;
+import ReparacoesLN.SSReparacoes.ReparacaoEstado;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -224,11 +225,39 @@ public class MyUI {
 	}
 
 	private void realizarReparacao() {
+		String repId = null;
 		Menu menu = new Menu(new String[]{
-				"Fazer orçamento",
-				"Realizar reparação",
-				"Menu Colaborador Especializado"
+				"Realizar passo da reparação",
+				"Registar comunicação com o cliente",
+				"Cancelar reparação"
 		});
+
+		// Registar os handlers das transições
+		menu.setHandler(1, () -> realizarPasso(repId));
+		menu.setHandler(2, () -> comunicarErro(repId));
+		menu.setHandler(3, () -> cancelarRep(repId));
+
+		menu.run();
+	}
+
+	private void realizarPasso(String repId) {
+		System.out.println("Insira custo efetivo: ");
+		double custo = scin.nextDouble();
+		System.out.println("Insira o tempo gasto: ");
+		int tempo = scin.nextInt();
+		model.registaPasso(repId, tempo, custo);
+	}
+
+	private void comunicarErro(String repId) {
+		System.out.println("Comentário sobre a comunicação: ");
+		String msg = scin.nextLine();
+		model.registaContacto(repId, tecId, msg);
+	}
+
+	private void cancelarRep(String repId) {
+		System.out.println("Insira as horas gastas: ");
+		int tempo = scin.nextInt();
+		model.alterarEstadoRep(repId, ReparacaoEstado.cancelada);
 	}
 
 	private void menuFuncionarioBalcao(){
