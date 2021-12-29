@@ -45,10 +45,23 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	 * @param de
 	 * @param ate
 	 */
-	public Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Colaborador tipo, LocalDateTime de,
-			LocalDateTime ate) {
-		// TODO - implement GestColaboradoresFacade.getEquipFuncBalcao
-		throw new UnsupportedOperationException();
+	public Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate) {
+		
+		Map<FuncionarioBalcao, List<Equipamento>> equips = new HashMap<>();
+
+		balcao.stream().forEach(b -> {
+
+			LocalDateTime data = LocalDateTime.now();
+			//data = b.getData();
+
+			if(data.isAfter(de) && data.isBefore(ate)) {
+				//FuncionarioBalcao f = b.getFuncionarioBalcao();
+				//Equipamento e = b.getEquipamento();
+			}
+		});
+
+
+		return equips;
 	}
 
 	/**
@@ -57,8 +70,8 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	 * @param ate
 	 */
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate) {
-		// TODO - implement GestColaboradoresFacade.getEquipRecebidos
-		throw new UnsupportedOperationException();
+		
+		return getEquipFuncBalcao(Rececao.class, de, ate);
 	}
 
 	/**
@@ -67,8 +80,8 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	 * @param ate
 	 */
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate) {
-		// TODO - implement GestColaboradoresFacade.getEquipEntregue
-		throw new UnsupportedOperationException();
+		
+		return getEquipFuncBalcao(Entrega.class, de, ate);
 	}
 
 	/**
