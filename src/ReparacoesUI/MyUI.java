@@ -329,9 +329,7 @@ public class MyUI {
 			System.out.println("Insira o código de registo do equipamento: ");
 			String codR = scin.nextLine();
 			model.registaEquipamento(codR, marca, nif);
-		} catch (ClienteNaoExisteException e) {
-			e.printStackTrace();
-		} catch (EquipamentoJaAssociadoException e) {
+		} catch (ClienteNaoExisteException | EquipamentoJaAssociadoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -352,32 +350,29 @@ public class MyUI {
 	}
 
 	private void confirmarOrcamento() {
+		System.out.println("Insira o identificador do Orcamento: ");
+		String id = scin.nextLine();
 		Menu menu = new Menu(new String[]{
 				"Confirmar Orcamento",
 				"Recusar Orcamento"
 		});
 
-		menu.setHandler(1, this::confirmaOrc);
-		menu.setHandler(2, this::recusaOrc);
+		menu.setHandler(1, () -> confirmaOrc(id));
+		menu.setHandler(2, () -> recusaOrc(id));
 
 		menu.runOnce();
 	}
 
-	private void confirmaOrc() {
+	private void confirmaOrc(String id) {
 		try {
-			System.out.println("Insira o identificador do Orcamento: ");
-			String id = scin.nextLine();
 			model.alterarEstadoOrc(id, OrcamentoEstado.aceite);
-			//criar rep?
 		} catch (EstadoOrcNaoEValidoException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void recusaOrc() {
+	private void recusaOrc(String id) {
 		try {
-			System.out.println("Insira o identificador do Orcamento: ");
-			String id = scin.nextLine();
 			model.alterarEstadoOrc(id, OrcamentoEstado.arquivado);
 		} catch (EstadoOrcNaoEValidoException e) {
 			e.printStackTrace();
@@ -388,8 +383,6 @@ public class MyUI {
 		try {
 			System.out.println("Insira o tipo de reparação expresso: ");
 			String tipo = scin.nextLine();
-			System.out.println("Insira o nif do cliente: ");
-			String desc = scin.nextLine();
 			System.out.println("Insira o identificador do equipamento: ");
 			String eqId = scin.nextLine();
 			model.addRepExpresso(eqId, tipo);
