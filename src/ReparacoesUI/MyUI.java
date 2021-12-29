@@ -160,7 +160,7 @@ public class MyUI {
 		});
 
 		// pré-condições
-		//listas de orcamentos não vazia
+		menu.setPreCondition(1, () -> model.getOrcamentosAtivos().size() > 0);
 		//agenda nao vazia
 
 		// Registar os handlers das transições
@@ -173,16 +173,12 @@ public class MyUI {
 
 	private void fazerOrcamento(String tecId) {
 
-		//get orcamento mais antigo
-		//print de algumas informações do orcamento
-		String orcId = null;
+		String orcId = null; //ir buscar o orçamento mais antigo
 
 		Menu menu = new Menu(new String[]{
 				"Definir plano de trabalhos"
 		});
 		// pré-condições
-		//listas de orcamentos não vazia
-		//agenda nao vazia
 
 		// Registar os handlers das transições
 		menu.setHandler(1, () -> definirPLano(orcId, tecId));
@@ -198,7 +194,6 @@ public class MyUI {
 		});
 
 		// pré-condições
-		//listas de orcamentos não vazia
 		//agenda nao vazia
 
 		// Registar os handlers das transições
