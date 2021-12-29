@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.NaoExisteOrcamentosAtivosException;
 import Middleware.OrcamentoNaoExisteException;
 import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
@@ -30,8 +31,9 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 		reparacoesDisponiveis = new ArrayList<>();
 	}
 
-	public List<Orcamento> getOrcamentosAtivos() {
-		return this.orcs.values().stream().filter(Orcamento::estaAtivo).collect(Collectors.toList());
+	public Set<Orcamento> getOrcamentosAtivos() {
+		return this.orcs.values().stream().filter(Orcamento::estaAtivo)
+				.collect(Collectors.toCollection(() -> new TreeSet<Orcamento>()));
 	}
 
 	/**
@@ -59,6 +61,15 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	@Override
+	public Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException {
+		Set<Orcamento> set = getOrcamentosAtivos();
+		if(!set.isEmpty()) {
+			return set.iterator().next();
+		}
+		throw new NaoExisteOrcamentosAtivosException();
+	}
+
+	@Override
 	public List<Orcamento> filterOrcamentos(Predicate<Orcamento> p) {
 		return orcs.values().stream().filter(p).collect(Collectors.toList());
 	}
@@ -75,7 +86,8 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	 * @throws EstadoOrcNaoEValidoException
 	 * @throws OrcamentoNaoExisteException
 	 */
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException {
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
+			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException {
 		Orcamento o = getOrcamento(orcID);
 		o.alteraEstado(estado);
 	}
@@ -178,20 +190,19 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	@Override
-	public void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec)
+	public String addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec)
 			throws ReparacaoNaoExisteException {
-
 		ReparacaoExpresso def = getReparacaoExpresso(nomeRepXpresso);
 
 		ReparacaoExpresso repXpresso = new ReparacaoExpresso(equip, tec, def.getPrecoFixo(), def.getTempoEstimado(),
 				def.getNome());
-
 		try {
 			addReparacao(repXpresso);
 		} catch (ReparacaoJaExisteException e) {
 			// acabou de ser criado com novo id ... nao existe paralelismo por isso id e
 			// unico
 		}
+		return repXpresso.getId();
 
 	}
 
@@ -204,13 +215,14 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	@Override
-	public void addReparacao(Orcamento orc, Tecnico tec) {
+	public String addReparacao(Orcamento orc, Tecnico tec) {
 		ReparacaoProgramada rep = new ReparacaoProgramada(orc, tec);
 		try {
 			addReparacao(rep);
 		} catch (ReparacaoJaExisteException e) {
 			// same has before
 		}
+		return rep.getId();
 	}
 
 	/**

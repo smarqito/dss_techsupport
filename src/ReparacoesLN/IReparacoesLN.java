@@ -7,12 +7,15 @@ import ReparacoesLN.SSColaboradores.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import Middleware.ClienteJaExisteException;
 import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.NaoExisteDisponibilidadeException;
+import Middleware.NaoExisteOrcamentosAtivosException;
 import Middleware.OrcamentoNaoExisteException;
 import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
@@ -31,8 +34,10 @@ public interface IReparacoesLN {
 	 * @param equipId Identificador do equipamento a adicionar 
 	 * @param nomeRepExp Nome da reparação a realizar
 	 * @throws EquipamentoNaoExisteException
+	 * @throws ReparacaoNaoExisteException
+	 * @throws NaoExisteDisponibilidadeException
 	 */
-	void addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException;
+	String addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException;
 
 	/**
 	 * 
@@ -41,7 +46,7 @@ public interface IReparacoesLN {
 	 */
 	void enviarOrcamento(String orcId, String colabId);
 
-	List<Orcamento> getOrcamentosAtivos();
+	Set<Orcamento> getOrcamentosAtivos();
 
 	/**
 	 * 
@@ -241,5 +246,12 @@ public interface IReparacoesLN {
 	 * @throws ReparacaoExpressoJaExisteException
 	 */
 	void registarRepExpresso(String nome, Integer tempo, Double custo) throws ReparacaoExpressoJaExisteException;
+
+	/**
+	 * 
+	 * @return
+	 * @throws NaoExisteOrcamentosAtivosException
+	 */
+	Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException;
 
 }

@@ -6,9 +6,11 @@ import ReparacoesLN.SSClientes.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.NaoExisteOrcamentosAtivosException;
 import Middleware.OrcamentoNaoExisteException;
 import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
@@ -16,7 +18,11 @@ import Middleware.ReparacaoNaoExisteException;
 
 public interface IGestReparacoes {
 
-	List<Orcamento> getOrcamentosAtivos();
+	/**
+	 * 
+	 * @return
+	 */
+	Set<Orcamento> getOrcamentosAtivos();
 
 	/**
 	 * 
@@ -31,6 +37,12 @@ public interface IGestReparacoes {
 	 */
 	Reparacao getReparacao(String id) throws ReparacaoNaoExisteException;
 
+	/**
+	 * 
+	 * @return
+	 * @throws NaoExisteOrcamentosAtivosException
+	 */
+	Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException;
 	/**
 	 * 
 	 * @param p
@@ -170,13 +182,13 @@ public interface IGestReparacoes {
 	 * @param tec            Técnico a realizar a reparação
 	 * @throws ReparacaoNaoExisteException
 	 */
-	void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) throws ReparacaoNaoExisteException;
+	String addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
 	 * @param orc
 	 */
-	void addReparacao(Orcamento orc, Tecnico tec);
+	String addReparacao(Orcamento orc, Tecnico tec);
 
 	/**
 	 * 
