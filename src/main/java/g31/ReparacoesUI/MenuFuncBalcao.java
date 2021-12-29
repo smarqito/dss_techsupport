@@ -2,8 +2,9 @@ package g31.ReparacoesUI;
 
 import g31.Middleware.*;
 import g31.ReparacoesLN.SSClientes.EstadoEquipamento;
-import g31.ReparacoesLN.SSReparacoes.OrcamentoEstado;
-import g31.ReparacoesLN.SSReparacoes.ReparacaoEstado;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+
 import static g31.ReparacoesUI.MyUI.model;
 import static g31.ReparacoesUI.MyUI.scin;
 
