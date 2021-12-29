@@ -13,6 +13,7 @@ import g31.Middleware.*;
 import g31.ReparacoesBD.ReparacoesBDFacade;
 import g31.ReparacoesLN.SSClientes.*;
 import g31.ReparacoesLN.SSColaboradores.Balcao.Balcao;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Entrega;
 import g31.ReparacoesLN.SSColaboradores.Balcao.Rececao;
 import g31.ReparacoesLN.SSReparacoes.*;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
@@ -173,6 +174,15 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException {
+		this.gestClientes.alteraEstadoEq(equiID, state);
+	}
+
+	@Override
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId) throws EquipamentoNaoExisteException, ColaboradorNaoExisteException {
+		Equipamento eq = this.getEquipamento(equiID);
+		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
+		Balcao b = new Entrega(eq, f);
+		gestColaboradores.addBalcao(b);
 		this.gestClientes.alteraEstadoEq(equiID, state);
 	}
 

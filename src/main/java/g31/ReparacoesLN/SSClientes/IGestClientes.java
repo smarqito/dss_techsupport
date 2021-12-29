@@ -78,6 +78,7 @@ public interface IGestClientes {
 	 */
 	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException;
 
+
 	/**
 	 * 
 	 * @param p

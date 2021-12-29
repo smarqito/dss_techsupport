@@ -199,6 +199,16 @@ public interface IReparacoesLN {
 	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException;
 
 	/**
+	 * Altera o estado de um equipamento
+	 *
+	 * @param equiID Id do equipamento
+	 * @param state  Novo estado
+	 * @param funcId Id do Funcionário
+	 * @throws EquipamentoNaoExisteException
+	 */
+	void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId) throws EquipamentoNaoExisteException, ColaboradorNaoExisteException;
+
+	/**
 	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um
 	 * orçamento
 	 * 

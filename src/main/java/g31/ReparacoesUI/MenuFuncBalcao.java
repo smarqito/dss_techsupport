@@ -25,7 +25,7 @@ public class MenuFuncBalcao {
         menu.setHandler(3, () -> pedidoOrcamento(id));
         menu.setHandler(4, this::confirmarOrcamento);
         menu.setHandler(5, () -> pedidoRepXpresso(id));
-        menu.setHandler(6, this::registarEntregaEquip);
+        menu.setHandler(6, () -> registarEntregaEquip(id));
 
         menu.run();
     }
@@ -79,6 +79,8 @@ public class MenuFuncBalcao {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (EquipamentoNaoAssociadoAoCliente e) {
             System.out.println("Equipamento  " + eqId + " não está associado ao cliente com o nif: " + nif);
+        } catch (ColaboradorNaoExisteException e) {
+            System.out.println("Não existe o colaborador");
         }
     }
 
@@ -158,20 +160,22 @@ public class MenuFuncBalcao {
         }
     }
 
-    private void registarEntregaEquip() {
+    private void registarEntregaEquip(String funcId) {
         String eqId = null, repId = null;
         try {
             System.out.println("Insira o identificador do equipamento: ");
             eqId = scin.nextLine();
             System.out.println(("Insira identificador da reparação"));
             repId = scin.nextLine();
-            model.alteraEstadoEq(eqId, EstadoEquipamento.entregue);
+            model.alteraEstadoEq(eqId, EstadoEquipamento.entregue, funcId);
             model.alterarEstadoRep(repId, ReparacaoEstado.pago);
             System.out.println("Equipamento " + eqId + " entregue e reparação " + repId + " paga!");
         } catch (EquipamentoNaoExisteException e) {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (ReparacaoNaoExisteException e) {
             System.out.println("Não existe a reparação: " + repId);
+        } catch (ColaboradorNaoExisteException e) {
+            System.out.println("Não existe o colaborador");
         }
     }
 }
