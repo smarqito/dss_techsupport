@@ -58,12 +58,14 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 		throw new ReparacaoNaoExisteException(id);
 	}
 
-	/**
-	 * 
-	 * @param p
-	 */
+	@Override
 	public List<Orcamento> filterOrcamentos(Predicate<Orcamento> p) {
 		return orcs.values().stream().filter(p).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Reparacao> filterReparacoes(Predicate<Reparacao> p) {
+		return reps.values().stream().filter(p).collect(Collectors.toList());
 	}
 
 	/**
@@ -75,9 +77,6 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException {
 		Orcamento o = this.orcs.get(orcID);
 		o.alteraEstado(estado);
-		if (estado.equals(OrcamentoEstado.aceite)) {
-			addReparacao(o);
-		}
 	}
 
 	/**
@@ -281,19 +280,16 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 		});
 	}
 
-	/**
-	 *
-	 * @param data
-	 * @return
-	 */
+	@Override
 	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
 		Map<Tecnico, ReparacoesPorMes> ret = new HashMap<>();
 
-		for(Reparacao r : this.reps.values()) {
-			if(r.getDataCriacao().getMonth().equals(data.getMonth())) {
-				if(!ret.containsKey(r.getTecnico())) ret.put(r.getTecnico(), new ReparacoesPorMes());
-				ret.get(r.getTecnico()).addReparacao(r);
-			}
+		;
+		for (Reparacao r : filterReparacoes(x -> x.getDataCriacao().getMonth().equals(data.getMonth())
+				&& x.getDataCriacao().getYear() == data.getYear())) {
+			if (!ret.containsKey(r.getTecnico()))
+				ret.put(r.getTecnico(), new ReparacoesPorMes());
+			ret.get(r.getTecnico()).addReparacao(r);
 		}
 		return ret;
 	}

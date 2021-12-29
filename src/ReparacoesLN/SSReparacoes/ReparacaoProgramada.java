@@ -9,6 +9,7 @@ public class ReparacaoProgramada extends Reparacao {
 
 	public ReparacaoProgramada(Orcamento docOrigem, Tecnico tec) {
 		super(docOrigem.getEquipamento(), tec);
+	}
 
 	public PlanoTrabalho getPlano() {
 		return new PlanoTrabalho(this.plano);
@@ -44,18 +45,19 @@ public class ReparacaoProgramada extends Reparacao {
 		pAtual.setCustoEfetivo(custo);
 		pAtual.setTempoGasto(tempo);
 		plano.addPassoRealizado(pAtual);
-		if(!plano.haMaisPassos()) {
+		if (!plano.haMaisPassos()) {
 			super.alteraEstado(ReparacaoEstado.reparado, "reparado!");
 		}
 	}
 
 	/**
-	 * Calcula o preco efetivo da reparacao, utilizando os passos realizados do plano
+	 * Calcula o preco efetivo da reparacao, utilizando os passos realizados do
+	 * plano
 	 * 
 	 * @return Custo total de Reparacao
 	 */
 	@Override
 	public CustoTotalReparacao getPrecoEfetivo() {
-		return plano.getPrecoEfetivo(docOrigem.getCustoHora());		
+		return plano.getPrecoEfetivo(docOrigem.getCustoHora());
 	}
 }

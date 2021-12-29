@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.OrcamentoNaoExisteException;
+import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 
@@ -36,6 +37,13 @@ public interface IGestReparacoes {
 	 */
 	List<Orcamento> filterOrcamentos(Predicate<Orcamento> p);
 
+
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 */
+	List<Reparacao> filterReparacoes(Predicate<Reparacao> p);
 	/**
 	 * 
 	 * @param orcID
@@ -215,15 +223,13 @@ public interface IGestReparacoes {
 	 * @param nomePasso Nome do passo a criar
 	 * @param mat       Material usado no passo
 	 * @param tempo     tempo estimado para o passo
+	 * @throws PassoJaExisteException
 	 */
-	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo);
+	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) throws PassoJaExisteException;
 
 	void arquivarOrcamentos();
 
-	/**
-	 * 
-	 * @param data
-	 */
+	
 	Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data);
 
 }
