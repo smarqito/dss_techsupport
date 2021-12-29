@@ -319,8 +319,10 @@ public class MyUI {
 
 	private void verificarAgenda(String tecId) {
 		AgendaPorDia ag = model.getAgendaDia(LocalDate.now(), tecId);
-		for (EntradaAgenda ea : ag.getTarefas()){
-			System.out.println(ea.getDetalhes());
+		for (EntradaAgenda ea : ag.getEntradaAgenda()){
+			System.out.println("Reparacao com id: " +ea.getDetalhes());
+			System.out.println("Começa às: " + ea.getInicio());
+			System.out.println("Com duração de: " + ea.getDuracao());
 		}
 	}
 
