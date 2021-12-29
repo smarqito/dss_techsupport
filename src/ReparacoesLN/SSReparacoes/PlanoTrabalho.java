@@ -16,6 +16,11 @@ public class PlanoTrabalho {
 		this.passosRealizados = new ArrayList<>(passos);
 	}
 
+	public PlanoTrabalho(PlanoTrabalho pt) {
+		this.passos = pt.getPassos();
+		this.passosRealizados = pt.getPassosRealizados();
+		this.tempo = pt.getTempo();
+	}
 	/**
 	 * Calcula todos os passos de reparacao
 	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de lista

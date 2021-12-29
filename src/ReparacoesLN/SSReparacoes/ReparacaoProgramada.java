@@ -9,6 +9,24 @@ public class ReparacaoProgramada extends Reparacao {
 
 	public ReparacaoProgramada(Orcamento docOrigem, Tecnico tec) {
 		super(docOrigem.getEquipamento(), tec);
+
+	public PlanoTrabalho getPlano() {
+		return new PlanoTrabalho(this.plano);
+	}
+
+	public void setPlano(PlanoTrabalho plano) {
+		this.plano = new PlanoTrabalho(plano);
+	}
+
+	public Orcamento getDocOrigem() {
+		return new Orcamento(this.docOrigem);
+	}
+
+	public void setDocOrigem(Orcamento docOrigem) {
+		this.docOrigem = new Orcamento(docOrigem);
+	}
+
+	public ReparacaoProgramada(Orcamento docOrigem) {
 		this.docOrigem = docOrigem;
 		plano = docOrigem.getPT();
 	}

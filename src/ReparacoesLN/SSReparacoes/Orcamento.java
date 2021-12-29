@@ -31,7 +31,7 @@ public class Orcamento implements Serializable {
 	 */
 	private static int CURRENT_ID = 1;
 
-	/**
+    /**
 	 * Retorna o ID atual e incrementa a variável para o próximo
 	 */
 	private static String GetCurrentID() {
@@ -69,6 +69,19 @@ public class Orcamento implements Serializable {
 		this.estados = new TreeSet<>();
 		this.estados.add(new EstadoOrcamento(OrcamentoEstado.porCalcular));
 		this.comunicacoes = new ArrayList<Comunicacao>();
+	}
+
+	public Orcamento(Orcamento c) {
+		this.id = c.getID();
+		this.equipamento = c.getEquipamento();
+		this.reparacao = c.getReparacao();
+		this.prazoReparacao = c.getPrazoRep();
+		this.preco = c.getPreco();
+		this.custoHora = c.getCustoHora();
+		this.descrProb = c.getDescrProb();
+		this.plano = c.getPT();
+		this.estados = c.getEstados();
+		this.comunicacoes = c.getComunicacoes();
 	}
 	
 	/**
