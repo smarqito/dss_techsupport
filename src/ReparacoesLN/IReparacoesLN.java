@@ -334,4 +334,7 @@ public interface IReparacoesLN {
 	 */
 	List<Equipamento> darBaixaEquipamentos();
 
+	boolean existeColaborador(String id);
+
+	Colaborador getColaborador(String id);
 }

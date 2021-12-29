@@ -235,6 +235,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	public Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException {
 		return gestReparacoes.getOrcamentoMaisAntigo();
 	}
+	
 
 	@Override
 	public List<Orcamento> arquivaOrcamentos() {
