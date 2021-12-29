@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import Middleware.EntradaNaoExisteException;
+import Middleware.NaoExisteDisponibilidadeException;
+import Middleware.TecnicoJaTemAgendaException;
 import ReparacoesLN.SSClientes.*;
 
 public class GestColaboradoresFacade implements IGestColaboradores, Serializable {
@@ -17,18 +21,18 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 		return id++;
 	}
 
-	public void registaColaborador(String nome, String tipo) {
+	public void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException {
 		Colaborador c = null;
 		switch (tipo){
 			case "Tecnico":
-				c = new Tecnico(getId(), nome);
+				c = new Tecnico(nome);
 				agenda.addAgenda((Tecnico) c);
 				break;
 			case "FuncionarioBalcao":
-				c = new FuncionarioBalcao(getId(), nome);
+				c = new FuncionarioBalcao(nome);
 				break;
 			case "Gestor":
-				c = new Gestor(getId(), nome);
+				c = new Gestor(nome);
 				break;
 		}
 		if (c!= null)
@@ -76,59 +80,35 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param cod
-	 */
+	@Override
 	public Boolean validaIdentificacao(String cod) {
 		// TODO - implement GestColaboradoresFacade.validaIdentificacao
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param duracao
-	 */
-	public String existeDisponibilidade(Integer duracao) {
+	@Override
+	public String existeDisponibilidade(Integer duracao) throws NaoExisteDisponibilidadeException {
 		return agenda.temDisponibilidade(duracao);
 	}
 
-	/**
-	 * 
-	 * @param tecId
-	 * @param tempo
-	 * @param detalhes
-	 */
-	public LocalDateTime addEventoAgenda(String tecId, Integer tempo, String detalhes) {
+	@Override
+	public LocalDateTime addEventoAgenda(String tecId, Integer tempo, String detalhes) throws NaoExisteDisponibilidadeException {
 		return this.agenda.addEvento(tecId, tempo, detalhes);
 	}
 
-	/**
-	 * 
-	 * @param tempo
-	 * @param detalhes
-	 */
-	public LocalDateTime addEventoAgenda(Integer tempo, String detalhes) {
-		// TODO - implement GestColaboradoresFacade.addEventoAgenda
-		throw new UnsupportedOperationException();
+	@Override
+	public LocalDateTime addEventoAgenda(Integer tempo, String detalhes) throws NaoExisteDisponibilidadeException {
+		return this.agenda.addEvento(tempo, detalhes);
 	}
 
-	/**
-	 * 
-	 * @param tecId
-	 * @param data
-	 */
-	public void removeEventoAgenda(String tecId, LocalDateTime data) {
+	@Override
+	public void removeEventoAgenda(String tecId, LocalDateTime data) throws EntradaNaoExisteException {
 		agenda.removeEvento(tecId, data);
 	}
 
-	/**
-	 * 
-	 * @param duracao
-	 */
+	@Override
 	public TecData prazoReparacaoMaisProx(Integer duracao) {
-		// TODO - implement GestColaboradoresFacade.prazoReparacaoMaisProx
-		throw new UnsupportedOperationException();
+		return this.agenda.prazoMaisProx(duracao);
 	}
 
 }

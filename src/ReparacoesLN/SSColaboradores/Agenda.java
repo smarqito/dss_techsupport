@@ -10,8 +10,14 @@ import Middleware.NaoExisteDisponibilidadeException;
 
 public class Agenda {
 
-	private List<AgendaPorDia> tarefasDia;
+	private Set<AgendaPorDia> tarefasDia;
 	private Tecnico tecnico;
+
+	
+	public Agenda(Tecnico tecnico) {
+		this.tecnico = tecnico;
+		tarefasDia = new TreeSet<>();
+	}
 
 	/**
 	 * 

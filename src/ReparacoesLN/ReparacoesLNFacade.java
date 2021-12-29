@@ -87,8 +87,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void generateOrc(String orcId) {
-		// TODO - implement ReparacoesLNFacade.generateOrc
-		throw new UnsupportedOperationException();
+		Orcamento o = gestReparacoes.getOrcamento(orcId);
 	}
 
 	@Override
