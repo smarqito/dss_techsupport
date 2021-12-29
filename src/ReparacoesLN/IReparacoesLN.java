@@ -229,4 +229,7 @@ public interface IReparacoesLN {
 	 */
 	void registarRepExpresso(String nome, Integer tempo, Double custo);
 
+	boolean existeColaborador(String id);
+
+	Colaborador getColaborador(String id);
 }

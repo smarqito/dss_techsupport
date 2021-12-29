@@ -215,4 +215,14 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public boolean existeColaborador(String id) {
+		return false;
+	}
+
+	@Override
+	public Colaborador getColaborador(String id) {
+		return null;
+	}
+
 }

@@ -54,7 +54,7 @@ public class MyUI {
 		String id = scin.nextLine();
 		if (this.model.existeColaborador(id)) {
 			System.out.println("Acesso garantido");
-			switch (this.model.getColaborador().getClass.getSimpleName()){
+			switch (this.model.getColaborador(id).getClass().getSimpleName()){
 				case "Gestor":
 					this.menuGestor();
 					break;
