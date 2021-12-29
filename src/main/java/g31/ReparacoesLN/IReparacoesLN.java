@@ -40,7 +40,7 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoTecnicoException
 	 * @throws TecnicoNaoTemAgendaException
 	 */
-	String addRepExpresso(String equipId, String nomeRepExp)
+	String addRepExpresso(String equipId, String nomeRepExp, String funcId)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
 			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException;
 
@@ -225,7 +225,7 @@ public interface IReparacoesLN {
 	 * @throws EquipamentoNaoExisteException
 	 * @return
 	 */
-	String registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente;
+	String registarOrcamento(String nif, String equipId, String descr, String funcId) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException;
 
 	/**
 	 * Adiciona um contacto ao historico de reparacao
