@@ -13,6 +13,8 @@ import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.OrcamentoNaoExisteException;
+import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
@@ -35,8 +37,9 @@ public interface IReparacoesLN {
 	/**
 	 * 
 	 * @param orcId
+	 * @param colabId
 	 */
-	void enviarOrcamento(String orcId);
+	void enviarOrcamento(String orcId, String colabId);
 
 	List<Orcamento> getOrcamentosAtivos();
 
@@ -45,8 +48,9 @@ public interface IReparacoesLN {
 	 * @param orcID
 	 * @param estado
 	 * @throws EstadoOrcNaoEValidoException
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException;
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -84,8 +88,9 @@ public interface IReparacoesLN {
 	 * @param repID Reparação a realizar
 	 * @param mins Tempo Efetivo gasto
 	 * @param custo Custo efetivo gasto
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void registaPasso(String repID, Integer mins, Double custo);
+	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException;
 
 	/**
 	 * Retorna um cliente a partir do seu nif
@@ -162,8 +167,9 @@ public interface IReparacoesLN {
 	 * @param tempo Tempo estimado
 	 * @param qMat Quantidade de material usado
 	 * @param custoMat Custo total do material usado
+	 * @throws PassoJaExisteException
 	 */
-	void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat);
+	void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) throws PassoJaExisteException;
 
 	/**
 	 * 
@@ -213,14 +219,15 @@ public interface IReparacoesLN {
 	 * @param orcId
 	 * @param msg
 	 * @param tecID
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void comunicarErro(String orcId, String msg, String tecID);
+	void comunicarErro(String orcId, String msg, String tecID) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
 	 * @param data
 	 */
-	Map<Tecnico, List<ReparacoesPorMes>> getReparacoesMes(LocalDateTime data);
+	Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data);
 
 	/**
 	 * Método para registar uma nova reparação expresso

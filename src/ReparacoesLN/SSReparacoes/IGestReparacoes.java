@@ -49,8 +49,9 @@ public interface IGestReparacoes {
 	 * @param orcID
 	 * @param estado
 	 * @throws EstadoOrcNaoEValidoException
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException;
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException;
 
 	/**
 	 * 

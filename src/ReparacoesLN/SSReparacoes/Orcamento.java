@@ -3,9 +3,7 @@ package ReparacoesLN.SSReparacoes;
 import ReparacoesLN.SSClientes.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,7 +16,7 @@ public class Orcamento implements Serializable {
 	private String id;
 	private Equipamento equipamento;
 	private ReparacaoProgramada reparacao;
-	private LocalDate prazoReparacao;
+	private LocalDateTime prazoReparacao;
 	private Double preco;
 	private Double custoHora;
 	private String descrProb;
@@ -65,7 +63,7 @@ public class Orcamento implements Serializable {
 		this.preco = 0.0;
 		this.custoHora = 0.0;
 		this.descrProb = descr;
-		this.plano = null;
+		this.plano = new PlanoTrabalho();
 		this.estados = new TreeSet<>();
 		this.estados.add(new EstadoOrcamento(OrcamentoEstado.porCalcular));
 		this.comunicacoes = new ArrayList<Comunicacao>();
@@ -214,6 +212,10 @@ public class Orcamento implements Serializable {
 	public ReparacaoProgramada getReparacao() {
 		return reparacao;
 	}
+
+	public Integer getTempoEstimado() {
+		return plano.getPrecoEfetivo(this.custoHora).getTempoTotalEstimado();
+	}
 	
 	public void setReparacao(ReparacaoProgramada reparacao) {
 		this.reparacao = reparacao;
@@ -265,11 +267,11 @@ public class Orcamento implements Serializable {
 		return null;
 	}
 	
-	public LocalDate getPrazoRep() {
+	public LocalDateTime getPrazoRep() {
 		return prazoReparacao;
 	}
 
-	public void setPrazoRep(LocalDate prazoRep) {
+	public void setPrazoRep(LocalDateTime prazoRep) {
 		prazoReparacao = prazoRep;
 	}
 	

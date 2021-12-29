@@ -73,9 +73,10 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	 * @param orcID
 	 * @param estado
 	 * @throws EstadoOrcNaoEValidoException
+	 * @throws OrcamentoNaoExisteException
 	 */
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException {
-		Orcamento o = this.orcs.get(orcID);
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException {
+		Orcamento o = getOrcamento(orcID);
 		o.alteraEstado(estado);
 	}
 
@@ -199,6 +200,7 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 			throw new ReparacaoJaExisteException(rep.getId());
 		}
 		this.reps.put(rep.getId(), rep);
+		this.repsPorData.add(rep);
 	}
 
 	@Override

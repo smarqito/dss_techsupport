@@ -11,6 +11,13 @@ public class PlanoTrabalho {
 	private List<PassoReparacao> passosRealizados;
 	private Integer tempo;
 
+	
+
+	public PlanoTrabalho() {
+		passos = new ArrayList<>();
+		passosRealizados = new ArrayList<>();
+	}
+
 	public PlanoTrabalho(List<PassoReparacao> passos) {
 		this.passos = new ArrayList<>(passos);
 		this.passosRealizados = new ArrayList<>(passos);
