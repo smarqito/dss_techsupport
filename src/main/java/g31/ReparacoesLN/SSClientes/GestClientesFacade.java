@@ -75,11 +75,11 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 
 	@Override
 	public void registaCliente(String nif, String numero, String email) throws ClienteJaExisteException {
-		if (!existeCliente(nif)) {
-			Cliente newC = new Cliente(nif, new FormaContacto(email, numero));
-			this.clientes.put(nif, newC);
+		if (existeCliente(nif)) {
+			throw new ClienteJaExisteException(nif);
 		}
-		throw new ClienteJaExisteException(nif);
+		Cliente newC = new Cliente(nif, new FormaContacto(email, numero));
+		this.clientes.put(nif, newC);
 	}
 
 	@Override
@@ -105,12 +105,11 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 
 	@Override
 	public void associaEquipamentoCliente(Cliente c, Equipamento e) throws EquipamentoJaAssociadoException {
-		if (this.equipamentos.values().stream()
-				.noneMatch(x -> x.getCodRegisto().equals(e.getCodRegisto()) && x.getMarca().equals(e.getMarca()))) {
-			c.addEquipamento(e);
-		} else {
+		if (this.clientes.values().stream().anyMatch(x -> x.temEquipamento(e.getCodRegisto(), e.getMarca()))) {
 			throw new EquipamentoJaAssociadoException(
 					"O equipamento ja se encontra associado a algum cliente! Verifique antes de inserir.");
+		} else {
+			c.addEquipamento(e);
 		}
 	}
 

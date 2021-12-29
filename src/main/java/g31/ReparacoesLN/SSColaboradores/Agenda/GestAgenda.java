@@ -83,8 +83,9 @@ public class GestAgenda implements Serializable {
 	/**
 	 * 
 	 * @param duracao
+	 * @throws NaoExisteDisponibilidadeException
 	 */
-	public TecData prazoMaisProx(Integer duracao) {
+	public TecData prazoMaisProx(Integer duracao) throws NaoExisteDisponibilidadeException {
 		Iterator<Agenda> it = agendas.iterator();
 		LocalDateTime menor = LocalDateTime.MAX;
 		String tec = null;
@@ -95,6 +96,9 @@ public class GestAgenda implements Serializable {
 				menor = time.data;
 				tec = time.tecID;
 			}
+		}
+		if(tec == null) {
+			throw new NaoExisteDisponibilidadeException("Nao ha tecnicos inseridos!!");
 		}
 		return new TecData(tec, menor);
 	}
