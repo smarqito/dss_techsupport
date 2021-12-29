@@ -294,4 +294,7 @@ public interface IReparacoesLN {
 	 */
 	Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException;
 
+	boolean existeColaborador(String id);
+
+	Colaborador getColaborador(String id);
 }
