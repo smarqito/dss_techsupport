@@ -289,4 +289,9 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return this.gestColaboradores.getAgendaDia(data, tecId);
 	}
 
+	@Override
+	public Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException {
+		return this.gestReparacoes.getOrcamento(ref);
+	}
+
 }
