@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 
 public interface IGestReparacoes {
@@ -104,13 +105,16 @@ public interface IGestReparacoes {
 	void registaPasso(String repID, Integer mins, Double custo);
 
 	/**
+	 * Método para registar uma nova reparação expresso nas reparações disponíveis
+	 * Caso a reparação seja a mesma não é adicionada -> throw Exception
 	 * 
-	 * @param nome
-	 * @param desc
-	 * @param preco
-	 * @param tempo
+	 * @param nome Nome da nova Reparação Expresso
+	 * @param desc Descrição da nova reparação
+	 * @param preco Preço fixo da nova reparação
+	 * @param tempo Tempo estimado da nova reparação
+	 * @throws ReparacaoExpressoJaExisteException
 	 */
-	void registaRepXpresso(String nome, String desc, Double preco, Integer tempo);
+	void registaRepXpresso(String nome, Double preco, Integer tempo) throws ReparacaoExpressoJaExisteException;
 
 	/**
 	 * 

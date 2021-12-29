@@ -10,6 +10,7 @@ import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
 import ReparacoesBD.ReparacoesBDFacade;
@@ -208,11 +209,10 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		// TODO - implement ReparacoesLNFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
-	public void registarRepExpresso(String nome, Integer tempo, Double custo) {
-		// TODO - implement ReparacoesLNFacade.registarRepExpresso
-		throw new UnsupportedOperationException();
+	public void registarRepExpresso(String nome, Integer tempo, Double custo) throws ReparacaoExpressoJaExisteException {
+		gestReparacoes.registaRepXpresso(nome, custo, tempo);
 	}
 
 }

@@ -13,6 +13,7 @@ import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
 
@@ -222,11 +223,16 @@ public interface IReparacoesLN {
 	Map<Tecnico, List<ReparacoesPorMes>> getReparacoesMes(LocalDateTime data);
 
 	/**
+	 * Método para registar uma nova reparação expresso
+	 * Adiciona a reparação à lista de reparações expresso disponiveis 
 	 * 
-	 * @param nome
-	 * @param tempo
-	 * @param custo
+	 * Utiliza o método com o mesmo nome
+	 * 
+	 * @param nome Nome da nova reparação
+	 * @param tempo Tempo estimado para a reparação
+	 * @param custo Custo fixo da reparação
+	 * @throws ReparacaoExpressoJaExisteException
 	 */
-	void registarRepExpresso(String nome, Integer tempo, Double custo);
+	void registarRepExpresso(String nome, Integer tempo, Double custo) throws ReparacaoExpressoJaExisteException;
 
 }
