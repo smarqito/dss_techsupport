@@ -152,4 +152,9 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 		return this.agenda.getAgendaDia(data, tecId);
 	}
 
+	@Override
+	public void addBalcao(Balcao b){
+		this.balcao.add(b);
+	}
+
 }

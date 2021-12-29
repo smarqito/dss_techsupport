@@ -76,7 +76,7 @@ public class MyUI {
 						mt.menuTecnico(id);
 						break;
 					case "FuncionarioBalcao":
-						mf.menuFuncionarioBalcao();
+						mf.menuFuncionarioBalcao(id);
 						break;
 				}
 			} else {
