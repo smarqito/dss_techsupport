@@ -4,6 +4,8 @@ import g31.ReparacoesLN.SSReparacoes.*;
 import g31.ReparacoesLN.SSClientes.*;
 import g31.ReparacoesLN.SSColaboradores.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -272,8 +274,10 @@ public interface IReparacoesLN {
 
 	/**
 	 * Armazena a o estado do programa num ficheiro
+	 * @throws IOException
+	 * @throws FileNotFoundException
 	 */
-	void saveInstance();
+	void saveInstance() throws FileNotFoundException, IOException;
 
 	/**
 	 * Regista os passos num orcamento a partir do orcId

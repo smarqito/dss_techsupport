@@ -1,5 +1,7 @@
 package g31.ReparacoesLN;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,7 +36,14 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	private IGestReparacoes gestReparacoes;
 	private IGestColaboradores gestColaboradores;
 
-	public static ReparacoesLNFacade getInstance() {
+	
+	public ReparacoesLNFacade() {
+		gestClientes = new GestClientesFacade();
+		gestReparacoes = new GestReparacoesFacade();
+		gestColaboradores = new GestColaboradoresFacade();
+	}
+
+	public static IReparacoesLN getInstance() throws ClassNotFoundException, IOException {
 		return ReparacoesBDFacade.getState();
 	}
 
@@ -207,7 +216,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void saveInstance() {
+	public void saveInstance() throws FileNotFoundException, IOException {
 		ReparacoesBDFacade.putSate(this);
 	}
 

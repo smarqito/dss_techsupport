@@ -2,6 +2,7 @@ package g31.ReparacoesLN.SSClientes;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -17,6 +18,11 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 
 	private Map<String, Cliente> clientes;
 	private Map<String, Equipamento> equipamentos;
+
+	public GestClientesFacade() {
+		this.clientes = new HashMap<>();
+		this.equipamentos = new HashMap<>();
+	}
 
 	@Override
 	public Cliente getCliente(String nif) throws ClienteNaoExisteException {

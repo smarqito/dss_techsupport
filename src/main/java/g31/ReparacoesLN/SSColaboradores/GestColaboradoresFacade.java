@@ -21,6 +21,13 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	private List<Balcao> balcao;
 	private GestAgenda agenda;
 
+	
+	public GestColaboradoresFacade() {
+		colabs = new HashMap<>();
+		balcao = new ArrayList<>();
+		agenda = new GestAgenda();
+	}
+
 	@Override
 	public String registaColaborador(String nome, Class<? extends Colaborador> tipo)
 			throws TecnicoJaTemAgendaException, TipoColaboradorErradoException {
