@@ -20,6 +20,7 @@ import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
+import Middleware.TecnicoNaoTemAgendaException;
 import Middleware.TipoColaboradorErradoException;
 import ReparacoesBD.ReparacoesBDFacade;
 import ReparacoesLN.SSClientes.*;
@@ -39,7 +40,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	@Override
 	public String addRepExpresso(String equipId, String nomeRepExp)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
-			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException {
 
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
 

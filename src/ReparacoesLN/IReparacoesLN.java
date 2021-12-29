@@ -23,6 +23,7 @@ import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
+import Middleware.TecnicoNaoTemAgendaException;
 import Middleware.TipoColaboradorErradoException;
 
 public interface IReparacoesLN {
@@ -42,10 +43,11 @@ public interface IReparacoesLN {
 	 * @throws NaoExisteDisponibilidadeException
 	 * @throws ColaboradorNaoExisteException
 	 * @throws ColaboradorNaoTecnicoException
+	 * @throws TecnicoNaoTemAgendaException
 	 */
 	String addRepExpresso(String equipId, String nomeRepExp)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
-			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException;
 
 	/**
 	 * 
