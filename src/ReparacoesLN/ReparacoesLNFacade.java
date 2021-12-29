@@ -1,6 +1,7 @@
 package ReparacoesLN;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +83,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 			orc.setPrazoRep(tecDataMaisProx.data);
 			Tecnico tec = gestColaboradores.getTecnico(tecDataMaisProx.tecID);
 			gestReparacoes.addReparacao(orc, tec);
-			gestColaboradores.addEventoAgenda(tecDataMaisProx.tecID, orc.getTempoEstimado(), "Reparacao: " + orc.getID());
+			gestColaboradores.addEventoAgenda(tecDataMaisProx.tecID, orc.getTempoEstimado(),
+					"Reparacao: " + orc.getID());
 		}
 	}
 
@@ -238,7 +240,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return gestReparacoes.getOrcamentoMaisAntigo();
 	}
 
-  @Override
+	@Override
 	public List<Orcamento> arquivaOrcamentos() {
 		return gestReparacoes.arquivarOrcamentos();
 	}
@@ -263,5 +265,9 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return this.gestReparacoes.getReparacao(id);
 	}
 
-	
+	@Override
+	public AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException {
+		return this.gestColaboradores.getAgendaDia(data, tecId);
+	}
+
 }

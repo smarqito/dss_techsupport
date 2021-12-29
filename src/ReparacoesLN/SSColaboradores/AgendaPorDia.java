@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import Middleware.EntradaNaoExisteException;
 import Middleware.NaoExisteDisponibilidadeException;
@@ -26,6 +27,12 @@ public class AgendaPorDia implements Comparator<AgendaPorDia>, Serializable {
 	public AgendaPorDia(LocalDate data) {
 		tarefas = new TreeSet<>();
 		this.data = data;
+	}
+
+	public AgendaPorDia(AgendaPorDia apd) {
+		tarefas = apd.tarefas.stream().collect(Collectors.toCollection(() -> new TreeSet<>()));
+		tempoDisp = apd.tempoDisp;
+		data = apd.data;
 	}
 
 	public LocalDate getData() {
@@ -88,9 +95,17 @@ public class AgendaPorDia implements Comparator<AgendaPorDia>, Serializable {
 		}
 	}
 
+	public Set<EntradaAgenda> getEntradaAgenda() {
+		return tarefas.stream().collect(Collectors.toCollection(() -> new TreeSet<>()));
+	}
+
 	@Override
 	public int compare(AgendaPorDia arg0, AgendaPorDia arg1) {
 		return arg0.data.compareTo(arg1.data);
+	}
+
+	public AgendaPorDia clone() {
+		return new AgendaPorDia(this);
 	}
 
 }

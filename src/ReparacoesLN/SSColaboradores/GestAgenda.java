@@ -1,6 +1,7 @@
 package ReparacoesLN.SSColaboradores;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -23,6 +24,11 @@ public class GestAgenda implements Serializable {
 		} catch (NoSuchElementException e) {
 			throw new TecnicoNaoTemAgendaException(tecId);
 		}
+	}
+
+	public AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException {
+		Agenda ag = getAgenda(tecId);
+		return ag.getAgendaDia(data).clone();
 	}
 
 	/**
@@ -66,7 +72,8 @@ public class GestAgenda implements Serializable {
 	 * @throws NaoExisteDisponibilidadeException
 	 * @throws TecnicoNaoTemAgendaException
 	 */
-	public LocalDateTime addEvento(Integer tempo, String detalhes) throws NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException {
+	public LocalDateTime addEvento(Integer tempo, String detalhes)
+			throws NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException {
 		TecData maisProx = prazoMaisProx(tempo);
 		Agenda ag = getAgenda(maisProx.tecID);
 		return ag.addEvento(tempo, detalhes);
@@ -98,7 +105,8 @@ public class GestAgenda implements Serializable {
 	 * @throws EntradaNaoExisteException
 	 * @throws TecnicoNaoTemAgendaException
 	 */
-	public void removeEvento(String tecId, LocalDateTime data) throws EntradaNaoExisteException, TecnicoNaoTemAgendaException {
+	public void removeEvento(String tecId, LocalDateTime data)
+			throws EntradaNaoExisteException, TecnicoNaoTemAgendaException {
 		getAgenda(tecId).removeEvento(data);
 	}
 
