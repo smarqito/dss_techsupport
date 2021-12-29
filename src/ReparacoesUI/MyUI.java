@@ -44,7 +44,6 @@ public class MyUI {
 
 		// Executar o menu
 		menu.run();
-
 		//System.out.println("Guardando...");
 		//this.model.save();
 
@@ -175,10 +174,11 @@ public class MyUI {
 		System.out.println("Insira o tempo estimado");
 		int tempo = scin.nextInt();
 		model.registarRepExpresso(nome, tempo, preco);
+		System.out.println("Reparação expresso criada com sucesso!");
 	}
 
 	private void criarPassoRep() {
-		System.out.println("Insira o identificador do orçamento a ser criado: ");
+		System.out.println("Insira o identificador do orçamento a atualizar: ");
 		String orcId = scin.nextLine();
 		this.adicionarPasso(orcId);
 	}
@@ -207,11 +207,13 @@ public class MyUI {
 		String orcId = null; //model.getOrcamentoMaisAntigo();
 
 		Menu menu = new Menu(new String[]{
-				"Definir plano de trabalhos"
+				"Definir plano de trabalhos",
+				"Gerar Orcamento"
 		});
 
 		// Registar os handlers das transições
 		menu.setHandler(1, () -> definirPLano(orcId, tecId));
+		menu.setHandler(2, () -> gerarOrc(orcId));
 
 		menu.runOnce();
 	}
@@ -220,17 +222,14 @@ public class MyUI {
 		//print do orcamento
 		Menu menu = new Menu(new String[]{
 				"Adicionar passo de reparação",
-				"Gerar Orcamento",
 				"Registar comunicação com o cliente"
 		});
 
 		// pré-condições
-		//agenda nao vazia
 
 		// Registar os handlers das transições
 		menu.setHandler(1, () -> adicionarPasso(orcId));
-		menu.setHandler(2, () -> gerarOrc(orcId));
-		menu.setHandler(3, () -> registarComunic(orcId, tecId));
+		menu.setHandler(2, () -> registarComunic(orcId, tecId));
 
 		menu.run();
 	}
@@ -305,7 +304,7 @@ public class MyUI {
 	private void cancelarRep(String repId) {
 		System.out.println("Insira as horas gastas: ");
 		int tempo = scin.nextInt();
-		model.alterarEstadoRep(repId, ReparacaoEstado.cancelada);
+		model.alterarEstadoRep(repId, ReparacaoEstado.cancelada, "tempo gasto: " + tempo);
 	}
 
 	private void menuFuncionarioBalcao(){
@@ -317,8 +316,6 @@ public class MyUI {
 				"Registar pedido de Reparação Expresso",
 				"Registar entrega do equipamento"
 		});
-
-		// mais pré-condições?
 
 		// Registar os handlers das transições
 		menu.setHandler(1, this::registaCliente);
