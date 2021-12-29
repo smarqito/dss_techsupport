@@ -247,6 +247,7 @@ public class MyUI {
 		System.out.println("Insira o tempo estimado: ");
 		int tempo = scin.nextInt();
 		model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
+		System.out.println("Passo criado com sucesso");
 	}
 
 	private void gerarOrc(String orcId) {
@@ -274,7 +275,7 @@ public class MyUI {
 					"Cancelar reparação"
 			});
 
-			
+
 			// Registar os handlers das transições
 			menu.setHandler(1, () -> realizarPasso(repId));
 			menu.setHandler(2, () -> comunicarErro(repId, tecId));
@@ -438,5 +439,4 @@ public class MyUI {
 			e.printStackTrace();
 		}
 	}
-
 }
