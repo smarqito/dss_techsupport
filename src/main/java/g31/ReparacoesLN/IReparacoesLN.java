@@ -1,7 +1,6 @@
 package g31.ReparacoesLN;
 
 import g31.Middleware.*;
-import g31.ReparacoesLN.SSReparacoes.*;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
 import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;

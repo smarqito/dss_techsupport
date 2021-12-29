@@ -21,5 +21,10 @@ public class App {
         }
         MyUI ui = new MyUI(model);
         ui.run();
+        try {
+            model.saveInstance();
+        } catch (IOException e) {
+            System.out.println("Erro a gravar");
+        }
     }
 }
