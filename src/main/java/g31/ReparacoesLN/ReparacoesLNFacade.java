@@ -200,6 +200,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
 		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
 		Balcao b = new Rececao(e, f);
+		gestColaboradores.addBalcao(b);
 		if (e.isProprietario(nif)) {
 			return this.gestReparacoes.registarOrcamento(e, descr);
 		}
