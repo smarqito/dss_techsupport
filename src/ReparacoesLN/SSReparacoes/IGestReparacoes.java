@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.OrcamentoNaoExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 
@@ -19,8 +20,9 @@ public interface IGestReparacoes {
 	/**
 	 * 
 	 * @param ref
+	 * @throws OrcamentoNaoExisteException
 	 */
-	Orcamento getOrcamento(String ref);
+	Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -60,8 +62,9 @@ public interface IGestReparacoes {
 	/**
 	 * 
 	 * @param nomeRepXpresso
+	 * @throws ReparacaoNaoExisteException
 	 */
-	Integer getTempoEstimado(String nomeRepXpresso);
+	Integer getTempoEstimado(String nomeRepXpresso) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -83,6 +86,20 @@ public interface IGestReparacoes {
 
 	/**
 	 * 
+	 * @param nome
+	 * @return
+	 * @throws ReparacaoNaoExisteException
+	 */
+	ReparacaoExpresso getReparacaoExpresso(String nome) throws ReparacaoNaoExisteException;
+
+	/**
+	 * Calcula a lista de todas as reparacoes disponiveis
+	 * @return
+	 */
+	List<ReparacaoExpresso> getReparacaoExpresso();
+
+	/**
+	 * 
 	 * @param nomeCategoria
 	 */
 	void registaCategoria(String nomeCategoria);
@@ -97,12 +114,17 @@ public interface IGestReparacoes {
 	void registaContacto(String repId, String msg, Tecnico tec) throws ReparacaoNaoExisteException;
 
 	/**
+	 * Método que regista a realização de um passo de reparação
+	 * Atualiza os valores efetivos do passo atual a realizar-se
+	 * Atualiza a lista de passos realizados
+	 * Atualiza o próximo passo a ser realizado como atual
 	 * 
-	 * @param repID
-	 * @param mins
-	 * @param custo
+	 * @param repID Identificador da reparação a realizar
+	 * @param mins  Tempo efetivo da reparação
+	 * @param custo Custo efetivo da reparação
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void registaPasso(String repID, Integer mins, Double custo);
+	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException;
 
 	/**
 	 * Método para registar uma nova reparação expresso nas reparações disponíveis
@@ -131,12 +153,15 @@ public interface IGestReparacoes {
 	void registaPT(String orcId, List<PassoReparacao> passos);
 
 	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
+	 * A reparação só é efetuada se o tipo de reparação existir no sistema
 	 * 
-	 * @param equip
-	 * @param nomeRepXpresso
-	 * @param tec
+	 * @param equip          Equipamento a reparar
+	 * @param nomeRepXpresso Nome da reparação a efetuar
+	 * @param tec            Técnico a realizar a reparação
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec);
+	void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 

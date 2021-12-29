@@ -90,7 +90,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void generateOrc(String orcId) {
-		Orcamento o = gestReparacoes.getOrcamento(orcId);
+		gestReparacoes.generateOrc(orcId);
 	}
 
 	@Override

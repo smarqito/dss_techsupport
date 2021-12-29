@@ -10,6 +10,11 @@ import ReparacoesLN.SSColaboradores.*;
 
 public abstract class Reparacao {
 
+	private static int ID = 1;
+	private static int GetID() {
+		return ID++;
+	}
+
 	private Equipamento equipamento;
 	private Set<EstadoReparacao> estados;
 	private List<Comunicacao> comunicacoes;
@@ -17,6 +22,20 @@ public abstract class Reparacao {
 	private String id;
 	private LocalDateTime prazoReparacao;
 	private LocalDateTime dataCriacao;
+
+	
+	public Reparacao() {
+		dataCriacao = LocalDateTime.now();
+		comunicacoes = new ArrayList<>();
+		estados = new TreeSet<>();
+		id = GetID()+"";		
+	}
+
+	public Reparacao(Equipamento equip, Tecnico tec) {
+		this();
+		this.equipamento = equip;
+		this.tecnico = tec;
+	}
 
 	public Equipamento getEquipamento() {
 		return equipamento;
