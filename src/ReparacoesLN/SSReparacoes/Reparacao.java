@@ -55,7 +55,7 @@ public abstract class Reparacao {
 
 	public void alteraEstado(ReparacaoEstado novoEstado, String msg) {
 		EstadoReparacao novo = new EstadoReparacao(novoEstado, msg);
-		this.estados.add(0, novo);
+		this.estados.add(novo);
 
 	}
 
