@@ -227,7 +227,12 @@ public interface IGestReparacoes {
 	 * @throws PassoJaExisteException
 	 */
 	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) throws PassoJaExisteException;
-
+	
+	/** 
+     * Método que arquiva os orçamentos cujo prazo limite para serem aceites pelo cliente expiraram 
+     * Filtra todso os Orcamentos que estejam ativos e ja passaram o prazo limite 
+     *
+     */
 	void arquivarOrcamentos();
 
 	
