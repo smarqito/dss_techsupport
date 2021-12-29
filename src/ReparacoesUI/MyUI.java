@@ -1,7 +1,9 @@
 package ReparacoesUI;
 
+import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.TecnicoJaTemAgendaException;
 import ReparacoesLN.*;
+import ReparacoesLN.SSReparacoes.OrcamentoEstado;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -138,22 +140,95 @@ public class MyUI {
 	private void menuTecnico(){
 		Menu menu = new Menu(new String[]{
 				"Fazer orçamento",
-				"Realizar reparação"
+				"Realizar reparação",
+				"Menu Colaborador Especializado"
 		});
 
-		// mais pré-condições?
+		// pré-condições
+		//listas de orcamentos não vazia
+		//agenda nao vazia
 
 		// Registar os handlers das transições
 		menu.setHandler(1, this::fazerOrcamento);
 		menu.setHandler(2, this::realizarReparacao);
+		menu.setHandler(3, this::menuColabEspecial);
 
 		menu.run();
 	}
 
 	private void fazerOrcamento() {
+
+		//get orcamento mais antigo
+		//print de algumas informações do orcamento
+		String orcId = null;
+
+		Menu menu = new Menu(new String[]{
+				"Definir plano de trabalhos"
+		});
+		// pré-condições
+		//listas de orcamentos não vazia
+		//agenda nao vazia
+
+		// Registar os handlers das transições
+		menu.setHandler(1, () -> definirPLano(orcId));
+
+		menu.runOnce();
+	}
+
+	private void definirPLano(String orcId) {
+		Menu menu = new Menu(new String[]{
+				"Adicionar passo de reparação",
+				"Gerar Orcamento",
+				"Registar comunicação com o cliente"
+		});
+
+		// pré-condições
+		//listas de orcamentos não vazia
+		//agenda nao vazia
+
+		// Registar os handlers das transições
+		menu.setHandler(1, () -> adicionarPasso(orcId));
+		menu.setHandler(2, () -> gerarOrc(orcId));
+		menu.setHandler(3, () -> registarComunic(orcId));
+
+		menu.run();
+	}
+
+	private void adicionarPasso(String orcId) {
+		System.out.println("Insira nome do passo a adicionar: ");
+		String nome = scin.nextLine();
+		System.out.println("Insira o material a adicionar: ");
+		String material = scin.nextLine();
+		System.out.println("Insira quantidade de material: ");
+		int quantidade = scin.nextInt();
+		System.out.println("Insira custo total do material: ");
+		double custo = scin.nextDouble();
+		System.out.println("Insira o tempo estimado: ");
+		int tempo = scin.nextInt();
+		model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
+	}
+
+	private void gerarOrc(String orcId) {
+		//print do orcamento
+		try {
+			model.alterarEstadoOrc(orcId, OrcamentoEstado.enviado);
+		} catch (EstadoOrcNaoEValidoException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void registarComunic(String orcId) {
+		System.out.println("Comentário sobre a comunicação: ");
+		String comentario = scin.nextLine();
+		model.comunicarErro(orcId, tecId, comentario);
 	}
 
 	private void realizarReparacao() {
+		Menu menu = new Menu(new String[]{
+				"Fazer orçamento",
+				"Realizar reparação",
+				"Menu Colaborador Especializado"
+		});
 	}
 
 	private void menuFuncionarioBalcao(){
