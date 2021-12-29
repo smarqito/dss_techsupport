@@ -40,7 +40,7 @@ public class MenuFuncBalcao {
             System.out.println("Insira o email do cliente: ");
             String email = scin.nextLine();
             model.registaCliente(nif, numero, email);
-            System.out.println("Cliente registado!");
+            System.out.println("Cliente registado com o nif:" + nif);
         } catch (ClienteJaExisteException e) {
             System.out.println("Já existe um cliente registado com o nif: " + nif);
         }
@@ -73,7 +73,7 @@ public class MenuFuncBalcao {
             System.out.println("Insira a descrição do orçamento: ");
             String desc = scin.nextLine();
             model.registarOrcamento(nif, eqId, desc);
-            System.out.println("Pedido de Orcamento efetuado");
+            System.out.println("Pedido de Orcamento registado com o id: ");
         } catch (EquipamentoNaoExisteException e) {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
         }
@@ -96,6 +96,7 @@ public class MenuFuncBalcao {
     private void confirmaOrc(String id) {
         try {
             model.alterarEstadoOrc(id, OrcamentoEstado.aceite);
+            System.out.println("Orçamento " + id + " confirmado!");
         } catch (ColaboradorNaoExisteException e) {
             System.out.println("Não existe o colaborador");
         } catch (EstadoOrcNaoEValidoException e) {
@@ -114,6 +115,7 @@ public class MenuFuncBalcao {
     private void recusaOrc(String id) {
         try {
             model.alterarEstadoOrc(id, OrcamentoEstado.arquivado);
+            System.out.println("Orçamento " + id + " recusado!");
         } catch (ColaboradorNaoExisteException e) {
             System.out.println("Não existe o colaborador");
         } catch (EstadoOrcNaoEValidoException e) {
@@ -130,13 +132,14 @@ public class MenuFuncBalcao {
     }
 
     private void pedidoRepXpresso() {
-        String eqId = null, tipo = null;
+        String eqId = null, tipo = null, id = null;
         try {
             System.out.println("Insira o tipo de reparação expresso: ");
             tipo = scin.nextLine();
             System.out.println("Insira o identificador do equipamento: ");
             eqId = scin.nextLine();
-            model.addRepExpresso(eqId, tipo);
+            id = model.addRepExpresso(eqId, tipo);
+            System.out.println("Pedido de reparação com o id " + id + " efetuado com sucesso!");
         } catch (ColaboradorNaoExisteException e) {
             System.out.println("Não existe o colaborador");
         } catch (EquipamentoNaoExisteException e) {
@@ -161,6 +164,7 @@ public class MenuFuncBalcao {
             repId = scin.nextLine();
             model.alteraEstadoEq(eqId, EstadoEquipamento.entregue);
             model.alterarEstadoRep(repId, ReparacaoEstado.pago);
+            System.out.println("Equipamento " + eqId + " entregue e reparação " + repId + " paga!");
         } catch (EquipamentoNaoExisteException e) {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (ReparacaoNaoExisteException e) {
