@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import ReparacoesLN.SSClientes.Equipamento;
 
-public class Entrega extends Balcao implements Serializable {
+public class Entrega extends Balcao {
 
     /**
      * Construtor para a classe entrega
