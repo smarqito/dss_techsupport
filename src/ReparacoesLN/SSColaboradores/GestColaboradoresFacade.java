@@ -39,46 +39,42 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 			colabs.put(c.getId(), c);
 	}
 
-	/**
-	 * 
-	 * @param tipo
-	 * @param de
-	 * @param ate
-	 */
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipFuncBalcao(Class tipo, LocalDateTime de, LocalDateTime ate) {
 		
-		Map<FuncionarioBalcao, List<Equipamento>> equips = new HashMap<>();
+		Map<FuncionarioBalcao, List<Equipamento>> balcao_equips = new HashMap<>();
 
 		balcao.stream().forEach(b -> {
 
-			LocalDateTime data = LocalDateTime.now();
-			//data = b.getData();
+			LocalDateTime data = b.getData();
 
 			if(data.isAfter(de) && data.isBefore(ate)) {
-				//FuncionarioBalcao f = b.getFuncionarioBalcao();
-				//Equipamento e = b.getEquipamento();
+				FuncionarioBalcao f = b.getFuncionarioBalcao();
+				Equipamento e = b.getEquipamento();
+
+				List<Equipamento> equips = balcao_equips.get(f);
+
+				if(equips == null) {
+					equips.add(e);
+
+					balcao_equips.put(f, equips);
+				
+				} else {
+					equips.add(e);
+					
+					balcao_equips.replace(f, equips);
+				}
 			}
 		});
 
 
-		return equips;
+		return balcao_equips;
 	}
 
-	/**
-	 * 
-	 * @param de
-	 * @param ate
-	 */
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate) {
 		
 		return getEquipFuncBalcao(Rececao.class, de, ate);
 	}
 
-	/**
-	 * 
-	 * @param de
-	 * @param ate
-	 */
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate) {
 		
 		return getEquipFuncBalcao(Entrega.class, de, ate);
