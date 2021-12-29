@@ -97,17 +97,17 @@ public class MenuFuncBalcao {
         try {
             model.alterarEstadoOrc(id, OrcamentoEstado.aceite);
         } catch (ColaboradorNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe o colaborador");
         } catch (EstadoOrcNaoEValidoException e) {
-            e.printStackTrace();
+            System.out.println("Estado de orçamento não é válido");
         } catch (ColaboradorNaoTecnicoException e) {
-            e.printStackTrace();
+            System.out.println("Colaborador não é um técnico");
         } catch (OrcamentoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe orçamento com o identificador: " + id);
         } catch (NaoExisteDisponibilidadeException e) {
-            e.printStackTrace();
+            System.out.println("Não existe disponiblidade para realizar o orçamento");
         } catch (TecnicoNaoTemAgendaException e) {
-            e.printStackTrace();
+            System.out.println("Técnico não tem agenda");
         }
     }
 
@@ -115,54 +115,56 @@ public class MenuFuncBalcao {
         try {
             model.alterarEstadoOrc(id, OrcamentoEstado.arquivado);
         } catch (ColaboradorNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe o colaborador");
         } catch (EstadoOrcNaoEValidoException e) {
-            e.printStackTrace();
+            System.out.println("Estado de orçamento não é válido");
         } catch (ColaboradorNaoTecnicoException e) {
-            e.printStackTrace();
+            System.out.println("Colaborador não é um técnico");
         } catch (OrcamentoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe orçamento com o identificador: " + id);
         } catch (NaoExisteDisponibilidadeException e) {
-            e.printStackTrace();
+            System.out.println("Não existe disponiblidade para realizar o orçamento");
         } catch (TecnicoNaoTemAgendaException e) {
-            e.printStackTrace();
+            System.out.println("Técnico não tem agenda");
         }
     }
 
     private void pedidoRepXpresso() {
+        String eqId = null, tipo = null;
         try {
             System.out.println("Insira o tipo de reparação expresso: ");
-            String tipo = scin.nextLine();
+            tipo = scin.nextLine();
             System.out.println("Insira o identificador do equipamento: ");
-            String eqId = scin.nextLine();
+            eqId = scin.nextLine();
             model.addRepExpresso(eqId, tipo);
         } catch (ColaboradorNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe o colaborador");
         } catch (EquipamentoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (ColaboradorNaoTecnicoException e) {
-            e.printStackTrace();
+            System.out.println("Colaborador não é um técnico");
         } catch (NaoExisteDisponibilidadeException e) {
-            e.printStackTrace();
+            System.out.println("Não existe disponiblidade para realizar a reparação de imediato");
         } catch (TecnicoNaoTemAgendaException e) {
-            e.printStackTrace();
+            System.out.println("Técnico não tem agenda");
         } catch (ReparacaoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe a reparação expresso: " + tipo);
         }
     }
 
     private void registarEntregaEquip() {
+        String eqId = null, repId = null;
         try {
             System.out.println("Insira o identificador do equipamento: ");
-            String eqId = scin.nextLine();
+            eqId = scin.nextLine();
             System.out.println(("Insira identificador da reparação"));
-            String repId = scin.nextLine();
+            repId = scin.nextLine();
             model.alteraEstadoEq(eqId, EstadoEquipamento.entregue);
             model.alterarEstadoRep(repId, ReparacaoEstado.pago);
         } catch (EquipamentoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (ReparacaoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("Não existe a reparação: " + repId);
         }
     }
 }
