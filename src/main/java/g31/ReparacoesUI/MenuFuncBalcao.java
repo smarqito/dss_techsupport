@@ -11,12 +11,12 @@ import static g31.ReparacoesUI.MyUI.scin;
 public class MenuFuncBalcao {
     public void menuFuncionarioBalcao() {
         Menu menu = new Menu(new String[] {
-                "Registar cliente",
+                "Registar Cliente",
                 "Registar Equipamento",
-                "Registar pedido de orçamento",
-                "Confirmar orçamento",
-                "Registar pedido de Reparação Expresso",
-                "Registar entrega do equipamento"
+                "Registar Pedido de Orçamento",
+                "Confirmar Orçamento",
+                "Registar Pedido de Reparação Expresso",
+                "Registar Entrega do Equipamento"
         });
 
         // Registar os handlers das transições
@@ -65,18 +65,20 @@ public class MenuFuncBalcao {
     }
 
     private void pedidoOrcamento() {
-        String eqId = null;
+        String eqId = null, nif = null;
         try {
             System.out.println("Insira o nif do cliente: ");
-            String nif = scin.nextLine();
+            nif = scin.nextLine();
             System.out.println("Insira o identificador do equipamento: ");
             eqId = scin.nextLine();
             System.out.println("Insira a descrição do orçamento: ");
             String desc = scin.nextLine();
-            model.registarOrcamento(nif, eqId, desc);
-            System.out.println("Pedido de Orcamento registado com o id: ");
+            String id = model.registarOrcamento(nif, eqId, desc);
+            System.out.println("Pedido de Orcamento registado com o id: " + id);
         } catch (EquipamentoNaoExisteException e) {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
+        } catch (EquipamentoNaoAssociadoAoCliente e) {
+            System.out.println("Equipamento  " + eqId + " não está associado ao cliente com o nif: " + nif);
         }
     }
 
