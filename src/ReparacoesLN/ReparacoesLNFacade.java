@@ -256,4 +256,10 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return this.gestColaboradores.getColaborador(id);
 	}
 
+	@Override
+	public Reparacao getReparacao(String id) throws ReparacaoNaoExisteException {
+		return this.gestReparacoes.getReparacao(id);
+	}
+
+	
 }

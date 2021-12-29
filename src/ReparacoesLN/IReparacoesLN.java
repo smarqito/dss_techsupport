@@ -349,4 +349,11 @@ public interface IReparacoesLN {
 	 */
 	Colaborador getColaborador(String id) throws ColaboradorNaoExisteException;
 
+	/**
+	 * Retorna uma reparacao a partir do ID
+	 * @param id ID da reparacao a procurar
+	 * @return Reparacao
+	 * @throws ReparacaoNaoExisteException
+	 */
+	Reparacao getReparacao(String id) throws ReparacaoNaoExisteException;
 }
