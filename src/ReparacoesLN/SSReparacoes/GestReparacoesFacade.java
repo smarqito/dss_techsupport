@@ -330,8 +330,17 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	public void arquivarOrcamentos() {
-		// TODO - implement GestReparacoesFacade.arquivarOrcamentos
-		throw new UnsupportedOperationException();
+		List<Orcamento> orcs = filterOrcamentos(x -> x.estaAtivo() && x.passouPrazo()); 
+ 
+        orcs.stream().forEach(o -> { 
+
+            try { 
+                o.alteraEstado(OrcamentoEstado.arquivado); 
+            } catch (EstadoOrcNaoEValidoException e) { 
+                // Se esta ativo ent e pq ainda não teve o estado arquivada
+				// nunca vai chegar a este catch
+            } 
+        });
 	}
 
 	/**
