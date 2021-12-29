@@ -2,6 +2,7 @@ package ReparacoesLN.SSColaboradores;
 
 import ReparacoesLN.SSClientes.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -109,4 +110,12 @@ public interface IGestColaboradores {
 	 */
 	TecData prazoReparacaoMaisProx(Integer duracao);
 
+	/**
+	 * Calcula o plano da agenda para um dia, para um tecnico
+	 * @param data dia a procurar
+	 * @param tecId Tecnico a procurar
+	 * @return Agenda Por Dia
+	 * @throws TecnicoNaoTemAgendaException
+	 */
+	AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException;
 }

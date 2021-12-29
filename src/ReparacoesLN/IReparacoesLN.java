@@ -4,6 +4,7 @@ import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSColaboradores.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -360,4 +361,14 @@ public interface IReparacoesLN {
 	 * @throws ReparacaoNaoExisteException
 	 */
 	Reparacao getReparacao(String id) throws ReparacaoNaoExisteException;
+
+	/**
+	 * Calcula a agenda do dia
+	 * 
+	 * @param data Dia a ser procurado
+	 * @param tecId Tecnico que se pretende a agenda
+	 * @return AgendaPorDia
+	 * @throws TecnicoNaoTemAgendaException
+	 */
+	AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException;
 }

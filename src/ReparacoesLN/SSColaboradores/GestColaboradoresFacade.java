@@ -2,6 +2,7 @@ package ReparacoesLN.SSColaboradores;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -128,6 +129,11 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	@Override
 	public TecData prazoReparacaoMaisProx(Integer duracao) {
 		return this.agenda.prazoMaisProx(duracao);
+	}
+
+	@Override
+	public AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException {
+		return this.agenda.getAgendaDia(data, tecId);
 	}
 
 }
