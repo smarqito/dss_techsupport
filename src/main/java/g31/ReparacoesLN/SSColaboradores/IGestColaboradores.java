@@ -124,4 +124,10 @@ public interface IGestColaboradores {
 	 * @throws TecnicoNaoTemAgendaException
 	 */
 	AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException;
+
+	/**
+	 * Adiciona um elemento da Classe Balcão à lista balcao
+	 * @param b Balcao a adicionar
+	 */
+	void addBalcao(Balcao b);
 }

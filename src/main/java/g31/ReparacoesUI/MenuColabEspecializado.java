@@ -25,7 +25,7 @@ public class MenuColabEspecializado {
     }
 
     private void criarRepXpresso() {
-        
+      
         System.out.println("Insira o nome da reparação expresso a adicionar: ");
         String nome = scin.nextLine();
         System.out.println("Insira o preço: ");
@@ -34,11 +34,14 @@ public class MenuColabEspecializado {
         int tempo = scin.nextInt();
 
         try {
+
             model.registarRepExpresso(nome, tempo, preco);
             System.out.println("Reparação expresso criada com sucesso!");
 
         } catch (ReparacaoExpressoJaExisteException e) {
-            System.out.println("A reparação expresso com nome "+nome+" já existe!");
+
+            System.out.println("A reparação expresso " + nome + " já existe!");
+
         }
     }
 
@@ -74,11 +77,9 @@ public class MenuColabEspecializado {
 
         try {
             model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
-            System.out.println("Passo criado com sucesso");
-
+            System.out.println("Passo " + nome + " adicionado ao orçamento com o id: " + orcId);
         } catch (PassoJaExisteException e) {
             System.out.println("O passo "+nome+" já existe no plano de trabalhos!");
         }
-
     }
 }

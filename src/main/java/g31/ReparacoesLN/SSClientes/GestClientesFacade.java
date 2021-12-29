@@ -13,6 +13,7 @@ import g31.Middleware.ClienteJaExisteException;
 import g31.Middleware.ClienteNaoExisteException;
 import g31.Middleware.EquipamentoJaAssociadoException;
 import g31.Middleware.EquipamentoNaoExisteException;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
 
 public class GestClientesFacade implements IGestClientes, Serializable {
 
@@ -82,12 +83,13 @@ public class GestClientesFacade implements IGestClientes, Serializable {
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif)
+	public String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
 		Cliente c = getCliente(nif);
 		Equipamento equip = new Equipamento(codR, marca, c);
 		this.equipamentos.put(equip.getId(), equip);
 		associaEquipamentoCliente(c, equip);
+		return equip.getId();
 	}
 
 	@Override

@@ -65,8 +65,9 @@ public interface IGestClientes {
 	 * @param nif
 	 * @throws ClienteNaoExisteException
 	 * @throws EquipamentoJaAssociadoException
+	 * @return
 	 */
-	void registaEquipamento(String codR, String marca, String nif)
+	String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException;
 
 	/**
@@ -76,6 +77,7 @@ public interface IGestClientes {
 	 * @throws EquipamentoNaoExisteException
 	 */
 	void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException;
+
 
 	/**
 	 * 

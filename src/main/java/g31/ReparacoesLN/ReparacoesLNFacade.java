@@ -9,24 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import g31.Middleware.ClienteJaExisteException;
-import g31.Middleware.ClienteNaoExisteException;
-import g31.Middleware.ColaboradorNaoExisteException;
-import g31.Middleware.ColaboradorNaoTecnicoException;
-import g31.Middleware.EquipamentoJaAssociadoException;
-import g31.Middleware.EquipamentoNaoExisteException;
-import g31.Middleware.EstadoOrcNaoEValidoException;
-import g31.Middleware.NaoExisteDisponibilidadeException;
-import g31.Middleware.NaoExisteOrcamentosAtivosException;
-import g31.Middleware.OrcamentoNaoExisteException;
-import g31.Middleware.PassoJaExisteException;
-import g31.Middleware.ReparacaoExpressoJaExisteException;
-import g31.Middleware.ReparacaoNaoExisteException;
-import g31.Middleware.TecnicoJaTemAgendaException;
-import g31.Middleware.TecnicoNaoTemAgendaException;
-import g31.Middleware.TipoColaboradorErradoException;
+import g31.Middleware.*;
 import g31.ReparacoesBD.ReparacoesBDFacade;
 import g31.ReparacoesLN.SSClientes.*;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Balcao;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Entrega;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Rececao;
 import g31.ReparacoesLN.SSReparacoes.*;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
@@ -58,7 +46,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public String addRepExpresso(String equipId, String nomeRepExp)
+	public String addRepExpresso(String equipId, String nomeRepExp, String funcId)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
 			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException {
 
@@ -67,6 +55,10 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		if (existeRepX) {
 
 			Equipamento eq = gestClientes.getEquipamento(equipId);
+			FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
+			Balcao b = new Rececao(eq, f);
+
+			gestColaboradores.addBalcao(b);
 
 			Integer duracao_estimada = gestReparacoes.getTempoEstimado(nomeRepExp);
 
@@ -175,13 +167,22 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif)
+	public String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
-		gestClientes.registaEquipamento(codR, marca, nif);
+		return gestClientes.registaEquipamento(codR, marca, nif);
 	}
 
 	@Override
 	public void alteraEstadoEq(String equiID, EstadoEquipamento state) throws EquipamentoNaoExisteException {
+		this.gestClientes.alteraEstadoEq(equiID, state);
+	}
+
+	@Override
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId) throws EquipamentoNaoExisteException, ColaboradorNaoExisteException {
+		Equipamento eq = this.getEquipamento(equiID);
+		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
+		Balcao b = new Entrega(eq, f);
+		gestColaboradores.addBalcao(b);
 		this.gestClientes.alteraEstadoEq(equiID, state);
 	}
 
@@ -195,11 +196,15 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException {
+	public String registarOrcamento(String nif, String equipId, String descr, String funcId) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
+		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
+		Balcao b = new Rececao(e, f);
+		gestColaboradores.addBalcao(b);
 		if (e.isProprietario(nif)) {
-			this.gestReparacoes.registarOrcamento(e, descr);
+			return this.gestReparacoes.registarOrcamento(e, descr);
 		}
+		throw new EquipamentoNaoAssociadoAoCliente();
 	}
 
 	@Override
