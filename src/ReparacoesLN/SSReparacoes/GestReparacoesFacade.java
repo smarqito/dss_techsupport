@@ -70,7 +70,7 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 */
 	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
 		Reparacao r = this.reps.get(repID);
-		r.alteraEstado(estado, null);
+		r.alteraEstado(estado, "");
 	}
 
 	/**
