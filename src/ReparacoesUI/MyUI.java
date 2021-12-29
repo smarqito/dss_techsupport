@@ -3,6 +3,7 @@ package ReparacoesUI;
 import Middleware.TecnicoJaTemAgendaException;
 import ReparacoesLN.*;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class MyUI {
@@ -68,7 +69,8 @@ public class MyUI {
 				"Registar Colaborador",
 				"Listar reparações detalhadas por técnico",
 				"Listar reparações resumidas por técnico",
-				"Listar fluxo de trabalho do funcionário de balcão"
+				"Listar fluxo de trabalho do funcionário de balcão",
+				"Menu Colaborador Especializado"
 		});
 
 		// mais pré-condições?
@@ -78,6 +80,7 @@ public class MyUI {
 		menu.setHandler(2, this::listarDetalhadas);
 		menu.setHandler(3, this::listarResumidas);
 		menu.setHandler(4, this::listarFluxoFunc);
+		menu.setHandler(5, this::menuColabEspecial);
 
 		menu.run();
 	}
@@ -97,12 +100,39 @@ public class MyUI {
 	}
 
 	private void listarDetalhadas() {
+		System.out.println("Mês que pretende ser avaliado: ");
+		int mes = scin.nextInt();
+		System.out.println("Ano: ");
+		int ano = scin.nextInt();
+		LocalDateTime data = LocalDateTime.of(ano, mes, 1, 1, 1, 1, 1);
+		model.getReparacoesMes(data);
 	}
 
 	private void listarFluxoFunc() {
 	}
 
 	private void listarResumidas() {
+	}
+
+	private void menuColabEspecial() {
+		Menu menuTurmas = new Menu(new String[]{
+				"Criar Reparação Expresso",
+				"Criar Passo de Reparação"
+		});
+
+		// Registar pré-condições das transições
+
+		// Registar os handlers das transições
+		menuTurmas.setHandler(1, this::criarRepXpresso);
+		menuTurmas.setHandler(2, this::criarPassoRep);
+
+		menuTurmas.runOnce();
+	}
+
+	private void criarRepXpresso() {
+	}
+
+	private void criarPassoRep() {
 	}
 
 	private void menuTecnico(){
