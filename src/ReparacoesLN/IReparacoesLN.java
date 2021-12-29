@@ -23,6 +23,7 @@ import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
+import Middleware.TecnicoNaoTemAgendaException;
 import Middleware.TipoColaboradorErradoException;
 
 public interface IReparacoesLN {
@@ -42,10 +43,11 @@ public interface IReparacoesLN {
 	 * @throws NaoExisteDisponibilidadeException
 	 * @throws ColaboradorNaoExisteException
 	 * @throws ColaboradorNaoTecnicoException
+	 * @throws TecnicoNaoTemAgendaException
 	 */
 	String addRepExpresso(String equipId, String nomeRepExp)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
-			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException;
 
 	/**
 	 * 
@@ -71,10 +73,12 @@ public interface IReparacoesLN {
 	 * @throws OrcamentoNaoExisteException
 	 * @throws ColaboradorNaoExisteException
 	 * @throws ColaboradorNaoTecnicoException
+	 * @throws TecnicoNaoTemAgendaException
+	 * @throws NaoExisteDisponibilidadeException
 	 */
 	void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
 			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException,
-			ColaboradorNaoExisteException;
+			ColaboradorNaoExisteException, NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException;
 
 	/**
 	 * Altera o estado de reparacao para o novo estado
@@ -349,4 +353,11 @@ public interface IReparacoesLN {
 	 */
 	Colaborador getColaborador(String id) throws ColaboradorNaoExisteException;
 
+	/**
+	 * Retorna uma reparacao a partir do ID
+	 * @param id ID da reparacao a procurar
+	 * @return Reparacao
+	 * @throws ReparacaoNaoExisteException
+	 */
+	Reparacao getReparacao(String id) throws ReparacaoNaoExisteException;
 }

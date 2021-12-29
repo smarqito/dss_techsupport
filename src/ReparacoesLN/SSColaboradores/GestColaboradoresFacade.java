@@ -10,6 +10,7 @@ import Middleware.ColaboradorNaoTecnicoException;
 import Middleware.EntradaNaoExisteException;
 import Middleware.NaoExisteDisponibilidadeException;
 import Middleware.TecnicoJaTemAgendaException;
+import Middleware.TecnicoNaoTemAgendaException;
 import Middleware.TipoColaboradorErradoException;
 import ReparacoesLN.SSClientes.*;
 
@@ -113,17 +114,17 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 
 	@Override
 	public LocalDateTime addEventoAgenda(String tecId, Integer tempo, String detalhes)
-			throws NaoExisteDisponibilidadeException {
+			throws NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException {
 		return this.agenda.addEvento(tecId, tempo, detalhes);
 	}
 
 	@Override
-	public LocalDateTime addEventoAgenda(Integer tempo, String detalhes) throws NaoExisteDisponibilidadeException {
+	public LocalDateTime addEventoAgenda(Integer tempo, String detalhes) throws NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException {
 		return this.agenda.addEvento(tempo, detalhes);
 	}
 
 	@Override
-	public void removeEventoAgenda(String tecId, LocalDateTime data) throws EntradaNaoExisteException {
+	public void removeEventoAgenda(String tecId, LocalDateTime data) throws EntradaNaoExisteException, TecnicoNaoTemAgendaException {
 		agenda.removeEvento(tecId, data);
 	}
 

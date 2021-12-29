@@ -20,6 +20,7 @@ import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
+import Middleware.TecnicoNaoTemAgendaException;
 import Middleware.TipoColaboradorErradoException;
 import ReparacoesBD.ReparacoesBDFacade;
 import ReparacoesLN.SSClientes.*;
@@ -39,7 +40,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	@Override
 	public String addRepExpresso(String equipId, String nomeRepExp)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
-			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException {
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException {
 
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
 
@@ -73,7 +74,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	@Override
 	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
 			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException,
-			ColaboradorNaoExisteException {
+			ColaboradorNaoExisteException, NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
 		if (estado.equals(OrcamentoEstado.aceite)) {
 			Orcamento orc = gestReparacoes.getOrcamento(orcID);
@@ -81,6 +82,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 			orc.setPrazoRep(tecDataMaisProx.data);
 			Tecnico tec = gestColaboradores.getTecnico(tecDataMaisProx.tecID);
 			gestReparacoes.addReparacao(orc, tec);
+			gestColaboradores.addEventoAgenda(tecDataMaisProx.tecID, orc.getTempoEstimado(), "Reparacao: " + orc.getID());
 		}
 	}
 
@@ -256,4 +258,10 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return this.gestColaboradores.getColaborador(id);
 	}
 
+	@Override
+	public Reparacao getReparacao(String id) throws ReparacaoNaoExisteException {
+		return this.gestReparacoes.getReparacao(id);
+	}
+
+	
 }
