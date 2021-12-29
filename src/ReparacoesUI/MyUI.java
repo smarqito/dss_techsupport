@@ -3,10 +3,7 @@ package ReparacoesUI;
 import Middleware.*;
 import ReparacoesLN.IReparacoesLN;
 import ReparacoesLN.SSClientes.EstadoEquipamento;
-import ReparacoesLN.SSColaboradores.AgendaPorDia;
-import ReparacoesLN.SSColaboradores.FuncionarioBalcao;
-import ReparacoesLN.SSColaboradores.Gestor;
-import ReparacoesLN.SSColaboradores.Tecnico;
+import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSReparacoes.OrcamentoEstado;
 import ReparacoesLN.SSReparacoes.ReparacaoEstado;
 import ReparacoesLN.SSReparacoes.ReparacaoProgramada;
@@ -322,7 +319,9 @@ public class MyUI {
 
 	private void verificarAgenda(String tecId) {
 		AgendaPorDia ag = model.getAgendaDia(LocalDate.now(), tecId);
-		//print da agenda
+		for (EntradaAgenda ea : ag.getTarefas()){
+			System.out.println(ea.getDetalhes());
+		}
 	}
 
 	private void registarConclusao(String repId) {
