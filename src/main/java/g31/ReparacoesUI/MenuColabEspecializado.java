@@ -15,7 +15,7 @@ public class MenuColabEspecializado {
                 "Criar Passo de Reparação"
         });
 
-        menu.setPreCondition(2, () -> model.getOrcamentosAtivos().size() > 0);
+        menu.setPreCondition(2, () -> model.getOrcamentosAtivos().size() == 0);
 
         // Registar os handlers das transições
         menu.setHandler(1, this::criarRepXpresso);
@@ -25,19 +25,20 @@ public class MenuColabEspecializado {
     }
 
     private void criarRepXpresso() {
+        
+        System.out.println("Insira o nome da reparação expresso a adicionar: ");
+        String nome = scin.nextLine();
+        System.out.println("Insira o preço: ");
+        double preco = scin.nextDouble();
+        System.out.println("Insira o tempo estimado");
+        int tempo = scin.nextInt();
 
         try {
-            System.out.println("Insira o nome da reparação expresso a adicionar: ");
-            String nome = scin.nextLine();
-            System.out.println("Insira o preço: ");
-            double preco = scin.nextDouble();
-            System.out.println("Insira o tempo estimado");
-            int tempo = scin.nextInt();
             model.registarRepExpresso(nome, tempo, preco);
             System.out.println("Reparação expresso criada com sucesso!");
 
         } catch (ReparacaoExpressoJaExisteException e) {
-            System.out.println("A reparação expresso já existe!");
+            System.out.println("A reparação expresso com nome "+nome+" já existe!");
         }
     }
 
@@ -59,22 +60,24 @@ public class MenuColabEspecializado {
     }
 
     public void adicionarPasso(String orcId) {
+        
+        System.out.println("Insira nome do passo a adicionar: ");
+        String nome = scin.nextLine();
+        System.out.println("Insira o material a adicionar: ");
+        String material = scin.nextLine();
+        System.out.println("Insira quantidade de material: ");
+        int quantidade = scin.nextInt();
+        System.out.println("Insira custo total do material: ");
+        double custo = scin.nextDouble();
+        System.out.println("Insira o tempo estimado: ");
+        int tempo = scin.nextInt();
 
         try {
-            System.out.println("Insira nome do passo a adicionar: ");
-            String nome = scin.nextLine();
-            System.out.println("Insira o material a adicionar: ");
-            String material = scin.nextLine();
-            System.out.println("Insira quantidade de material: ");
-            int quantidade = scin.nextInt();
-            System.out.println("Insira custo total do material: ");
-            double custo = scin.nextDouble();
-            System.out.println("Insira o tempo estimado: ");
-            int tempo = scin.nextInt();
             model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
             System.out.println("Passo criado com sucesso");
+
         } catch (PassoJaExisteException e) {
-            System.out.println("O passo a adicionar já existe no plano de trabalhos!");
+            System.out.println("O passo "+nome+" já existe no plano de trabalhos!");
         }
 
     }

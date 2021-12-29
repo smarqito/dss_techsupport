@@ -29,16 +29,7 @@ public class MenuTecnico {
         });
 
         // pré-condições
-        menu.setPreCondition(1, () -> model.getOrcamentosAtivos().size() > 0);
-        menu.setPreCondition(2, () -> {
-            try {
-                // Agenda não pode estar vazia
-                return model.getAgendaDia(LocalDate.now(), tecId).getEntradaAgenda().size() > 0;
-            } catch (TecnicoNaoTemAgendaException e) {
-                // Técnico não pode realizar reparações
-                return false;
-            }
-        });
+        menu.setPreCondition(1, () -> model.getOrcamentosAtivos().size() == 0);
 
         // Registar os handlers das transições
         menu.setHandler(1, () -> fazerOrcamento(tecId));
@@ -156,40 +147,50 @@ public class MenuTecnico {
 
     private void realizarReparacao(String tecId) {
 
-        System.out.println("Insira o identificador da reparação: ");
-        String repId = scin.nextLine();
-
-        try {            
-            if (model.getReparacao(repId).getClass().equals(ReparacaoProgramada.class)) {
-
-                Menu menu = new Menu(new String[] {
-                        "Realizar passo da reparação",
-                        "Registar comunicação com o cliente",
-                        "Cancelar reparação"
-                });
-
-                ReparacaoProgramada rep = (ReparacaoProgramada) model.getReparacao(repId);
-
-                menu.setPreCondition(1, () -> rep.getPlano().haMaisPassos());
-
-                // Registar os handlers das transições
-                menu.setHandler(1, () -> realizarPasso(repId));
-                menu.setHandler(2, () -> comunicarErro(repId, tecId));
-                menu.setHandler(3, () -> cancelarRep(repId));
-
-                menu.run();
+        try {
+            if(model.getAgendaDia(LocalDate.now(), tecId).getEntradaAgenda().size() == 0) {
+                System.out.println("O técnico "+tecId+" não tem mais tarefas para o dia!");
 
             } else {
-                Menu menu = new Menu(new String[] {
-                        "Registar conclusão"
-                });
-
-                menu.setHandler(1, () -> registarConclusao(repId));
-
+                System.out.println("Insira o identificador da reparação: ");
+                String repId = scin.nextLine();
+        
+                try {            
+                    if (model.getReparacao(repId).getClass().equals(ReparacaoProgramada.class)) {
+        
+                        Menu menu = new Menu(new String[] {
+                                "Realizar passo da reparação",
+                                "Registar comunicação com o cliente",
+                                "Cancelar reparação"
+                        });
+        
+                        ReparacaoProgramada rep = (ReparacaoProgramada) model.getReparacao(repId);
+        
+                        menu.setPreCondition(1, () -> rep.getPlano().haMaisPassos());
+        
+                        // Registar os handlers das transições
+                        menu.setHandler(1, () -> realizarPasso(repId));
+                        menu.setHandler(2, () -> comunicarErro(repId, tecId));
+                        menu.setHandler(3, () -> cancelarRep(repId));
+        
+                        menu.run();
+        
+                    } else {
+                        Menu menu = new Menu(new String[] {
+                                "Registar conclusão"
+                        });
+        
+                        menu.setHandler(1, () -> registarConclusao(repId));
+        
+                    }
+                } catch (ReparacaoNaoExisteException e) {
+                    System.out.println("A reparação com identificador "+repId+" não existe!");
+                }
             }
-        } catch (ReparacaoNaoExisteException e) {
-            System.out.println("A reparação com identificador "+repId+" não existe!");
+        } catch (TecnicoNaoTemAgendaException e1) {
+            System.out.println("O Técnico com identificador "+tecId+" não tem agenda!");
         }
+
     }
 
     private void verificarAgenda(String tecId) {
