@@ -6,6 +6,7 @@ import ReparacoesLN.SSClientes.Cliente;
 import ReparacoesLN.SSClientes.EstadoEquipamento;
 import ReparacoesLN.SSReparacoes.OrcamentoEstado;
 import ReparacoesLN.SSReparacoes.ReparacaoEstado;
+import ReparacoesLN.SSReparacoes.ReparacaoProgramada;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -266,21 +267,32 @@ public class MyUI {
 	private void realizarReparacao(String tecId) {
 		System.out.println("Insira o identificador da reparação: ");
 		String repId = scin.nextLine();
-		Menu menu = new Menu(new String[]{
-				"Realizar passo da reparação",
-				"Registar comunicação com o cliente",
-				"Cancelar reparação"
-		});
+		if (model.getReparacao(repId).getClass().equals(ReparacaoProgramada.getClass())){
+			Menu menu = new Menu(new String[]{
+					"Realizar passo da reparação",
+					"Registar comunicação com o cliente",
+					"Cancelar reparação"
+			});
 
-		Menu menu2 = new Menu(new String[]{
-				"Registar conclusão"
-		});
-		// Registar os handlers das transições
-		menu.setHandler(1, () -> realizarPasso(repId));
-		menu.setHandler(2, () -> comunicarErro(repId, tecId));
-		menu.setHandler(3, () -> cancelarRep(repId));
+			
+			// Registar os handlers das transições
+			menu.setHandler(1, () -> realizarPasso(repId));
+			menu.setHandler(2, () -> comunicarErro(repId, tecId));
+			menu.setHandler(3, () -> cancelarRep(repId));
 
-		menu.run();
+			menu.run();
+		}else {
+			Menu menu = new Menu(new String[]{
+					"Registar conclusão"
+			});
+
+			menu.setHandler(1, () -> registarConclusao(repId));
+
+		}
+	}
+
+	private void registarConclusao(String repId) {
+		model.alterarEstadoRep(repId, ReparacaoEstado.reparado);
 	}
 
 	private void realizarPasso(String repId) {
