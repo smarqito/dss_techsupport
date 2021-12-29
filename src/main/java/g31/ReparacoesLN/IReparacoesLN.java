@@ -334,6 +334,16 @@ public interface IReparacoesLN {
 	Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException;
 
 	/**
+	 * Método que retorna um orçamento dado a sua referência (ID)
+	 * 
+	 * @param ref Identificador a procurar
+	 * 
+	 * @return Orcamento com este identificador
+	 * @throws OrcamentoNaoExisteException
+	 */
+	Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException;
+
+	/**
 	 * Arquiva os orcamentos que passaram de prazo (30 dias)
 	 * 
 	 * @return Orcamentos que foi mudado estado

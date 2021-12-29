@@ -32,10 +32,13 @@ public interface IGestReparacoes {
 	Set<Orcamento> getOrcamentosAtivos();
 
 	/**
+	 * Método que retorna um orçamento dado a sua referência (ID)
 	 * 
-	 * @param ref
+	 * @param ref Identificador a procurar
+	 * 
+	 * @return Orcamento com este identificador
 	 * @throws OrcamentoNaoExisteException
-	 */
+	*/
 	Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException;
 
 	/**

@@ -1,11 +1,12 @@
 package g31.ReparacoesUI;
 
 import g31.Middleware.*;
-import g31.ReparacoesLN.SSColaboradores.AgendaPorDia;
-import g31.ReparacoesLN.SSColaboradores.EntradaAgenda;
-import g31.ReparacoesLN.SSReparacoes.OrcamentoEstado;
-import g31.ReparacoesLN.SSReparacoes.ReparacaoEstado;
-import g31.ReparacoesLN.SSReparacoes.ReparacaoProgramada;
+import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
+import g31.ReparacoesLN.SSColaboradores.Agenda.EntradaAgenda;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 
 import java.time.LocalDate;
 
@@ -15,7 +16,7 @@ import static g31.ReparacoesUI.MyUI.scin;
 public class MenuTecnico {
     private MenuColabEspecializado mce;
 
-    public MenuTecnico(){
+    public MenuTecnico() {
         this.mce = new MenuColabEspecializado();
     }
 
@@ -28,8 +29,7 @@ public class MenuTecnico {
         });
 
         // pré-condições
-        menu.setPreCondition(1, () -> model.getOrcamentosAtivos().size() > 0);
-        // agenda nao vazia
+        menu.setPreCondition(1, () -> model.getOrcamentosAtivos().size() == 0);
 
         // Registar os handlers das transições
         menu.setHandler(1, () -> fazerOrcamento(tecId));
@@ -42,28 +42,46 @@ public class MenuTecnico {
 
     private void fazerOrcamento(String tecId) {
 
-        String orcId = null; // model.getOrcamentoMaisAntigo();
+        try {
+            Orcamento orc = model.getOrcamentoMaisAntigo();
 
-        Menu menu = new Menu(new String[] {
-                "Definir plano de trabalhos",
-                "Gerar Orcamento"
-        });
+            System.out.println("Orcamento: " + orc.getID() + "\n" + "Descrição: " + orc.getDescrProb() + "\n"
+                    + "Equipamento: " + orc.getEquipamento().toString() + "\n");
 
-        // Registar os handlers das transições
-        menu.setHandler(1, () -> definirPLano(orcId, tecId));
-        menu.setHandler(2, () -> gerarOrc(orcId));
+            Menu menu = new Menu(new String[] {
+                    "Definir plano de trabalhos",
+                    "Gerar Orcamento"
+            });
 
-        menu.runOnce();
+            // Registar os handlers das transições
+            menu.setHandler(1, () -> definirPlano(orc.getID(), tecId));
+            menu.setHandler(2, () -> gerarOrc(orc.getID(), tecId));
+
+            menu.runOnce();
+
+        } catch (NaoExisteOrcamentosAtivosException e) {
+
+            System.out.println("Não existem orçamentos ativos para trabalhar!");
+        }
+
     }
 
-    private void definirPLano(String orcId, String tecId) {
-        // print do orcamento
+    private void definirPlano(String orcId, String tecId) {
+
+        Orcamento orc;
+        try {
+            orc = model.getOrcamento(orcId);
+            System.out.println("Plano de Trabalhos atual: "+orc.getPT().toString());
+
+        } catch (OrcamentoNaoExisteException e) {
+            
+            System.out.println("O orçamento com o identificador "+ orcId+" não existe!");
+        }
+
         Menu menu = new Menu(new String[] {
                 "Adicionar passo de reparação",
                 "Registar comunicação com o cliente"
         });
-
-        // pré-condições
 
         // Registar os handlers das transições
         menu.setHandler(1, () -> mce.adicionarPasso(orcId));
@@ -72,81 +90,137 @@ public class MenuTecnico {
         menu.run();
     }
 
+    private void gerarOrc(String orcId, String tecID) {
 
+        Orcamento orc;
+        try {
+            orc = model.getOrcamento(orcId);
+            System.out.println("Orçamento mais antigo: "+ orc.generateResume());
 
-    private void gerarOrc(String orcId) {
-        // print do orcamento
+        } catch (OrcamentoNaoExisteException e) {
+
+            System.out.println("O orçamento com o identificador "+ orcId+" não existe!");
+        }
+        
         try {
             model.alterarEstadoOrc(orcId, OrcamentoEstado.enviado);
-        } catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException
-                | ColaboradorNaoExisteException | NaoExisteDisponibilidadeException | TecnicoNaoTemAgendaException e) {
-            e.printStackTrace();
+
+        } catch (EstadoOrcNaoEValidoException e) {
+            System.out.println("Estado do orçamento "+OrcamentoEstado.enviado+"não válido!");
+
+        } catch (OrcamentoNaoExisteException e) {
+            System.out.println("O orçamento com o identificador "+ orcId+" não existe!");
+
+        } catch (ColaboradorNaoTecnicoException e) {
+            System.out.println("O colaborador associado não é um Técnico!");
+
+        } catch (ColaboradorNaoExisteException e) {
+            System.out.println("O colaborador associado não existe!");
+            
+        } catch (NaoExisteDisponibilidadeException e) {
+            System.out.println("Não há disponibilidade do colaborador associado para realizar o orçamento!");
+
+        } catch (TecnicoNaoTemAgendaException e) {
+            System.out.println("O colaborador associado não possui uma agenda!");
         }
+
     }
 
     private void registarComunic(String orcId, String tecId) {
+
+        System.out.println("Insira comentário sobre a comunicação: ");
+        String comentario = scin.nextLine();
+        
         try {
-            System.out.println("Comentário sobre a comunicação: ");
-            String comentario = scin.nextLine();
             model.comunicarErro(orcId, tecId, comentario);
-        } catch (OrcamentoNaoExisteException | ColaboradorNaoExisteException | ColaboradorNaoTecnicoException e) {
-            e.printStackTrace();
+
+        } catch (OrcamentoNaoExisteException e) {
+            System.out.println("O orçamento com identificador "+orcId+" não existe!");
+
+        } catch (ColaboradorNaoTecnicoException e) {
+            System.out.println("O colaborador com identificador "+ tecId+" não é um Técnico!");
+            
+        } catch (ColaboradorNaoExisteException e) {
+            System.out.println("O colaborador com identificador "+ tecId+" não existe!");
         }
     }
 
     private void realizarReparacao(String tecId) {
-        System.out.println("Insira o identificador da reparação: ");
-        String repId = scin.nextLine();
+
         try {
-            if (model.getReparacao(repId).getClass().equals(ReparacaoProgramada.class)) {
-                Menu menu = new Menu(new String[] {
-                        "Realizar passo da reparação",
-                        "Registar comunicação com o cliente",
-                        "Cancelar reparação"
-                });
+            if(model.getAgendaDia(LocalDate.now(), tecId).getEntradaAgenda().size() == 0) {
+                System.out.println("O técnico "+tecId+" não tem mais tarefas para o dia!");
 
-                // Registar os handlers das transições
-                menu.setHandler(1, () -> realizarPasso(repId));
-                menu.setHandler(2, () -> comunicarErro(repId, tecId));
-                menu.setHandler(3, () -> cancelarRep(repId));
-
-                menu.run();
             } else {
-                Menu menu = new Menu(new String[] {
-                        "Registar conclusão"
-                });
-
-                menu.setHandler(1, () -> registarConclusao(repId));
-
+                System.out.println("Insira o identificador da reparação: ");
+                String repId = scin.nextLine();
+        
+                try {            
+                    if (model.getReparacao(repId).getClass().equals(ReparacaoProgramada.class)) {
+        
+                        Menu menu = new Menu(new String[] {
+                                "Realizar passo da reparação",
+                                "Registar comunicação com o cliente",
+                                "Cancelar reparação"
+                        });
+        
+                        ReparacaoProgramada rep = (ReparacaoProgramada) model.getReparacao(repId);
+        
+                        menu.setPreCondition(1, () -> rep.getPlano().haMaisPassos());
+        
+                        // Registar os handlers das transições
+                        menu.setHandler(1, () -> realizarPasso(repId));
+                        menu.setHandler(2, () -> comunicarErro(repId, tecId));
+                        menu.setHandler(3, () -> cancelarRep(repId));
+        
+                        menu.run();
+        
+                    } else {
+                        Menu menu = new Menu(new String[] {
+                                "Registar conclusão"
+                        });
+        
+                        menu.setHandler(1, () -> registarConclusao(repId));
+        
+                    }
+                } catch (ReparacaoNaoExisteException e) {
+                    System.out.println("A reparação com identificador "+repId+" não existe!");
+                }
             }
-        } catch (ReparacaoNaoExisteException e) {
-            e.printStackTrace();
+        } catch (TecnicoNaoTemAgendaException e1) {
+            System.out.println("O Técnico com identificador "+tecId+" não tem agenda!");
         }
+
     }
 
     private void verificarAgenda(String tecId) {
+
         AgendaPorDia ag;
         try {
             ag = model.getAgendaDia(LocalDate.now(), tecId);
+
             for (EntradaAgenda ea : ag.getEntradaAgenda()) {
                 System.out.println("Reparacao com id: " + ea.getDetalhes());
                 System.out.println("Começa às: " + ea.getInicio());
-                System.out.println("Com duração de: " + ea.getDuracao());
+                System.out.println("Com duração de: " + ea.getDuracao()+"\n");
             }
         } catch (TecnicoNaoTemAgendaException e) {
-            e.printStackTrace();
+            System.out.println("O técnico com identificador "+tecId+" não tem agenda!");
         }
     }
 
     private void registarConclusao(String repId) {
+
         try {
             model.alterarEstadoRep(repId, ReparacaoEstado.reparado);
+
         } catch (ReparacaoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("A reparação com identificador "+repId+" não existe!");
         }
     }
 
     private void realizarPasso(String repId) {
+
         try {
             System.out.println("Insira custo efetivo: ");
             double custo = scin.nextDouble();
@@ -154,18 +228,26 @@ public class MenuTecnico {
             int tempo = scin.nextInt();
             model.registaPasso(repId, tempo, custo);
         } catch (ReparacaoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("A reparação com identificador "+repId+" não existe!");
         }
     }
 
     private void comunicarErro(String repId, String tecId) {
-        try {
+
             System.out.println("Comentário sobre a comunicação: ");
             String msg = scin.nextLine();
-            model.registaContacto(repId, tecId, msg);
-        } catch (ReparacaoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
-            e.printStackTrace();
-        }
+
+            try {
+                model.registaContacto(repId, tecId, msg);
+            } catch (ReparacaoNaoExisteException e) {
+                System.out.println("A reparação com identificador "+repId+" não existe!");
+                
+            } catch (ColaboradorNaoTecnicoException e) {
+                System.out.println("O colaborador com identificador "+ tecId+" não é um Técnico!");
+                
+            } catch (ColaboradorNaoExisteException e) {
+                System.out.println("O colaborador com identificador "+ tecId+" não existe!");
+            }
     }
 
     private void cancelarRep(String repId) {
@@ -174,7 +256,7 @@ public class MenuTecnico {
             int tempo = scin.nextInt();
             model.alterarEstadoRep(repId, ReparacaoEstado.cancelada, "tempo gasto: " + tempo);
         } catch (ReparacaoNaoExisteException e) {
-            e.printStackTrace();
+            System.out.println("A reparação com identificador "+repId+" não existe!");
         }
     }
 }
