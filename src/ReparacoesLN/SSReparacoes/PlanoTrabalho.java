@@ -2,20 +2,33 @@ package ReparacoesLN.SSReparacoes;
 
 import Middleware.PassoNaoExisteException;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PlanoTrabalho {
+public class PlanoTrabalho implements Serializable {
 
 	private List<PassoReparacao> passos;
 	private List<PassoReparacao> passosRealizados;
 	private Integer tempo;
+
+	
+
+	public PlanoTrabalho() {
+		passos = new ArrayList<>();
+		passosRealizados = new ArrayList<>();
+	}
 
 	public PlanoTrabalho(List<PassoReparacao> passos) {
 		this.passos = new ArrayList<>(passos);
 		this.passosRealizados = new ArrayList<>(passos);
 	}
 
+	public PlanoTrabalho(PlanoTrabalho pt) {
+		this.passos = pt.getPassos();
+		this.passosRealizados = pt.getPassosRealizados();
+		this.tempo = pt.getTempo();
+	}
 	/**
 	 * Calcula todos os passos de reparacao
 	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de lista

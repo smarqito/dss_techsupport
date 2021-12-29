@@ -1,7 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -48,7 +47,7 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 			LocalDateTime data = b.getData();
 
 			if(data.isAfter(de) && data.isBefore(ate)) {
-				FuncionarioBalcao f = b.getFuncionarioBalcao();
+				FuncionarioBalcao f = b.getFuncionario();
 				Equipamento e = b.getEquipamento();
 
 				List<Equipamento> equips = balcao_equips.get(f);

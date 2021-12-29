@@ -1,5 +1,6 @@
 package ReparacoesLN.SSColaboradores;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,7 +9,7 @@ import java.util.*;
 import Middleware.EntradaNaoExisteException;
 import Middleware.NaoExisteDisponibilidadeException;
 
-public class Agenda {
+public class Agenda implements Serializable {
 
 	private Set<AgendaPorDia> tarefasDia;
 	private Tecnico tecnico;

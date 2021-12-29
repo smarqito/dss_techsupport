@@ -6,21 +6,30 @@ import ReparacoesLN.SSClientes.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.NaoExisteOrcamentosAtivosException;
+import Middleware.OrcamentoNaoExisteException;
+import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 
 public interface IGestReparacoes {
 
-	List<Orcamento> getOrcamentosAtivos();
+	/**
+	 * 
+	 * @return
+	 */
+	Set<Orcamento> getOrcamentosAtivos();
 
 	/**
 	 * 
 	 * @param ref
+	 * @throws OrcamentoNaoExisteException
 	 */
-	Orcamento getOrcamento(String ref);
+	Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -30,38 +39,55 @@ public interface IGestReparacoes {
 
 	/**
 	 * 
+	 * @return
+	 * @throws NaoExisteOrcamentosAtivosException
+	 */
+	Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException;
+	/**
+	 * 
 	 * @param p
 	 */
 	List<Orcamento> filterOrcamentos(Predicate<Orcamento> p);
 
+
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 */
+	List<Reparacao> filterReparacoes(Predicate<Reparacao> p);
 	/**
 	 * 
 	 * @param orcID
 	 * @param estado
 	 * @throws EstadoOrcNaoEValidoException
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException;
+	void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException;
 
 	/**
 	 * 
 	 * @param repID
 	 * @param estado
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void alterarEstadoRep(String repID, ReparacaoEstado estado);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
 	 * @param repID
 	 * @param estado
 	 * @param comentario
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario);
+	void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
 	 * @param nomeRepXpresso
+	 * @throws ReparacaoNaoExisteException
 	 */
-	Integer getTempoEstimado(String nomeRepXpresso);
+	Integer getTempoEstimado(String nomeRepXpresso) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
@@ -83,6 +109,20 @@ public interface IGestReparacoes {
 
 	/**
 	 * 
+	 * @param nome
+	 * @return
+	 * @throws ReparacaoNaoExisteException
+	 */
+	ReparacaoExpresso getReparacaoExpresso(String nome) throws ReparacaoNaoExisteException;
+
+	/**
+	 * Calcula a lista de todas as reparacoes disponiveis
+	 * @return
+	 */
+	List<ReparacaoExpresso> getReparacaoExpresso();
+
+	/**
+	 * 
 	 * @param nomeCategoria
 	 */
 	void registaCategoria(String nomeCategoria);
@@ -97,12 +137,17 @@ public interface IGestReparacoes {
 	void registaContacto(String repId, String msg, Tecnico tec) throws ReparacaoNaoExisteException;
 
 	/**
+	 * Método que regista a realização de um passo de reparação
+	 * Atualiza os valores efetivos do passo atual a realizar-se
+	 * Atualiza a lista de passos realizados
+	 * Atualiza o próximo passo a ser realizado como atual
 	 * 
-	 * @param repID
-	 * @param mins
-	 * @param custo
+	 * @param repID Identificador da reparação a realizar
+	 * @param mins  Tempo efetivo da reparação
+	 * @param custo Custo efetivo da reparação
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void registaPasso(String repID, Integer mins, Double custo);
+	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException;
 
 	/**
 	 * Método para registar uma nova reparação expresso nas reparações disponíveis
@@ -127,28 +172,26 @@ public interface IGestReparacoes {
 	 * 
 	 * @param orcId
 	 * @param passos
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void registaPT(String orcId, List<PassoReparacao> passos);
+	void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException;
 
 	/**
+	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
+	 * A reparação só é efetuada se o tipo de reparação existir no sistema
 	 * 
-	 * @param equip
-	 * @param nomeRepXpresso
-	 * @param tec
+	 * @param equip          Equipamento a reparar
+	 * @param nomeRepXpresso Nome da reparação a efetuar
+	 * @param tec            Técnico a realizar a reparação
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec);
+	String addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) throws ReparacaoNaoExisteException;
 
 	/**
 	 * 
 	 * @param orc
 	 */
-	void addReparacao(Orcamento orc);
-
-	/**
-	 * 
-	 * @param orc
-	 */
-	Reparacao criarReparacao(Orcamento orc);
+	String addReparacao(Orcamento orc, Tecnico tec);
 
 	/**
 	 * 
@@ -167,8 +210,9 @@ public interface IGestReparacoes {
 	/**
 	 * 
 	 * @param orcId
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void enviarOrcamento(String orcId);
+	void enviarOrcamento(String orcId, Colaborador colaborador) throws OrcamentoNaoExisteException;
 
 	/**
 	 * 
@@ -186,13 +230,18 @@ public interface IGestReparacoes {
 	void enviarEmail(String msg, String dest);
 
 	/**
+	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um
+	 * orçamento
 	 * 
-	 * @param orcID
-	 * @param nomePasso
-	 * @param mat
-	 * @param tempo
+	 * Esse passo não pode existir já no plano de trabalhos
+	 * 
+	 * @param orcID     Orçamento a realizar
+	 * @param nomePasso Nome do passo a criar
+	 * @param mat       Material usado no passo
+	 * @param tempo     tempo estimado para o passo
+	 * @throws PassoJaExisteException
 	 */
-	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo);
+	void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) throws PassoJaExisteException;
 	
 	/** 
      * Método que arquiva os orçamentos cujo prazo limite para serem aceites pelo cliente expiraram 
@@ -201,10 +250,7 @@ public interface IGestReparacoes {
      */
 	void arquivarOrcamentos();
 
-	/**
-	 * 
-	 * @param data
-	 */
+	
 	Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data);
 
 }

@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import Middleware.ClienteJaExisteException;
 import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.NaoExisteDisponibilidadeException;
+import Middleware.NaoExisteOrcamentosAtivosException;
+import Middleware.OrcamentoNaoExisteException;
+import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
@@ -29,7 +34,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException {
+	public String addRepExpresso(String equipId, String nomeRepExp)
+			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException {
 
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
 
@@ -39,47 +45,46 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 			Integer duracao_estimada = gestReparacoes.getTempoEstimado(nomeRepExp);
 
-			/**
-			 * try {
-			 * 
-			 * String tecID = gestColaboradores.existeDisponibilidade(duracao_estimada);
-			 * Tecnico tecnico = gestColaboradores.getTecnico(tecID);
-			 * gestReparacoes.addRepExpresso(eq, nomeRepExp, tecnico);
-			 * 
-			 * } catch (NaoExisteDisponibilidadeException e) {
-			 * 
-			 * throw new NaoExisteDisponibilidadeException("Não existem técnicos disponíveis
-			 * para efetuar "+nomeRepExp+" no equipamento "+equipId);
-			 * }
-			 * 
-			 * } else throw new ReparacaoXPressoNaoExisteException("A reparacao
-			 * "+nomeRepExp+" não existe!");
-			 */
+			String tecId = gestColaboradores.existeDisponibilidade(duracao_estimada);
+
+			String id = gestReparacoes.addRepExpresso(eq, nomeRepExp, gestColaboradores.getTecnico(tecId));
+			gestColaboradores.addEventoAgenda(tecId, duracao_estimada, "repExpresso: " + id);
+			return id;
 		}
+		throw new ReparacaoNaoExisteException(nomeRepExp);
 	}
 
 	@Override
-	public void enviarOrcamento(String orcId) {
-		this.gestReparacoes.enviarOrcamento(orcId);
+	public void enviarOrcamento(String orcId, String colabId) {
+		Colaborador colab = gestColaboradores.getColaborador(colabId);
+		this.gestReparacoes.enviarOrcamento(orcId, colab);
 	}
 
 	@Override
-	public List<Orcamento> getOrcamentosAtivos() {
+	public Set<Orcamento> getOrcamentosAtivos() {
 		return this.gestReparacoes.getOrcamentosAtivos();
 	}
 
 	@Override
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException {
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
+			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException {
 		this.gestReparacoes.alterarEstadoOrc(orcID, estado);
+		if (estado.equals(OrcamentoEstado.aceite)) {
+			Orcamento orc = gestReparacoes.getOrcamento(orcID);
+			TecData tecDataMaisProx = gestColaboradores.prazoReparacaoMaisProx(orc.getTempoEstimado());
+			orc.setPrazoRep(tecDataMaisProx.data);
+			Tecnico tec = gestColaboradores.getTecnico(tecDataMaisProx.tecID);
+			gestReparacoes.addReparacao(orc, tec);
+		}
 	}
 
 	@Override
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado) throws ReparacaoNaoExisteException {
 		this.gestReparacoes.alterarEstadoRep(repID, estado);
 	}
 
 	@Override
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException {
 		this.gestReparacoes.alterarEstadoRep(repID, estado, comentario);
 	}
 
@@ -90,11 +95,11 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void generateOrc(String orcId) {
-		Orcamento o = gestReparacoes.getOrcamento(orcId);
+		gestReparacoes.generateOrc(orcId);
 	}
 
 	@Override
-	public void registaPasso(String repID, Integer mins, Double custo) {
+	public void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException {
 
 		gestReparacoes.registaPasso(repID, mins, custo);
 	}
@@ -151,7 +156,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) {
+	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat)
+			throws PassoJaExisteException {
 
 		Material newMat = new Material(null, mat, custoMat, qMat);
 		gestReparacoes.criarPasso(orcID, nomePasso, newMat, tempo);
@@ -193,26 +199,32 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaPT(String orcId, List<PassoReparacao> passos) {
+	public void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException {
 		this.gestReparacoes.registaPT(orcId, passos);
 	}
 
 	@Override
-	public void comunicarErro(String orcId, String msg, String tecID) {
+	public void comunicarErro(String orcId, String msg, String tecID) throws OrcamentoNaoExisteException {
 		Tecnico tec = this.gestColaboradores.getTecnico(tecID);
 		Orcamento orc = this.gestReparacoes.getOrcamento(orcId);
 		this.gestReparacoes.comunicarErro(orc, tec, msg);
 	}
 
 	@Override
-	public Map<Tecnico, List<ReparacoesPorMes>> getReparacoesMes(LocalDateTime data) {
-		// TODO - implement ReparacoesLNFacade.getReparacoesMes
-		throw new UnsupportedOperationException();
+	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
+		return gestReparacoes.getReparacoesMes(data);
 	}
-	
+
 	@Override
-	public void registarRepExpresso(String nome, Integer tempo, Double custo) throws ReparacaoExpressoJaExisteException {
+	public void registarRepExpresso(String nome, Integer tempo, Double custo)
+			throws ReparacaoExpressoJaExisteException {
 		gestReparacoes.registaRepXpresso(nome, custo, tempo);
 	}
 
+	@Override
+	public Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException {
+		return gestReparacoes.getOrcamentoMaisAntigo();
+	}
+
+	
 }

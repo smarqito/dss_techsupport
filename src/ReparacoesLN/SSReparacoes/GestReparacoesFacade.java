@@ -1,34 +1,51 @@
 
 package ReparacoesLN.SSReparacoes;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.NaoExisteOrcamentosAtivosException;
+import Middleware.OrcamentoNaoExisteException;
+import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
+import Middleware.ReparacaoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
 
-public class GestReparacoesFacade implements IGestReparacoes {
+public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 
 	private Map<String, Reparacao> reps;
 	private Map<String, Orcamento> orcs;
+	private Set<Reparacao> repsPorData;
 	private List<ReparacaoExpresso> reparacoesDisponiveis;
 
-	public List<Orcamento> getOrcamentosAtivos() {
-		return this.orcs.values().stream().filter(Orcamento::estaAtivo).collect(Collectors.toList());
+	public GestReparacoesFacade() {
+		reps = new HashMap<>();
+		orcs = new HashMap<>();
+		repsPorData = new TreeSet<>();
+		reparacoesDisponiveis = new ArrayList<>();
+	}
+
+	public Set<Orcamento> getOrcamentosAtivos() {
+		return this.orcs.values().stream().filter(Orcamento::estaAtivo)
+				.collect(Collectors.toCollection(() -> new TreeSet<Orcamento>()));
 	}
 
 	/**
 	 * 
 	 * @param ref
+	 * @throws OrcamentoNaoExisteException
 	 */
-	public Orcamento getOrcamento(String ref) {
-		// TODO - implement GestReparacoesFacade.getOrcamento
-		throw new UnsupportedOperationException();
+	public Orcamento getOrcamento(String ref) throws OrcamentoNaoExisteException {
+		if (orcs.containsKey(ref)) {
+			return orcs.get(ref);
+		}
+		throw new OrcamentoNaoExisteException(ref);
 	}
 
 	/**
@@ -40,16 +57,26 @@ public class GestReparacoesFacade implements IGestReparacoes {
 		if (reps.containsKey(id)) {
 			return reps.get(id);
 		}
-		throw new ReparacaoNaoExisteException("id");
+		throw new ReparacaoNaoExisteException(id);
 	}
 
-	/**
-	 * 
-	 * @param p
-	 */
+	@Override
+	public Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException {
+		Set<Orcamento> set = getOrcamentosAtivos();
+		if(!set.isEmpty()) {
+			return set.iterator().next();
+		}
+		throw new NaoExisteOrcamentosAtivosException();
+	}
+
+	@Override
 	public List<Orcamento> filterOrcamentos(Predicate<Orcamento> p) {
-		// TODO - implement GestReparacoesFacade.filterOrcamentos
-		throw new UnsupportedOperationException();
+		return orcs.values().stream().filter(p).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Reparacao> filterReparacoes(Predicate<Reparacao> p) {
+		return reps.values().stream().filter(p).collect(Collectors.toList());
 	}
 
 	/**
@@ -57,9 +84,11 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param orcID
 	 * @param estado
 	 * @throws EstadoOrcNaoEValidoException
+	 * @throws OrcamentoNaoExisteException
 	 */
-	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado) throws EstadoOrcNaoEValidoException {
-		Orcamento o = this.orcs.get(orcID);
+	public void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
+			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException {
+		Orcamento o = getOrcamento(orcID);
 		o.alteraEstado(estado);
 	}
 
@@ -67,10 +96,10 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * 
 	 * @param repID
 	 * @param estado
+	 * @throws ReparacaoNaoExisteException
 	 */
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado) {
-		Reparacao r = this.reps.get(repID);
-		r.alteraEstado(estado, "");
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado) throws ReparacaoNaoExisteException {
+		alterarEstadoRep(repID, estado, "");
 	}
 
 	/**
@@ -78,176 +107,136 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @param repID
 	 * @param estado
 	 * @param comentario
+	 * @throws ReparacaoNaoExisteException
 	 */
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) {
-		Reparacao r = this.reps.get(repID);
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException {
+		Reparacao r = getReparacao(repID);
 		r.alteraEstado(estado, comentario);
 	}
 
-	/**
-	 * 
-	 * @param nomeRepXpresso
-	 */
-	public Integer getTempoEstimado(String nomeRepXpresso) {
-		// TODO - implement GestReparacoesFacade.getTempoEstimado
-		throw new UnsupportedOperationException();
+	@Override
+	public Integer getTempoEstimado(String nomeRepXpresso) throws ReparacaoNaoExisteException {
+		if (existeRepXpresso(nomeRepXpresso)) {
+			return reparacoesDisponiveis.stream().filter(x -> x.getNome().equals(nomeRepXpresso))
+					.map(y -> y.getTempoEstimado()).findFirst().get();
+		}
+		throw new ReparacaoNaoExisteException(nomeRepXpresso);
 	}
 
-	/**
-	 * 
-	 * @param nomePasso
-	 */
+	@Override
 	public Boolean existePasso(String nomePasso) {
-		// TODO - implement GestReparacoesFacade.existePasso
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param nomeCategoria
-	 */
+	@Override
 	public Boolean existeCategoria(int nomeCategoria) {
-		// TODO - implement GestReparacoesFacade.existeCategoria
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param nome
-	 */
+	@Override
+	public ReparacaoExpresso getReparacaoExpresso(String nome) throws ReparacaoNaoExisteException {
+		try {
+			return this.reparacoesDisponiveis.stream().filter(x -> x.getNome().equals(nome)).findFirst().get().clone();
+		} catch (NoSuchElementException e) {
+			throw new ReparacaoNaoExisteException(nome);
+		}
+	}
+
+	@Override
+	public List<ReparacaoExpresso> getReparacaoExpresso() {
+		return this.reparacoesDisponiveis.stream().map(ReparacaoExpresso::clone).collect(Collectors.toList());
+	}
+
+	@Override
 	public Boolean existeRepXpresso(String nome) {
-		// TODO - implement GestReparacoesFacade.existeRepXpresso
-		throw new UnsupportedOperationException();
+		return reparacoesDisponiveis.stream().anyMatch(x -> x.getNome().equals(nome));
 	}
 
-	/**
-	 * 
-	 * @param nomeCategoria
-	 */
+	@Override
 	public void registaCategoria(String nomeCategoria) {
-		// TODO - implement GestReparacoesFacade.registaCategoria
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param repId
-	 * @param msg
-	 * @param tec
-	 * @throws ReparacaoNaoExisteException
-	 */
+	@Override
 	public void registaContacto(String repId, String msg, Tecnico tec) throws ReparacaoNaoExisteException {
 		Comunicacao c = new Comunicacao(tec, LocalDateTime.now(), msg);
 		Reparacao r = getReparacao(repId);
 		r.addComunicacao(c);
 	}
 
-	/**
-	 * Método que regista a realização de um passo de reparação
-	 * Atualiza os valores efetivos do passo atual a realizar-se
-	 * Atualiza a lista de passos realizados
-	 * Atualiza o próximo passo a ser realizado como atual
-	 * 
-	 * @param repID Identificador da reparação a realizar
-	 * @param mins  Tempo efetivo da reparação
-	 * @param custo Custo efetivo da reparação
-	 */
-	public void registaPasso(String repID, Integer mins, Double custo) {
-
-		ReparacaoProgramada rep = (ReparacaoProgramada) reps.get(repID);
-
-		if (rep != null) {
-
-			rep.registaPassoRealizado(mins, custo);
-		}
-		// else throw new ReparacaoNaoExisteException("A reparação com ID "+repID+" não
-		// existe!");
+	@Override
+	public void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException {
+		Reparacao rep = getReparacao(repID);
+		rep.registaPassoRealizado(mins, custo);
 	}
 
+	@Override
 	public void registaRepXpresso(String nome, Double preco, Integer tempo) throws ReparacaoExpressoJaExisteException {
-		
-		if(reparacoesDisponiveis.stream().noneMatch(x -> x.getNome() == nome)) {
-
-			ReparacaoExpresso repXpresso = new ReparacaoExpresso(preco, tempo, nome);
-
-			reparacoesDisponiveis.add(repXpresso);
-
-		} else
-			throw new ReparacaoExpressoJaExisteException("A reparação expresso "+nome+" já existe!");
+		if (existeRepXpresso(nome)) {
+			throw new ReparacaoExpressoJaExisteException("A reparação expresso " + nome + " já existe!");
+		}
+		ReparacaoExpresso repXpresso = new ReparacaoExpresso(preco, tempo, nome);
+		reparacoesDisponiveis.add(repXpresso);
 	}
 
-	/**
-	 * 
-	 * @param equip
-	 * @param descr
-	 */
+	@Override
 	public void registarOrcamento(Equipamento equip, String descr) {
 		Orcamento o = new Orcamento(equip, descr);
 		this.orcs.put(o.getID(), o);
 	}
 
-	/**
-	 * 
-	 * @param orcId
-	 * @param passos
-	 */
-	public void registaPT(String orcId, List<PassoReparacao> passos) {
-		Orcamento o = this.orcs.get(orcId);
+	@Override
+	public void registaPT(String orcId, List<PassoReparacao> passos) throws OrcamentoNaoExisteException {
+		Orcamento o = getOrcamento(orcId);
 		o.setPT(passos);
 	}
 
-	/**
-	 * Método que adiciona ás reparações por realizar uma reparação expresso nova
-	 * A reparação só é efetuada se o tipo de reparação existir no sistema
-	 * 
-	 * @param equip          Equipamento a reparar
-	 * @param nomeRepXpresso Nome da reparação a efetuar
-	 * @param tec            Técnico a realizar a reparação
-	 */
-	public void addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec) {
+	@Override
+	public String addRepExpresso(Equipamento equip, String nomeRepXpresso, Tecnico tec)
+			throws ReparacaoNaoExisteException {
+		ReparacaoExpresso def = getReparacaoExpresso(nomeRepXpresso);
 
-		ReparacaoExpresso repXpresso = reparacoesDisponiveis.stream().filter(x -> x.getNome().equals(nomeRepXpresso))
-				.findAny().orElse(null);
+		ReparacaoExpresso repXpresso = new ReparacaoExpresso(equip, tec, def.getPrecoFixo(), def.getTempoEstimado(),
+				def.getNome());
+		try {
+			addReparacao(repXpresso);
+		} catch (ReparacaoJaExisteException e) {
+			// acabou de ser criado com novo id ... nao existe paralelismo por isso id e
+			// unico
+		}
+		return repXpresso.getId();
 
-		// if(repXpresso == null)
-		// throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não
-		// existe!");
+	}
 
-		Double preco = repXpresso.getPrecoFixo();
-		Integer tempo = repXpresso.getTempoEstimado();
+	private void addReparacao(Reparacao rep) throws ReparacaoJaExisteException {
+		if (this.reps.containsKey(rep.getId())) {
+			throw new ReparacaoJaExisteException(rep.getId());
+		}
+		this.reps.put(rep.getId(), rep);
+		this.repsPorData.add(rep);
+	}
 
-		// ReparacaoExpresso res = new ReparacaoExpresso(nomeRepXpresso, preco, tempo,
-		// equip, tec);
-
-		// String repXpressoID = res.getID();
-
-		// reps.put(repXpressoID, res);
+	@Override
+	public String addReparacao(Orcamento orc, Tecnico tec) {
+		ReparacaoProgramada rep = new ReparacaoProgramada(orc, tec);
+		try {
+			addReparacao(rep);
+		} catch (ReparacaoJaExisteException e) {
+			// same has before
+		}
+		return rep.getId();
 	}
 
 	/**
+	 * Calcula o preco efetivo de uma reparacao. Apenas utiliza os passos que foram
+	 * realizados
+	 * Se a reparacao for interrompida a meio, apenas paga o relativo ao que foi
+	 * feito!
 	 * 
-	 * @param orc
-	 */
-	public void addReparacao(Orcamento orc) {
-		// TODO - implement GestReparacoesFacade.addReparacao
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param orc
-	 */
-	public Reparacao criarReparacao(Orcamento orc) {
-		// TODO - implement GestReparacoesFacade.criarReparacao
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * Calcula o preco efetivo de uma reparacao. Apenas utiliza os passos que foram realizados
-	 * Se a reparacao for interrompida a meio, apenas paga o relativo ao que foi feito!
 	 * @param repID ID da reparacao a ser calculado
 	 * @return Custo total Reparacao
-	 * @throws ReparacaoNaoExisteException Caso a reparacao a ser calculado nao exista
+	 * @throws ReparacaoNaoExisteException Caso a reparacao a ser calculado nao
+	 *                                     exista
 	 */
 	public CustoTotalReparacao calcularPrecoRep(String repID) throws ReparacaoNaoExisteException {
 		Reparacao rep = this.getReparacao(repID);
@@ -256,100 +245,68 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	public Reparacao pedidoRepMaisUrg() {
-		// TODO - implement GestReparacoesFacade.pedidoRepMaisUrg
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param orcId
-	 */
+	@Override
 	public void generateOrc(String orcId) {
-		// TODO - implement GestReparacoesFacade.generateOrc
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param orcId
-	 */
-	public void enviarOrcamento(String orcId) {
-		// TODO - implement GestReparacoesFacade.enviarOrcamento
-		throw new UnsupportedOperationException();
+	@Override
+	public void enviarOrcamento(String orcId, Colaborador col) throws OrcamentoNaoExisteException {
+		Orcamento orc = getOrcamento(orcId);
+		FormaContacto dest = orc.getFormaContacto();
+		String msg = orc.generateResume();
+		orc.addComunicacao(new Comunicacao(col, LocalDateTime.now(), msg));
+		enviarEmail(msg, dest.getEmail());
 	}
 
-	/**
-	 * 
-	 * @param orc
-	 * @param tec
-	 * @param msg
-	 */
+	@Override
 	public void comunicarErro(Orcamento orc, Tecnico tec, String msg) {
 		Comunicacao c = new Comunicacao(tec, LocalDateTime.now(), msg);
 		orc.addComunicacao(c);
 	}
 
-	/**
-	 * 
-	 * @param msg
-	 * @param dest
-	 */
+	@Override
 	public void enviarEmail(String msg, String dest) {
-		// TODO - implement GestReparacoesFacade.enviarEmail
+		// considerado como sendo algo externo à APP
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um
-	 * orçamento
-	 * 
-	 * Esse passo não pode existir já no plano de trabalhos
-	 * 
-	 * @param orcID     Orçamento a realizar
-	 * @param nomePasso Nome do passo a criar
-	 * @param mat       Material usado no passo
-	 * @param tempo     tempo estimado para o passo
-	 */
-	public void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) {
+	@Override
+	public void criarPasso(String orcID, String nomePasso, Material mat, Integer tempo) throws PassoJaExisteException {
 
 		Orcamento orc = orcs.get(orcID);
 
-		// if(orc == null)
-		// throw new OrcamentoNaoExisteException("O orçamento com identificador
-		// "+orcID+" não existe!");
-
-		Boolean existePasso = orc.existePasso(nomePasso);
-
-		if (existePasso == false) {
-
-			orc.addPasso(nomePasso, tempo, mat);
-
+		if (orc.existePasso(nomePasso)) {
+			throw new PassoJaExisteException(nomePasso);
 		}
-		// else throw new PassoNaoValidoException("O passo "+nomePasso+" não é válido!")
-		// ;
+		orc.addPasso(nomePasso, tempo, mat);
+
 	}
 
 	public void arquivarOrcamentos() {
-		List<Orcamento> orcs = filterOrcamentos(x -> x.estaAtivo() && x.passouPrazo()); 
- 
-        orcs.stream().forEach(o -> { 
-
-            try { 
-                o.alteraEstado(OrcamentoEstado.arquivado); 
-            } catch (EstadoOrcNaoEValidoException e) { 
-                // Se esta ativo ent e pq ainda não teve o estado arquivada
-				// nunca vai chegar a este catch
-            } 
-        });
+		filterOrcamentos(x -> x.estaAtivo() && x.passouPrazo()).forEach(x -> {
+			try {
+				x.alteraEstado(OrcamentoEstado.arquivado);
+			} catch (EstadoOrcNaoEValidoException e) {
+				// nao acontece, e verificado se esta ativo!!
+			}
+		});
 	}
 
-	/**
-	 *
-	 * @param data
-	 * @return
-	 */
+	@Override
 	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
-		// TODO - implement GestReparacoesFacade.getReparacoesMes
-		throw new UnsupportedOperationException();
+		Map<Tecnico, ReparacoesPorMes> ret = new HashMap<>();
+
+		;
+		for (Reparacao r : filterReparacoes(x -> x.getDataCriacao().getMonth().equals(data.getMonth())
+				&& x.getDataCriacao().getYear() == data.getYear())) {
+			if (!ret.containsKey(r.getTecnico()))
+				ret.put(r.getTecnico(), new ReparacoesPorMes());
+			ret.get(r.getTecnico()).addReparacao(r);
+		}
+		return ret;
 	}
 }
