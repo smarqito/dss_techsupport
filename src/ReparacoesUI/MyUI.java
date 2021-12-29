@@ -80,8 +80,6 @@ public class MyUI {
 				"Menu Colaborador Especializado"
 		});
 
-		// mais pré-condições?
-
 		// Registar os handlers das transições
 		menu.setHandler(1, this::registaColaborador);
 		menu.setHandler(2, this::listarDetalhadas);
@@ -97,9 +95,19 @@ public class MyUI {
 		try {
 			System.out.println("Nome do Colaborador: ");
 			String nome = scin.nextLine();
-			System.out.println("Função do Colaborador: ");
-			String tipo = scin.nextLine();
-			this.model.registaColaborador(nome, tipo);
+			System.out.println("Função do Colaborador: \n" +
+								"1 - Gestor\n 2 - Técnico\n 3 - Funcionario de Balcao");
+			int tipo = scin.nextInt();
+			switch (tipo) {
+				case 1:
+					this.model.registaColaborador(nome, "Gestor");
+					break;
+				case 2:
+					this.model.registaColaborador(nome, "Tecnico");
+					break;
+				case 3:
+					this.model.registaColaborador(nome, "FuncionarioBalcao");
+			}
 			System.out.println("Colaborador adicionado");
 		} catch (TecnicoJaTemAgendaException e) {
 			e.printStackTrace();
@@ -112,28 +120,51 @@ public class MyUI {
 		System.out.println("Ano: ");
 		int ano = scin.nextInt();
 		LocalDateTime data = LocalDateTime.of(ano, mes, 1, 1, 1, 1, 1);
-		model.getReparacoesMes(data);
-	}
-
-	private void listarFluxoFunc() {
+		System.out.println(model.getReparacoesMes(data));
 	}
 
 	private void listarResumidas() {
+		System.out.println("Mês que pretende ser avaliado: ");
+		int mes = scin.nextInt();
+		System.out.println("Ano: ");
+		int ano = scin.nextInt();
+		LocalDateTime data = LocalDateTime.of(ano, mes, 1, 1, 1, 1, 1);
+		System.out.println(model.getReparacoesMes(data));
+	}
+
+	private void listarFluxoFunc() {
+		System.out.println("Data de inicio da avaliação: \n Ano :");
+		int anoDe = scin.nextInt();
+		System.out.println("Mes :");
+		int mesDe = scin.nextInt();
+		System.out.println("Dia :");
+		int diaDe = scin.nextInt();
+		LocalDateTime dataDe = LocalDateTime.of(anoDe, mesDe, diaDe, 1, 1, 1, 1);
+		System.out.println("Data do fim da avaliação: \n Ano :");
+		int anoAte = scin.nextInt();
+		System.out.println("Mes :");
+		int mesAte = scin.nextInt();
+		System.out.println("Dia :");
+		int diaAte = scin.nextInt();
+		LocalDateTime dataAte = LocalDateTime.of(anoAte, mesAte, diaAte, 1, 1, 1, 1);
+		System.out.println("Recebidos :\n" + model.getEquipRecebidos(dataDe, dataAte));
+		System.out.println("Entregues :\n" + model.getEquipEntregue(dataDe, dataAte));
+
 	}
 
 	private void menuColabEspecial() {
-		Menu menuTurmas = new Menu(new String[]{
+		Menu menu = new Menu(new String[]{
 				"Criar Reparação Expresso",
 				"Criar Passo de Reparação"
 		});
 
-		// Registar pré-condições das transições
+		menu.setPreCondition(2, () -> model.getOrcamentosAtivos().size() > 0);
 
 		// Registar os handlers das transições
-		menuTurmas.setHandler(1, this::criarRepXpresso);
-		menuTurmas.setHandler(2, this::criarPassoRep);
+		menu.setHandler(1, this::criarRepXpresso);
+		menu.setHandler(2, this::criarPassoRep);
 
-		menuTurmas.runOnce();
+		menu.runOnce();
 	}
 
 	private void criarRepXpresso() {
@@ -173,12 +204,11 @@ public class MyUI {
 
 	private void fazerOrcamento(String tecId) {
 
-		String orcId = null; //ir buscar o orçamento mais antigo
+		String orcId = null; //model.getOrcamentoMaisAntigo();
 
 		Menu menu = new Menu(new String[]{
 				"Definir plano de trabalhos"
 		});
-		// pré-condições
 
 		// Registar os handlers das transições
 		menu.setHandler(1, () -> definirPLano(orcId, tecId));
@@ -187,6 +217,7 @@ public class MyUI {
 	}
 
 	private void definirPLano(String orcId, String tecId) {
+		//print do orcamento
 		Menu menu = new Menu(new String[]{
 				"Adicionar passo de reparação",
 				"Gerar Orcamento",
