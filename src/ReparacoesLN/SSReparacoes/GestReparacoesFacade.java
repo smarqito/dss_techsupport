@@ -336,8 +336,8 @@ public class GestReparacoesFacade implements IGestReparacoes {
             try { 
                 o.alteraEstado(OrcamentoEstado.arquivado); 
             } catch (EstadoOrcNaoEValidoException e) { 
-                // TODO Auto-generated catch block 
-                e.printStackTrace(); 
+                // Se esta ativo ent e pq ainda não teve o estado arquivada
+				// nunca vai chegar a este catch
             } 
         });
 	}

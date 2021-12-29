@@ -54,11 +54,15 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 				List<Equipamento> equips = balcao_equips.get(f);
 
 				if(equips == null) {
-					equips.add(e);
 
-					balcao_equips.put(f, equips);
+					List<Equipamento> novo = new ArrayList<>();
+
+					novo.add(e);
+
+					balcao_equips.put(f, novo);
 				
 				} else {
+					
 					equips.add(e);
 					
 					balcao_equips.replace(f, equips);
