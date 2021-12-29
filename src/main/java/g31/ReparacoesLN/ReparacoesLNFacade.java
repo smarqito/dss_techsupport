@@ -9,22 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import g31.Middleware.ClienteJaExisteException;
-import g31.Middleware.ClienteNaoExisteException;
-import g31.Middleware.ColaboradorNaoExisteException;
-import g31.Middleware.ColaboradorNaoTecnicoException;
-import g31.Middleware.EquipamentoJaAssociadoException;
-import g31.Middleware.EquipamentoNaoExisteException;
-import g31.Middleware.EstadoOrcNaoEValidoException;
-import g31.Middleware.NaoExisteDisponibilidadeException;
-import g31.Middleware.NaoExisteOrcamentosAtivosException;
-import g31.Middleware.OrcamentoNaoExisteException;
-import g31.Middleware.PassoJaExisteException;
-import g31.Middleware.ReparacaoExpressoJaExisteException;
-import g31.Middleware.ReparacaoNaoExisteException;
-import g31.Middleware.TecnicoJaTemAgendaException;
-import g31.Middleware.TecnicoNaoTemAgendaException;
-import g31.Middleware.TipoColaboradorErradoException;
+import g31.Middleware.*;
 import g31.ReparacoesBD.ReparacoesBDFacade;
 import g31.ReparacoesLN.SSClientes.*;
 import g31.ReparacoesLN.SSReparacoes.*;
@@ -175,9 +160,9 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif)
+	public String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
-		gestClientes.registaEquipamento(codR, marca, nif);
+		return gestClientes.registaEquipamento(codR, marca, nif);
 	}
 
 	@Override
@@ -195,11 +180,12 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException {
+	public String registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
 		if (e.isProprietario(nif)) {
-			this.gestReparacoes.registarOrcamento(e, descr);
+			return this.gestReparacoes.registarOrcamento(e, descr);
 		}
+		throw new EquipamentoNaoAssociadoAoCliente();
 	}
 
 	@Override

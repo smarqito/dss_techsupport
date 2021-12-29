@@ -1,5 +1,6 @@
 package g31.ReparacoesLN;
 
+import g31.Middleware.*;
 import g31.ReparacoesLN.SSReparacoes.*;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
@@ -7,7 +8,6 @@ import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.Reparacao;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
 import g31.ReparacoesLN.SSClientes.*;
-import g31.ReparacoesLN.SSColaboradores.*;
 import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
@@ -20,23 +20,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import g31.Middleware.ClienteJaExisteException;
-import g31.Middleware.ClienteNaoExisteException;
-import g31.Middleware.ColaboradorNaoExisteException;
-import g31.Middleware.ColaboradorNaoTecnicoException;
-import g31.Middleware.EquipamentoJaAssociadoException;
-import g31.Middleware.EquipamentoNaoExisteException;
-import g31.Middleware.EstadoOrcNaoEValidoException;
-import g31.Middleware.NaoExisteDisponibilidadeException;
-import g31.Middleware.NaoExisteOrcamentosAtivosException;
-import g31.Middleware.OrcamentoNaoExisteException;
-import g31.Middleware.PassoJaExisteException;
-import g31.Middleware.ReparacaoExpressoJaExisteException;
-import g31.Middleware.ReparacaoNaoExisteException;
-import g31.Middleware.TecnicoJaTemAgendaException;
-import g31.Middleware.TecnicoNaoTemAgendaException;
-import g31.Middleware.TipoColaboradorErradoException;
 
 public interface IReparacoesLN {
 
@@ -201,8 +184,9 @@ public interface IReparacoesLN {
 	 *                                         exista
 	 * @throws EquipamentoJaAssociadoException Caso o equipamento ja esteja
 	 *                                         associado ao cliente (ou outro)
+	 * @return
 	 */
-	void registaEquipamento(String codR, String marca, String nif)
+	String registaEquipamento(String codR, String marca, String nif)
 			throws ClienteNaoExisteException, EquipamentoJaAssociadoException;
 
 	/**
@@ -239,8 +223,9 @@ public interface IReparacoesLN {
 	 * @param equipId
 	 * @param descr
 	 * @throws EquipamentoNaoExisteException
+	 * @return
 	 */
-	void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException;
+	String registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente;
 
 	/**
 	 * Adiciona um contacto ao historico de reparacao

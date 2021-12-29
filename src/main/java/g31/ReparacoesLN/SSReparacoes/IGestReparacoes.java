@@ -1,6 +1,5 @@
 package g31.ReparacoesLN.SSReparacoes;
 
-import g31.ReparacoesLN.SSColaboradores.*;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
@@ -170,11 +169,11 @@ public interface IGestReparacoes {
 	void registaRepXpresso(String nome, Double preco, Integer tempo) throws ReparacaoExpressoJaExisteException;
 
 	/**
-	 * 
-	 * @param equip
+	 *  @param equip
 	 * @param descr
-	 */
-	void registarOrcamento(Equipamento equip, String descr);
+     * @return
+     */
+	String registarOrcamento(Equipamento equip, String descr);
 
 	/**
 	 * 

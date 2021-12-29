@@ -14,7 +14,6 @@ import g31.Middleware.PassoJaExisteException;
 import g31.Middleware.ReparacaoExpressoJaExisteException;
 import g31.Middleware.ReparacaoJaExisteException;
 import g31.Middleware.ReparacaoNaoExisteException;
-import g31.ReparacoesLN.SSColaboradores.*;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
@@ -189,9 +188,10 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	@Override
-	public void registarOrcamento(Equipamento equip, String descr) {
+	public String registarOrcamento(Equipamento equip, String descr) {
 		Orcamento o = new Orcamento(equip, descr);
 		this.orcs.put(o.getID(), o);
+		return o.getID();
 	}
 
 	@Override
