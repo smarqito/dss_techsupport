@@ -2,19 +2,7 @@ package g31.ReparacoesUI;
 
 import g31.Middleware.*;
 import g31.ReparacoesLN.IReparacoesLN;
-import g31.ReparacoesLN.SSClientes.EstadoEquipamento;
-import g31.ReparacoesLN.SSColaboradores.*;
-import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
-import g31.ReparacoesLN.SSColaboradores.Agenda.EntradaAgenda;
-import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
-import g31.ReparacoesLN.SSColaboradores.Colaboradores.Gestor;
-import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
-import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
-import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
-import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class MyUI {
@@ -31,7 +19,7 @@ public class MyUI {
 	 * Cria os menus e a camada de negócio.
 	 */
 	public MyUI(IReparacoesLN model) {
-		this.model = model;		
+		MyUI.model = model;		
 		scin = new Scanner(System.in);
 		mt = new MenuTecnico();
 		mg = new MenuGestor();
@@ -66,9 +54,9 @@ public class MyUI {
 		System.out.println("Insira o seu número de identificação: ");
 		String id = scin.nextLine();
 		try {
-			if (this.model.existeColaborador(id)) {
+			if (MyUI.model.existeColaborador(id)) {
 				System.out.println("Acesso garantido");
-				switch (this.model.getColaborador(id).getClass().getSimpleName()) {
+				switch (MyUI.model.getColaborador(id).getClass().getSimpleName()) {
 					case "Gestor":
 						mg.menuGestor();
 						break;

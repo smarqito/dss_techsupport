@@ -1,6 +1,5 @@
 package g31.ReparacoesUI;
 
-import g31.Middleware.ReparacaoExpressoJaExisteException;
 import g31.Middleware.TecnicoJaTemAgendaException;
 import g31.Middleware.TipoColaboradorErradoException;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;

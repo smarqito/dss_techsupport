@@ -1,8 +1,7 @@
 package g31.ReparacoesLN.SSReparacoes.PlanoTrabalho;
 
 import g31.Middleware.PassoNaoExisteException;
-import g31.ReparacoesLN.SSReparacoes.CustoTotalReparacao;
-import g31.ReparacoesLN.SSReparacoes.Material;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.CustoTotalReparacao;
 
 import java.io.Serializable;
 import java.util.*;

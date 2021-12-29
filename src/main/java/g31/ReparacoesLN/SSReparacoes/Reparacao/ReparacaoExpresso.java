@@ -2,7 +2,6 @@ package g31.ReparacoesLN.SSReparacoes.Reparacao;
 
 import g31.ReparacoesLN.SSClientes.Equipamento;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
-import g31.ReparacoesLN.SSReparacoes.CustoTotalReparacao;
 
 public class ReparacaoExpresso extends Reparacao {
 

@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import g31.ReparacoesLN.SSReparacoes.CustoTotalReparacao;
-import g31.ReparacoesLN.SSReparacoes.Material;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.CustoTotalReparacao;
 
 public class PassoReparacao implements Serializable{
 

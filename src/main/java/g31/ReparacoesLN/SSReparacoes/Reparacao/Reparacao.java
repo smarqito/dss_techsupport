@@ -7,10 +7,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import g31.ReparacoesLN.SSColaboradores.*;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
 import g31.ReparacoesLN.SSReparacoes.Comunicacao;
-import g31.ReparacoesLN.SSReparacoes.CustoTotalReparacao;
 
 public abstract class Reparacao implements Serializable {
 

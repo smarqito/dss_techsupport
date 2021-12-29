@@ -1,6 +1,5 @@
 package g31.ReparacoesLN.SSReparacoes;
 
-import g31.ReparacoesLN.SSColaboradores.*;
 import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
 
 import java.io.Serializable;

@@ -2,9 +2,8 @@ package g31.ReparacoesLN.SSReparacoes.Orcamento;
 
 import g31.ReparacoesLN.SSClientes.*;
 import g31.ReparacoesLN.SSReparacoes.Comunicacao;
-import g31.ReparacoesLN.SSReparacoes.Material;
 import g31.ReparacoesLN.SSReparacoes.Precos;
-import g31.ReparacoesLN.SSReparacoes.Orcamento.EstadoOrcamento;
+import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.Material;
 import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;
 import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PlanoTrabalho;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
