@@ -207,8 +207,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public Map<Tecnico, List<ReparacoesPorMes>> getReparacoesMes(LocalDateTime data) {
-		// TODO - implement ReparacoesLNFacade.getReparacoesMes
-		throw new UnsupportedOperationException();
+
 	}
 
 	@Override

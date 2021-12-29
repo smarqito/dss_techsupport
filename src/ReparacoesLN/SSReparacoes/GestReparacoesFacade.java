@@ -339,7 +339,14 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	 * @return
 	 */
 	public Map<Tecnico, ReparacoesPorMes> getReparacoesMes(LocalDateTime data) {
-		// TODO - implement GestReparacoesFacade.getReparacoesMes
-		throw new UnsupportedOperationException();
+		Map<Tecnico, ReparacoesPorMes> ret = new HashMap<>();
+
+		for(Reparacao r : this.reps.values()) {
+			if(r.getDataCriacao().getMonth().equals(data.getMonth())) {
+				if(!ret.containsKey(r.getTecnico())) ret.put(r.getTecnico(), new ReparacoesPorMes());
+				ret.get(r.getTecnico()).addReparacao(r);
+			}
+		}
+		return ret;
 	}
 }

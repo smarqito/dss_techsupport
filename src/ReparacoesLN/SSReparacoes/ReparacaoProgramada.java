@@ -1,9 +1,28 @@
 package ReparacoesLN.SSReparacoes;
 
+import b.c.A.O;
+
 public class ReparacaoProgramada extends Reparacao {
 
 	private PlanoTrabalho plano;
 	private Orcamento docOrigem;
+
+
+	public PlanoTrabalho getPlano() {
+		return new PlanoTrabalho(this.plano);
+	}
+
+	public void setPlano(PlanoTrabalho plano) {
+		this.plano = new PlanoTrabalho(plano);
+	}
+
+	public Orcamento getDocOrigem() {
+		return new Orcamento(this.docOrigem);
+	}
+
+	public void setDocOrigem(Orcamento docOrigem) {
+		this.docOrigem = new Orcamento(docOrigem);
+	}
 
 	public ReparacaoProgramada(Orcamento docOrigem) {
 		this.docOrigem = docOrigem;
