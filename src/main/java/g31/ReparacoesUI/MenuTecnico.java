@@ -1,11 +1,11 @@
 package g31.ReparacoesUI;
 
 import g31.Middleware.*;
-import g31.ReparacoesLN.SSColaboradores.AgendaPorDia;
-import g31.ReparacoesLN.SSColaboradores.EntradaAgenda;
-import g31.ReparacoesLN.SSReparacoes.OrcamentoEstado;
-import g31.ReparacoesLN.SSReparacoes.ReparacaoEstado;
-import g31.ReparacoesLN.SSReparacoes.ReparacaoProgramada;
+import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
+import g31.ReparacoesLN.SSColaboradores.Agenda.EntradaAgenda;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
 
 import java.time.LocalDate;
 

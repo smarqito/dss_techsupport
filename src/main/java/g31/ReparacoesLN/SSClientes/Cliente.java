@@ -14,11 +14,10 @@ public class Cliente implements Serializable {
 	private FormaContacto contacto;
 	private String nif;
 
-
 	// public Cliente() {
-	// 	this.equipamentos = new HashMap<>();
-	// 	this.contacto = new FormaContacto();
-	// 	this.nif = null;
+	// this.equipamentos = new HashMap<>();
+	// this.contacto = new FormaContacto();
+	// this.nif = null;
 	// }
 
 	public Cliente(Map<String, Equipamento> e, FormaContacto fc, String nif) {
@@ -44,14 +43,20 @@ public class Cliente implements Serializable {
 	}
 
 	public void addEquipamento(Equipamento equip) throws EquipamentoJaAssociadoException {
-		if(!this.equipamentos.containsKey(equip.getId())) {
-			equipamentos.put(equip.getId(), equip);
+		if (this.equipamentos.containsKey(equip.getId())) {
+			throw new EquipamentoJaAssociadoException(
+					"O cliente " + nif + " ja tem equipamento com ID: " + equip.getId());
 		}
-		throw new EquipamentoJaAssociadoException("O cliente " + nif + " ja tem equipamento com ID: " + equip.getId());
+		equipamentos.put(equip.getId(), equip);
 	}
 
 	public void setEquipamentos(Map<String, Equipamento> equipamentos) {
 		this.equipamentos = new HashMap<>(equipamentos);
+	}
+
+	public boolean temEquipamento(String codR, String marca) {
+		return this.equipamentos.values().stream()
+				.anyMatch(x -> x.getCodRegisto().equals(codR) && x.getMarca().equals(marca));
 	}
 
 	public FormaContacto getContacto() {
@@ -72,7 +77,9 @@ public class Cliente implements Serializable {
 
 	public Equipamento getEquipamento(String equipID) throws EquipamentoNaoAssociadoAoCliente {
 
-		if(!this.equipamentos.containsKey(equipID)) throw new EquipamentoNaoAssociadoAoCliente("Equipamento não associado ao respetivo cliente: " + this.nif + ".");
+		if (!this.equipamentos.containsKey(equipID))
+			throw new EquipamentoNaoAssociadoAoCliente(
+					"Equipamento não associado ao respetivo cliente: " + this.nif + ".");
 		return this.equipamentos.get(equipID);
 	}
 
@@ -82,8 +89,10 @@ public class Cliente implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 		Cliente cliente = (Cliente) o;
 		return Objects.equals(contacto, cliente.contacto) && Objects.equals(nif, cliente.nif);
 	}
@@ -92,6 +101,5 @@ public class Cliente implements Serializable {
 	public int hashCode() {
 		return Objects.hash(contacto, nif);
 	}
-
 
 }
