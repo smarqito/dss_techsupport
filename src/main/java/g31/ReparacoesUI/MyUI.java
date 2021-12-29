@@ -23,8 +23,8 @@ public class MyUI {
 	 * <p>
 	 * Cria os menus e a camada de negócio.
 	 */
-	public MyUI() {
-		// inicial model
+	public MyUI(IReparacoesLN model) {
+		this.model = model;		
 		scin = new Scanner(System.in);
 	}
 
