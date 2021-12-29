@@ -274,7 +274,7 @@ public class MyUI {
 		//print do orcamento
 		try {
 			model.alterarEstadoOrc(orcId, OrcamentoEstado.enviado);
-		} catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
+		} catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException | NaoExisteDisponibilidadeException | TecnicoNaoTemAgendaException e) {
 			e.printStackTrace();
 		}
 	}
@@ -292,27 +292,31 @@ public class MyUI {
 	private void realizarReparacao(String tecId) {
 		System.out.println("Insira o identificador da reparação: ");
 		String repId = scin.nextLine();
-		if (model.getReparacao(repId).getClass().equals(ReparacaoProgramada.getClass())){
-			Menu menu = new Menu(new String[]{
-					"Realizar passo da reparação",
-					"Registar comunicação com o cliente",
-					"Cancelar reparação"
-			});
+		try {
+			if (model.getReparacao(repId).getClass().equals(ReparacaoProgramada.class)) {
+				Menu menu = new Menu(new String[]{
+						"Realizar passo da reparação",
+						"Registar comunicação com o cliente",
+						"Cancelar reparação"
+				});
 
 
-			// Registar os handlers das transições
-			menu.setHandler(1, () -> realizarPasso(repId));
-			menu.setHandler(2, () -> comunicarErro(repId, tecId));
-			menu.setHandler(3, () -> cancelarRep(repId));
+				// Registar os handlers das transições
+				menu.setHandler(1, () -> realizarPasso(repId));
+				menu.setHandler(2, () -> comunicarErro(repId, tecId));
+				menu.setHandler(3, () -> cancelarRep(repId));
 
-			menu.run();
-		}else {
-			Menu menu = new Menu(new String[]{
-					"Registar conclusão"
-			});
+				menu.run();
+			} else {
+				Menu menu = new Menu(new String[]{
+						"Registar conclusão"
+				});
 
-			menu.setHandler(1, () -> registarConclusao(repId));
+				menu.setHandler(1, () -> registarConclusao(repId));
 
+			}
+		} catch (ReparacaoNaoExisteException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -443,7 +447,7 @@ public class MyUI {
 	private void confirmaOrc(String id) {
 		try {
 			model.alterarEstadoOrc(id, OrcamentoEstado.aceite);
-		} catch (EstadoOrcNaoEValidoException | ColaboradorNaoExisteException | ColaboradorNaoTecnicoException | OrcamentoNaoExisteException e) {
+		} catch (EstadoOrcNaoEValidoException | ColaboradorNaoExisteException | ColaboradorNaoTecnicoException | OrcamentoNaoExisteException | NaoExisteDisponibilidadeException | TecnicoNaoTemAgendaException e) {
 			e.printStackTrace();
 		}
 	}
@@ -451,7 +455,7 @@ public class MyUI {
 	private void recusaOrc(String id) {
 		try {
 			model.alterarEstadoOrc(id, OrcamentoEstado.arquivado);
-		} catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
+		} catch (EstadoOrcNaoEValidoException | OrcamentoNaoExisteException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException | NaoExisteDisponibilidadeException | TecnicoNaoTemAgendaException e) {
 			e.printStackTrace();
 		}
 	}
@@ -463,7 +467,7 @@ public class MyUI {
 			System.out.println("Insira o identificador do equipamento: ");
 			String eqId = scin.nextLine();
 			model.addRepExpresso(eqId, tipo);
-		} catch (EquipamentoNaoExisteException | ReparacaoNaoExisteException | NaoExisteDisponibilidadeException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException e) {
+		} catch (EquipamentoNaoExisteException | ReparacaoNaoExisteException | NaoExisteDisponibilidadeException | ColaboradorNaoTecnicoException | ColaboradorNaoExisteException | TecnicoNaoTemAgendaException e) {
 			e.printStackTrace();
 		}
 	}
