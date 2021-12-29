@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSColaboradores.*;
 import ReparacoesLN.SSClientes.*;
@@ -164,15 +165,25 @@ public class GestReparacoesFacade implements IGestReparacoes {
 	}
 
 	/**
+	 * Método para registar uma nova reparação expresso nas reparações disponíveis
+	 * Caso a reparação seja a mesma não é adicionada -> throw Exception
 	 * 
-	 * @param nome
-	 * @param desc
-	 * @param preco
-	 * @param tempo
+	 * @param nome Nome da nova Reparação Expresso
+	 * @param desc Descrição da nova reparação
+	 * @param preco Preço fixo da nova reparação
+	 * @param tempo Tempo estimado da nova reparação
+	 * @throws ReparacaoExpressoJaExisteException
 	 */
-	public void registaRepXpresso(String nome, String desc, Double preco, Integer tempo) {
-		// TODO - implement GestReparacoesFacade.registaRepXpresso
-		throw new UnsupportedOperationException();
+	public void registaRepXpresso(String nome, Double preco, Integer tempo) throws ReparacaoExpressoJaExisteException {
+		
+		if(reparacoesDisponiveis.stream().noneMatch(x -> x.getNome() == nome)) {
+
+			ReparacaoExpresso repXpresso = new ReparacaoExpresso(preco, tempo, nome);
+
+			reparacoesDisponiveis.add(repXpresso);
+
+		} else
+			throw new ReparacaoExpressoJaExisteException("A reparação expresso "+nome+" já existe!");
 	}
 
 	/**

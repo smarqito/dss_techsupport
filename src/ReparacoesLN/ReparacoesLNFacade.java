@@ -9,6 +9,7 @@ import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
+import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
@@ -210,11 +211,19 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		// TODO - implement ReparacoesLNFacade.getReparacoesMes
 		throw new UnsupportedOperationException();
 	}
-
+	
+	/**
+	 * Método para registar uma nova reparação expresso
+	 * Adiciona a reparação à lista de reparações expresso disponiveis 
+	 * 
+	 * Utiliza o método com o mesmo nome
+	 * @param nome Nome da nova reparação
+	 * @param tempo Tempo estimado para a reparação
+	 * @param custo Custo fixo da reparação
+	 */
 	@Override
-	public void registarRepExpresso(String nome, Integer tempo, Double custo) {
-		// TODO - implement ReparacoesLNFacade.registarRepExpresso
-		throw new UnsupportedOperationException();
+	public void registarRepExpresso(String nome, Integer tempo, Double custo) throws ReparacaoExpressoJaExisteException {
+		gestReparacoes.registaRepXpresso(nome, custo, tempo);
 	}
 
 }
