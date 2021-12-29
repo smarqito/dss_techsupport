@@ -13,6 +13,7 @@ import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
+import Middleware.TecnicoJaTemAgendaException;
 
 public interface IReparacoesLN {
 
@@ -178,7 +179,7 @@ public interface IReparacoesLN {
 	 */
 	void registaContacto(String repID, String tecID, String msg);
 
-	void registaColaborador(String nome, String tipo);
+	void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException;
 
 	/**
 	 * 
