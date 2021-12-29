@@ -6,7 +6,7 @@ import java.util.*;
 
 public class GestAgenda implements Serializable {
 
-	private List<Agenda> agendas;
+	private Deque<Agenda> agendas;
 
 	public Agenda getAgenda(String tecId){
 		return this.agendas.stream().filter(x -> Objects.equals(x.getTecnicoId(), tecId)).findFirst().orElse(null);
@@ -17,8 +17,21 @@ public class GestAgenda implements Serializable {
 	 * @param duracao
 	 */
 	public String temDisponibilidade(Integer duracao) {
-		// TODO - implement GestAgenda.temDisponibilidade
-		throw new UnsupportedOperationException();
+		int total = agendas.size();
+		String found = null;
+		Agenda ag;
+		while (total > 0 && found == null) {
+			ag = agendas.element();
+			String disp = ag.temDisponibilidade(duracao);
+			if(disp != null) {
+				found = disp;
+			} else {
+				total--;
+				agendas.poll();
+				agendas.add(ag);
+			}
+		}
+		return found;
 	}
 
 	/**

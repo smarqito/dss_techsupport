@@ -90,8 +90,7 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	 * @param duracao
 	 */
 	public String existeDisponibilidade(Integer duracao) {
-		// TODO - implement GestColaboradoresFacade.existeDisponibilidade
-		throw new UnsupportedOperationException();
+		return agenda.temDisponibilidade(duracao);
 	}
 
 	/**

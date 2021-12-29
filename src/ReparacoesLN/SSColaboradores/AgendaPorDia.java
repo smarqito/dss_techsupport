@@ -1,16 +1,31 @@
 package ReparacoesLN.SSColaboradores;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
-public class AgendaPorDia {
+import Middleware.EntradaNaoExisteException;
+import Middleware.NaoExisteDisponibilidadeException;
 
-	private List<EntradaAgenda> tarefas;
-	private Integer tempoDisp = 8*60;
+public class AgendaPorDia implements Comparator<AgendaPorDia> {
+
+	private TreeSet<EntradaAgenda> tarefas;
+	/**
+	 * Considera-se 8 horas de trabalhos
+	 * Tempo em minutos
+	 */
+	private Integer tempoDisp = 8 * 60;
 	private LocalDate data;
+
+	/**
+	 * 
+	 * @param data
+	 */
+	public AgendaPorDia(LocalDate data) {
+		tarefas = new TreeSet<>();
+		this.data = data;
+	}
 
 	public LocalDate getData() {
 		return data;
@@ -18,53 +33,61 @@ public class AgendaPorDia {
 
 	/**
 	 * 
-	 * @param data
-	 */
-	public AgendaPorDia(Date data) {
-		// TODO - implement AgendaPorDia.AgendaPorDia
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
 	 * @param t
+	 * @throws NaoExisteDisponibilidadeException
 	 */
-	public LocalTime temDisponibilidade(Integer t) {
-		// TODO - implement AgendaPorDia.temDisponibilidade
-		throw new UnsupportedOperationException();
+	public LocalTime temDisponibilidade(Integer t) throws NaoExisteDisponibilidadeException {
+		if (tempoDisp >= t) {
+			return tarefas.last().fim();
+		}
+		throw new NaoExisteDisponibilidadeException();
 	}
 
 	/**
 	 * 
 	 * @param duracao
 	 * @param det
+	 * @throws NaoExisteDisponibilidadeException
 	 */
-	public LocalDateTime addEvento(Integer duracao, String det) {
-		// TODO - implement AgendaPorDia.addEvento
-		throw new UnsupportedOperationException();
+	public LocalDateTime addEvento(Integer duracao, String det) throws NaoExisteDisponibilidadeException {
+		LocalTime inicio = temDisponibilidade(duracao);
+		EntradaAgenda ea = new EntradaAgenda(inicio, duracao, det);
+		tarefas.add(ea);
+		LocalTime fim = ea.fim();
+		tempoDisp -= duracao;
+		return LocalDateTime.of(this.data, fim);
 	}
 
 	/**
 	 * 
 	 * @param data
+	 * @throws EntradaNaoExisteException
 	 */
-	public void removeEvento(LocalDateTime data) {
-		// TODO - implement AgendaPorDia.removeEvento
-		throw new UnsupportedOperationException();
+	public void removeEvento(LocalDateTime data) throws EntradaNaoExisteException {
+		EntradaAgenda ea = getEntradaAgenda(data.toLocalTime());
+		tarefas.remove(ea);
 	}
 
 	public Integer getTempoDisponivel() {
-		// TODO - implement AgendaPorDia.getTempoDisponivel
-		throw new UnsupportedOperationException();
+		return this.tempoDisp;
 	}
 
 	/**
 	 * 
 	 * @param time
+	 * @throws EntradaNaoExisteException
 	 */
-	public EntradaAgenda getEntradaAgenda(Time time) {
-		// TODO - implement AgendaPorDia.getEntradaAgenda
-		throw new UnsupportedOperationException();
+	public EntradaAgenda getEntradaAgenda(LocalTime time) throws EntradaNaoExisteException {
+		try {
+			return tarefas.stream().filter(x -> x.getInicio().compareTo(time) == 0).findFirst().get();
+		} catch (NoSuchElementException e) {
+			throw new EntradaNaoExisteException();
+		}
+	}
+
+	@Override
+	public int compare(AgendaPorDia arg0, AgendaPorDia arg1) {
+		return arg0.data.compareTo(arg1.data);
 	}
 
 }
