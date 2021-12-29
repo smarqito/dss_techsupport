@@ -11,6 +11,8 @@ import java.util.Set;
 
 import Middleware.ClienteJaExisteException;
 import Middleware.ClienteNaoExisteException;
+import Middleware.ColaboradorNaoExisteException;
+import Middleware.ColaboradorNaoTecnicoException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
@@ -21,6 +23,7 @@ import Middleware.PassoJaExisteException;
 import Middleware.ReparacaoExpressoJaExisteException;
 import Middleware.ReparacaoNaoExisteException;
 import Middleware.TecnicoJaTemAgendaException;
+import Middleware.TipoColaboradorErradoException;
 
 public interface IReparacoesLN {
 
@@ -37,16 +40,20 @@ public interface IReparacoesLN {
 	 * @throws EquipamentoNaoExisteException
 	 * @throws ReparacaoNaoExisteException
 	 * @throws NaoExisteDisponibilidadeException
+	 * @throws ColaboradorNaoExisteException
+	 * @throws ColaboradorNaoTecnicoException
 	 */
 	String addRepExpresso(String equipId, String nomeRepExp)
-			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException;
+			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
 
 	/**
 	 * 
 	 * @param orcId
 	 * @param colabId
+	 * @throws ColaboradorNaoExisteException
+	 * @throws OrcamentoNaoExisteException
 	 */
-	void enviarOrcamento(String orcId, String colabId);
+	void enviarOrcamento(String orcId, String colabId) throws ColaboradorNaoExisteException, OrcamentoNaoExisteException;
 
 	Set<Orcamento> getOrcamentosAtivos();
 
@@ -60,9 +67,11 @@ public interface IReparacoesLN {
 	 * @param estado
 	 * @throws EstadoOrcNaoEValidoException
 	 * @throws OrcamentoNaoExisteException
+	 * @throws ColaboradorNaoExisteException
+	 * @throws ColaboradorNaoTecnicoException
 	 */
 	void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
-			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException;
+			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
 
 	/**
 	 * Altera o estado de reparacao para o novo estado
@@ -221,10 +230,19 @@ public interface IReparacoesLN {
 	 * @param tecID
 	 * @param msg
 	 * @throws ReparacaoNaoExisteException
+	 * @throws ColaboradorNaoExisteException
+	 * @throws ColaboradorNaoTecnicoException
 	 */
-	void registaContacto(String repID, String tecID, String msg) throws ReparacaoNaoExisteException;
+	void registaContacto(String repID, String tecID, String msg) throws ReparacaoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
 
-	void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException;
+	/**
+	 * 
+	 * @param nome
+	 * @param tipo
+	 * @throws TecnicoJaTemAgendaException
+	 * @throws TipoColaboradorErradoException
+	 */
+	void registaColaborador(String nome, Class<? extends Colaborador> tipo) throws TecnicoJaTemAgendaException, TipoColaboradorErradoException;
 
 	/**
 	 * Calcula os equipamentos recebidos por funcionario de balcao
@@ -263,8 +281,10 @@ public interface IReparacoesLN {
 	 * @param msg
 	 * @param tecID
 	 * @throws OrcamentoNaoExisteException
+	 * @throws ColaboradorNaoExisteException
+	 * @throws ColaboradorNaoTecnicoException
 	 */
-	void comunicarErro(String orcId, String msg, String tecID) throws OrcamentoNaoExisteException;
+	void comunicarErro(String orcId, String msg, String tecID) throws OrcamentoNaoExisteException, ColaboradorNaoTecnicoException, ColaboradorNaoExisteException;
 
 	/**
 	 * Calcula as reparacoes para um dado mes, agrupadas por tecnico
