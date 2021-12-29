@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.ClienteJaExisteException;
 import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
@@ -127,8 +128,9 @@ public interface IReparacoesLN {
 	 * @param nif
 	 * @param numero
 	 * @param email
+	 * @throws ClienteJaExisteException
 	 */
-	void registaCliente(String nif, String numero, String email);
+	void registaCliente(String nif, String numero, String email) throws ClienteJaExisteException;
 
 	/**
 	 * Efetua o registo de um equipamento e associa-o ao cliente
@@ -176,8 +178,9 @@ public interface IReparacoesLN {
 	 * @param repID
 	 * @param tecID
 	 * @param msg
+	 * @throws ReparacaoNaoExisteException
 	 */
-	void registaContacto(String repID, String tecID, String msg);
+	void registaContacto(String repID, String tecID, String msg) throws ReparacaoNaoExisteException;
 
 	void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException;
 
