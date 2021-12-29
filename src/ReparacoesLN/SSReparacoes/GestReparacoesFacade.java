@@ -164,16 +164,6 @@ public class GestReparacoesFacade implements IGestReparacoes {
 		// existe!");
 	}
 
-	/**
-	 * Método para registar uma nova reparação expresso nas reparações disponíveis
-	 * Caso a reparação seja a mesma não é adicionada -> throw Exception
-	 * 
-	 * @param nome Nome da nova Reparação Expresso
-	 * @param desc Descrição da nova reparação
-	 * @param preco Preço fixo da nova reparação
-	 * @param tempo Tempo estimado da nova reparação
-	 * @throws ReparacaoExpressoJaExisteException
-	 */
 	public void registaRepXpresso(String nome, Double preco, Integer tempo) throws ReparacaoExpressoJaExisteException {
 		
 		if(reparacoesDisponiveis.stream().noneMatch(x -> x.getNome() == nome)) {

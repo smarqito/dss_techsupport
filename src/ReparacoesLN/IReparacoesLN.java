@@ -227,6 +227,7 @@ public interface IReparacoesLN {
 	 * @param nome Nome da nova reparação
 	 * @param tempo Tempo estimado para a reparação
 	 * @param custo Custo fixo da reparação
+	 * @throws ReparacaoExpressoJaExisteException
 	 */
 	void registarRepExpresso(String nome, Integer tempo, Double custo) throws ReparacaoExpressoJaExisteException;
 
