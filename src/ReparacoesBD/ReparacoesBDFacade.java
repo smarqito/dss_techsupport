@@ -2,9 +2,9 @@ package ReparacoesBD;
 
 import ReparacoesLN.*;
 
-public class ReparacoesBDFacade implements IReparacoesBD {
+public class ReparacoesBDFacade {
 
-	public ReparacoesLNFacade getState() {
+	public static ReparacoesLNFacade getState() {
 		// TODO - implement ReparacoesBDFacade.getState
 		throw new UnsupportedOperationException();
 	}
@@ -13,7 +13,7 @@ public class ReparacoesBDFacade implements IReparacoesBD {
 	 * 
 	 * @param facade
 	 */
-	public void putSate(ReparacoesLNFacade facade) {
+	public static void putSate(ReparacoesLNFacade facade) {
 		// TODO - implement ReparacoesBDFacade.putSate
 		throw new UnsupportedOperationException();
 	}

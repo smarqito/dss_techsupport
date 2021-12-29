@@ -1,33 +1,44 @@
 package ReparacoesLN.SSColaboradores;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+import Middleware.EntradaNaoExisteException;
+import Middleware.NaoExisteDisponibilidadeException;
+
 public class Agenda {
 
-	private List<AgendaPorDia> tarefasDia;
+	private Set<AgendaPorDia> tarefasDia;
 	private Tecnico tecnico;
 
-	/**
-	 * 
-	 * @param t
-	 */
-	public String temDisponibilidade(Integer t) {
-		if (getAgendaDia(LocalDate.now()).temDisponibilidade(t) != null){
-			return getTecnicoId();
-		}
-		return null;
+	
+	public Agenda(Tecnico tecnico) {
+		this.tecnico = tecnico;
+		tarefasDia = new TreeSet<>();
 	}
 
 	/**
 	 * 
+	 * @param t
+	 * @throws NaoExisteDisponibilidadeException
+	 */
+	public String temDisponibilidade(Integer t) throws NaoExisteDisponibilidadeException {
+		AgendaPorDia agPd = getAgendaDia(LocalDate.now());
+		agPd.temDisponibilidade(t);
+		return getTecnicoId();
+	}
+
+	/**
+	 * Adiciona o evento no prazo mais proximo e retorna o fim do mesmo
+	 * 
 	 * @param tempo
 	 * @param detalhes
+	 * @return Data e hora do fim do evento (permite colocar como prazo de)
+	 * @throws NaoExisteDisponibilidadeException
 	 */
-	public LocalDateTime addEvento(Integer tempo, String detalhes) {
+	public LocalDateTime addEvento(Integer tempo, String detalhes) throws NaoExisteDisponibilidadeException {
 		TecData td = this.prazoMaisProx(tempo);
 		return this.getAgendaDia(td.data.toLocalDate()).addEvento(tempo, detalhes);
 	}
@@ -35,28 +46,30 @@ public class Agenda {
 	/**
 	 * 
 	 * @param t
+	 * @throws NaoExisteDisponibilidadeException
 	 */
 	public TecData prazoMaisProx(Integer t) {
-		boolean disp = false;
-		int days = 0;
+		int days = 0; // talvez colocar um limite de dias?
 		TecData td = null;
-		while (!disp){
-			AgendaPorDia agPd = getAgendaDia(LocalDate.now().plusDays(days++));
-			LocalTime time;
-			if ((time = agPd.temDisponibilidade(t)) != null){
-				disp = true;
+		while (true) {
+			try {
+				AgendaPorDia agPd = getAgendaDia(LocalDate.now().plusDays(days++));
+				LocalTime time = agPd.temDisponibilidade(t);
 				LocalDateTime data = LocalDateTime.of(agPd.getData(), time);
 				td = new TecData(getTecnicoId(), data);
+				return td;
+			} catch (NaoExisteDisponibilidadeException e) {
+				continue;
 			}
 		}
-		return td;
 	}
 
 	/**
 	 * 
 	 * @param data
+	 * @throws EntradaNaoExisteException
 	 */
-	public void removeEvento(LocalDateTime data) {
+	public void removeEvento(LocalDateTime data) throws EntradaNaoExisteException {
 		this.getAgendaDia(data.toLocalDate()).removeEvento(data);
 	}
 
@@ -65,7 +78,13 @@ public class Agenda {
 	 * @param data
 	 */
 	public AgendaPorDia getAgendaDia(LocalDate data) {
-		return tarefasDia.stream().filter(x -> x.getData().equals(data)).findFirst().orElse(null);
+		try {
+			return tarefasDia.stream().filter(x -> x.getData().equals(data)).findFirst().get();
+		} catch (NoSuchElementException e) {
+			AgendaPorDia agPd = new AgendaPorDia(data);
+			tarefasDia.add(agPd);
+			return agPd;
+		}
 	}
 
 	public String getTecnicoId() {

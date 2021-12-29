@@ -5,11 +5,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import Middleware.ClienteJaExisteException;
 import Middleware.ClienteNaoExisteException;
 import Middleware.EquipamentoJaAssociadoException;
 import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.ReparacaoNaoExisteException;
+import Middleware.TecnicoJaTemAgendaException;
+import ReparacoesBD.ReparacoesBDFacade;
 import ReparacoesLN.SSClientes.*;
 import ReparacoesLN.SSReparacoes.*;
 import ReparacoesLN.SSColaboradores.*;
@@ -21,48 +24,47 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	private IGestColaboradores gestColaboradores;
 
 	public static ReparacoesLNFacade getInstance() {
-		// TODO - implement ReparacoesLNFacade.getInstance
-		throw new UnsupportedOperationException();
+		return ReparacoesBDFacade.getState();
 	}
 
 	@Override
 	public void addRepExpresso(String equipId, String nomeRepExp) throws EquipamentoNaoExisteException {
-		
+
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
-		
-		if(existeRepX) {
+
+		if (existeRepX) {
 
 			Equipamento eq = gestClientes.getEquipamento(equipId);
 
 			Integer duracao_estimada = gestReparacoes.getTempoEstimado(nomeRepExp);
 
-			/** 
-			 try {
- 
-				 String tecID = gestColaboradores.existeDisponibilidade(duracao_estimada);
-				 Tecnico tecnico = gestColaboradores.getTecnico(tecID);
-				 gestReparacoes.addRepExpresso(eq, nomeRepExp, tecnico);
-				 
-			 } catch (NaoExisteDisponibilidadeException e) {
-				 
-				 throw new NaoExisteDisponibilidadeException("Não existem técnicos disponíveis para efetuar "+nomeRepExp+" no equipamento "+equipId);
-			 }
-		 
-		} else throw new ReparacaoXPressoNaoExisteException("A reparacao "+nomeRepExp+" não existe!"); 
-			*/
+			/**
+			 * try {
+			 * 
+			 * String tecID = gestColaboradores.existeDisponibilidade(duracao_estimada);
+			 * Tecnico tecnico = gestColaboradores.getTecnico(tecID);
+			 * gestReparacoes.addRepExpresso(eq, nomeRepExp, tecnico);
+			 * 
+			 * } catch (NaoExisteDisponibilidadeException e) {
+			 * 
+			 * throw new NaoExisteDisponibilidadeException("Não existem técnicos disponíveis
+			 * para efetuar "+nomeRepExp+" no equipamento "+equipId);
+			 * }
+			 * 
+			 * } else throw new ReparacaoXPressoNaoExisteException("A reparacao
+			 * "+nomeRepExp+" não existe!");
+			 */
 		}
-	}	
+	}
 
 	@Override
 	public void enviarOrcamento(String orcId) {
-		// TODO - implement ReparacoesLNFacade.enviarOrcamento
-		throw new UnsupportedOperationException();
+		this.gestReparacoes.enviarOrcamento(orcId);
 	}
 
 	@Override
 	public List<Orcamento> getOrcamentosAtivos() {
-		// TODO - implement ReparacoesLNFacade.getOrcamentosAtivos
-		throw new UnsupportedOperationException();
+		return this.gestReparacoes.getOrcamentosAtivos();
 	}
 
 	@Override
@@ -87,13 +89,12 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void generateOrc(String orcId) {
-		// TODO - implement ReparacoesLNFacade.generateOrc
-		throw new UnsupportedOperationException();
+		Orcamento o = gestReparacoes.getOrcamento(orcId);
 	}
 
 	@Override
 	public void registaPasso(String repID, Integer mins, Double custo) {
-		
+
 		gestReparacoes.registaPasso(repID, mins, custo);
 	}
 
@@ -107,7 +108,6 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return gestClientes.getEquipamento(equipID);
 	}
 
-	
 	@Override
 	public Equipamento getEquipamento(String codR, String marca) throws EquipamentoNaoExisteException {
 		return this.gestClientes.getEquipamento(codR, marca);
@@ -134,13 +134,13 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaCliente(String nif, String numero, String email) {
-		// TODO - implement ReparacoesLNFacade.registaCliente
-		throw new UnsupportedOperationException();
+	public void registaCliente(String nif, String numero, String email) throws ClienteJaExisteException {
+		this.gestClientes.registaCliente(nif, numero, email);
 	}
 
 	@Override
-	public void registaEquipamento(String codR, String marca, String nif) throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
+	public void registaEquipamento(String codR, String marca, String nif)
+			throws ClienteNaoExisteException, EquipamentoJaAssociadoException {
 		gestClientes.registaEquipamento(codR, marca, nif);
 	}
 
@@ -151,8 +151,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat) {
-		
-		Material newMat = new Material(null, mat, custoMat, qMat); 
+
+		Material newMat = new Material(null, mat, custoMat, qMat);
 		gestReparacoes.criarPasso(orcID, nomePasso, newMat, tempo);
 
 	}
@@ -160,38 +160,35 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	@Override
 	public void registarOrcamento(String nif, String equipId, String descr) throws EquipamentoNaoExisteException {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
-		if (e.isProprietario(nif)){
+		if (e.isProprietario(nif)) {
 			this.gestReparacoes.registarOrcamento(e, descr);
 		}
 	}
 
 	@Override
-	public void registaContacto(String repID, String tecID, String msg) {
-		// TODO - implement ReparacoesLNFacade.registaContacto
-		throw new UnsupportedOperationException();
+	public void registaContacto(String repID, String tecID, String msg) throws ReparacaoNaoExisteException {
+		Tecnico tec = this.gestColaboradores.getTecnico(tecID);
+		this.gestReparacoes.registaContacto(repID, msg, tec);
 	}
 
 	@Override
-	public void registaColaborador(String nome, String tipo) {
+	public void registaColaborador(String nome, String tipo) throws TecnicoJaTemAgendaException {
 		this.gestColaboradores.registaColaborador(nome, tipo);
 	}
 
 	@Override
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipRecebidos(LocalDateTime de, LocalDateTime ate) {
-		// TODO - implement ReparacoesLNFacade.getEquipRecebidos
-		throw new UnsupportedOperationException();
+		return this.gestColaboradores.getEquipRecebidos(de, ate);
 	}
 
 	@Override
 	public Map<FuncionarioBalcao, List<Equipamento>> getEquipEntregue(LocalDateTime de, LocalDateTime ate) {
-		// TODO - implement ReparacoesLNFacade.getEquipEntregue
-		throw new UnsupportedOperationException();
+		return this.gestColaboradores.getEquipEntregue(de, ate);
 	}
 
 	@Override
 	public void saveInstance() {
-		// TODO - implement ReparacoesLNFacade.saveInstance
-		throw new UnsupportedOperationException();
+		ReparacoesBDFacade.putSate(this);
 	}
 
 	@Override
@@ -201,8 +198,9 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 
 	@Override
 	public void comunicarErro(String orcId, String msg, String tecID) {
-		// TODO - implement ReparacoesLNFacade.comunicarErro
-		throw new UnsupportedOperationException();
+		Tecnico tec = this.gestColaboradores.getTecnico(tecID);
+		Orcamento orc = this.gestReparacoes.getOrcamento(orcId);
+		this.gestReparacoes.comunicarErro(orc, tec, msg);
 	}
 
 	@Override
