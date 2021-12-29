@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import g31.Middleware.EntradaNaoExisteException;
 import g31.Middleware.NaoExisteDisponibilidadeException;
 
-public class AgendaPorDia implements Comparator<AgendaPorDia>, Serializable {
+public class AgendaPorDia implements Comparable<AgendaPorDia>, Serializable {
 
 	private TreeSet<EntradaAgenda> tarefas;
 	/**
@@ -46,7 +46,23 @@ public class AgendaPorDia implements Comparator<AgendaPorDia>, Serializable {
 	 */
 	public LocalTime temDisponibilidade(Integer t) throws NaoExisteDisponibilidadeException {
 		if (tempoDisp >= t) {
-			return tarefas.last().fim();
+			LocalTime now = LocalTime.now();
+			if (now.compareTo(LocalTime.of(18, 30, 0)) >= 0 && this.data.compareTo(LocalDate.now()) <= 0) {
+				throw new NaoExisteDisponibilidadeException();
+			}
+			if (tarefas.size() == 0) {
+				if (this.data.compareTo(LocalDate.now()) > 0) {
+					return LocalTime.of(9, 30, 0);
+				}
+				if (now.compareTo(LocalTime.of(18, 30, 0)) <= 0) {
+					return LocalTime.of(Math.min(18, now.getHour()), Math.max(30, now.getMinute()), 0);
+				}
+			} else {
+				LocalTime prox = tarefas.last().fim();
+				if (prox.compareTo(LocalTime.of(18, 30, 0)) <= 0) {
+					return LocalTime.of(Math.min(18, prox.getHour()), Math.max(30, prox.getMinute()), 0);
+				}
+			}
 		}
 		throw new NaoExisteDisponibilidadeException();
 	}
@@ -99,13 +115,13 @@ public class AgendaPorDia implements Comparator<AgendaPorDia>, Serializable {
 		return tarefas.stream().collect(Collectors.toCollection(() -> new TreeSet<>()));
 	}
 
-	@Override
-	public int compare(AgendaPorDia arg0, AgendaPorDia arg1) {
-		return arg0.data.compareTo(arg1.data);
-	}
-
 	public AgendaPorDia clone() {
 		return new AgendaPorDia(this);
+	}
+
+	@Override
+	public int compareTo(AgendaPorDia arg0) {
+		return this.data.compareTo(arg0.data);
 	}
 
 }

@@ -143,7 +143,7 @@ public class GestColaboradoresFacade implements IGestColaboradores, Serializable
 	}
 
 	@Override
-	public TecData prazoReparacaoMaisProx(Integer duracao) {
+	public TecData prazoReparacaoMaisProx(Integer duracao) throws NaoExisteDisponibilidadeException {
 		return this.agenda.prazoMaisProx(duracao);
 	}
 

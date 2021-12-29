@@ -2,9 +2,8 @@ package g31.ReparacoesLN.SSColaboradores.Agenda;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.Comparator;
 
-public class EntradaAgenda implements Serializable, Comparator<EntradaAgenda> {
+public class EntradaAgenda implements Serializable, Comparable<EntradaAgenda> {
 
 	private LocalTime inicio;
 	private Integer duracao;
@@ -40,8 +39,8 @@ public class EntradaAgenda implements Serializable, Comparator<EntradaAgenda> {
 	}
 
 	@Override
-	public int compare(EntradaAgenda e1, EntradaAgenda e2) {
-		return e1.inicio.compareTo(e2.inicio);
+	public int compareTo(EntradaAgenda arg0) {
+		return this.inicio.compareTo(arg0.inicio);
 	}
 
 }

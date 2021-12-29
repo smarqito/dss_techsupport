@@ -113,8 +113,9 @@ public interface IGestColaboradores {
 	/**
 	 * 
 	 * @param duracao
+	 * @throws NaoExisteDisponibilidadeException
 	 */
-	TecData prazoReparacaoMaisProx(Integer duracao);
+	TecData prazoReparacaoMaisProx(Integer duracao) throws NaoExisteDisponibilidadeException;
 
 	/**
 	 * Calcula o plano da agenda para um dia, para um tecnico
