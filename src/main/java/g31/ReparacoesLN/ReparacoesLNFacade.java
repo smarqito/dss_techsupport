@@ -28,7 +28,17 @@ import g31.Middleware.TipoColaboradorErradoException;
 import g31.ReparacoesBD.ReparacoesBDFacade;
 import g31.ReparacoesLN.SSClientes.*;
 import g31.ReparacoesLN.SSReparacoes.*;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
+import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.Reparacao;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
 import g31.ReparacoesLN.SSColaboradores.*;
+import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
+import g31.ReparacoesLN.SSColaboradores.Agenda.TecData;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
 
 public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 

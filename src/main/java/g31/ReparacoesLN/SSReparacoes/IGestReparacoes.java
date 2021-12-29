@@ -1,6 +1,14 @@
 package g31.ReparacoesLN.SSReparacoes;
 
 import g31.ReparacoesLN.SSColaboradores.*;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
+import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.Reparacao;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoExpresso;
 import g31.ReparacoesLN.SSClientes.*;
 
 import java.time.LocalDateTime;

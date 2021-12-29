@@ -1,4 +1,4 @@
-package g31.ReparacoesLN.SSReparacoes;
+package g31.ReparacoesLN.SSReparacoes.Orcamento;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

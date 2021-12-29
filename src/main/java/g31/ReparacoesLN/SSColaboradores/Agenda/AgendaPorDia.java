@@ -1,4 +1,4 @@
-package g31.ReparacoesLN.SSColaboradores;
+package g31.ReparacoesLN.SSColaboradores.Agenda;
 
 import java.io.Serializable;
 import java.time.LocalDate;

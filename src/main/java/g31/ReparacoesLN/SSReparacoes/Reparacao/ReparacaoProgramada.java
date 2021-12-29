@@ -1,6 +1,10 @@
-package g31.ReparacoesLN.SSReparacoes;
+package g31.ReparacoesLN.SSReparacoes.Reparacao;
 
-import g31.ReparacoesLN.SSColaboradores.Tecnico;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
+import g31.ReparacoesLN.SSReparacoes.CustoTotalReparacao;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
+import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;
+import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PlanoTrabalho;
 
 public class ReparacaoProgramada extends Reparacao {
 

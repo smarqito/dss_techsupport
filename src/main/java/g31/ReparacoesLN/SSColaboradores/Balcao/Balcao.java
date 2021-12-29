@@ -1,6 +1,7 @@
-package g31.ReparacoesLN.SSColaboradores;
+package g31.ReparacoesLN.SSColaboradores.Balcao;
 
 import g31.ReparacoesLN.SSClientes.*;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

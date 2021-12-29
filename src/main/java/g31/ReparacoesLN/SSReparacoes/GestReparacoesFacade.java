@@ -15,6 +15,15 @@ import g31.Middleware.ReparacaoExpressoJaExisteException;
 import g31.Middleware.ReparacaoJaExisteException;
 import g31.Middleware.ReparacaoNaoExisteException;
 import g31.ReparacoesLN.SSColaboradores.*;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
+import g31.ReparacoesLN.SSReparacoes.PlanoTrabalho.PassoReparacao;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.Reparacao;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoExpresso;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
 import g31.ReparacoesLN.SSClientes.*;
 
 public class GestReparacoesFacade implements IGestReparacoes, Serializable {

@@ -1,6 +1,12 @@
 package g31.ReparacoesLN.SSColaboradores;
 
 import g31.ReparacoesLN.SSClientes.*;
+import g31.ReparacoesLN.SSColaboradores.Agenda.AgendaPorDia;
+import g31.ReparacoesLN.SSColaboradores.Agenda.TecData;
+import g31.ReparacoesLN.SSColaboradores.Balcao.Balcao;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Colaborador;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.FuncionarioBalcao;
+import g31.ReparacoesLN.SSColaboradores.Colaboradores.Tecnico;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
