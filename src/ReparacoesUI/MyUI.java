@@ -1,8 +1,12 @@
 package ReparacoesUI;
 
+import Middleware.ClienteJaExisteException;
+import Middleware.EquipamentoNaoExisteException;
 import Middleware.EstadoOrcNaoEValidoException;
 import Middleware.TecnicoJaTemAgendaException;
 import ReparacoesLN.*;
+import ReparacoesLN.SSClientes.Cliente;
+import ReparacoesLN.SSClientes.EstadoEquipamento;
 import ReparacoesLN.SSReparacoes.OrcamentoEstado;
 import ReparacoesLN.SSReparacoes.ReparacaoEstado;
 
@@ -273,7 +277,7 @@ public class MyUI {
 
 		// Registar os handlers das transições
 		menu.setHandler(1, this::registaCliente);
-		menu.setHandler(2, this::pedidoOrcamento;
+		menu.setHandler(2, this::pedidoOrcamento);
 		menu.setHandler(3, this::confirmarOrcamento);
 		menu.setHandler(4, this::pedidoRepXpresso);
 		menu.setHandler(5, this::registarEntregaEquip);
@@ -282,18 +286,93 @@ public class MyUI {
 	}
 
 	private void registaCliente() {
+		try {
+			System.out.println("Insira o nif do cliente: ");
+			String nif = scin.nextLine();
+			System.out.println("Insira o numero do cliente: ");
+			String numero = scin.nextLine();
+			System.out.println("Insira o email do cliente: ");
+			String email = scin.nextLine();
+			model.registaCliente(nif, numero, email);
+			System.out.println("Cliente registado!");
+		} catch (ClienteJaExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void pedidoOrcamento() {
+		try {
+			System.out.println("Insira o nif do cliente: ");
+			String nif = scin.nextLine();
+			System.out.println("Insira o identificador do equipamento: ");
+			String eqId = scin.nextLine();
+			System.out.println("Insira a descrição do orçamento: ");
+			String desc = scin.nextLine();
+			model.registarOrcamento(nif, eqId, desc);
+			System.out.println("Pedido de Orcamento efetuado");
+		} catch (EquipamentoNaoExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void confirmarOrcamento() {
+		Menu menu = new Menu(new String[]{
+				"Confirmar Orcamento",
+				"Recusar Orcamento"
+		});
+
+		menu.setHandler(1, this::confirmaOrc);
+		menu.setHandler(2, this::recusaOrc);
+
+		menu.runOnce();
+	}
+
+	private void confirmaOrc() {
+		try {
+			System.out.println("Insira o identificador do Orcamento: ");
+			String id = scin.nextLine();
+			model.alterarEstadoOrc(id, OrcamentoEstado.aceite);
+			//criar rep?
+		} catch (EstadoOrcNaoEValidoException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void recusaOrc() {
+		try {
+			System.out.println("Insira o identificador do Orcamento: ");
+			String id = scin.nextLine();
+			model.alterarEstadoOrc(id, OrcamentoEstado.arquivado);
+		} catch (EstadoOrcNaoEValidoException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void pedidoRepXpresso() {
+		try {
+			System.out.println("Insira o tipo de reparação expresso: ");
+			String tipo = scin.nextLine();
+			System.out.println("Insira o nif do cliente: ");
+			String desc = scin.nextLine();
+			System.out.println("Insira o identificador do equipamento: ");
+			String eqId = scin.nextLine();
+			model.addRepExpresso(eqId, tipo);
+		} catch (EquipamentoNaoExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void registarEntregaEquip() {
+		try {
+			System.out.println("Insira o identificador do equipamento: ");
+			String eqId = scin.nextLine();
+			System.out.println(("Insira identificador da reparação"));
+			String repId = scin.nextLine();
+			model.alteraEstadoEq(eqId, EstadoEquipamento.entregue);
+			model.alterarEstadoRep(repId, ReparacaoEstado.pago);
+		} catch (EquipamentoNaoExisteException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
