@@ -348,4 +348,5 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoExisteException Caso nao exista
 	 */
 	Colaborador getColaborador(String id) throws ColaboradorNaoExisteException;
+
 }

@@ -41,6 +41,7 @@ public class Menu {
         this.opcoes = new ArrayList<>();
         this.disponivel = new ArrayList<>();
         this.handlers = new ArrayList<>();
+
     }
 
     /**
@@ -57,6 +58,7 @@ public class Menu {
         this.opcoes = new ArrayList<>(opcoes);
         this.disponivel = new ArrayList<>();
         this.handlers = new ArrayList<>();
+
         this.opcoes.forEach(s-> {
             this.disponivel.add(()->true);
             this.handlers.add(()->System.out.println("\nATENÇÃO: Opção não implementada!"));
