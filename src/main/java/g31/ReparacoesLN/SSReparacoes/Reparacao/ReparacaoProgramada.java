@@ -48,7 +48,7 @@ public class ReparacaoProgramada extends Reparacao {
 	 * @param custo Custo efetivo gasto
 	 */
 	@Override
-	public void registaPassoRealizado(Integer tempo, Double custo) {
+	public ReparacaoEstado registaPassoRealizado(Integer tempo, Double custo) {
 
 		PassoReparacao pAtual = plano.getPassoAtual();
 		pAtual.setCustoEfetivo(custo);
@@ -57,6 +57,7 @@ public class ReparacaoProgramada extends Reparacao {
 		if (!plano.haMaisPassos()) {
 			super.alteraEstado(ReparacaoEstado.reparado, "reparado!");
 		}
+		return super.getUltimoEstado().getEstado();
 	}
 
 	@Override

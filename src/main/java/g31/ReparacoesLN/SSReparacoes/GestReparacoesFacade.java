@@ -182,9 +182,9 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	@Override
-	public void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException {
+	public ReparacaoEstado registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException {
 		Reparacao rep = getReparacao(repID);
-		rep.registaPassoRealizado(mins, custo);
+		return rep.registaPassoRealizado(mins, custo);
 	}
 
 	@Override

@@ -162,7 +162,7 @@ public interface IGestReparacoes {
 	 * @param custo Custo efetivo da reparação
 	 * @throws ReparacaoNaoExisteException
 	 */
-	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException;
+	ReparacaoEstado registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException;
 
 	/**
 	 * Método para registar uma nova reparação expresso nas reparações disponíveis
