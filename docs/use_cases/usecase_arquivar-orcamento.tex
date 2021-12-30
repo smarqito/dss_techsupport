@@ -1,7 +1,15 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
 Arquivamento dos orçamentos que não obtiveram resposta por parte do cliente há mais de 30 dias.
-Corresponde a um fluxo automático que deverá ser executado diariamente.
+A decisão do arquivo é feita pelo Gestor.
+
+Em relação ao fluxo do caso de uso apresentado na primeira fase, o presente diferencia-se no ator 
+que efetua o arquivo. 
+Previamente uma tarefa do \textit{System Timer}, com a remoção deste, foi necessária a mudança para 
+um ator novo, sendo o mais apropriado o Gestor.
+Como este possuí privilégios relativamente aos outros colaboradores, é considerado o mais apropriado 
+a efetuar a decisão.
+
 \begin{itemize}
     \item[Use Case] {\underline{Arquivar orçamento}}
     \item[Cenários] {1}
@@ -17,8 +25,6 @@ Corresponde a um fluxo automático que deverá ser executado diariamente.
               \item Sistema adiciona orçamentos ao arquivo e apresenta-os
           \end{enumerate}
 \end{itemize}
-
-
 \begin{landscape}
     \begin{table}[!h]
         \centering
