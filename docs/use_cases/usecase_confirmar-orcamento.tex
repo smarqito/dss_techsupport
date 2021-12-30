@@ -19,7 +19,8 @@ Foram alterados os métodos na análise de requisitos, pelo que a lógica toda �
               \item Sistema devolve orçamento
               \item Funcionário regista orçamento como aceite
               \item Sistema atualiza orçamento para reparação 
-              \item Sistema associa reparação a um Técnico e atualiza a sua agenda 
+              \item Sistema associa reparação a um Técnico 
+              \item Sistema atualiza agenda do Técnico
               \item Sistema insere reparação à lista de equipamentos por reparar
           \end{enumerate}
           \begin{flushleft}
@@ -63,7 +64,20 @@ Foram alterados os métodos na análise de requisitos, pelo que a lógica toda �
             \\
             \hline
             Sistema atualiza orçamento para reparação
-            Sistema associa reparação a um Técnico e atualiza a sua agenda
+            Sistema associa reparação a um Técnico 
+                    & 
+                    & Adiciona a reparação à lista de reparações por efetuar
+                    & addReparacao(orc : Orcamento, tec: Tecnico)
+                    & SSReparacoes
+            \\
+            \hline
+            Sistema atualiza agenda do Técnico
+                    & 
+                    & Adiciona um evento à agenda do Técnico
+                    & addEventoAgenda(String tecId, Integer tempo, String detalhes
+                    & SSColaboradores
+            \\
+            \hline
             Sistema insere pedido de reparação à lista de equipamentos por reparar
                      & 
                      & Criar reparação e inseri-la no sistema, associando-a a um técnico
