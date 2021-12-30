@@ -206,41 +206,71 @@ vocabulário a ser usado no decorrer do projeto.
 \section{Descrição do problema}
 O centro de reparações oferece dois tipos de intervenções:
 \begin{itemize}
-    \item[Normal]{Uma intervenção de duração variável, em que o equipamento é reparado após a aprovação do cliente face a um orçamento criado.}
+    \item[Programada]{Uma intervenção de duração variável, em que o equipamento é reparado após a aprovação do cliente face a um orçamento criado.}
     \item[Expresso]{Conjunto de serviços limitado, com preço fixo e 
                     que apenas é aceite mediante disponiblidade de tempo para realização imediata.
                    }
 \end{itemize}
 
 Para desenvolver o orçamento é necessário realizar uma avaliação do equipamento e definir um plano de trabalhos. 
-Este consiste na sequência de passos da reparação, cada um apontando o custo, a quantidade de material necessária e o tempo 
+Este consiste na sequência de passos da reparação, cada um apontando o custo, o material necessária e o tempo 
 previsto da reparação.
 
 Os colaboradores são os principais atores do sistema. 
 O funcionário de balcão identifica o(s) cliente(s) e o(s) respetivo(s) equipamento(s). Posteriormente, efetua o pedido de orçamento.
 Assume-se que um cliente pode ter um ou mais equipamentos.
 Sendo que o equipamento pode avariar mais do que uma vez, torna-se relevante a sua entidade ser reutilizada entre cada reparação.
-Por isso, um equipamento tem um histórico de reparações, assim como histórico de orçamentos.
+Por isso, um equipamento tem um histórico de reparações.
 
 O técnico é o responsável pela especificação do orçamento e realização da reparação.
-Por uma questão de otimização de tempo e recursos, um técnico pode estar associado a mais do que uma reparação,
-assim como uma reparação pode ser executada por mais do que um técnico 
-(por exemplo, quando um técnico termina o seu turno, outro pode pedir ao sistema uma reparação pendente e dar-lhe continuidade).
+Por uma questão de otimização de tempo e recursos, um técnico pode estar associado a mais do que uma reparação, contudo, ao
+contrário do que foi definido na primeira fase do projeto, uma reparação não pode ser efetuada por mais do que um técnico.
+Neste sentido, uma reparação é feita, desde o início até ao fim por apenas um técnico. 
+
 Para o desenvolvimento de um orçamento, o técnico constrói um novo plano de trabalhos.
 Este, por sua vez, é constituído por um conjunto de passos de reparação.
-Para tornar o sistema mais flexível, optou-se por associar uma categoria de material ao passo,
-permitindo que o mesmo \textbf{passo de reparação} possa ser reutilizado em mais que um plano de trabalhos.
-Ainda com o mesmo propósito, optou-se por associar qualquer tipo de reparação à entidade \textbf{Reparação},
-sendo que esta contém um plano de trabalhos.
-Esta estratégia permite que até a reparação expresso (que tem características particulares - serviço fixo),
-possa ser caracterizada por um plano de trabalhos.
 
-Atendendo que a reparação gasta \textbf{Material}, optou-se por acrescentar a \textbf{Quantidade} de material em \textit{stock}.
-Esta alteração permitiu calcular quais as reparações que podem avançar,
-bem como o material que é necessário encomendar (ver \ref{encomendar_material}).
+Um passo de reparação possui o material que irá usar, sendo este único ao passo e relativo a todos os materias 
+que irá necessitar para o seu desenvolvimento. São permitidos passos que não usem materiais, \textit{i.e.} uma formatação. 
+De modo análogo à entrega da primeira fase, permanece-se associado a um passo de reparação o tempo necessário para o desenvolver 
+e todos os sub-passos que engloba.
 
-Por último, o gestor terá um papel de administração, avaliando os desempenhos dos outros elementos e
+Está estipulado que apenas as reparações programadas possuem um plano de trabalhos a seguir e cada plano de trabalho é único à 
+reparação a que foi associado.
+Neste sentido, as reparações expresso (que tem características particulares - serviço fixo), por serem imediatas, distinguem-se 
+por não possuirem um conjunto de passos a definir, sendo a sua realização conhecida pelo técnico.
+Ambos os tipos de reparação mantêm-se associados à entidade \textbf{Reparação}.
+
+O gestor terá um papel de administração, avaliando os desempenhos dos outros elementos e
 recrutando novos colaboradores (tendo de os adicionar ao sistema).
+
+Por último, em casos em que seja requerido, um colaborador poderá comunicar com os clientes, a partir de um \textit{SMS} ou \textit{Email}.
+
+\subsection{Principais Alterações na Definição do Problema}\label{princ_alter_prob}
+
+No decorrer da realização do projeto, a partir da experiência de outros trabalhos semelhantes, ocorreram alterações ao
+nível da dinâmica do sistema definido na primeira fase, para traduzir numa aplicação mais concisa.
+
+As principais e mais notórias alterações:
+\begin{itemize}
+    \item[Realização da reparação vários técnicos] {Devido à complexidade na sua implementação,
+    não será apresentada a possibilidade de realizar a mesma reparação por técnicos diferentes, sendo uma funcionalidade útil cuja 
+    implementação seria importante em iterações seguintes do sistema.
+    }
+    \item[Categoria Material] {Numa restruturação posterior, a categoria de material foi retirada do sistema, devido à sua implementação ambiciosa e trabalhosa.
+    Apesar da existência de uma categoria de material permitir flexibilidade ao nível da definição de passos de reparação genéricos, foi decidido, após uma 
+    avaliação da situação do trabalho que não seria implementada esta dinâmica no sistema nesta iteração. Contudo, permitir o uso de passos genéricos e,
+    consequentemente, a construção de planos de trabalho utilizáveis por mais do que uma reparação seria monumental na construção de um sistema relevante. 
+    Se possível estabelecer uma base de dados com esta informação, seria altamente eficaz o processo de definir orçamentos e realizar reparações.
+    }
+    \item[Reparação expresso possui um plano de trabalhos] {Devido à redundância da existência de um plano de trabalhos para um serviço fixo e imediato, foi retirada 
+    a utilização de um plano de trabalhos à reparação expresso. 
+    }
+    \item[Stock do Material]{Com a escolha de não ser implementada a manipulação do stock do material, a entidade /textbf{Quantidade} associada ao material 
+    já não se trata da sua quantidade em stock, mas sim a quantidade de materiais usados no passo de reparação a que estão associados.
+    Sendo, por esta razão, os casos de uso, como  \ref{encomendar_material}, relativos a uma iteração futura do sistema.
+    }
+\end{itemize}
 
 Neste sentido, como resposta à necessidade de modelar o problema e com base na análise do enunciado proposto foram identificadas as 
 principais entidades (\ref{ent}) que fazem parte do sistema, assim como os relacionamentos entre elas. 
@@ -249,18 +279,21 @@ principais entidades (\ref{ent}) que fazem parte do sistema, assim como os relac
 
 \subsection{Cliente}\label{ent_cliente}
 O cliente é a entidade que possui o(s) equipamento(s) que necessita(m) de intervenção técnica, cada cliente é identificado pelo 
-seu Número de Identificação Fiscal (NIF).
+seu Número de Identificação Fiscal (NIF) e pelas suas Formas de Contacto. Um cliente pode ser contactado por um colaborador através
+de um \textit{SMS} ou \textit{Email}.
 
 \subsection{Colaborador} \label{ent_colaborador}
 O Colaborador é a entidade relativa a todos os elementos que interagem diretamente com o sistema. 
-Numa forma geral, engloba todos os trabalhadores que populam o \textbf{Centro de Reparação} e, após autenticados, executam os
+Numa forma geral, engloba todos os trabalhadores que populam o \textbf{Centro de Reparações} e, após autenticados, executam os
 serviços pedidos - Uma entidade abstrata que ramifica-se em sub-entidades(trabalhadores) mais específicas.
+Todos são identificados por um número de identificação, para permitir a sua organização.
 
 Desde a inserção do equipamento a ser reparado no sistema até à sua eventual entrega ao cliente, o processo conta com participação
 do(s) \textbf{Funcionário(s) de Balcão} e do(s) \textbf{Colaboradore(s) Especializado(s)}.
 
 \subsubsection{Funcionário de Balcão} \label{ent_func_balcao}
-Corresponde à entidade responsável pelo início e o término de uma reparação - o registo inicial e entrega do equipamento ao cliente, respetivamente.  
+Corresponde à entidade responsável pelo início e o término de uma reparação - o registo inicial e entrega do equipamento ao cliente, respetivamente.
+Encontra-se associado aos equipamentos com o qual interage.
 
 \subsubsection{Colaborador Especializado} \label{ent_colab_especializado}
 Esta entidade compreende os colaboradores com competências técnicas especializadas, divergindo na sua autoridade com o Funcionário de Balcão. 
@@ -273,47 +306,110 @@ Desta forma, foi definido os seguintes tipos:
 \end{itemize}
 
 \subsection{Equipamento} \label{ent_equipamento}
-Corresponde a uma entidade que representa um objeto físico que irá entrar no sistema com a perspetiva de obter um orçamento e,
+Corresponde a uma entidade que representa um objeto físico que irá entrar no sistema com a perspetiva de obter um orçamento (calculado ou fixo) e,
 eventualmente, originar uma reparação.
 Esta entidade é identificada por um código de registo e marca.
 Optou-se por um identificador duplo - \{marca, código de registo\}, 
 por forma a garantir que cada equipamento é facilmente identificado sem repetições.
 O código de registo é o número de série.
+Adicionalmente, para representar a dinâmico do equipamento dentro do centro de reparações, tem um estado associado, que permite datar as várias 
+iterações da sua reparação.
+Os estados possíveis para o equipamento:
+\begin{itemize}
+    \item Em processo
+    \item Pronto a Levantar
+    \item Abandonado
+    \item Entregue
+\end{itemize}
 
 \subsection{Orçamento} \label{ent_orcamento}
 O orçamento é a entidade associada a um plano de trabalhos estabelecido pelo técnico e ao prazo máximo de execução da reparação.
+De modo análogo ao equipamento, encontra-se parametrizado com estados durante a sua criação até ao seu envio e confirmação.
+Os estados do orçamento:
+\begin{itemize}
+    \item Por Calcular
+    \item Enviado
+    \item Arquivado
+    \item Aceite
+\end{itemize}
 
 \subsection{Reparação} \label{ent_reparacao}
-Representa um serviço disponibilizado no sistema. Cada reparação contém um plano de trabalhos e,
-mediante o tipo de serviço, apresenta características distintas.
-Mediante os cenários apresentados, foram definidos dois tipos: \textit{Reparação expresso} e \textit{Reparação normal}.
+Representa um serviço disponibilizado no sistema. 
+Mediante os cenários apresentados, foram definidos dois tipos: \textit{Reparação expresso} e \textit{Reparação normal},
+possuindo, cada um, a sua dinâmica própria.
+Esta entidade caracteriza-se por um estado para o caracterizar no seu desenvolvimento.
+Os estados da reparação:
+\begin{itemize}
+    \item Aguarda Reparação
+    \item Em Reparação
+    \item Reparada
+    \item Cancelada
+    \item Pagamento Recusado
+    \item Pago
+\end{itemize}
 
 \subsubsection{Reparação expresso} \label{ent_reparacao-expresso}
 Define um tipo de reparação pré-definida.
-Tem associado um plano de trabalhos fixo que, por sua vez, origina um custo e tempo de realização fixo.
+É um serviço fixo que, por sua vez, origina um custo e tempo de realização fixo.
 
 \subsubsection{Reparação normal} \label{ent_reparacao-normal}
-Corresponde a uma reparação personalizada que contém um plano de trabalhos definido.
+Corresponde a uma reparação personalizada que contém um plano de trabalhos próprio e único.
 Consequentemente, o preço e tempo varia entre cada uma.
 
 \subsection{Forma de Contacto} \label{ent_formas-contacto}
 A forma de contacto permite uma comunicação com o cliente, sendo registada a data e hora e colaborador que a efetuou.
 Para tal, as opções existentes são o SMS e o Email.
 
+\subsection{Comunicação} \label{ent_comunic}
+Para definir uma interação realizada entre os colaboradores e o cliente, sendo datada e representada por uma mensagem.
+
 \subsection{Plano de Trabalhos} \label{ent_plano-de-trabalhos}
 O plano de trabalhos é divido em passos e sub-passos da reparação, onde cada um consome tempo e utiliza material. 
 Esta definição permite obter o número total de horas de trabalho e o custo das peças utilizadas. 
-Cada passo de reparação utiliza uma determinada categoria de material, possibilitando obter uma lista de material que pode ser utilizado.
+
+\subsection{Passo de Reparação} \label{ent_passo_rep}
+Um passo de reparação é definido pelos seus sub-passos, o tempo e material necessário para a sua realização.
+São únicos e constituem os planos de trabalho das reparações programadas, sendo a principal causa que o preço 
+entre cada uma varia.
 
 \subsection{Material} \label{ent_material}
 O material é uma entidade fundamental tanto para a previsão do orçamento como para a própria reparação.
-Este é identificado pela sua referência, está associado a um custo e está contido na categoria respetiva.
+Este representa a totalidade de materiais usados num passo. 
+É identificado pela sua referência, está associado a um custo e tem a quantidade de material necessário. Adicionalmente,
+tem o nome dos materias, para ser identificável.
+
+\subsection{Principais alterações nas Entidades}
+Com as mudanças feitas ao nível da definição do problema inicial, foram, consequentemente, cruciais retificações nas entidades
+desenvolvidas.
+
+As principais alterações relativamente à primeira fase: 
+\begin{itemize}
+    \item A entidade cliente possui as suas formas de contacto.
+    \item Colaboradores têm um número de identificação associado. 
+    \item Adicionados estados para parametrizar e datar os equipamentos, os orçamentos e as reparações.
+    \item A reparação em sí não tem um plano de trabalhos associado, sendo apenas a reparação programada.
+    \item Consequentemente, a reparação expresso não tem um plano de trabalhos definido no sistema.
+    \item O material já não se enquadra numa categoria de material.
+    \item A quantidade do material não é relativa ao \textit{stock}, mas sim ao número de materiais usados no passo.
+\end{itemize}
 
 \section{Diagrama de Modelo de Domínio}
 
+No seguimento das várias alterações feitas ao diagrama apresentado na primeira fase do projeto, surge a comparação seguinte.
+
+\subsection{Modelo de Domínio Anterior} 
+
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.40]{Modelo.jpg}
+    \includegraphics[scale=0.40]{Modeloinicial.jpg.jpg}
+    \caption{Modelo de Domínio}
+\end{figure}
+
+\subsection{Modelo de Domínio Atual}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.40]{ModeloDominio.jpg}
     \caption{Modelo de Domínio}
 \end{figure}
 
@@ -352,6 +448,28 @@ foram identificados os seguintes \textit{use cases}:
     \includegraphics[scale=0.45]{dss-usecase.jpg}
     \caption{Diagrama de \textit{Use Case}}
 \end{figure}
+
+\subsection{Principais Diferenças com a Primeira Fase}
+
+Em relação ao Diagrama de Use Cases desenvolvido, houve poucas alterações do que foi proposto na primeira fase do projeto.
+Previamente, os casos de Uso \textbf{Dar Baixa do Equipamento} (Ver \ref{dar_baixa_equipamento}) e \textbf{Arquivar Orçamento} (Ver \ref{arquivar_orcamento})
+seriam efetuadas pelo ator \textit{System Timer}. Contudo, após uma análise da aplicação e das dinâmicas exprimidas, entendeu-se como 
+preferencial o \textbf{Gestor} efetuar estas funcionalidades, de modo a permitir visualizar os equipamentos que levaram baixa e os orçamentos que foram arquivados,
+no momento em que o Gestor escolhe.
+Foi retirado, então, o \textit{System Timer} como ator no diagrama de Use Cases.
+Neste sentido, beneficia, também, a nível de implementação, não sendo necessário uma estratégia de criar o \textit{System Timer} dentro do sistema.
+
+É necessário demarcar a presença dos casos de uso:
+\begin{itemize}
+    \item Adicionar Material
+    \item Encomendar Material
+    \item Receber Material
+\end{itemize}
+
+Apesar da sua implementação não ter sido realizada, no estado atual da aplicação, são apresentados para representar funcionalidades que seriam implementadas 
+em iterações seguintes do sistema.
+Estes casos de uso lidam com a manipulação de \textit{stocks} e, no tipo de projeto a realizar, foram caracterizadas como não necessárias apresentar 
+nesta iteração do sistema. Adicionalmente, a exclusão do desenvolvimento destas funcionalidades facilitou a implementacaodo sistema.
 
 \section{Especificação Use Cases}
 
@@ -433,6 +551,7 @@ foram identificados os seguintes \textit{use cases}:
 \subfile{model_funcional/diagrama_package.tex}
 
 \chapter{Implementação} \label{chap:implementacao}
+\subfile{implementacao.tex}
 
 \chapter{Considerações Finais}
 Ao longo da realização da fase de análise de requisitos do projeto, houve a necessidade de utilizar conceitos
@@ -464,7 +583,7 @@ em que será obrigado a fazer alterações da fase a que o presente relatório s
 \renewcommand{\nomname}{Lista de Siglas e Acrónimos}
 
 %% Text that can be shown before acronyms list
-\renewcommand{\nompreamble}{<<Apresentar uma lista com todas as siglas e acrónimos utilizados durante a realização do trabalho. O formato base para esta lista deverá ser da forma como abaixo se apresenta.>>}
+\renewcommand{\nompreamble}{}
 
 %% acronyms
 \nomenclature[01]{\textbf{NIF}}{Número de Idenficação Fiscal}

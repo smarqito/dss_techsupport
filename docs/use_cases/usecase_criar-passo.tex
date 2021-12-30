@@ -1,6 +1,11 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
 Registo no sistema de um novo passo, introduzindo o tempo e peças necessárias para a sua concretização.
+Como referido anteriormente, a \textbf{categoria de material} e a manipulação do \textit{stock} não é feita
+nesta iteração do projeto, contudo apresentam-se aqui para demonstrar como se incluiam, caso fossem futuramente
+implementadas.
+Neste sentido, o terceiro, quarto e quinto passos do fluxo normal e os fluxos alternativos 2 e 3 representam
+funcionalidades que não estão presentes de momento.
 \begin{itemize}
     \item[Use Case] {\underline{Criar passo de reparação}}
     \item[Cenários] {3}
@@ -60,7 +65,7 @@ Registo no sistema de um novo passo, introduzindo o tempo e peças necessárias 
                      & 
                      & verifica se o nome do passo já existe
                      & existePasso(nomePasso : String) : boolean
-                     & SubReparacoes
+                     & SSReparacoes
             \\
             \hline
             \rowcolor{yellow}
@@ -83,14 +88,14 @@ Registo no sistema de um novo passo, introduzindo o tempo e peças necessárias 
                      & 
                      & verifica se categoria existe
                      & existeCategoria(nomeCategoria):boolean
-                     & SubReparacoes
+                     & SSReparacoes
             \\
             \hline
             Sistema regista passo de reparação
                      & 
                      & regista passo de reparação com os dados passados
-                     & criarPasso(repID: String, nomePasso : String, nomeCategoria : String, tempo : Integer, custo : Double)
-                     & SubReparacoes
+                     & criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat)
+                     & SSReparacoes
             \\
             \hline
             \rowcolor{red!30}
@@ -144,7 +149,7 @@ Registo no sistema de um novo passo, introduzindo o tempo e peças necessárias 
                      & 
                      & regista categoria 
                      & registaCategoria(nomeCategoria : String)
-                     & SubReparacoes
+                     & SSReparacoes
             \\
             \hline
             Regressa ao passo 6

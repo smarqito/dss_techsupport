@@ -13,6 +13,7 @@ Registo do pedido de um serviço expresso.
               \item Funcionário insere tipo da reparação expresso 
               \item Sistema verifica se existe a reparação expresso
               \item Sistema verifica disponibilidade
+              \item Sistema devolve técnico com disponibilidade
               \item Funcionário insere identificador do cliente
               \item Sistema seleciona cliente
               \item Funcionário insere identificador do equipamento
@@ -30,7 +31,7 @@ Registo do pedido de um serviço expresso.
               \item[1.2]{Funcionário recusa serviço}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo Alternativo 2 (passo 7) [Equipamento não registado]}
+              \textbf{Fluxo Alternativo 2 (passo 8) [Equipamento não registado]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1] $\ll include \gg$ Registar equipamento
@@ -44,6 +45,9 @@ Registo do pedido de um serviço expresso.
               \item[4.2]{Funcionário recusa serviço}
           \end{itemize}
 \end{itemize}
+Neste \textit{Use Case} foram acrescentadas duas responsabilidades a mais ao Sistema, uma delas é que ao verificar a disponibilidade
+tem de também devolver qual o técnico que é capaz de realizar a reparação de imediato. A outra responsabilidade advém da necessidade de listar
+o tabalho do funcionário de balcao sendo assim necessário registar a receção de um equipamento.
 \begin{landscape}
     \begin{table}[!h]
         \centering
@@ -68,8 +72,9 @@ Registo do pedido de um serviço expresso.
             \\
             \hline
             Sistema verifica disponibilidade
+            Sistema devolve técnico com disponibilidade
                      & 
-                     & verifica se existe disponibilidade
+                     & verifica se existe disponibilidade e devolve técnico com disponibilidade
                      & existeDisponibilidade(duracao : Integer) : String
                      & SubReparacoes
             \\

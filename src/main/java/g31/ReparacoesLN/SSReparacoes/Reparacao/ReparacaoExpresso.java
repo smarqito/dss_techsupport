@@ -51,12 +51,14 @@ public class ReparacaoExpresso extends Reparacao {
 	/**
 	 * Método para realizar a reparação expresso na sua totalidade,
 	 * dado a esta não possuir múltiplos passos
+	 * @return 
 	 * 
 	 */
 	@Override
-	public void registaPassoRealizado(Integer tempo, Double custo) {
+	public ReparacaoEstado registaPassoRealizado(Integer tempo, Double custo) {
 		ReparacaoEstado novoEstado = ReparacaoEstado.reparado;
 		alteraEstado(novoEstado, "");
+		return super.getUltimoEstado().getEstado();
 	}
 
 	@Override

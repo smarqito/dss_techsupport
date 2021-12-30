@@ -73,10 +73,11 @@ public interface IReparacoesLN {
 	 * @throws ColaboradorNaoTecnicoException
 	 * @throws TecnicoNaoTemAgendaException
 	 * @throws NaoExisteDisponibilidadeException
+	 * @throws EquipamentoNaoExisteException
 	 */
 	void alterarEstadoOrc(String orcID, OrcamentoEstado estado)
 			throws EstadoOrcNaoEValidoException, OrcamentoNaoExisteException, ColaboradorNaoTecnicoException,
-			ColaboradorNaoExisteException, NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException;
+			ColaboradorNaoExisteException, NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException, EquipamentoNaoExisteException;
 
 	/**
 	 * Altera o estado de reparacao para o novo estado
@@ -121,8 +122,9 @@ public interface IReparacoesLN {
 	 * @param mins  Tempo Efetivo gasto
 	 * @param custo Custo efetivo gasto
 	 * @throws ReparacaoNaoExisteException
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException;
+	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException, EquipamentoNaoExisteException;
 
 	/**
 	 * Retorna um cliente a partir do seu nif
