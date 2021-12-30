@@ -187,8 +187,8 @@ suportados por esta.
 
 O desenvolvimento desta aplicação foi marcado por 2 fases, nomeadamente:
 \begin{itemize}
-    \item [Análise]
-    \item [Modelação Conceptual e Implementação]
+    \item Análise
+    \item Modelação Conceptual e Implementação
 \end{itemize}
 
 Primeiramente, encontra-se a \textbf{Análise}, que inclui
@@ -282,25 +282,31 @@ No decorrer da realização do projeto, a partir da experiência de outros traba
 nível da dinâmica do sistema definido na primeira fase, para traduzir numa aplicação mais concisa.
 
 As principais e mais notórias alterações:
-\begin{itemize}
-    \item[Realização da reparação vários técnicos] {Devido à complexidade na sua implementação,
-    não será apresentada a possibilidade de realizar a mesma reparação por técnicos diferentes, sendo uma funcionalidade útil cuja 
-    implementação seria importante em iterações seguintes do sistema.
-    }
-    \item[Categoria Material] {Numa restruturação posterior, a categoria de material foi retirada do sistema, devido à sua implementação ambiciosa e trabalhosa.
-    Apesar da existência de uma categoria de material permitir flexibilidade ao nível da definição de passos de reparação genéricos, foi decidido, após uma 
-    avaliação da situação do trabalho que não seria implementada esta dinâmica no sistema nesta iteração. Contudo, permitir o uso de passos genéricos e,
-    consequentemente, a construção de planos de trabalho utilizáveis por mais do que uma reparação seria monumental na construção de um sistema relevante. 
-    Se possível estabelecer uma base de dados com esta informação, seria altamente eficaz o processo de definir orçamentos e realizar reparações.
-    }
-    \item[Reparação expresso possui um plano de trabalhos] {Devido à redundância da existência de um plano de trabalhos para um serviço fixo e imediato, foi retirada 
-    a utilização de um plano de trabalhos à reparação expresso. 
-    }
-    \item[Stock do Material]{Com a escolha de não ser implementada a manipulação do stock do material, a entidade /textbf{Quantidade} associada ao material 
-    já não se trata da sua quantidade em stock, mas sim a quantidade de materiais usados no passo de reparação a que estão associados.
-    Sendo, por esta razão, os casos de uso, como  \ref{encomendar_material}, relativos a uma iteração futura do sistema.
-    }
-\end{itemize}
+
+\subsubsection{Realização de uma Reparação com vários Técnicos} 
+Devido à complexidade na sua implementação, não será apresentada a possibilidade de realizar a mesma reparação por técnicos diferentes, 
+sendo uma funcionalidade útil cuja implementação seria importante em iterações seguintes do sistema.
+
+\subsubsection{Categoria Material}
+
+Numa restruturação posterior, a categoria de material foi retirada do sistema, devido à sua implementação ambiciosa e trabalhosa.
+Apesar da existência de uma categoria de material permitir flexibilidade ao nível da definição de passos de reparação genéricos, foi decidido, após uma 
+avaliação da situação do trabalho que não seria implementada esta dinâmica no sistema nesta iteração. Contudo, permitir o uso de passos genéricos e,
+consequentemente, a construção de planos de trabalho utilizáveis por mais do que uma reparação seria monumental na construção de um sistema relevante. 
+Se possível estabelecer uma base de dados com esta informação, seria altamente eficaz o processo de definir orçamentos e realizar reparações.
+
+\subsubsection{Reparação Expresso com Plano de Trabalhos}
+
+Devido à redundância da existência de um plano de trabalhos para um serviço fixo e imediato, foi retirada 
+a utilização de um plano de trabalhos à reparação expresso. 
+    
+\subsubsection{Stock do Material}
+
+Com a escolha de não ser implementada a manipulação do stock do material, a entidade \textbf{Quantidade} associada ao material 
+já não se trata da sua quantidade em stock, mas sim a quantidade de materiais usados no passo de reparação a que estão associados.
+Sendo, por esta razão, os casos de uso, como  \ref{encomendar_material}, relativos a uma iteração futura do sistema.
+    
+
 
 Neste sentido, como resposta à necessidade de modelar o problema e com base na análise do enunciado proposto foram identificadas as 
 principais entidades (\ref{ent}) que fazem parte do sistema, assim como os relacionamentos entre elas. 
@@ -572,71 +578,6 @@ nesta iteração do sistema. Adicionalmente, a exclusão do desenvolvimento dest
 \subfile{model_funcional/diagrama_componentes.tex}
 
 \section{Diagrama de Classes} \label{sec:diagrama_classe}
-
-\subsection{SSClientes} 
-Neste subsistema podem-se encontrar as funcionalidades relacionadas com os \textbf{Clientes}. 
-Apesar de cada subsistema não estar intrinsecamente dependente de outros, estes não deixam de 
-se relacionarem, como se pode verificar neste caso, com o SSReparacoes. Também é de salientar que neste
-subsistema predomina uma arquitetura com agregação entre classes.
-
-
-Aqui encontra-se, entre a classe Equipamento e Cliente, um caso de navegabilidade bidirecional, 
-na medida a facilitar o acesso. É de salientar a atribuição de um estado ao equipamento, de maneira, a facilitar todo o processo da reparação, 
-atribuíndo um ponto de situação ao mesmo e, também, a atribuição de uma forma de contacto ao cliente, de maneira a que este possa ser contactado quando necessário.
-
-
-\subsubsection{GestClientesFacade}
-Esta classe permite a gestão dos clientes e dos respetivos equipamentos associados, implementando a interface IGestClientes.
-
-Analisando os métodos que esta classe implementa, identificou-se que, para melhorar a navegabilidade
-e a \textit{performance} do sistema, será necessário que este tenha um conjunto de atributos, nomeadamente:
-\begin{itemize}
-    \item[clientes]{Mapa de clientes que pode ser acessido através do seu identificador, nif}
-    \item[equipamentos]{Mapa de equipamentos que pode ser acessido através do seu ID} 
-\end{itemize}
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[scale=0.29]{SSClientes.jpg}
-    \caption{SubSistema SSClientes}
-\end{figure}
-
-\subsection{SSColaboradores}
-Neste subsistema podem encontrar-se as funcionalidades relacionadas com os \textbf{Colaboradores}.
-Existem 2 tipos de colaboradores, nomeadamente:
-\begin{itemize}
-    \item [Colaborador]{Funcionário do Balcão}
-    \item [Colaborador Especializado] {Técnico e Gestor}
-\end{itemize}
-
-Para facilitar todo o trabalho por parte do funcionário do balcão foi criado o \textit{package} Balcão, que é responsável pela gestão da
-receção e entrega dos equipamentos guardando as respetivas datas, assim, é intuitivo a relação com o subsistema SSClientes, visto que,
-a classe equipamento faz parte do mesmo.
-
-Por outro lado, para facilitar toda a gestão de tempo e/ou disponibilidade por parte dos colaboradores especializados, nomeadamente, o Técnico, na realização das 
-diversas reparações, foi criado um \textit{package} Agenda. 
-
-O gestor, por sua vez, é responsável pelas listagens dos seus subordinados.
-
-Também é de salientar que neste subsistema predomina uma arquitetura com composição entre classes.
-
-\subsubsection{GestColaboradoresFacade}
-Esta classe é responsável por toda a gestão dos colaboradores e funcionalidades, implementando a interface IGestColaboradores.
-
-Analisando os métodos que esta classe implementa, identificou-se que, para melhorar a navegabilidade
-e a \textit{performance} do sistema, será necessário que este tenha um conjunto de atributos, nomeadamente:
-\begin{itemize}
-    \item [balcao]
-    \item [colabs]{Mapa de colaboradores que pode ser acessido através do seu ID}
-    \item [agenda]
-\end{itemize}
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[scale=0.27]{SSReparacoesPackage.jpg}
-    \caption{SubSistema SSReparacoes}
-\end{figure}
-
 
 \subfile{model_funcional/classe/diagrama_classes.tex}
 
