@@ -136,11 +136,13 @@ public class PlanoTrabalho implements Serializable {
 	}
 
 
-	public String descricaoPassosRealizados(){
+	public String descricaoPassosRealizados() {
 		StringBuilder sb = new StringBuilder();
-		for(PassoReparacao p : passosRealizados){
+		for (PassoReparacao p : passosRealizados) {
 			sb.append("Passo " + p.getNome() + " em " + p.getTempoGasto() + " minutos com um custo de " + p.getCustoEfetivo() + " euros;");
 		}
+		return sb.toString();
+	}
 
 	@Override
 	public String toString() {

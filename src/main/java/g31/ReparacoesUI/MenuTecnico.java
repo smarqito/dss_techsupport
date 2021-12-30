@@ -266,6 +266,8 @@ public class MenuTecnico {
         } catch (ReparacaoNaoExisteException e) {
             MyUI.printLine();
             System.out.println("A reparação com identificador " + repId + " não existe!");
+        } catch (EquipamentoNaoExisteException e){
+            System.out.println("O equipamento associado à reparação " + repId + "não existe!");
         }
     }
 

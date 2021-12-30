@@ -183,9 +183,20 @@ public class MenuFuncBalcao {
             eqId = scin.nextLine();
             System.out.println(("Insira identificador da reparação"));
             repId = scin.nextLine();
-            model.alteraEstadoEq(eqId, EstadoEquipamento.entregue, funcId);
-            model.alterarEstadoRep(repId, ReparacaoEstado.pago);
-            System.out.println("Equipamento " + eqId + " entregue e reparação " + repId + " paga!");
+            System.out.println("O preço da reparação é de " + model.calcularPrecoRep(repId) + " euros!");
+            System.out.println("Recebeu o pagamento?\n 1-Sim\n 2-Não");
+            int res = scin.nextInt();
+            switch (res){
+                case 1:
+                    model.alteraEstadoEq(eqId, EstadoEquipamento.entregue, funcId);
+                    model.alterarEstadoRep(repId, ReparacaoEstado.pago);
+                    System.out.println("Equipamento " + eqId + " entregue e reparação " + repId + " paga!");
+                    break;
+                case 2:
+                    model.alterarEstadoRep(repId, ReparacaoEstado.recusaPagar);
+                    System.out.println("Equipamento " + eqId + " não foi entregue e reparação " + repId + " não foi paga!");
+                    break;
+            }
         } catch (EquipamentoNaoExisteException e) {
             System.out.println("Não existe equipamento com o identificador: " + eqId);
         } catch (ReparacaoNaoExisteException e) {
