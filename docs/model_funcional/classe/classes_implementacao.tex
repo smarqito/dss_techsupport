@@ -1,6 +1,6 @@
 \documentclass[../../relatorio.tex]{subfiles}
 \begin{document}
-Foram construídas várias classes de implementação, nomeadamente: 
+Foram construídas várias classes de implementação, nomeadamente:
 \textit{Precos}, \textit{CustoTotalReparacao},
 \textit{ReparacoesPorMes} e \textit{GestAgenda}.
 
@@ -54,5 +54,39 @@ mantendo uma variável auxiliar que é o total.
 \end{figure}
 
 \subsubsection*{GestAgenda} \label{class:gest_agenda}
+Por forma a organizar o trabalho dos técnicos, desenvolveu-se uma classe para esse efeito.
+Para a sua implementação, foi necessário criar 5 classes.
 
+\begin{itemize}
+    \item[GestAgenda]{
+          Efetua a gestão de todas as agendas, havendo uma agenda por cada técnico.\\
+          Serve como uma API para a gestão das agendas.\\
+          Por forma a garantir a distribuição de carga de trabalho entre os vários técnicos,
+          utilizou-se uma \textit{Queue} de agendas.
+          Assim, sempre que se adiciona um novo evento, a agenda do técnico passa para último.
+          Aumentando a probabilidade que o próximo técnico ao qual se vai tentar atribuir trabalho seja outro.\\
+          Para obter o prazo mais próximo, é iterado cada agenda e pede-se à mesma o prazo mais próximo.
+          Desta forma, retorna-se aquele que tiver o prazo estimado mais baixo.
+          }
+    \item[Agenda] {
+          Atribuída uma a cada técnico e armazena os eventos organizados por dia.
+          }
+    \item[AgendaPorDia]{
+          Armazena todos os eventos para um dado dia. É utilizado pela Agenda.
+          }
+    \item[EntradaAgenda] {
+          Como o nome indica, corresponde a uma entrada na agenda do téncico.
+          }
+    \item[TecData] {
+          Classe auxiliar que serve para transportar o \textit{tuple} \{tecId: String, data: LocalDateTime\}.
+          }
+\end{itemize}
+
+\begin{landscape}
+    \begin{figure} [!ht]
+        \centering
+        \includegraphics[width=\linewidth]{AgendaPackage.jpg}
+        \caption{Agenda}\label{img:agenda}
+    \end{figure}
+\end{landscape}
 \end{document}
