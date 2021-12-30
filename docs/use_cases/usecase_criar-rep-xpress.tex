@@ -1,6 +1,8 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
 Registo de uma nova reparação expresso no sistema, incluindo o material utilizado, tempo consumido e preço.
+Devido à reparação expresso não possuir um plano de trabalhos definido no sistema, o Colaborador especializado
+apenas insere o nome, preço e tempo estimados.
 \begin{itemize}
     \item[Use Case] {\underline{Criar Reparação Expresso}}
     \item[Cenários] {2}
@@ -10,10 +12,9 @@ Registo de uma nova reparação expresso no sistema, incluindo o material utiliz
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Colaborador especializado insere nome da reparação
-              \item Sistema verifica nome da reparação
+              \item Colaborador especializado insere nome da reparação a adicionar
+              \item Sistema regista nome da reparação
               \item Colaborador especializado insere dados da reparacao % descrição, ...
-              \item Colaborador especializado define plano de trabalhos
               \item Sistema regista reparação expresso
           \end{enumerate}
           \begin{flushleft}
@@ -43,7 +44,7 @@ Registo de uma nova reparação expresso no sistema, incluindo o material utiliz
                      & 
                      & verifica se o nome já existe
                      & existeRepXpresso(nome : String) : Boolean
-                     & SubReparacoes
+                     & SSReparacoes
             \\
             \hline
             \rowcolor{yellow}
@@ -54,18 +55,11 @@ Registo de uma nova reparação expresso no sistema, incluindo o material utiliz
                      & 
             \\
             \hline
-            Colaborador especializado define plano de trabalhos
-                     & UI
-                     & 
-                     & 
-                     & 
-            \\
-            \hline
             Sistema regista reparação expresso
                      & 
                      & regista reparação expresso
-                     & registaRepXpresso(nome : String, desc : String, preco : Double, tempo : Integer)
-                     & SubReparacoes
+                     & registarRepXpresso(nome : String, tempo : Integer, preco : Double)
+                     & SSReparacoes
             \\
             \hline
             \rowcolor{red!30}

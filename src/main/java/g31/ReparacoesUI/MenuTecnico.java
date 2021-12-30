@@ -135,6 +135,8 @@ public class MenuTecnico {
         } catch (TecnicoNaoTemAgendaException e) {
             MyUI.printLine();
             System.out.println("O colaborador associado não possui uma agenda!");
+        } catch (EquipamentoNaoExisteException e) {
+            System.out.println("Equipamento não existe!");
         }
 
     }
