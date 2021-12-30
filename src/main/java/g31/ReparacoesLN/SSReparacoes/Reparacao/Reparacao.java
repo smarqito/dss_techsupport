@@ -77,9 +77,6 @@ public abstract class Reparacao implements Serializable {
 	public void alteraEstado(ReparacaoEstado novoEstado, String msg) {
 		EstadoReparacao novo = new EstadoReparacao(novoEstado, msg);
 		this.estados.add(novo);
-		if (novoEstado.equals(ReparacaoEstado.reparado)) {
-			getEquipamento().setEstado(EstadoEquipamento.prontoLevantar);
-		}
 	}
 
 	public EstadoReparacao getUltimoEstado() {
@@ -92,7 +89,7 @@ public abstract class Reparacao implements Serializable {
 		this.comunicacoes.add(c.clone());
 	}
 
-	public abstract void registaPassoRealizado(Integer tempo, Double custo);
+	public abstract ReparacaoEstado registaPassoRealizado(Integer tempo, Double custo);
 
 	public abstract Reparacao clone();
 }

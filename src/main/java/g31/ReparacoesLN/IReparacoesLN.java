@@ -121,8 +121,9 @@ public interface IReparacoesLN {
 	 * @param mins  Tempo Efetivo gasto
 	 * @param custo Custo efetivo gasto
 	 * @throws ReparacaoNaoExisteException
+	 * @throws EquipamentoNaoExisteException
 	 */
-	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException;
+	void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException, EquipamentoNaoExisteException;
 
 	/**
 	 * Retorna um cliente a partir do seu nif
