@@ -399,4 +399,11 @@ public interface IReparacoesLN {
 	 * @throws TecnicoNaoTemAgendaException
 	 */
 	AgendaPorDia getAgendaDia(LocalDate data, String tecId) throws TecnicoNaoTemAgendaException;
+
+	/**
+	 * Retorna todos os orcamentos que tem o estado "enviado"
+	 *
+	 * @return Set<Orcamento>
+	 */
+	Set<Orcamento> getOrcamentosEnviados();
 }

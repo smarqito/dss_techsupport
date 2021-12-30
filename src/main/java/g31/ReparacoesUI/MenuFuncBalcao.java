@@ -2,8 +2,11 @@ package g31.ReparacoesUI;
 
 import g31.Middleware.*;
 import g31.ReparacoesLN.SSClientes.EstadoEquipamento;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+
+import java.util.Set;
 
 import static g31.ReparacoesUI.MyUI.model;
 import static g31.ReparacoesUI.MyUI.scin;
@@ -16,8 +19,11 @@ public class MenuFuncBalcao {
                 "Registar Pedido de Orçamento",
                 "Confirmar Orçamento",
                 "Registar Pedido de Reparação Expresso",
-                "Registar Entrega do Equipamento"
+                "Registar Entrega do Equipamento",
+                "Consultar Orçamentos enviados"
         });
+
+        menu.setPreCondition(4, () -> model.getOrcamentosEnviados().size() > 0);
 
         // Registar os handlers das transições
         menu.setHandler(1, this::registaCliente);
@@ -26,9 +32,11 @@ public class MenuFuncBalcao {
         menu.setHandler(4, this::confirmarOrcamento);
         menu.setHandler(5, () -> pedidoRepXpresso(id));
         menu.setHandler(6, () -> registarEntregaEquip(id));
+        menu.setHandler(7, this::consultarOrcsEnviados);
 
         menu.run();
     }
+
 
     private void registaCliente() {
         String nif = null;
@@ -180,6 +188,14 @@ public class MenuFuncBalcao {
             System.out.println("Não existe a reparação: " + repId);
         } catch (ColaboradorNaoExisteException e) {
             System.out.println("Não existe o colaborador");
+        }
+    }
+
+    private void consultarOrcsEnviados() {
+        Set<Orcamento> orcs = model.getOrcamentosEnviados();
+        System.out.println("Lista dos orcamentos enviados:");
+        for(Orcamento o : orcs){
+            System.out.println("Orcamento " + o.getID() + " do equipamento " + o.getEquipamento().getId());
         }
     }
 }

@@ -312,4 +312,9 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 		return this.gestReparacoes.getOrcamento(ref);
 	}
 
+	@Override
+	public Set<Orcamento> getOrcamentosEnviados(){
+		return this.gestReparacoes.getOrcamentosEnviados();
+	}
+
 }

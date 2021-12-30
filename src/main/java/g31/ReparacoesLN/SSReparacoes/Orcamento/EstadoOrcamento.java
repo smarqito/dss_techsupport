@@ -11,7 +11,7 @@ public class EstadoOrcamento implements Serializable, Comparable<EstadoOrcamento
 	/**
 	 * Construtor para o Estado Orçamento que recebe o estado
 	 * 
-	 * @param s Enum com o estado do orçamento
+	 * @param orcEstado com o estado do orçamento
 	 */
 	public EstadoOrcamento(OrcamentoEstado orcEstado) {
 		estado = orcEstado;
