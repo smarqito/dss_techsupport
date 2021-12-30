@@ -15,6 +15,11 @@ public class ReparacaoProgramada extends Reparacao {
 		plano = docOrigem.getPT();
 	}
 
+	public ReparacaoProgramada(ReparacaoProgramada reparacaoProgramada) {
+		this.plano = reparacaoProgramada.getPlano();
+		this.docOrigem = reparacaoProgramada.getDocOrigem();
+	}
+
 	public PlanoTrabalho getPlano() {
 		return new PlanoTrabalho(this.plano);
 	}
@@ -54,6 +59,11 @@ public class ReparacaoProgramada extends Reparacao {
 		}
 	}
 
+	@Override
+	public Reparacao clone() {
+		return new ReparacaoProgramada(this);
+	}
+
 	/**
 	 * Calcula o preco efetivo da reparacao, utilizando os passos realizados do
 	 * plano
@@ -64,4 +74,5 @@ public class ReparacaoProgramada extends Reparacao {
 	public CustoTotalReparacao getPrecoEfetivo() {
 		return plano.getPrecoEfetivo(docOrigem.getCustoHora());
 	}
+
 }

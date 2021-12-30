@@ -1,6 +1,7 @@
 package g31.ReparacoesLN.SSReparacoes.Reparacao;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReparacoesPorMes {
 
@@ -14,6 +15,14 @@ public class ReparacoesPorMes {
 		duracaoMedia = 0;
 		desvioMedio = 0;
 		total = 0;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public List<Reparacao> getReps() {
+		return reps.stream().map(Reparacao::clone).collect(Collectors.toList());
 	}
 
 	/**
@@ -49,6 +58,13 @@ public class ReparacoesPorMes {
 		duracaoMedia = ((duracaoMedia * total) + tT) / (total + 1);
 		desvioMedio = ((desvioMedio * total) + Math.abs(tT - tE)) / (total + 1);
 		total++;
+	}
+
+	public String resumoReparacoes(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("realizou um total de " + getTotal() + " reparações\n");
+  		sb.append("com uma duração média de " + obterDuracaoReparacoes() + " minutos e uma média de de desvio em relação às durações previstas de " + obterMediaDesvio());
+		return sb.toString();
 	}
 
 }

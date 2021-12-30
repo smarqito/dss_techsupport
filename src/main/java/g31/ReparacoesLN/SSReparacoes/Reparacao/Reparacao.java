@@ -93,4 +93,6 @@ public abstract class Reparacao implements Serializable {
 	}
 
 	public abstract void registaPassoRealizado(Integer tempo, Double custo);
+
+	public abstract Reparacao clone();
 }
