@@ -2,6 +2,11 @@
 \begin{document}
 Extração da lista de equipamentos recebidos e entregues por funcionário de balcão,
 ordenadas por funcionário de balcão e filtrado por data.
+
+O gestor indica as datas entre as quais quer que a avaliação do funcionários seja feita, pelo que
+anteriormente não estava definido.
+Adicionalemte, houve alterações nos métodos em que retornam os funcionários.
+
 \begin{itemize}
     \item[Use Case] {\underline{Listar fluxo de trabalho funcionário de balcão}}
     \item[Cenários] {5}
@@ -12,8 +17,8 @@ ordenadas por funcionário de balcão e filtrado por data.
           \end{flushleft}
           \begin{enumerate}
               \item Gestor pede listagem de equipamentos recebidos por cada funcionário de balcão
+              \item Gestor indica as datas de início e fim da avaliação
               \item Sistema obtém lista de equipamento recebidos para cada funcionário
-              \item Gestor pede listagem de equipamentos entregue por cada funcionário de balcão
               \item Sistema obtém lista de equipamento entregue para cada funcionário
           \end{enumerate}
 \end{itemize}
@@ -34,14 +39,14 @@ ordenadas por funcionário de balcão e filtrado por data.
                      &
             \\
             \hline
-            Sistema obtém lista de equipamento recebidos para cada funcionário
+            \rowcolor{yellow}
+            Gestor indica as datas de início e fim da avaliação
+                     &
+            UI
                      &
                      &
-            obtem lista de equipamentos recebidos, agrupado por funcionário
                      &
-            getEquipRecebidos(de: LocalDateTime, ate: LocalDateTime) : Map<Funcionario, List<Equipamentos>>
-                     &
-            SubColaboradores
+            SSColaboradores
             \\
             \hline
             Gestor pede listagem de equipamentos entregue por cada funcionário de balcão
@@ -52,14 +57,24 @@ ordenadas por funcionário de balcão e filtrado por data.
                      &
             \\
             \hline
+            Sistema obtém lista de equipamento recebidos para cada funcionário
+                     &
+                     &
+            Obtém lista de equipamentos entregues, agrupado por funcionário
+                     &
+            getEquipRecebidos(LocalDateTime de, LocalDateTime ate): Map<FuncionárioBalcao, List<Equipamento>
+                     &
+            SSColaboradores
+            \\
+            \hline
             Sistema obtém lista de equipamento entregue para cada funcionário
                      &
                      &
-            obtém lista de equipamentos entregues, agrupado por funcionário
+            Obtém lista de equipamentos entregues, agrupado por funcionário
                      &
-            getEquipEntregue(de: LocalDateTime, ate: LocalDateTime) : Map<Funcionario, List<Equipamentos> >
+            getEquipEntregue(LocalDateTime de, LocalDateTime ate): Map<FuncionárioBalcao, List<Equipamento>
                      &
-            SubColaboradores
+            SSColaboradores
             \\
             \hline
         \end{tabular}

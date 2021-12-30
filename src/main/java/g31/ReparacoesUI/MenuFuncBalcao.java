@@ -124,6 +124,8 @@ public class MenuFuncBalcao {
             System.out.println("Não existe disponiblidade para realizar o orçamento");
         } catch (TecnicoNaoTemAgendaException e) {
             System.out.println("Técnico não tem agenda");
+        } catch (EquipamentoNaoExisteException e) {
+            System.out.println("Equipamento não existe!");
         }
     }
 
@@ -143,6 +145,8 @@ public class MenuFuncBalcao {
             System.out.println("Não existe disponiblidade para realizar o orçamento");
         } catch (TecnicoNaoTemAgendaException e) {
             System.out.println("Técnico não tem agenda");
+        } catch (EquipamentoNaoExisteException e) {
+            System.out.println("Equipamento não existe!");
         }
     }
 
