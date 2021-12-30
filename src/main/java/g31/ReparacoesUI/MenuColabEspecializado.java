@@ -63,9 +63,10 @@ public class MenuColabEspecializado {
     }
 
     public void adicionarPasso(String orcId) {
-        
         System.out.println("Insira nome do passo a adicionar: ");
-        String nome = scin.nextLine();
+        String nome = scin.nextLine(); //corrigir erro de passar este À frente
+        if(nome.equals(""))
+            nome = scin.nextLine();
         System.out.println("Insira o material a adicionar: ");
         String material = scin.nextLine();
         System.out.println("Insira quantidade de material: ");
@@ -74,7 +75,6 @@ public class MenuColabEspecializado {
         double custo = scin.nextDouble();
         System.out.println("Insira o tempo estimado: ");
         int tempo = scin.nextInt();
-
         try {
             model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
             System.out.println("Passo " + nome + " adicionado ao orçamento com o id: " + orcId);

@@ -92,7 +92,7 @@ public class MenuTecnico {
         menu.setHandler(1, () -> mce.adicionarPasso(orcId));
         menu.setHandler(2, () -> registarComunic(orcId, tecId));
 
-        menu.run();
+        menu.runOnce();
     }
 
     private void gerarOrc(String orcId, String tecID) {
