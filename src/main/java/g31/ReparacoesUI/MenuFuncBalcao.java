@@ -185,7 +185,7 @@ public class MenuFuncBalcao {
             repId = scin.nextLine();
             System.out.println("O preço da reparação é de " + model.calcularPrecoRep(repId) + " euros!");
             System.out.println("Recebeu o pagamento?\n 1-Sim\n 2-Não");
-            int res = scin.nextInt();
+            int res = this.getInt();
             switch (res){
                 case 1:
                     model.alteraEstadoEq(eqId, EstadoEquipamento.entregue, funcId);
@@ -212,5 +212,21 @@ public class MenuFuncBalcao {
         for(Orcamento o : orcs){
             System.out.println("Orcamento " + o.getID() + " do equipamento " + o.getEquipamento().getId());
         }
+    }
+
+    private int getInt(){
+        while (!scin.hasNextInt()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextInt();
+    }
+
+    private double getDouble(){
+        while (!scin.hasNextDouble()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextDouble();
     }
 }

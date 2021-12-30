@@ -5,6 +5,8 @@ import g31.Middleware.PassoJaExisteException;
 import g31.Middleware.ReparacaoExpressoJaExisteException;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 
+import java.util.InputMismatchException;
+
 import static g31.ReparacoesUI.MyUI.model;
 import static g31.ReparacoesUI.MyUI.scin;
 
@@ -29,9 +31,9 @@ public class MenuColabEspecializado {
         System.out.println("Insira o nome da reparação expresso a adicionar: ");
         String nome = scin.nextLine();
         System.out.println("Insira o preço: ");
-        double preco = scin.nextDouble();
+        double preco = this.getDouble();
         System.out.println("Insira o tempo estimado");
-        int tempo = scin.nextInt();
+        int tempo = this.getInt();
 
         try {
 
@@ -70,11 +72,11 @@ public class MenuColabEspecializado {
         System.out.println("Insira o material a adicionar: ");
         String material = scin.nextLine();
         System.out.println("Insira quantidade de material: ");
-        int quantidade = scin.nextInt();
+        int quantidade = this.getInt();
         System.out.println("Insira custo total do material: ");
-        double custo = scin.nextDouble();
+        double custo = this.getDouble();
         System.out.println("Insira o tempo estimado: ");
-        int tempo = scin.nextInt();
+        int tempo = this.getInt();
         try {
             model.criarPasso(orcId, nome, material, tempo, quantidade, custo);
             System.out.println("Passo " + nome + " adicionado ao orçamento com o id: " + orcId);
@@ -82,4 +84,21 @@ public class MenuColabEspecializado {
             System.out.println("O passo "+nome+" já existe no plano de trabalhos!");
         }
     }
+
+    private int getInt(){
+        while (!scin.hasNextInt()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextInt();
+    }
+
+    private double getDouble(){
+        while (!scin.hasNextDouble()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextDouble();
+    }
+
 }
