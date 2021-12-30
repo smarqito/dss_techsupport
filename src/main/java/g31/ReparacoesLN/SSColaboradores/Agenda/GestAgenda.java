@@ -63,6 +63,7 @@ public class GestAgenda implements Serializable {
 	 */
 	public LocalDateTime addEvento(String tecId, Integer tempo, String detalhes)
 			throws NaoExisteDisponibilidadeException, TecnicoNaoTemAgendaException {
+		agendas.add(agendas.poll());
 		return getAgenda(tecId).addEvento(tempo, detalhes);
 	}
 
@@ -97,7 +98,7 @@ public class GestAgenda implements Serializable {
 				tec = time.tecID;
 			}
 		}
-		if(tec == null) {
+		if (tec == null) {
 			throw new NaoExisteDisponibilidadeException("Nao ha tecnicos inseridos!!");
 		}
 		return new TecData(tec, menor);

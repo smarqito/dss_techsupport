@@ -9,7 +9,7 @@ import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.Reparacao;
 
 public class Equipamento implements Serializable {
-	private static int ID = 0;
+	private static int ID = 1;
 
 	private static int GetID() {
 		return ID++;
@@ -100,8 +100,6 @@ public class Equipamento implements Serializable {
 		return id;
 	}
 
-	
-
 	public LocalDateTime getUltimoEstado() {
 		return ultimoEstado;
 	}
@@ -141,6 +139,7 @@ public class Equipamento implements Serializable {
 
 	/**
 	 * Verifica se o equipamento contem um determinado orcamento, a partir do seu ID
+	 * 
 	 * @param orcId Id do orcamento a pesquisar
 	 * @return True se encontrar
 	 */
@@ -150,10 +149,18 @@ public class Equipamento implements Serializable {
 
 	/**
 	 * Verifica se o equipamento contem um determinado reparacao, a partir do seu ID
+	 * 
 	 * @param repId Id do reparacao a pesquisar
 	 * @return True se encontrar
 	 */
 	public boolean temReparacao(String repId) {
 		return historicoReps.stream().anyMatch(x -> x.getId().equals(repId));
+	}
+
+	@Override
+	public String toString() {
+		return "Identificador: " + this.getId() +
+				"\nMarca: " + this.getMarca() +
+				"\nCodigo Registo: " + this.getCodRegisto() + "\n";
 	}
 }

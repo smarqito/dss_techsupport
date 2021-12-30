@@ -9,7 +9,7 @@ public class Material implements Serializable {
 	private double custo;
 	private Integer quantidade;
 
-	public Material(CategoriaMaterial categoria, String nome, Double custo, Integer quantidade) {
+	public Material(String nome, Double custo, Integer quantidade) {
 		this.nome = nome;
 		this.custo = custo;
 		this.quantidade = quantidade;

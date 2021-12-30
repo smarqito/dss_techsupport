@@ -43,7 +43,7 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	public Set<Orcamento> getOrcamentosAtivos() {
-		return this.orcs.values().stream().filter(Orcamento::estaAtivo)
+		return this.orcs.values().stream().filter(Orcamento::aguardaOrcamento)
 				.collect(Collectors.toCollection(() -> new TreeSet<Orcamento>()));
 	}
 
@@ -79,7 +79,7 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	@Override
 	public Orcamento getOrcamentoMaisAntigo() throws NaoExisteOrcamentosAtivosException {
 		Set<Orcamento> set = getOrcamentosAtivos();
-		if(!set.isEmpty()) {
+		if (!set.isEmpty()) {
 			return set.iterator().next();
 		}
 		throw new NaoExisteOrcamentosAtivosException();
@@ -125,7 +125,8 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	 * @param comentario
 	 * @throws ReparacaoNaoExisteException
 	 */
-	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario) throws ReparacaoNaoExisteException {
+	public void alterarEstadoRep(String repID, ReparacaoEstado estado, String comentario)
+			throws ReparacaoNaoExisteException {
 		Reparacao r = getReparacao(repID);
 		r.alteraEstado(estado, comentario);
 	}
@@ -305,7 +306,7 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 
 	public List<Orcamento> arquivarOrcamentos() {
 		List<Orcamento> arquivados = new ArrayList<>();
-		filterOrcamentos(x -> x.estaAtivo() && x.passouPrazo()).forEach(x -> {
+		filterOrcamentos(x -> x.enviado() && x.passouPrazo()).forEach(x -> {
 			try {
 				x.alteraEstado(OrcamentoEstado.arquivado);
 				arquivados.add(x);

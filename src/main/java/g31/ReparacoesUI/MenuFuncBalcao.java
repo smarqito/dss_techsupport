@@ -89,6 +89,8 @@ public class MenuFuncBalcao {
             System.out.println("Equipamento  " + eqId + " não está associado ao cliente com o nif: " + nif);
         } catch (ColaboradorNaoExisteException e) {
             System.out.println("Não existe o colaborador");
+        } catch (ColaboradorNaoFuncBalcao e) {
+            System.out.println("O id inserido nao corresponde a um funcionario de balcao: " + funcId);
         }
     }
 
@@ -165,6 +167,8 @@ public class MenuFuncBalcao {
             System.out.println("Técnico não tem agenda");
         } catch (ReparacaoNaoExisteException e) {
             System.out.println("Não existe a reparação expresso: " + tipo);
+        } catch (ColaboradorNaoFuncBalcao e) {
+            System.out.println("O id inserido nao corresponde a um funcionario de balcao: " + funcId);
         }
     }
 

@@ -34,16 +34,18 @@ public interface IReparacoesLN {
 	 * 
 	 * @param equipId    Identificador do equipamento a adicionar
 	 * @param nomeRepExp Nome da reparação a realizar
+	 * @param funcId     Id do funcionario do balcao
 	 * @throws EquipamentoNaoExisteException
 	 * @throws ReparacaoNaoExisteException
 	 * @throws NaoExisteDisponibilidadeException
 	 * @throws ColaboradorNaoExisteException
 	 * @throws ColaboradorNaoTecnicoException
 	 * @throws TecnicoNaoTemAgendaException
+	 * @throws ColaboradorNaoFuncBalcao
 	 */
 	String addRepExpresso(String equipId, String nomeRepExp, String funcId)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
-			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException;
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException, ColaboradorNaoFuncBalcao;
 
 	/**
 	 * 
@@ -207,7 +209,8 @@ public interface IReparacoesLN {
 	 * @param funcId Id do Funcionário
 	 * @throws EquipamentoNaoExisteException
 	 */
-	void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId) throws EquipamentoNaoExisteException, ColaboradorNaoExisteException;
+	void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId)
+			throws EquipamentoNaoExisteException, ColaboradorNaoExisteException;
 
 	/**
 	 * Método que cria um novo passo e insere esse passo no plano de trabalhos de um
@@ -235,8 +238,10 @@ public interface IReparacoesLN {
 	 * @param descr
 	 * @throws EquipamentoNaoExisteException
 	 * @return
+	 * @throws ColaboradorNaoFuncBalcao
 	 */
-	String registarOrcamento(String nif, String equipId, String descr, String funcId) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException;
+	String registarOrcamento(String nif, String equipId, String descr, String funcId)
+			throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException, ColaboradorNaoFuncBalcao;
 
 	/**
 	 * Adiciona um contacto ao historico de reparacao
@@ -279,6 +284,7 @@ public interface IReparacoesLN {
 
 	/**
 	 * Armazena a o estado do programa num ficheiro
+	 * 
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
@@ -360,6 +366,7 @@ public interface IReparacoesLN {
 
 	/**
 	 * Verifica se um colaborador existe
+	 * 
 	 * @param id Identificacao do colaborador
 	 * @return
 	 */
@@ -367,6 +374,7 @@ public interface IReparacoesLN {
 
 	/**
 	 * Retorna um colaborador, caso este exista
+	 * 
 	 * @param id Identificacao do colaborador
 	 * @return Colaborador
 	 * @throws ColaboradorNaoExisteException Caso nao exista
@@ -375,6 +383,7 @@ public interface IReparacoesLN {
 
 	/**
 	 * Retorna uma reparacao a partir do ID
+	 * 
 	 * @param id ID da reparacao a procurar
 	 * @return Reparacao
 	 * @throws ReparacaoNaoExisteException
@@ -384,7 +393,7 @@ public interface IReparacoesLN {
 	/**
 	 * Calcula a agenda do dia
 	 * 
-	 * @param data Dia a ser procurado
+	 * @param data  Dia a ser procurado
 	 * @param tecId Tecnico que se pretende a agenda
 	 * @return AgendaPorDia
 	 * @throws TecnicoNaoTemAgendaException

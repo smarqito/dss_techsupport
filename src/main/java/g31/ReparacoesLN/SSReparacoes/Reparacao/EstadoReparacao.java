@@ -1,8 +1,9 @@
 package g31.ReparacoesLN.SSReparacoes.Reparacao;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class EstadoReparacao implements Comparable<EstadoReparacao>{
+public class EstadoReparacao implements Comparable<EstadoReparacao>, Serializable{
 
 	private ReparacaoEstado estado;
 	private LocalDateTime data;

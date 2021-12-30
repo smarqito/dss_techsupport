@@ -37,7 +37,6 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	private IGestReparacoes gestReparacoes;
 	private IGestColaboradores gestColaboradores;
 
-	
 	public ReparacoesLNFacade() {
 		gestClientes = new GestClientesFacade();
 		gestReparacoes = new GestReparacoesFacade();
@@ -51,15 +50,19 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	@Override
 	public String addRepExpresso(String equipId, String nomeRepExp, String funcId)
 			throws EquipamentoNaoExisteException, ReparacaoNaoExisteException, NaoExisteDisponibilidadeException,
-			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException {
+			ColaboradorNaoTecnicoException, ColaboradorNaoExisteException, TecnicoNaoTemAgendaException,
+			ColaboradorNaoFuncBalcao {
 
 		Boolean existeRepX = gestReparacoes.existeRepXpresso(nomeRepExp);
 
 		if (existeRepX) {
-
 			Equipamento eq = gestClientes.getEquipamento(equipId);
-			FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
-			Balcao b = new Rececao(eq, f);
+			Colaborador colab = gestColaboradores.getColaborador(funcId);
+			if (!colab.getClass().getSimpleName().equals(FuncionarioBalcao.class.getSimpleName())) {
+				throw new ColaboradorNaoFuncBalcao();
+			}
+			FuncionarioBalcao fBalcao = (FuncionarioBalcao) colab;
+			Balcao b = new Rececao(eq, fBalcao);
 
 			gestColaboradores.addBalcao(b);
 
@@ -70,6 +73,7 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 			String id = gestReparacoes.addRepExpresso(eq, nomeRepExp, gestColaboradores.getTecnico(tecId));
 			gestColaboradores.addEventoAgenda(tecId, duracao_estimada, "repExpresso: " + id);
 			return id;
+
 		}
 		throw new ReparacaoNaoExisteException(nomeRepExp);
 	}
@@ -181,7 +185,8 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId) throws EquipamentoNaoExisteException, ColaboradorNaoExisteException {
+	public void alteraEstadoEq(String equiID, EstadoEquipamento state, String funcId)
+			throws EquipamentoNaoExisteException, ColaboradorNaoExisteException {
 		Equipamento eq = this.getEquipamento(equiID);
 		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
 		Balcao b = new Entrega(eq, f);
@@ -193,16 +198,21 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	public void criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat)
 			throws PassoJaExisteException {
 
-		Material newMat = new Material(null, mat, custoMat, qMat);
+		Material newMat = new Material(mat, custoMat, qMat);
 		gestReparacoes.criarPasso(orcID, nomePasso, newMat, tempo);
 
 	}
 
 	@Override
-	public String registarOrcamento(String nif, String equipId, String descr, String funcId) throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException {
+	public String registarOrcamento(String nif, String equipId, String descr, String funcId)
+			throws EquipamentoNaoExisteException, EquipamentoNaoAssociadoAoCliente, ColaboradorNaoExisteException, ColaboradorNaoFuncBalcao {
 		Equipamento e = this.gestClientes.getEquipamento(equipId);
-		FuncionarioBalcao f = (FuncionarioBalcao) gestColaboradores.getColaborador(funcId);
-		Balcao b = new Rececao(e, f);
+		Colaborador colab = gestColaboradores.getColaborador(funcId);
+		if (!colab.getClass().getSimpleName().equals(FuncionarioBalcao.class.getSimpleName())) {
+			throw new ColaboradorNaoFuncBalcao();
+		}
+		FuncionarioBalcao fBalcao = (FuncionarioBalcao) colab;
+		Balcao b = new Rececao(e, fBalcao);
 		gestColaboradores.addBalcao(b);
 		if (e.isProprietario(nif)) {
 			return this.gestReparacoes.registarOrcamento(e, descr);

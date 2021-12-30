@@ -12,6 +12,7 @@ public class ReparacaoProgramada extends Reparacao {
 
 	public ReparacaoProgramada(Orcamento docOrigem, Tecnico tec) {
 		super(docOrigem.getEquipamento(), tec);
+		plano = docOrigem.getPT();
 	}
 
 	public ReparacaoProgramada(ReparacaoProgramada reparacaoProgramada) {

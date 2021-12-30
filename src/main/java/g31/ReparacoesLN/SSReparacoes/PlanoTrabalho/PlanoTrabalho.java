@@ -12,9 +12,7 @@ public class PlanoTrabalho implements Serializable {
 
 	private List<PassoReparacao> passos;
 	private List<PassoReparacao> passosRealizados;
-	private Integer tempo;
-
-	
+	private Integer tempo = 0;
 
 	public PlanoTrabalho() {
 		passos = new ArrayList<>();
@@ -31,9 +29,12 @@ public class PlanoTrabalho implements Serializable {
 		this.passosRealizados = pt.getPassosRealizados();
 		this.tempo = pt.getTempo();
 	}
+
 	/**
 	 * Calcula todos os passos de reparacao
-	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de lista
+	 * 
+	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de
+	 *         lista
 	 */
 	public List<PassoReparacao> getPassos() {
 		return passos.stream().map(PassoReparacao::clone).collect(Collectors.toList());
@@ -41,7 +42,9 @@ public class PlanoTrabalho implements Serializable {
 
 	/**
 	 * Calcula todos os passos de reparacao
-	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de lista
+	 * 
+	 * @return Retorna uma copia de todos os passos de reparacao, sob a forma de
+	 *         lista
 	 */
 	public List<PassoReparacao> getPassosRealizados() {
 		return passosRealizados.stream().map(PassoReparacao::clone).collect(Collectors.toList());
@@ -102,7 +105,7 @@ public class PlanoTrabalho implements Serializable {
 
 	public CustoTotalReparacao getPrecoEfetivo(Double precoHora) {
 		CustoTotalReparacao ctr = new CustoTotalReparacao(precoHora);
-		for (PassoReparacao p : passosRealizados){
+		for (PassoReparacao p : passosRealizados) {
 			p.getCusto(ctr);
 		}
 		return ctr;
@@ -127,16 +130,26 @@ public class PlanoTrabalho implements Serializable {
 	public PassoReparacao getPasso(String nomePasso) throws PassoNaoExisteException {
 		try {
 			return this.passos.stream().filter(x -> x.getNome().equals(nomePasso)).findFirst().get();
-		} catch (NoSuchElementException e){
+		} catch (NoSuchElementException e) {
 			throw new PassoNaoExisteException("Passo " + nomePasso + " não existe no PlanoTrabalho.");
 		}
 	}
+
 
 	public String descricaoPassosRealizados(){
 		StringBuilder sb = new StringBuilder();
 		for(PassoReparacao p : passosRealizados){
 			sb.append("Passo " + p.getNome() + " em " + p.getTempoGasto() + " minutos com um custo de " + p.getCustoEfetivo() + " euros;");
 		}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Passos do plano: \n");
+		passos.stream().forEach(x -> {
+			sb.append(x.toString());
+			sb.append("\n");
+		});
 		return sb.toString();
 	}
 }

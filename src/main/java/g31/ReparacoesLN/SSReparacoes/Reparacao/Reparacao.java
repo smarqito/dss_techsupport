@@ -30,6 +30,7 @@ public abstract class Reparacao implements Serializable {
 		dataCriacao = LocalDateTime.now();
 		comunicacoes = new ArrayList<>();
 		estados = new TreeSet<>();
+		alteraEstado(ReparacaoEstado.aguadaReparacao, "Inicio");
 		id = GetID() + "";
 	}
 
