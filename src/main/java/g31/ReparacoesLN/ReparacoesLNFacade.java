@@ -128,9 +128,12 @@ public class ReparacoesLNFacade implements IReparacoesLN, Serializable {
 	}
 
 	@Override
-	public void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException {
-
-		gestReparacoes.registaPasso(repID, mins, custo);
+	public void registaPasso(String repID, Integer mins, Double custo) throws ReparacaoNaoExisteException, EquipamentoNaoExisteException {
+		ReparacaoEstado repEst = gestReparacoes.registaPasso(repID, mins, custo);
+		if(repEst.equals(ReparacaoEstado.reparado)) {
+			String equipId = getReparacao(repID).getEquipamento().getId();
+			alteraEstadoEq(equipId, EstadoEquipamento.prontoLevantar);
+		}
 	}
 
 	@Override
