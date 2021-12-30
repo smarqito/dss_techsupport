@@ -102,13 +102,19 @@
         Um centro de reparações encontra problemas diários que limitam a sua capacidade de resposta,
         diminuindo a eficiência dos colaboradores e impactando no volume de trabalho concretizado.
         
-        Através da análise dos cenários de utilização, foi possível efetuar uma modelação do domínio.
-        Posteriormente, conseguiu-se realizar a modelação dos requisitos funcionais.
-        Assim, foi desenvolvido um \textbf{Modelo de Domínio} e um \textbf{Diagrama de \textit{Use Case}},
-        assim como as respetivas descrições dos mesmos.
+        Através da análise dos cenários de utilização, foi possível efetuar a modelação completa de um sistema que responderia a estes equívocos.
+        Foi necessária a conceção de vários modelos e diagramas, tais como:
+        \begin{itemize}
+            \item [Modelo de Domínio] {Para representar as entidades e as suas relações}
+            \item [Diagrama de Use Cases] {Graficamente apresentar as funcionalidades criadas para o sistema}
+            \item [Diagr. de Componentes] {Com o intuito de estruturar a arquitetura do sistema}
+            \item [Diagrama de Classes] {Definindo concretamente as classes e relacionamentos estruturais a implementar}
+            \item [Diagramas de Sequência] {Caracterizar o comportamento dos métodos definidos para a implementação}
+        \end{itemize}
         
         A estratégia utilizada permitiu seguir uma linha de raciocínio estruturada e ao utilizar uma linguagem de modelação unificada obteve-se
         um conjunto de diagramas que são facilmente interpretáveis entre pares.
+        Para além disso, permitiu agilizar o processo de implementação do sistema, provando-se uma estratégia extremamente útil.
         
         \par \textbf{Área de Aplicação}: Análise de Requisitos
         \par \textbf{Palavras-Chave}: \textit{Unified Modeling Language} (UML), \textit{Visual Paradigm}, Modelação de Domínio, Modelação de Requisitos Funcionais, Diagrama de \textit{Use Case}, Modelo de Domínio, Análise de Projeto, Conceção de Projeto, Análise de Requisitos
@@ -592,26 +598,51 @@ nesta iteração do sistema. Adicionalmente, a exclusão do desenvolvimento dest
 
 
 \chapter{Considerações Finais}
-Ao longo da realização da fase de análise de requisitos do projeto, houve a necessidade de utilizar conceitos
-com os quais os elementos do grupo não estavam familiarizados.
-A sua utilização obrigou a uma aprendizagem ativa, por forma a se conseguir dar resposta aos objetivos propostos.
-Tal como qualquer instância de aprendizagem, houve dificuldades na sua implementação.
-Em particular: familiarização da linguagem UML e \underline{capacidade de abstração} \underline{do problema}.
-Esta última foi a mais difícil de ultrapassar, pois o grupo tendia a olhar para o modelo como sendo a realidade
-e não uma representação abstrata da mesma.
-A título exemplificativo, inicialmente foi definido um \textit{use case} que refletia todo um fluxo real
-(desde que o cliente entra até que sai com o problema resolvido).
-Posteriormente, através de estudo e acompanhamento da equipa docente, foi possível melhorar esta capacidade de abstração
-e atingir um resultado final que o grupo acredita ir de encontro com os objetivos propostos.
-Não obstante, o grupo ter atravessado algumas dificuldades, os resultados de aprendizagem acabaram por compensar.
-Com a concretização desta fase, o grupo encontra-se mais capaz de modelar um problema utilizando a abstração necessária.
 
-Apesar do grupo considerar que a solução a que chegou é suficiente e adequada, a sua falta de experiência
-ao nível da conceção e implementação de soluções não lhe permite ser capaz de fazer a devida análise.
-Por este motivo, o grupo tem consciência que se encontra perante um processo iterativo e que
-na fase seguinte (modelação conceptual e implementação da solução), provavelmente, encontrará algumas dificuldades
-em que será obrigado a fazer alterações da fase a que o presente relatório se refere.
+\section{Conclusões}
 
+Com o desenvolvimento do presente relatório, assim como as atividades inerentes ao mesmo,
+o grupo deparou-se com um conjunto de dificuldades relacionadas com a falta de experiência na área de Engenharia de Software. 
+Como referido no relatório formulado na primeira fase, o grupo tinha consciência da sua inexperiência e teve de responder à 
+necessidade de abstrair-se do que foi definido no relatório, de modo a encontrar uma solução apropriada.
+Contudo, com a ajuda dos docentes e a partir da experiência óbtida na realização de outros projetos da mesma índole, foi 
+possível obter uma solução que satisfaz o problema proposto ao grupo. 
+Devido ao seu foco durante o semestre letivo e a importância atríbuida nas aulas lecionadas, foi colocado como 
+prioridade o aperfeiçoamento da modelação final do projeto, havendo repercussões na implementação do projeto que, apesar de 
+facilitada por este planeamento prévio, não encontra-se no estado final desejado. 
+
+A implementação responde, através de vários menus, às funcionalidades definidas nos vários casos de uso, seguindo a estrutura e 
+comportamento definidos nos Diagramas de \textbf{Componentes}, \textbf{Classes} e \textbf{Sequência}. Contudo, existem várias 
+inconsistências que o grupo não conseguiu eliminar até a entrega do trabalho.
+Estes problemas impedem a conceção completa da modelagem efetuada e não correspondem à solução imaginada.
+
+Relativamente a modelação, procurou-se desenvolver as várias etapas, utilizando a maior formalidade possível. Para tal,
+aproveitou-se a linguagem UML que mune o grupo com as ferramentas necessárias para
+representar os conceitos com o nível de abstração suficiente, como recomendado pelos docentas da unidade curricular.
+
+O grupo considera que, apesar das dificuldades encontradas no decorrer da sua realização, e, alguns precalços que seriam 
+apagados em iterações futuras, respondeu ao problema posposto.
+
+A modelação
+
+/section{Trabalho Futuro}
+
+O projeto apresentado, e especificado no contexto deste relatório, apresenta uma solução para o problema proposto pelos docentes
+através dos cinco cenários apresentados. Apesar do grupo considerar que a solução desenvolvida responde as necessidades do Centro de
+Reparações, propõem, simultaneamente, alguns casos de estudo para iterações futuras da mesma, de modo a aumentar a sua 
+completude e formular um sistema útil.
+
+Um dos casos principais que seriam atacados é os referentes ao uso de materiais no sistema. O grupo planeou a manipulação de \textit{stocks} num
+contexto real, sendo descartado na iteração presente do projeto. 
+Com a implementação destas dinâmicas, com encomendar e adicionar \textit{stock} de materiais à loja, bem como remover, proporcionaria um nível maior 
+de gestão da loja.
+
+No seguimento da implemetação dos materiais no sistema, seria importante a adição da categoria de material para proporcionar uma maior flexibilidade na 
+criação de planos de trabalho, podendo estes ser genéricos e comuns para várias reparações semelhantes. Deste modo, o planeamente previamente desenvolvido, no 
+qual reparações expresso tinham um plano próprio, podia ser também respondido.
+
+Além do exposto, seria necessário o aperfeiçoamento da implementação apresentada atualmente, nomeadamente numa interface gráfico com o colaborador mais intuitiva
+e um sistema de suporte de base de dados, para guardar as informações adquiridas durante o uso do sistema. 
 
 %==========================================================================
 % BEGIN LISTA DE SIGLAS E ACRÓNIMOS
@@ -648,6 +679,11 @@ em que será obrigado a fazer alterações da fase a que o presente relatório s
 \subfile{scenarios/scenario_3.tex}
 \subfile{scenarios/scenario_4.tex}
 \subfile{scenarios/scenario_5.tex}
+
+\addsec{Diagramas de Sequência}
+\subfile{sd.tex}
+\addsec{Diagrama de classe}
+\subfile{classes.tex}
 
 %==========================================================================
 % END ANEXOS

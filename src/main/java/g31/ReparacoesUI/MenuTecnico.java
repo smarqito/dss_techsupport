@@ -258,10 +258,10 @@ public class MenuTecnico {
         try {
             MyUI.printLine();
             System.out.println("Insira custo efetivo: ");
-            double custo = scin.nextDouble();
+            double custo = this.getDouble();
             MyUI.printLine();
             System.out.println("Insira o tempo gasto: ");
-            int tempo = scin.nextInt();
+            int tempo = this.getInt();
             model.registaPasso(repId, tempo, custo);
         } catch (ReparacaoNaoExisteException e) {
             MyUI.printLine();
@@ -297,11 +297,27 @@ public class MenuTecnico {
         try {
             MyUI.printLine();
             System.out.println("Insira as horas gastas: ");
-            int tempo = scin.nextInt();
+            int tempo = this.getInt();
             model.alterarEstadoRep(repId, ReparacaoEstado.cancelada, "tempo gasto: " + tempo);
         } catch (ReparacaoNaoExisteException e) {
             MyUI.printLine();
             System.out.println("A reparação com identificador " + repId + " não existe!");
         }
+    }
+
+    private int getInt(){
+        while (!scin.hasNextInt()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextInt();
+    }
+
+    private double getDouble(){
+        while (!scin.hasNextDouble()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextDouble();
     }
 }

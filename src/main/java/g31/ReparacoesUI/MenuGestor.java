@@ -59,7 +59,7 @@ public class MenuGestor {
             String nome = scin.nextLine();
             System.out.println("Função do Colaborador: \n" +
                     "1 - Gestor\n 2 - Técnico\n 3 - Funcionario de Balcao");
-            int tipo = scin.nextInt();
+            int tipo = this.getInt();
             switch (tipo) {
                 case 1:
                     model.registaColaborador(nome, Gestor.class);
@@ -80,9 +80,9 @@ public class MenuGestor {
 
     private void listarResumidas() {
         System.out.println("Mês que pretende ser avaliado: ");
-        int mes = scin.nextInt();
+        int mes = this.getInt();
         System.out.println("Ano: ");
-        int ano = scin.nextInt();
+        int ano = this.getInt();
         LocalDate data = LocalDate.of(ano, mes, 1);
         Map<Tecnico, ReparacoesPorMes> listagem = model.getReparacoesMes(data.atStartOfDay());
         for(Map.Entry<Tecnico, ReparacoesPorMes> m : listagem.entrySet()){
@@ -92,9 +92,9 @@ public class MenuGestor {
 
     private void listarDetalhadas() {
         System.out.println("Mês que pretende ser avaliado: ");
-        int mes = scin.nextInt();
+        int mes = this.getInt();
         System.out.println("Ano: ");
-        int ano = scin.nextInt();
+        int ano = this.getInt();
         LocalDate data = LocalDate.of(ano, mes, 1);
         Map<Tecnico, ReparacoesPorMes> listagem = model.getReparacoesMes(data.atStartOfDay());
         for(Map.Entry<Tecnico, ReparacoesPorMes> m : listagem.entrySet()){
@@ -113,18 +113,18 @@ public class MenuGestor {
 
     private void listarFluxoFunc() {
         System.out.println("Data de inicio da avaliação: \n Ano :");
-        int anoDe = scin.nextInt();
+        int anoDe = this.getInt();
         System.out.println("Mes :");
-        int mesDe = scin.nextInt();
+        int mesDe = this.getInt();
         System.out.println("Dia :");
-        int diaDe = scin.nextInt();
+        int diaDe = this.getInt();
         LocalDate dataDe = LocalDate.of(anoDe, mesDe, diaDe);
         System.out.println("Data do fim da avaliação: \n Ano :");
-        int anoAte = scin.nextInt();
+        int anoAte = this.getInt();
         System.out.println("Mes :");
-        int mesAte = scin.nextInt();
+        int mesAte = this.getInt();
         System.out.println("Dia :");
-        int diaAte = scin.nextInt();
+        int diaAte = this.getInt();
         LocalDate dataAte = LocalDate.of(anoAte, mesAte, diaAte);
         Map<FuncionarioBalcao, List<Equipamento>> recebidos = model.getEquipRecebidos(dataDe.atStartOfDay(), dataAte.atStartOfDay());
         Map<FuncionarioBalcao, List<Equipamento>> entregues = model.getEquipEntregue(dataDe.atStartOfDay(), dataAte.atStartOfDay());
@@ -154,5 +154,21 @@ public class MenuGestor {
             System.out.println(e.getId());
         }
         System.out.println("Equipamentos foram dados como abandonados com sucesso");
+    }
+
+    private int getInt(){
+        while (!scin.hasNextInt()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextInt();
+    }
+
+    private double getDouble(){
+        while (!scin.hasNextDouble()) {
+            scin.next();
+            System.out.println("Insira uma quantidade válida");
+        }
+        return scin.nextDouble();
     }
 }
