@@ -1,6 +1,7 @@
 package g31.ReparacoesLN.SSReparacoes.Reparacao;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReparacoesPorMes {
 
@@ -14,6 +15,14 @@ public class ReparacoesPorMes {
 		duracaoMedia = 0;
 		desvioMedio = 0;
 		total = 0;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public List<Reparacao> getReps() {
+		return new ArrayList<>(reps);
 	}
 
 	/**

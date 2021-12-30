@@ -38,15 +38,11 @@ public class MyUI {
 				"Autenticar"
 		});
 
-		// mais pré-condições?
-
 		// Registar os handlers das transições
 		menu.setHandler(1, this::autenticarColaborador);
 
 		// Executar o menu
 		menu.run();
-		// System.out.println("Guardando...");
-		// this.model.save();
 
 	}
 
