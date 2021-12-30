@@ -157,39 +157,69 @@
 
 \chapter{Introdução}
 O presente relatório foi desenvolvido no âmbito da Unidade Curricular (UC) de Desenvolvimento de Sistemas de Software (DSS),
-tendo como principal objetivo apresentar uma possível conceção de um Sistema de Gestão para Centros de Reparação de Equipamentos Eletrónicos, doravante designado \textit{aplicação}.
+tendo como principal objetivo apresentar uma possível conceção de um Sistema de Gestão para Centros de Reparação de Equipamentos Eletrónicos, ao qual iremos designar por \textit{Techsupport}, 
+doravante designado \textit{aplicação}.
 
 \section{Contextualização}
 A procura por um serviço de reparação, compreende um atendimento célere e garantia de acompanhamento ao longo de todo o processo.
 Para que tal seja possível, foi proposto pela equipa docente o desenvolvimento de uma aplicação que permita essa gestão.
 
-Desta forma, foi apresentado um conjunto de possíveis cenários de utilização que a aplicação deverá ser capaz de suportar,
-dos quais se efetuou um levantamento de requisitos através de estratégias de modelação lecionadas na UC de DSS.
+\section{Justificação e Utilidade do Sistema}
 
-\section{Breve descrição do enunciado proposto}
+Todo o processo de atendimento e reparação de um equipamento, requere cuidado e organização, de maneira a garartir um bom serviço.
+
+Em pequenos negócios locais, a aquisição deste sistema não seria tão vantajosa pois, como a procura seria pouca, seria faćil
+de gerir as interações com clientes, da mesma maneira, gerir os seus equipamentos e reparações. Porém, é sempre uma ajuda ter um sistema que
+registe todo o historial do negócio.
+
+Por sua vez, quando se trata de um grande volume de clientes e, por sua vez, bastantes equipamentos com variadas reparações, seria bastante útil adquirir este sistema 
+devido às suas funcionalidades, como por exemplo, seria possível gerir toda a agenda dos técnicos, de forma a calendarializar todas as reparações normais ou do momento (expresso), 
+verificando se é possível ou não, seria possível adicionar novas reparações e passos da mesma, tal como os seus preços, de maneira a evitar repetições e economizar tempo, aceder 
+às listagens dos colaboradores subordinados, avaliando assim o seu trabalho, entre outras.
+
+Em suma, verifica-se uma maior necessidade de aquisição do sistema \textit{Techsupport} em grandes negócios, o que não impede sua aquisição em qualquer tipo de negócio, 
+devido à sua grande utilidade.
+
+\section{Breve Descrição do Enunciado Proposto}
 
 Tal como referido, o enunciado propõe a conceção e implementação de uma aplicação e apresenta os cenários de utilização que deverão ser
 suportados por esta.
 
-Para a fase a que este relatório se refere - \textbf{análise}, inclui-se 
+O desenvolvimento desta aplicação foi marcado por 2 fases, nomeadamente:
+\begin{itemize}
+    \item [Análise]
+    \item [Modelação Conceptual e Implementação]
+\end{itemize}
+
+Primeiramente, encontra-se a \textbf{Análise}, que inclui
 (i) a análise do domínio do problema, através da modelação de um modelo de domínio e 
 (ii) de requisitos funcionais, onde se utlizará a modelação de requisitos funcionais, com uma visão orientada aos \textit{use cases}.
 
+Posteriormente, encontra-se a \textbf{Modelação Conceptual e Implementação}, que inclui
+(i) o diagrama de componentes e 
+(ii) todo o processo de desenvolvimento do diagrama de classes, onde foram defenidas todas as classes e métodos do nosso sistema,
+(ii) e o desenvolvimento dos diagramas de sequência que ilutram os métodos criados.
+
 \section{Objectivos}
-Pretende-se efetuar uma abordagem ao problema utilizando uma estratégia estruturada e sistemática, concretizando a modelação do problema.
-Assim, é possível obter um \textbf{modelo de domínio} que fornece uma \textit{framework} conceptual para raciocinar sobre o problema.
-Aqui, é capturado as \textbf{Entidades} do problema e os \textbf{Relacionamentos} entre elas.
-
-Após esta primeira etapa, procura-se analisar os requisitos, em particular os funcionais, pretendendo descrever o que o sistema deve fazer.
-
-Para além destes, o grupo pretende, ainda, desenvolver competências técnicas e conceptuais no desenvolvimento de modelos e diagramas,
+De forma breve, o grupo pretende desenvolver competências técnicas e conceptuais no desenvolvimento de modelos e diagramas,
 por forma a se preparar para o mercado de trabalho de \underline{Engenharia de Software}.
 
+
 \section{Estrutura do Relatório}
-Atendendo à estratégia definida, o grupo começará por apresentar a \textbf{Modelação de Domínio} - \ref{modelacao_dominio},
-onde se pode encontrar as várias \textbf{Entidades} capturadas, assim como o \textbf{Relacionamento} entre elas.
-Posteriormente, apresenta-se a \textbf{Modelação dos Requisitos Funcionais} - \ref{modelacao_req_funcionais}, 
-onde se procurou descrever o que o sistema deve fazer, utilizando uma visão orientada aos \textit{Use Cases}.
+Pretende-se efetuar uma abordagem ao problema utilizando uma estratégia estruturada e sistemática, concretizando a modelação conceptual do problema 
+e, agora, a sua implementação.
+
+Assim, é obtido um \textbf{modelo de domínio} que fornece uma \textit{framework} conceptual para raciocinar sobre o problema.
+Aqui, são capturadas as \textbf{Entidades} do problema e os \textbf{Relacionamentos} entre elas. Posteriormente, procurou-se analisar os 
+requisitos, em particular os funcionais, pretendendo descrever o que o sistema deve fazer.
+
+Na segunda fase deste projeto, primeiramente, foi realizado o \textbf{modelo de componentes}, concebendo um modelo direcionado a interfaces que utiliza
+a estratégia \textit{Facade}. Aqui, iniciou-se todo o processo de desenvolvimento no \textbf{diagrama de classes}, que originou mudanças exaustivas no projeto 
+realizado na primeira fase, e onde foram definidas as classes e métodos que compoẽm o sistema. Posteriormente, \textbf{diagramas de sequência} 
+que ilustram os métodos desenvolvidos.
+
+No final desta segunda fase, ocorreu a implementação de todo o sistema, que é demonstrada por testes que foram realizados.
+
 Por fim, foi efetuada uma breve análise crítica do trabalho desenvolvido nesta fase.
 
 %==========================================================================
@@ -427,21 +457,54 @@ foram identificados os seguintes \textit{use cases}:
 
 \subsection{SSClientes} 
 Neste subsistema podem-se encontrar as funcionalidades relacionadas com os \textbf{Clientes}. 
-Apesar de cada subsistema não estar intrinsecamente dependente entre si, estes não deixam de 
-se relacionarem, como se pode verificar neste caso, com o SSReparacoes.
+Apesar de cada subsistema não estar intrinsecamente dependente de outros, estes não deixam de 
+se relacionarem, como se pode verificar neste caso, com o SSReparacoes. Também é de salientar que neste
+subsistema predomina uma arquitetura com agregação entre classes.
+
+
 Aqui encontra-se, entre a classe Equipamento e Cliente, um caso de navegabilidade bidirecional, 
-na medida a facilitar o acesso e predomina uma arquitetura com agregação entre classes.
+na medida a facilitar o acesso. É de salientar a atribuição de um estado ao equipamento, de maneira, a facilitar todo o processo da reparação, 
+atribuíndo um ponto de situação ao mesmo e, também, a atribuição de uma forma de contacto ao cliente, de maneira a que este possa ser contactado quando necessário.
+
 
 \subsubsection{GestClientesFacade}
-Esta classe permite a gestão dos clientes e dos respetivos equipamentos associados. É de salientar a atribuição
-de um estado ao equipamento, de maneira, a facilitar todo o processo da reparação, atribuíndo um ponto de situação ao mesmo e,
-também, a atribuição de uma forma de contacto ao cliente, de maneira a que este possa ser contactado quando necessário.
+Esta classe permite a gestão dos clientes e dos respetivos equipamentos associados, implementando a interface IGestClientes.
 
 Analisando os métodos que esta classe implementa, identificou-se que, para melhorar a navegabilidade
 e a \textit{performance} do sistema, será necessário que este tenha um conjunto de atributos, nomeadamente:
 \begin{itemize}
     \item[clientes]{Mapa de clientes que pode ser acessido através do seu identificador, nif}
     \item[equipamentos]{Mapa de equipamentos que pode ser acessido através do seu ID} 
+\end{itemize}
+
+\subsection{SSColaboradores}
+Neste subsistema podem encontrar-se as funcionalidades relacionadas com os \textbf{Colaboradores}.
+Existem 2 tipos de colaboradores, nomeadamente:
+\begin{itemize}
+    \item [Colaborador]{Funcionário do Balcão}
+    \item [Colaborador Especializado] {Técnico e Gestor}
+\end{itemize}
+
+Para facilitar todo o trabalho por parte do funcionário do balcão foi criado o \textit{package} Balcão, que é responsável pela gestão da
+receção e entrega dos equipamentos guardando as respetivas datas, assim, é intuitivo a relação com o subsistema SSClientes, visto que,
+a classe equipamento faz parte do mesmo.
+
+Por outro lado, para facilitar toda a gestão de tempo e/ou disponibilidade por parte dos colaboradores especializados, nomeadamente, o Técnico, na realização das 
+diversas reparações foi criado um \textit{package} Agenda. 
+
+O gestor, por sua vez, é responsável pelas listagens dos seus subordinados.
+
+Também é de salientar que neste subsistema predomina uma arquitetura com agregação entre classes.
+
+\subsubsection{GestColaboradoresFacade}
+Esta classe é responsável por toda a gestão dos colaboradores e funcionalidades, implementando a interface IGestColaboradores.
+
+Analisando os métodos que esta classe implementa, identificou-se que, para melhorar a navegabilidade
+e a \textit{performance} do sistema, será necessário que este tenha um conjunto de atributos, nomeadamente:
+\begin{itemize}
+    \item [Balcao]
+    \item [colabs]{Mapa de colaboradores que pode ser acessido através do seu ID}
+    \item [Agenda]
 \end{itemize}
 
 
