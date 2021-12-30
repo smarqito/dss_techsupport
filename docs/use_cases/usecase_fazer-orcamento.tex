@@ -18,7 +18,7 @@ registando data e hora.
               \item Técnico define plano de trabalhos para a reparação
               \item Sistema regista plano de trabalhos para a reparação
               \item Sistema gera orçamento e regista-o
-              \item Sistema envia orçamento ao cliente
+              \item Técnico regista contacto com o cliente
               \item Sistema regista data e hora de comunicação
           \end{enumerate}
           \begin{flushleft}
@@ -51,9 +51,9 @@ registando data e hora.
                      & 
             Calcula o pedido de orçamento de orçamento há mais tempo no sistema
                      & 
-            getOlderOrcamento()
+            getOrcamentoMaisAntigo(): Orcamento
                      & 
-            SubReparacoes
+            SSReparacoes
             \\
             \hline
             \rowcolor{yellow}
@@ -68,11 +68,11 @@ registando data e hora.
             Sistema regista plano de trabalhos para a reparação
                      & 
                      & 
-            associa plano de trabalho ao orçamento
+            Criar passos e inserir no plano de trabalhos do Orçamento
                      & 
-            registaPT(orcId: String, passos: List<PassoReparacao>)
+            criarPasso(String orcID, String nomePasso, String mat, Integer tempo, Integer qMat, Double custoMat)
                      & 
-            SubReparacoes
+            SSReparacoes
             \\
             \hline
             Sistema gera orçamento e regista-o
@@ -80,20 +80,26 @@ registando data e hora.
                      & 
             Cria um documento com o resumo do orçamento (plano de trabalho + preço)
                      & 
-            generateOrc(orcId: String)
+            generateResume()
                      & 
-            SubReparacoes
+            SSReparacoes
             \\
             \hline
-            Sistema envia orçamento ao cliente
+            \rowcolor{yellow}
+            Técnico regista contacto com o cliente
+                    & UI
+                    &
+                    &
+                    &
+            \\
+            \hline
             Sistema regista data e hora de comunicação
                      & 
                      & 
             envia orçamento ao cliente com o contacto na ficha de orçamento
                      & 
-            enviarOrcamento(orcId: String)
                      & 
-            SubReparacoes
+            SSReparacoes
             \\
             \hline
             \rowcolor{red!30}
@@ -118,9 +124,9 @@ registando data e hora.
                      & 
             envia mensagem ao cliente que há erros
                      & 
-            comunicarErro(orcId: String, msg: String)
+            comunicarErro(orcId: String, msg: String, tecId: Tecnico)
                      & 
-            SubReparacoes
+            SSReparacoes
             \\
             \hline
         \end{tabular}
