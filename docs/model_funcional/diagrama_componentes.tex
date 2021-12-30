@@ -32,14 +32,16 @@ não dependa da sua implementação, isolando a implementação lógica.
 Não obstante, esta divisão inicial, foi identificado um conjunto de subsistemas que permitiram
 uma melhor organização, implementação e manutenção do projeto, procurando diminuir as suas dependências.
 Assim, identificou-se três subsistemas: \underline{SSClientes}, \underline{SSReparacoes}, \underline{SSColaboradores}.
+Utiliza a camada de base de dados (ver \ref{sec:reparacoes_bd}) por forma a garantir a persistência do estado da
+aplicação entre utilizações.
 
 \begin{itemize}
-    \item[SSClientes] {
+    \item[\textbf{SSClientes}] {
           Realiza a interface \textit{IGestClientes}.\\
           Engloba a lógica relacionada com os Clientes (\ref{ent_cliente})
           e os seus Equipamentos (\ref{ent_equipamento}).
           }
-    \item[SSColaboradores] {
+    \item[\textbf{SSColaboradores}] {
           Realiza a interface \textit{IGestColaboradores}.\\
           Engloba toda a lógica relacionada com os Colaboradores (\ref{ent_colaborador})
           e as suas especializações e o balcão.
@@ -48,17 +50,23 @@ Assim, identificou-se três subsistemas: \underline{SSClientes}, \underline{SSRe
           e passar a ser possível fazer uma estimativa do prazo de reparação, sempre que é adicionada
           uma nova.
           }
-    \item[SSReparacoes] {
+    \item[\textbf{SSReparacoes}] {
           Realiza a interface \textit{IGestReparacoes}.\\
           Engloba toda a lógica relacionada com as Reparações (\ref{ent_reparacao})
-          e com os Orcamentos (\ref{ent_orcamento}).\\
+          e com os Orcamentos (\ref{ent_orcamento}).
           }
 \end{itemize}
 
 \subsubsection*{ReparacoesBD} \label{sec:reparacoes_bd}
+Conforme referido, a camada de base de dados deste projeto corresponde,
+na realidade, a uma simples persistência do estado de toda a aplicação
+armazenado num ficheiro de objetos.
 
+No entanto, optou-se por colocar uma camada específica para este efeito
+por forma a manter a garantia de facilidade de manutenção e uma eventual
+implementação de um sistema de base de dados.
 
-\begin{figure}
+\begin{figure}[!ht]
     \includegraphics[width=\textwidth]{componente.jpg}
     \caption{Diagrama de Componentes} \label{img:diagrama_componentes}
 \end{figure}
