@@ -1,3 +1,38 @@
 \documentclass[../../relatorio.tex]{subfiles}
 \begin{document}
+Neste subsistema podem encontrar-se as funcionalidades relacionadas com os \textbf{Colaboradores}.
+Existem 2 tipos de colaboradores, nomeadamente:
+\begin{itemize}
+    \item Colaborador Funcionário do Balcão
+    \item Colaborador Especializado Técnico e Gestor
+\end{itemize}
+
+Para facilitar todo o trabalho por parte do funcionário do balcão foi criado o \textit{package} Balcão, que é responsável pela gestão da
+receção e entrega dos equipamentos guardando as respetivas datas, assim, é intuitivo a relação com o subsistema SSClientes, visto que,
+a classe equipamento faz parte do mesmo.
+
+Por outro lado, para facilitar toda a gestão de tempo e/ou disponibilidade por parte dos colaboradores especializados, nomeadamente, o Técnico, na realização das 
+diversas reparações, foi criado um \textit{package} Agenda. 
+
+O gestor, por sua vez, é responsável pelas listagens dos seus subordinados.
+
+Também é de salientar que neste subsistema predomina uma arquitetura com composição entre classes.
+
+\subsubsection{GestColaboradoresFacade}
+Esta classe é responsável por toda a gestão dos colaboradores e funcionalidades, implementando a interface IGestColaboradores.
+
+Analisando os métodos que esta classe implementa, identificou-se que, para melhorar a navegabilidade
+e a \textit{performance} do sistema, será necessário que este tenha um conjunto de atributos, nomeadamente:
+\begin{itemize}
+    \item [balcao]
+    \item [colabs]{Mapa de colaboradores que pode ser acessido através do seu ID}
+    \item [agenda]
+\end{itemize}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.27]{SSColaboradores.jpg}
+    \caption{SubSistema SSReparacoes}
+\end{figure}
+
 \end{document}
