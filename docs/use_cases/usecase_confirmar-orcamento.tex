@@ -1,6 +1,11 @@
 \documentclass[../relatorio.tex]{subfiles}
 \begin{document}
 Registo da confirmação do orçamento, aquando da aceitação do cliente.
+
+Em termos estruturais, o use case \textbf{Confirmar Orcamento} encontra-se semalhante ao seu estado anterior.
+Foram adicionados alguns passos ao fluxo normal como o quinto e sexto, pois o método está preparado para 
+criar uma reparação e a associar a um técnico, atualizando a sua agenda.
+Foram alterados os métodos na análise de requisitos, pelo que a lógica toda é tratada pelo método \textit{AlteraEstadoOrc}.
 \begin{itemize}
     \item[Use Case] {\underline{Confirmar orçamento}}
     \item[Cenários] {1 e 3}
@@ -10,11 +15,12 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Funcionário pede orçamento ao sistema
+              \item Funcionário insere o identificador do orçamento 
               \item Sistema devolve orçamento
               \item Funcionário regista orçamento como aceite
-              \item Sistema atualiza orçamento para pedido de reparação
-              \item Sistema insere pedido de reparação à lista de equipamentos por reparar
+              \item Sistema atualiza orçamento para reparação 
+              \item Sistema associa reparação a um Técnico e atualiza a sua agenda 
+              \item Sistema insere reparação à lista de equipamentos por reparar
           \end{enumerate}
           \begin{flushleft}
               \textbf{Fluxo de exceção 1 (passo 3) [Cliente recusa reparação]}
@@ -22,7 +28,7 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
           \begin{itemize}
               \item[3.1]{Funcionário regista orçamento como recusado}
               \item[3.2]{Sistema adiciona orçamento ao arquivo}
-              \item[3.3]{Sistema coloca equipamento disponível para entrega}
+              \item[3.3]{Sistema coloca equipamento pronto a levantar}
           \end{itemize}
 \end{itemize}
 \begin{landscape}
@@ -45,7 +51,7 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
                      & 
                      & obtém o orçamento
                      & getOrcamento(ref: String): Orcamento
-                     & SubReparacoes
+                     & SSReparacoes
             \\
             \hline
             \rowcolor{yellow}
@@ -56,18 +62,13 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
                      & 
             \\
             \hline
-            Sistema atualiza orçamento para pedido de reparação
-                     & 
-                     & criar pedido reparacao a partir do orçamento
-                     & criarPedidoReparacao(orc: Orcamento) : Reparacao
-                     & SubReparacoes
-            \\
-            \hline
+            Sistema atualiza orçamento para reparação
+            Sistema associa reparação a um Técnico e atualiza a sua agenda
             Sistema insere pedido de reparação à lista de equipamentos por reparar
                      & 
-                     & adiciona pedido de reparação à lista
-                     & addPedidoReparacao(orc: Orcamento)
-                     & SubReparacoes
+                     & Criar reparação e inseri-la no sistema, associando-a a um técnico
+                     & alteraEstadoOrc(orcID: String, state: OrcamentoEstado)
+                     & SSReparacoes
             \\
             \hline
             \rowcolor{yellow}
@@ -82,17 +83,11 @@ Registo da confirmação do orçamento, aquando da aceitação do cliente.
             Exceção  & 1                                                 &  \multicolumn{3}{c}{Cliente recusa reparação}\\
             \hline
             Sistema adiciona orçamento ao arquivo
-                     & 
-                     & muda o estado do orçamento para arquivado
-                     & adicionarArquivo(orc: Orcamento)
-                     & SubReparacoes
-            \\
-            \hline
             Sistema coloca equipamento disponível para entrega
                      & 
-                     & muda estado de equipamento para pronto para levantamento
-                     & alteraEstadoEq(equiID : String, state : EstadoEquipamento)
-                     & SubReparacoes
+                     & muda o estado do orçamento para arquivado e o do equipamento associado para Pronto a Levantar
+                     & alteraEstadoOrc(orcID: String, state: OrcamentoEstado)
+                     & SSReparacoes
             \\
             \hline
         \end{tabular}
