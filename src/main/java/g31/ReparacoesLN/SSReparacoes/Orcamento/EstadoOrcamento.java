@@ -12,7 +12,7 @@ public class EstadoOrcamento implements Serializable ,Comparator<EstadoOrcamento
 	/**
 	 * Construtor para o Estado Orçamento que recebe o estado
 	 * 
-	 * @param s Enum com o estado do orçamento
+	 * @param orcEstado com o estado do orçamento
 	 */
 	public EstadoOrcamento(OrcamentoEstado orcEstado) {
 		estado = orcEstado;
@@ -34,6 +34,10 @@ public class EstadoOrcamento implements Serializable ,Comparator<EstadoOrcamento
 	public Boolean estaAtivo() {
 
 		return (estado != OrcamentoEstado.arquivado);
+	}
+
+	public Boolean foiEnviado() {
+		return (estado == OrcamentoEstado.enviado);
 	}
 
 	// Getters e Setters

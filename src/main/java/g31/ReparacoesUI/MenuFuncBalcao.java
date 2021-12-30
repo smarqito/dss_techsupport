@@ -2,8 +2,11 @@ package g31.ReparacoesUI;
 
 import g31.Middleware.*;
 import g31.ReparacoesLN.SSClientes.EstadoEquipamento;
+import g31.ReparacoesLN.SSReparacoes.Orcamento.Orcamento;
 import g31.ReparacoesLN.SSReparacoes.Orcamento.OrcamentoEstado;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoEstado;
+
+import java.util.Set;
 
 import static g31.ReparacoesUI.MyUI.model;
 import static g31.ReparacoesUI.MyUI.scin;
@@ -20,7 +23,7 @@ public class MenuFuncBalcao {
                 "Consultar Orçamentos enviados"
         });
 
-        //precondição da 4 -> só se existir orcamentos enviados
+        menu.setPreCondition(4, () -> model.getOrcamentosEnviados().size() > 0);
 
         // Registar os handlers das transições
         menu.setHandler(1, this::registaCliente);
@@ -185,6 +188,10 @@ public class MenuFuncBalcao {
     }
 
     private void consultarOrcsEnviados() {
-        //criar metodo para obter orcamentos enviados
+        Set<Orcamento> orcs = model.getOrcamentosEnviados();
+        System.out.println("Lista dos orcamentos enviados:");
+        for(Orcamento o : orcs){
+            System.out.println("Orcamento " + o.getID() + " do equipamento " + o.getEquipamento().getId());
+        }
     }
 }

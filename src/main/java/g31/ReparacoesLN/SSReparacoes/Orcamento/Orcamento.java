@@ -139,6 +139,11 @@ public class Orcamento implements Serializable, Comparator<Orcamento> {
 		return getEstadoAtual().estaAtivo();
 	}
 
+	public Boolean foiEnviado() {
+
+		return getEstadoAtual().foiEnviado();
+	}
+
 	/**
 	 * Altera o estado de um orçamento
 	 * 
