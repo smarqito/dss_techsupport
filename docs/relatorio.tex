@@ -172,13 +172,13 @@ Em pequenos negócios locais, a aquisição deste sistema não seria tão vantaj
 de gerir as interações com clientes, da mesma maneira, gerir os seus equipamentos e reparações. Porém, é sempre uma ajuda ter um sistema que
 registe todo o historial do negócio.
 
-Por sua vez, quando se trata de um grande volume de clientes e, por sua vez, bastantes equipamentos com variadas reparações, seria bastante útil adquirir este sistema 
+Por sua vez, quando se trata de um grande volume de clientes e bastantes equipamentos com variadas reparações, seria bastante útil adquirir este sistema 
 devido às suas funcionalidades, como por exemplo, seria possível gerir toda a agenda dos técnicos, de forma a calendarializar todas as reparações normais ou do momento (expresso), 
 verificando se é possível ou não, seria possível adicionar novas reparações e passos da mesma, tal como os seus preços, de maneira a evitar repetições e economizar tempo, aceder 
 às listagens dos colaboradores subordinados, avaliando assim o seu trabalho, entre outras.
 
 Em suma, verifica-se uma maior necessidade de aquisição do sistema \textit{Techsupport} em grandes negócios, o que não impede sua aquisição em qualquer tipo de negócio, 
-devido à sua grande utilidade.
+devido à sua utilidade.
 
 \section{Breve Descrição do Enunciado Proposto}
 
@@ -215,12 +215,12 @@ requisitos, em particular os funcionais, pretendendo descrever o que o sistema d
 
 Na segunda fase deste projeto, primeiramente, foi realizado o \textbf{modelo de componentes}, concebendo um modelo direcionado a interfaces que utiliza
 a estratégia \textit{Facade}. Aqui, iniciou-se todo o processo de desenvolvimento no \textbf{diagrama de classes}, que originou mudanças exaustivas no projeto 
-realizado na primeira fase, e onde foram definidas as classes e métodos que compoẽm o sistema. Posteriormente, \textbf{diagramas de sequência} 
+realizado na primeira fase, e onde foram definidas as classes e métodos que compoẽm o sistema. Posteriormente, foram realizados os \textbf{diagramas de sequência} 
 que ilustram os métodos desenvolvidos.
 
 No final desta segunda fase, ocorreu a implementação de todo o sistema, que é demonstrada por testes que foram realizados.
 
-Por fim, foi efetuada uma breve análise crítica do trabalho desenvolvido nesta fase.
+Por fim, foi efetuada uma breve análise crítica do trabalho desenvolvido.
 
 %==========================================================================
 % END INTRODUCTION
@@ -608,11 +608,11 @@ receção e entrega dos equipamentos guardando as respetivas datas, assim, é in
 a classe equipamento faz parte do mesmo.
 
 Por outro lado, para facilitar toda a gestão de tempo e/ou disponibilidade por parte dos colaboradores especializados, nomeadamente, o Técnico, na realização das 
-diversas reparações foi criado um \textit{package} Agenda. 
+diversas reparações, foi criado um \textit{package} Agenda. 
 
 O gestor, por sua vez, é responsável pelas listagens dos seus subordinados.
 
-Também é de salientar que neste subsistema predomina uma arquitetura com agregação entre classes.
+Também é de salientar que neste subsistema predomina uma arquitetura com composição entre classes.
 
 \subsubsection{GestColaboradoresFacade}
 Esta classe é responsável por toda a gestão dos colaboradores e funcionalidades, implementando a interface IGestColaboradores.
@@ -620,9 +620,9 @@ Esta classe é responsável por toda a gestão dos colaboradores e funcionalidad
 Analisando os métodos que esta classe implementa, identificou-se que, para melhorar a navegabilidade
 e a \textit{performance} do sistema, será necessário que este tenha um conjunto de atributos, nomeadamente:
 \begin{itemize}
-    \item [Balcao]
+    \item [balcao]
     \item [colabs]{Mapa de colaboradores que pode ser acessido através do seu ID}
-    \item [Agenda]
+    \item [agenda]
 \end{itemize}
 
 
