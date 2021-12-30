@@ -34,6 +34,8 @@ public interface IGestReparacoes {
 	 */
 	Set<Orcamento> getOrcamentosAtivos();
 
+	Set<Orcamento> getOrcamentosEnviados();
+
 	/**
 	 * Método que retorna um orçamento dado a sua referência (ID)
 	 * 

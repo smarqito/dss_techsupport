@@ -48,7 +48,7 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 	}
 
 	public Set<Orcamento> getOrcamentosEnviados() {
-		return this.orcs.values().stream().filter(Orcamento::foiEnviado)
+		return this.orcs.values().stream().filter(Orcamento::enviado)
 				.collect(Collectors.toCollection(() -> new TreeSet<Orcamento>()));
 	}
 
