@@ -85,9 +85,7 @@ public class MenuGestor {
         LocalDateTime data = LocalDateTime.of(ano, mes, 1, 1, 1, 1, 1);
         Map<Tecnico, ReparacoesPorMes> listagem = model.getReparacoesMes(data);
         for(Map.Entry<Tecnico, ReparacoesPorMes> m : listagem.entrySet()){
-            System.out.println("O técnico " + m.getKey().getNome() + " com o id " + m.getKey().getId() + " realizou um total de " + m.getValue().getTotal() + " reparações\n" +
-                    "com uma duração média de " + m.getValue().obterDuracaoReparacoes() + " minutos e uma média de de desvio em relação às durações previstas de "
-                    + m.getValue().obterMediaDesvio());
+            System.out.println("O técnico " + m.getKey().getNome() + " com o id " + m.getKey().getId() + m.getValue().resumoReparacoes());
         }
     }
 
@@ -103,9 +101,7 @@ public class MenuGestor {
             for(Reparacao rep : m.getValue().getReps()){
                 if (rep.getClass().equals(ReparacaoProgramada.class)){
                     System.out.println("Reparação programada com os seguintes passos:");
-                    for(PassoReparacao p : ((ReparacaoProgramada) rep).getPlano().getPassosRealizados()){
-                        System.out.println("Passo " + p.getNome() + " em " + p.getTempoGasto() + " minutos com um custo de " + p.getCustoEfetivo() + " euros;");
-                    }
+                    System.out.println(((ReparacaoProgramada) rep).getPlano().descricaoPassosRealizados());
                 }
                 else {
                     System.out.println("Reparação expresso " + ((ReparacaoExpresso)rep).getNome());

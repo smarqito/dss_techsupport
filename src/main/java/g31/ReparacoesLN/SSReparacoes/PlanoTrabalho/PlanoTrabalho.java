@@ -2,6 +2,7 @@ package g31.ReparacoesLN.SSReparacoes.PlanoTrabalho;
 
 import g31.Middleware.PassoNaoExisteException;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.CustoTotalReparacao;
+import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
 
 import java.io.Serializable;
 import java.util.*;
@@ -131,4 +132,11 @@ public class PlanoTrabalho implements Serializable {
 		}
 	}
 
+	public String descricaoPassosRealizados(){
+		StringBuilder sb = new StringBuilder();
+		for(PassoReparacao p : passosRealizados){
+			sb.append("Passo " + p.getNome() + " em " + p.getTempoGasto() + " minutos com um custo de " + p.getCustoEfetivo() + " euros;");
+		}
+		return sb.toString();
+	}
 }

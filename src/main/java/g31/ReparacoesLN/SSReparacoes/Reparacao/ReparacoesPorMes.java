@@ -22,7 +22,7 @@ public class ReparacoesPorMes {
 	}
 
 	public List<Reparacao> getReps() {
-		return new ArrayList<>(reps);
+		return reps.stream().map(Reparacao::clone).collect(Collectors.toList());
 	}
 
 	/**
@@ -58,6 +58,13 @@ public class ReparacoesPorMes {
 		duracaoMedia = ((duracaoMedia * total) + tT) / (total + 1);
 		desvioMedio = ((desvioMedio * total) + Math.abs(tT - tE)) / (total + 1);
 		total++;
+	}
+
+	public String resumoReparacoes(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("realizou um total de " + getTotal() + " reparações\n");
+  		sb.append("com uma duração média de " + obterDuracaoReparacoes() + " minutos e uma média de de desvio em relação às durações previstas de " + obterMediaDesvio());
+		return sb.toString();
 	}
 
 }
