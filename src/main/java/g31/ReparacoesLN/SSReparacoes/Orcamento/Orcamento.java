@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import g31.Middleware.EstadoOrcNaoEValidoException;
 import g31.Middleware.PassoNaoExisteException;
 
-public class Orcamento implements Serializable, Comparator<Orcamento> {
+public class Orcamento implements Serializable, Comparable<Orcamento> {
 
 	private String id;
 	private Equipamento equipamento;
@@ -137,6 +137,14 @@ public class Orcamento implements Serializable, Comparator<Orcamento> {
 	public Boolean estaAtivo() {
 
 		return getEstadoAtual().estaAtivo();
+	}
+
+	public boolean aguardaOrcamento() {
+		return getEstadoAtual().aguardaOrcamento();
+	}
+
+	public boolean enviado() {
+		return getEstadoAtual().enviado();
 	}
 
 	/**
@@ -354,10 +362,10 @@ public class Orcamento implements Serializable, Comparator<Orcamento> {
 	}
 
 	@Override
-	public int compare(Orcamento o1, Orcamento o2) {
-		int res = o1.dataCriacao.compareTo(o2.dataCriacao);
-		if(res == 0) {
-			return o1.id.compareTo(o2.id);
+	public int compareTo(Orcamento o2) {
+		int res = this.dataCriacao.compareTo(o2.dataCriacao);
+		if (res == 0) {
+			return this.id.compareTo(o2.id);
 		}
 		return res;
 	}

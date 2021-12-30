@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Precos implements Serializable {
 
-	private static Double horaTecnico;
+	private static Double horaTecnico = 25.0;
 
 	public static Double getCustoTecnico() {
 		return horaTecnico;

@@ -74,4 +74,7 @@ public class MyUI {
 			e.printStackTrace();
 		}
 	}
+	public static void printLine() {
+		System.out.println("::::::::::::::::::::::::::::::::");
+	}
 }

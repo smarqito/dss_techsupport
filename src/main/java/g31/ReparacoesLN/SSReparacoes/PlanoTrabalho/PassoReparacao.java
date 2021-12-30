@@ -16,21 +16,22 @@ public class PassoReparacao implements Serializable{
 	private Integer tempoGasto;
 	private Double custoEfetivo;
 
-	public PassoReparacao(String nome, Integer tempo, Material material) {
-		this.nome = nome;
-		this.tempoEstimado = tempo;
-		this.materiais = material;
-	}
-
 	public PassoReparacao() {
-		this.materiais = null;
 		this.subpassos = new ArrayList<>();
-		this.nome = null;
 		this.tempoEstimado = 0;
 		this.custoEstimado = 0.0;
 		this.tempoGasto = 0;
 		this.custoEfetivo = 0.0;
 	}
+
+	public PassoReparacao(String nome, Integer tempo, Material material) {
+		this();
+		this.nome = nome;
+		this.tempoEstimado = tempo;
+		this.materiais = material;
+		addMaterial(material);
+	}
+
 
 	public PassoReparacao(Material materiais, List<PassoReparacao> subpassos, String nome, Integer tempoEstimado,
 			Double custoEstimado, Integer tempoGasto, Double custoEfetivo) {
@@ -55,6 +56,10 @@ public class PassoReparacao implements Serializable{
 
 	public Material getMateriais() {
 		return materiais;
+	}
+
+	public void addMaterial(Material m) {
+		this.custoEstimado += m.getCusto();
 	}
 
 	public void setMateriais(Material materiais) {
@@ -122,6 +127,7 @@ public class PassoReparacao implements Serializable{
 
 	public void addSubPasso(String nomeSub, Integer t, Material m) {
 		PassoReparacao p = new PassoReparacao(nomeSub, t, m);
+		addMaterial(m);
 		this.subpassos.add(p);
 	}
 

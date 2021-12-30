@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import g31.ReparacoesLN.IReparacoesLN;
 import g31.ReparacoesLN.ReparacoesLNFacade;
+import g31.ReparacoesLN.Seed;
 import g31.ReparacoesUI.MyUI;
 
 /**
@@ -18,6 +19,7 @@ public class App {
         } catch (ClassNotFoundException | IOException e) {
             System.out.println("Não foi possível ler o ficheiro de estado.");
             model = new ReparacoesLNFacade();
+            Seed.seed(model);
         }
         MyUI ui = new MyUI(model);
         ui.run();

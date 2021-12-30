@@ -51,7 +51,7 @@ public class AgendaPorDia implements Comparable<AgendaPorDia>, Serializable {
 				throw new NaoExisteDisponibilidadeException();
 			}
 			if (tarefas.size() == 0) {
-				if (this.data.compareTo(LocalDate.now()) > 0) {
+				if (this.data.compareTo(LocalDate.now()) >= 0) {
 					return LocalTime.of(9, 30, 0);
 				}
 				if (now.compareTo(LocalTime.of(18, 30, 0)) <= 0) {

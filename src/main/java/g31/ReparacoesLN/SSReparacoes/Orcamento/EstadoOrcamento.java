@@ -2,9 +2,8 @@ package g31.ReparacoesLN.SSReparacoes.Orcamento;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 
-public class EstadoOrcamento implements Serializable ,Comparator<EstadoOrcamento> {
+public class EstadoOrcamento implements Serializable, Comparable<EstadoOrcamento> {
 
 	private OrcamentoEstado estado;
 	private LocalDateTime data;
@@ -18,30 +17,25 @@ public class EstadoOrcamento implements Serializable ,Comparator<EstadoOrcamento
 		estado = orcEstado;
 		data = LocalDateTime.now();
 	}
-	
-	/**
-	 * Método compare para ordenar o TreeSet de Estados de Orçamento
-	 */
-	@Override
-	public int compare(EstadoOrcamento o1, EstadoOrcamento o2) {
-		
-		LocalDateTime date1 = o1.getData();
-		LocalDateTime date2 = o2.getData();
-
-		return date2.compareTo(date1);
-	}
 
 	public Boolean estaAtivo() {
 
 		return (estado != OrcamentoEstado.arquivado);
 	}
 
+	public boolean aguardaOrcamento() {
+		return estado == OrcamentoEstado.porCalcular;
+	}
+
+	public boolean enviado() {
+		return estado == OrcamentoEstado.enviado;
+	}
 	// Getters e Setters
 
 	public OrcamentoEstado getEstado() {
 		return this.estado;
 	}
-	
+
 	public void setEstado(OrcamentoEstado estado) {
 		this.estado = estado;
 	}
@@ -72,6 +66,14 @@ public class EstadoOrcamento implements Serializable ,Comparator<EstadoOrcamento
 		if (estado != other.estado)
 			return false;
 		return true;
+	}
+
+	/**
+	 * Método compare para ordenar o TreeSet de Estados de Orçamento
+	 */
+	@Override
+	public int compareTo(EstadoOrcamento arg0) {
+		return arg0.data.compareTo(this.data);
 	}
 
 }
