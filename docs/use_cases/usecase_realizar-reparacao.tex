@@ -10,34 +10,35 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item Técnico pede reparação mais urgente
-              \item Sistema devolve reparação mais urgente
+              \item Técnico consulta a sua agenda e indica o identificador da reparação a ser efetuada
+              \item Sistema devolve reparação
+              \item Sistema altera estado da reparação para "emReparacao"
               \item Técnico pede o plano de trabalhos da reparação
               \item Técnico indica os passos da reparação concretizados
               \item Sistema regista passos da reparação como realizados
               \item Sistema regista a conclusão da reparação
+              \item Sistema muda estado da reparação para reparada
               \item Técnico coloca equipamento disponível para levantamento
               \item Sistema muda estado de equipamento para pronto para levantamento
+              
               \item Sistema regista data e hora
           \end{enumerate}
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 1 (passo 6) [falta de tempo]}
+              \textbf{Fluxo de Exceção 1 (passo 7) [falta de tempo]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1]{Técnico informa motivo de interrupção}
-              \item[3.2]{Sistema adiciona equipamento na lista de equipamentos para \\
-                         reparar}
+              \item[3.2]{Sistema altera estado da reparação para "aguardaReparacao"}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo de Exceção 2 (passo 6) [falta de peças]}
+              \textbf{Fluxo de Exceção 2 (passo 7) [falta de peças]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1]{Técnico informa motivo de interrupção}
-              \item[3.2]{Sistema adiciona equipamento na lista de equipamentos para \\
-              reparar}
+              \item[3.2]{Sistema altera estado da reparação para "aguardaReparacao"}
           \end{itemize}
           \begin{flushleft}
-              \textbf{Fluxo Alternativo 3 (passo 6) [reparação excede valor orçamentado]}
+              \textbf{Fluxo Alternativo 3 (passo 7) [reparação excede valor orçamentado]}
           \end{flushleft}
           \begin{itemize}
               \item[3.1]{Técnico insere contacto com cliente}
@@ -53,9 +54,20 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
               \item[3.2.3]{Técnico regista as horas gastas}
               \item[3.2.4]{Técnico coloca equipamento disponível para levantamento}
               \item[3.2.5]{Sistema muda estado de equipamento para pronto para levantamento}
-              \item[3.2.6]{Sistema regista data e hora} 
+              \item[3.2.6]{Sistema muda estado da reparação para cancelada}
+              \item[3.2.7]{Sistema regista data e hora} 
           \end{itemize}
 \end{itemize}
+
+Como a adição das agendas, já não é viável pedir a reparação mais urgente, uma vez que todas as reparações ja foram distribuidas
+uniformemente pelos diferentes técnicos.
+Outra modificação efetuda neste \textit{Use Case} foi a alteração do estado da reparação aquando do ínicio da reparação para "emReparacao".
+
+Na primeira fase estava estabelecido que quando uma reparação era interrompida, esta era adicionada à lista de reparações pendentes, porém como
+referido anteriormente esta lista deixou de existir com o uso das agendas e a solução encontrada foi alterar o estado da reparação para "aguardaReparacao".
+Apesar de se verificar esta alteração ao nível do \textit{Use Case}, o mesmo não acontece ao nível da implementação que não foi estabelecido nenhum
+mecanismo capaz de lidar com interrupções.
+
 \begin{landscape}
     \begin{table}[!h]
         \centering
@@ -65,17 +77,24 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             Use Case & Fluxo                                            & Responsabilidade & API & Subsistema \\
             \hline
             \rowcolor{yellow}
-            Técnico pede reparação mais urgente
+            Técnico consulta a sua agenda e indica o identificador da reparação a ser efetuada
                      & UI
                      & 
                      & 
                      & 
             \\
             \hline
-            Sistema devolve reparação mais urgente
+            Sistema devolve reparação
                      & 
-                     & seleciona a reparação mais urgente
-                     & pedidoRepMaisUrg() : Reparacao
+                     & seleciona a reparação indicada
+                     & getReparacao(repId : String) : Reparacao
+                     & SubReparacoes
+            \\
+            \hline
+            Sistema altera estado da reparação para emReparacao
+                     & 
+                     & muda estado de reparação para emReparacao
+                     & alterarEstadoRep(repID : String , estado : ReparacaoEstado)
                      & SubReparacoes
             \\
             \hline
@@ -103,6 +122,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
             \\
             \hline
             Sistema regista a conclusão da reparação
+            Sistema muda estado da reparação para reparada
                      & 
                      & regista reparação como concluida
                      & alterarEstadoRep(repID : String, estado : EstadoReparacao)
@@ -121,7 +141,7 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
                      & 
                      & muda estado de equipamento para pronto para levantamento e regista hora
                      & alteraEstadoEq(equiID : String, state : EstadoEquipamento)
-                     & SubReparacoes
+                     & SubClientes
             \\
             \hline
             \rowcolor{red!30}
@@ -135,10 +155,10 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
                      & 
             \\
             \hline
-            Sistema adiciona equipamento na lista de equipamentos para reparar
+            Sistema altera estado da reparação para aguardaReparacao
                      & 
-                     & adiciona pedido à lista de pedidos de reparação 
-                     & alterarEstadoRep(repID : String, estado : EstadoReparacao)
+                     & muda estado de reparação para aguardaReparacao
+                     & alterarEstadoRep(repID : String , estado : ReparacaoEstado)
                      & SubReparacoes
             \\
             \hline
@@ -153,10 +173,10 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
                      & 
             \\
             \hline
-            Sistema adiciona equipamento na lista de equipamentos para reparar
+            Sistema altera estado da reparação para aguardaReparacao
                      & 
-                     & adiciona pedido à lista de pedidos de reparação 
-                     & alterarEstadoRep(repID : String, estado : EstadoReparacao)
+                     & muda estado de reparação para aguardaReparacao
+                     & alterarEstadoRep(repID : String , estado : ReparacaoEstado)
                      & SubReparacoes
             \\
             \hline
@@ -223,6 +243,14 @@ Reparação de um equipamento, realizada por um técnico, tendo em conta o plano
                      & 
                      & muda estado de equipamento para pronto para levantamento e regista hora
                      & alteraEstadoEq(equiID : String, state : EstadoEquipamento)
+                     & SubClientes
+            \\
+            \hline
+            Sistema muda estado da reparação para cancelada
+            Sistema regista data e hora
+                     & 
+                     & muda estado da reparação para cancelada
+                     & alterarEstadoRep(repID : String , estado : ReparacaoEstado)
                      & SubReparacoes
             \\
             \hline

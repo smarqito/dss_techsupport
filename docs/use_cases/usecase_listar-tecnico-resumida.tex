@@ -36,11 +36,11 @@ Extração de lista resumida de reparações realizadas, ordenadas por técnico 
             Sistema obtém lista de reparações do mês
                      & 
                      & 
-            obter mapa de reparações de um determinado mês, agrupado por técnico
+            obter todas reparações de um determinado mês, agrupadas por técnico
                      & 
-            getReparacoesMes(data: LocalDateTime) : Map<Tecnico, List<ReparacaoPorMes> >
+            getReparacoesMes(data: LocalDateTime) : Map<Tecnico, ReparacaoPorMes>
                      & 
-            SubColaboradores
+            SubReparacoes
             \\
             \hline
             Sistema calcula duração média das reparações
@@ -48,9 +48,9 @@ Extração de lista resumida de reparações realizadas, ordenadas por técnico 
                      & 
             obter duração média das reparações
                      & 
-            obterDuracaoMedia(reparacoes: List<ReparacaoPorMes>) : Double
+            obterDuracaoReparacoes() : Double
                      & 
-            SubColaboradores
+            SubReparacoes
             \\
             \hline
             Sistema calcula média de desvio em relação às durações previstas
@@ -58,9 +58,9 @@ Extração de lista resumida de reparações realizadas, ordenadas por técnico 
                      & 
             obter media de desvio
                      & 
-            obterMediaDesvio(reparacoes: List<ReparacaoPorMes>) : Double
+            obterMediaDesvio() : Double
                      & 
-            SubColaboradores
+            SubReparacoes
             \\
             \hline
         \end{tabular}
