@@ -11,12 +11,14 @@ Corresponde a um fluxo automático que deverá ser executado diariamente.
               \textbf{Fluxo Normal}
           \end{flushleft}
           \begin{enumerate}
-              \item System timer informa que é uma hora definida
-              \item Sistema calcula todos os orçamentos ativos
+              \item Gestor pede para arquivar os orçamentos que ja passaram 30 dias desde que foram enviados
+              \item Sistema filtra todos os orçamentos enviados
               \item Sistema filtra orçamentos por data, ficando com os superiores a 30 dias
-              \item Sistema adiciona orçamentos ao arquivo
+              \item Sistema adiciona orçamentos ao arquivo e apresenta-os
           \end{enumerate}
 \end{itemize}
+
+
 \begin{landscape}
     \begin{table}[!h]
         \centering
@@ -25,27 +27,27 @@ Corresponde a um fluxo automático que deverá ser executado diariamente.
             \rowcolor{gray!20!white}
             Use Case & Fluxo    & Responsabilidade & API & Subsistema    \\
             \hline
-            \rowcolor{red}
-            System timer informa que é uma hora definida
-                    & LowLevel 
+            \rowcolor{yellow}
+            Gestor pede para arquivar os orçamentos que ja passaram 30 dias desde que foram enviados
+                    & UI 
                     &                                        
                     &                                                          
                     &               
             \\
             \hline
-            Sistema calcula todos os orçamentos ativos                              
-            Sistema filtra orçamentos por data, ficando com os superiores a 30 dias 
+            Sistema filtra todos os orçamentos enviados
+            Sistema filtra orçamentos por data, ficando com os superiores a 30 dias
                     &          
                     & filtrar orçamentos com mais de 30 dias 
-                    & filterOrcamentos(p : (o -> estaAtivo() \& passouPrazo())): List<Orcamento> 
-                    & SubReparações 
+                    & filterOrcamentos(p : (o -> enviado() \& passouPrazo())): List<Orcamento> 
+                    & SSReparacoes 
             \\
             \hline
             Sistema adiciona orçamentos ao arquivo                                  
                     &          
                     & mudar o estado do orçamento    
-                    & ArquivaOrcamentos(orcs: List<Orcamento>)                        
-                    & SubReparações 
+                    & arquivaOrcamentos():List<Orcamento>                    
+                    & SSReparações 
             \\
             \hline
         \end{tabular}
