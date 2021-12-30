@@ -16,8 +16,11 @@ public class MenuFuncBalcao {
                 "Registar Pedido de Orçamento",
                 "Confirmar Orçamento",
                 "Registar Pedido de Reparação Expresso",
-                "Registar Entrega do Equipamento"
+                "Registar Entrega do Equipamento",
+                "Consultar Orçamentos enviados"
         });
+
+        //precondição da 4 -> só se existir orcamentos enviados
 
         // Registar os handlers das transições
         menu.setHandler(1, this::registaCliente);
@@ -26,9 +29,11 @@ public class MenuFuncBalcao {
         menu.setHandler(4, this::confirmarOrcamento);
         menu.setHandler(5, () -> pedidoRepXpresso(id));
         menu.setHandler(6, () -> registarEntregaEquip(id));
+        menu.setHandler(7, this::consultarOrcsEnviados);
 
         menu.run();
     }
+
 
     private void registaCliente() {
         String nif = null;
@@ -177,5 +182,9 @@ public class MenuFuncBalcao {
         } catch (ColaboradorNaoExisteException e) {
             System.out.println("Não existe o colaborador");
         }
+    }
+
+    private void consultarOrcsEnviados() {
+        //criar metodo para obter orcamentos enviados
     }
 }

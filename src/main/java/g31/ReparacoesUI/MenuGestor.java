@@ -13,6 +13,7 @@ import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoExpresso;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacaoProgramada;
 import g31.ReparacoesLN.SSReparacoes.Reparacao.ReparacoesPorMes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -82,8 +83,8 @@ public class MenuGestor {
         int mes = scin.nextInt();
         System.out.println("Ano: ");
         int ano = scin.nextInt();
-        LocalDateTime data = LocalDateTime.of(ano, mes, 1, 1, 1, 1, 1);
-        Map<Tecnico, ReparacoesPorMes> listagem = model.getReparacoesMes(data);
+        LocalDate data = LocalDate.of(ano, mes, 1);
+        Map<Tecnico, ReparacoesPorMes> listagem = model.getReparacoesMes(data.atStartOfDay());
         for(Map.Entry<Tecnico, ReparacoesPorMes> m : listagem.entrySet()){
             System.out.println("O técnico " + m.getKey().getNome() + " com o id " + m.getKey().getId() + m.getValue().resumoReparacoes());
         }
@@ -94,12 +95,12 @@ public class MenuGestor {
         int mes = scin.nextInt();
         System.out.println("Ano: ");
         int ano = scin.nextInt();
-        LocalDateTime data = LocalDateTime.of(ano, mes, 1, 1, 1, 1, 1);
-        Map<Tecnico, ReparacoesPorMes> listagem = model.getReparacoesMes(data);
+        LocalDate data = LocalDate.of(ano, mes, 1);
+        Map<Tecnico, ReparacoesPorMes> listagem = model.getReparacoesMes(data.atStartOfDay());
         for(Map.Entry<Tecnico, ReparacoesPorMes> m : listagem.entrySet()){
             System.out.println("O técnico " + m.getKey().getNome() + " com o id " + m.getKey().getId() + "realizou as reparações:");
             for(Reparacao rep : m.getValue().getReps()){
-                if (rep.getClass().equals(ReparacaoProgramada.class)){
+                if (rep.getClass().getSimpleName().equals(ReparacaoProgramada.class.getSimpleName())){
                     System.out.println("Reparação programada com os seguintes passos:");
                     System.out.println(((ReparacaoProgramada) rep).getPlano().descricaoPassosRealizados());
                 }
@@ -117,16 +118,17 @@ public class MenuGestor {
         int mesDe = scin.nextInt();
         System.out.println("Dia :");
         int diaDe = scin.nextInt();
-        LocalDateTime dataDe = LocalDateTime.of(anoDe, mesDe, diaDe, 1, 1, 1, 1);
+        LocalDate dataDe = LocalDate.of(anoDe, mesDe, diaDe);
         System.out.println("Data do fim da avaliação: \n Ano :");
         int anoAte = scin.nextInt();
         System.out.println("Mes :");
         int mesAte = scin.nextInt();
         System.out.println("Dia :");
         int diaAte = scin.nextInt();
-        LocalDateTime dataAte = LocalDateTime.of(anoAte, mesAte, diaAte, 1, 1, 1, 1);
-        Map<FuncionarioBalcao, List<Equipamento>> recebidos = model.getEquipRecebidos(dataDe, dataAte);
-        Map<FuncionarioBalcao, List<Equipamento>> entregues = model.getEquipEntregue(dataDe, dataAte);
+        LocalDate dataAte = LocalDate.of(anoAte, mesAte, diaAte);
+        Map<FuncionarioBalcao, List<Equipamento>> recebidos = model.getEquipRecebidos(dataDe.atStartOfDay(), dataAte.atStartOfDay());
+        Map<FuncionarioBalcao, List<Equipamento>> entregues = model.getEquipEntregue(dataDe.atStartOfDay(), dataAte.atStartOfDay());
+        System.out.println("Entre os dias " + dataDe.toString() + " e " + dataAte.toString() + ": ");
         for (Map.Entry<FuncionarioBalcao, List<Equipamento>> m : recebidos.entrySet()){
             System.out.println("O funcionário " + m.getKey().getNome() + " com o id " + m.getKey().getId() + " realizou " + m.getValue().size() + " receções!");
         }
@@ -142,6 +144,7 @@ public class MenuGestor {
         for (Orcamento o : orcs){
             System.out.println(o.getID());
         }
+        System.out.println("Orçamentos arquivados com sucesso");
     }
 
     private void darBaixaEquipamentos() {
@@ -150,5 +153,6 @@ public class MenuGestor {
         for (Equipamento e : equips){
             System.out.println(e.getId());
         }
+        System.out.println("Equipamentos foram dados como abandonados com sucesso");
     }
 }
