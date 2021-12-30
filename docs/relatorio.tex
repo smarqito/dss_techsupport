@@ -353,6 +353,27 @@ foram identificados os seguintes \textit{use cases}:
     \caption{Diagrama de \textit{Use Case}}
 \end{figure}
 
+\subsection{Principais Diferenças com a Primeira Fase}
+
+Em relação ao Diagrama de Use Cases desenvolvido, houve poucas alterações do que foi proposto na primeira fase do projeto.
+Previamente, os casos de Uso \textbf{Dar Baixa do Equipamento} (Ver \ref{dar_baixa_equipamento}) e \textbf{Arquivar Orçamento} (Ver \ref{arquivar_orcamento})
+seriam efetuadas pelo ator \textit{System Timer}. Contudo, após uma análise da aplicação e das dinâmicas exprimidas, entendeu-se como 
+preferencial o \textbf{Gestor} efetuar estas funcionalidades, de modo a permitir visualizar os equipamentos que levaram baixa e os orçamentos que foram arquivados e permitir.
+Foi retirado, então, o \textit{System Timer} como ator no diagrama de Use Cases.
+Neste sentido, beneficia, também, a nível de implementação, não sendo necessário uma estratégia de criar o \textit{System Timer} dentro do sistema.
+
+É necessário demarcar a presença dos casos de uso:
+\begin{itemize}
+    \item Adicionar Material
+    \item Encomendar Material
+    \item Receber Material
+\end{itemize}
+
+Apesar da sua implementação não ter sido realizada, no estado atual da aplicação, são apresentados para representar funcionalidades que seriam implementadas 
+em iterações seguintes do sistema.
+Estes casos de uso lidam com a manipulação de \textit{stocks} e, no tipo de projeto a realizar, foram caracterizadas como não necessárias apresentar 
+nesta iteração do sistema. Adicionalmente, a exclusão do desenvolvimento destas funcionalidades facilitou a implementacaodo sistema.
+
 \section{Especificação Use Cases}
 
 \subsection{} \label{criar_rep_expresso}
