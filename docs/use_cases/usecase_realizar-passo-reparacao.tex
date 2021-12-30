@@ -17,7 +17,7 @@ Progressão de uma reparação, através da realização do passo.
               \item Técnico indica referência do material gasto
               \item Sistema altera \textit{stock} do material gasto
               \item Técnico indica tempo e custo efetivamente gasto 
-              \item Sistema regista tempo e custo efetivamente gasto e Técnico que o realizou
+              \item Sistema regista tempo e custo efetivamente gasto
               \item Sistema adiciona passo à lista de passos realizados
           \end{enumerate}
 \end{itemize}
@@ -76,11 +76,11 @@ Progressão de uma reparação, através da realização do passo.
                      & 
             \\
             \hline
-            Sistema regista tempo e custo efetivamente gasto e Técnico que o realizou
+            Sistema regista tempo e custo efetivamente gasto e Técnico
             Sistema adiciona passo à lista de passos realizados
                      & 
-                     & Sistema regista os valores do passo após ter sido concretizado e quem o fez
-                     & registaPasso(repID: String, mins: Integer, custo: Double, tecID: String)
+                     & Sistema regista os valores do passo após ter sido concretizado
+                     & registaPassoRealizado(tempo : Integer, custo : Double)
                      & SubReparacoes
             \\
             \hline

@@ -4,8 +4,6 @@ Registo de um novo colaborador no sistema pelo Gestor, sendo-lhe associado um n�
 \begin{itemize}
     \item[Use Case] {\underline{Registar Colaborador}}
     \item[Cenários] {1, 2, 3, 4 e 5} 
-    % no cenário 1 diz que o colaborador está autenticado
-    % implicitamente, pode-se concluir que é necessário haver um registo
     \item[Pré-condição] {Gestor autenticado}
     \item[Pós-condição] {Novo colaborador registado}
             \begin{flushleft}
@@ -36,14 +34,14 @@ Registo de um novo colaborador no sistema pelo Gestor, sendo-lhe associado um n�
             Sistema calcula número de identificação
                      & 
                      & calcula número de identificação do novo colaborador
-                     & novoColaboradorID() : Integer
+                     & GetCurrentID() : Integer
                      & SubColaboradores
             \\
             \hline
             Sistema regista Colaborador
                      & 
                      & regista colaborador
-                     & registaColaborador(ColabID : Integer)
+                     & registaColaborador(nome : String, tipo : Class<?>) : String
                      & SubColaboradores
             \\
             \hline

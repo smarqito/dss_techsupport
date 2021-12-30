@@ -11,7 +11,7 @@ Registo do pedido de um serviço expresso.
           \end{flushleft}
           \begin{enumerate}
               \item Funcionário insere tipo da reparação expresso 
-              \item Sistema verifica reparação expresso
+              \item Sistema verifica se existe a reparação expresso
               \item Sistema verifica disponibilidade
               \item Funcionário insere identificador do cliente
               \item Sistema seleciona cliente
@@ -19,6 +19,7 @@ Registo do pedido de um serviço expresso.
               \item Sistema seleciona equipamento
               \item Funcionário regista pedido de reparação
               \item Sistema adiciona pedido
+              \item Sistema regista receção do equipamento
           \end{enumerate}
 
           \begin{flushleft}
@@ -59,7 +60,7 @@ Registo do pedido de um serviço expresso.
                      & 
             \\
             \hline
-            Sistema verifica reparação expresso
+            Sistema verifica se existe a reparação expresso
                      & 
                      & verifica se existe a reparação expresso
                      & existeRepXpresso(nomeRepXpresso : String) : Boolean
@@ -69,7 +70,7 @@ Registo do pedido de um serviço expresso.
             Sistema verifica disponibilidade
                      & 
                      & verifica se existe disponibilidade
-                     & existeDisponiblidade(nomeRepXpresso : String) : Boolean
+                     & existeDisponibilidade(duracao : Integer) : String
                      & SubReparacoes
             \\
             \hline
@@ -85,7 +86,7 @@ Registo do pedido de um serviço expresso.
                      & 
                      & seleciona o cliente
                      & getCliente(CliID : String) : Cliente
-                     & SubUtilizadores
+                     & SubClientes
             \\
             \hline
             \rowcolor{yellow}
@@ -99,7 +100,7 @@ Registo do pedido de um serviço expresso.
                      & 
                      & seleciona o equipamento
                      & getEquipamento(EquipID : String) : Equipamento
-                     & SubReparacoes
+                     & SubClientes
             \\
             \hline
             \rowcolor{yellow}
@@ -111,9 +112,10 @@ Registo do pedido de um serviço expresso.
             \\
             \hline
             Sistema adiciona pedido
+            Sistema regista receção do equipamento
                      & 
-                     & adiciona pedido de reparação expresso ao sistema
-                     & adicionaPedRepXpresso(clienteID : String, equipID : String, nomeRepXpresso : String)
+                     & adiciona pedido de reparação expresso ao sistema e regista receção do equipamento
+                     & addRepExpresso(equipID : String, nomeRepXpresso : String, funcId : String)
                      & SubReparacoes
             \\
             \hline

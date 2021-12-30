@@ -16,6 +16,7 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
 		      \item Sistema verifica identificador do equipamento
 		      \item Funcionário insere descrição da avaria regista pedido de orçamento
 		      \item Sistema adiciona pedido de orçamento
+		      \item Sistema regista receção do equipamento
 	      \end{enumerate}
 
 	      \begin{flushleft}
@@ -46,7 +47,7 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
                      & 
                      & procura cliente
                      & getCliente(CliID : String) : Cliente
-                     & SubUtilizadores
+                     & SubClientes
             \\
             \hline
             \rowcolor{yellow}
@@ -61,7 +62,7 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
                      & 
                      & verifica se o equipamento existe
                      & existeEquipamento(codR : String, marca: String) : Boolean
-                     & SubReparacoes
+                     & SubClientes
             \\
             \hline
 			\rowcolor{yellow}
@@ -73,9 +74,10 @@ Resgisto do pedido de orçamento de um equipamento através do seu identificador
             \\
             \hline
 			Sistema adiciona pedido de orçamento
+            Sistema regista receção do equipamento
                      & 
-                     & regista pedido de orçamento
-                     & registarOrcamento(clienteID : String, equipID : String, descr: String)
+                     & regista pedido de orçamento e receção do equipamento
+                     & registarOrcamento(nif : String, equipID : String, descr: String, funId : String)
                      & SubReparacoes
             \\
             \hline
