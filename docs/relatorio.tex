@@ -424,6 +424,27 @@ foram identificados os seguintes \textit{use cases}:
 \subfile{model_funcional/diagrama_componentes.tex}
 
 \section{Diagrama de Classes} \label{sec:diagrama_classe}
+
+\subsection{SSClientes} 
+Neste subsistema podem-se encontrar as funcionalidades relacionadas com os \textbf{Clientes}. 
+Apesar de cada subsistema não estar intrinsecamente dependente entre si, estes não deixam de 
+se relacionarem, como se pode verificar neste caso, com o SSReparacoes.
+Aqui encontra-se, entre a classe Equipamento e Cliente, um caso de navegabilidade bidirecional, 
+na medida a facilitar o acesso e predomina uma arquitetura com agregação entre classes.
+
+\subsubsection{GestClientesFacade}
+Esta classe permite a gestão dos clientes e dos respetivos equipamentos associados. É de salientar a atribuição
+de um estado ao equipamento, de maneira, a facilitar todo o processo da reparação, atribuíndo um ponto de situação ao mesmo e,
+também, a atribuição de uma forma de contacto ao cliente, de maneira a que este possa ser contactado quando necessário.
+
+Analisando os métodos que esta classe implementa, identificou-se que, para melhorar a navegabilidade
+e a \textit{performance} do sistema, será necessário que este tenha um conjunto de atributos, nomeadamente:
+\begin{itemize}
+    \item[clientes]{Mapa de clientes que pode ser acessido através do seu identificador, nif}
+    \item[equipamentos]{Mapa de equipamentos que pode ser acessido através do seu ID} 
+\end{itemize}
+
+
 \subfile{model_funcional/classe/diagrama_classes.tex}
 
 \section{Diagramas de Sequência} \label{sec:diagrama_sequencia}
@@ -433,6 +454,7 @@ foram identificados os seguintes \textit{use cases}:
 \subfile{model_funcional/diagrama_package.tex}
 
 \chapter{Implementação} \label{chap:implementacao}
+
 
 \chapter{Considerações Finais}
 Ao longo da realização da fase de análise de requisitos do projeto, houve a necessidade de utilizar conceitos
