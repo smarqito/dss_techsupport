@@ -322,7 +322,8 @@ public class GestReparacoesFacade implements IGestReparacoes, Serializable {
 		Map<Tecnico, ReparacoesPorMes> ret = new HashMap<>();
 
 		for (Reparacao r : filterReparacoes(x -> x.getDataCriacao().getMonth().equals(data.getMonth())
-				&& x.getDataCriacao().getYear() == data.getYear())) {
+				&& x.getDataCriacao().getYear() == data.getYear()
+				&& x.getUltimoEstado().getEstado().equals(ReparacaoEstado.reparado))) {
 			if (!ret.containsKey(r.getTecnico()))
 				ret.put(r.getTecnico(), new ReparacoesPorMes());
 			ret.get(r.getTecnico()).addReparacao(r);

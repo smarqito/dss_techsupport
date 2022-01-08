@@ -3,6 +3,7 @@
 *.log
 *.fdb_latexmk
 *.pdf
+!relatorio.pdf
 *.synctex.gz
 *.bak
 *.out
