@@ -1,12 +1,12 @@
-**Description**
-Tech Support Application
+# Tech Support Application
+Class: Software Development @UniversityOfMinho
 
-**Context**
-Software Development @UniversityOfMinho
+Language: *Java*, UML
+# Authors
 
-**Languages**
-Unified Modeling Language (UML)
-Java
++ Marco Sousa, https://www.linkedin.com/in/marco-antonio-sousa/
++ José Malheiro
++ Miguel Fernandes, https://www.linkedin.com/in/miguel-fernandes-26526623a/
 
-**Academic Classification**
-19 (out of 20)
+# Grade:
+20/20
